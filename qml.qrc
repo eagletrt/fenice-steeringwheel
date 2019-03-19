@@ -1,0 +1,100 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+
+        <file>lib/blops.ttf</file>
+
+        <file>qml/RacingPage.qml</file>
+        <file>qml/Pedali.qml</file>
+        <file>qml/SpeedGauge.qml</file>
+        <file>qml/Status.qml</file>
+        <file>qml/Preset.qml</file>
+        <file>qml/Presets.qml</file>
+        <file>qml/StatusLED.qml</file>
+        <file>qml/CentralView.qml</file>
+        <file>qml/LabelLED.qml</file>
+        <file>qml/CtrlLabelLED.qml</file>
+        <file>qml/MenuPage.qml</file>
+        <file>qml/CANStatusLED.qml</file>
+        <file>qml/HVStatusLED.qml</file>
+
+        <file>qml/HVFrame.qml</file>
+        <file>qml/LVFrame.qml</file>
+        <file>qml/StatusFrame.qml</file>
+        <file>qml/Button.qml</file>
+        <file>qml/SensorStatus.qml</file>
+        <file>qml/ChoiceButton.qml</file>
+        <file>qml/TabStatus.qml</file>
+        <file>qml/TabInverter.qml</file>
+        <file>qml/TabSensors.qml</file>
+        <file>qml/TabBattery.qml</file>
+        <file>qml/TabErrors.qml</file>
+        <file>qml/LED.qml</file>
+
+        <file>img/HV.png</file>
+        <file>img/LV.png</file>
+
+        <file>img/radio_na.png</file>
+        <file>img/radio.png</file>
+        <file>img/run.png</file>
+        <file>img/idle.png</file>
+        <file>img/stop.png</file>
+        <file>img/setup.png</file>
+
+        <file>img/hv0.png</file>
+        <file>img/hv1.png</file>
+        <file>img/hv2.png</file>
+        <file>img/hv3.png</file>
+        <file>img/hv4.png</file>
+        <file>img/hv5.png</file>
+        <file>img/hv6.png</file>
+        <file>img/hv7.png</file>
+        <file>img/hv8.png</file>
+        <file>img/hv9.png</file>
+        <file>img/hv10.png</file>
+        <file>img/hv11.png</file>
+        <file>img/hv12.png</file>
+        <file>img/hv13.png</file>
+        <file>img/hv14.png</file>
+        <file>img/hv15.png</file>
+
+        <file>img/lv0.png</file>
+        <file>img/lv1.png</file>
+        <file>img/lv2.png</file>
+        <file>img/lv3.png</file>
+        <file>img/lv4.png</file>
+        <file>img/lv5.png</file>
+        <file>img/lv6.png</file>
+        <file>img/lv7.png</file>
+        <file>img/lv8.png</file>
+        <file>img/lv9.png</file>
+        <file>img/lv10.png</file>
+        <file>img/lv11.png</file>
+        <file>img/lv12.png</file>
+        <file>img/lv13.png</file>
+        <file>img/lv14.png</file>
+        <file>img/lv15.png</file>
+
+        <file>img/t1.png</file>
+        <file>img/t2.png</file>
+        <file>img/t3.png</file>
+        <file>img/t4.png</file>
+        <file>img/t5.png</file>
+        <file>img/t6.png</file>
+        <file>img/t7.png</file>
+        <file>img/t8.png</file>
+        <file>img/t9.png</file>
+        <file>img/t10.png</file>
+
+        <file>img/b1.png</file>
+        <file>img/b2.png</file>
+        <file>img/b3.png</file>
+        <file>img/b4.png</file>
+        <file>img/b5.png</file>
+        <file>img/b6.png</file>
+        <file>img/b7.png</file>
+        <file>img/b8.png</file>
+        <file>img/b9.png</file>
+        <file>img/b10.png</file>
+    </qresource>
+</RCC>
