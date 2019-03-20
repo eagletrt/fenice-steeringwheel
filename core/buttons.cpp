@@ -1,3 +1,39 @@
+#include "../lib/drcNet.h"     
+#include "../lib/htu21d.h"         
+#include "../lib/mcp23017.h"    
+#include "../lib/mcp23x08.h"  
+#include "../lib/mcp3422.h" 
+#include "../lib/ads1115.h"           
+#include "../lib/mcp23008.h"          
+#include "../lib/pcf8591.h"     
+#include "../lib/rht03.h"    
+#include "../lib/softServo.h"  
+#include "../lib/wiringPi.h"     
+#include "../lib/wiringSerial.h"
+#include "../lib/drcSerial.h"     
+#include "../lib/mcp23s08.h"    
+#include "../lib/mcp3002.h"   
+#include "../lib/mcp4802.h"             
+#include "../lib/bmp180.h"            
+#include "../lib/max31855.h"  
+#include "../lib/mcp23016.h"       
+#include "../lib/sn3218.h"   
+#include "../lib/softTone.h"   
+#include "../lib/wiringPiI2C.h"  
+#include "../lib/wiringShift.h"
+#include "../lib/ds18b20.h"       
+#include "../lib/mcp23016reg.h"  
+#include "../lib/mcp23s17.h"    
+#include "../lib/mcp3004.h"                     
+#include "../lib/max5322.h"        
+#include "../lib/mcp23x0817.h"    
+#include "../lib/pcf8574.h"     
+#include "../lib/pseudoPins.h"  
+#include "../lib/softPwm.h"  
+#include "../lib/sr595.h"      
+#include "../lib/wiringPiSPI.h"  
+
+
 #include "../header/buttons.h"
 #include <QDebug>
 
@@ -8,6 +44,17 @@
 #define BTN_BOTTOM_RIGHT   25
 #define PADDLE_LEFT        109
 #define PADDLE_RIGHT       23
+// #define PADDLE_TOP_LEFT        
+// #define PADDLE_TOP_RIGHT        
+// #define PADDLE_BOTTOM_LEFT        
+// #define PADDLE_BOTTOM_LEFT    
+   
+// #define CONTROL_1              7
+// #define CONTROL_2              2
+// #define CONTROL_3              3
+// #define CONTROL_4              4
+// #define CONTROL_5              5
+// #define CONTROL_6              21
 
 #define MAP_1              7
 #define MAP_2              2
@@ -50,7 +97,7 @@ Buttons::Buttons(QGuiApplication *app)
   isBackFromMap3 = false;
   switchIsWrong = false;
   //
-  pinEnabled = {2,3,4,5,7,21,23,25,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115};
+  // pinEnabled = {2,3,4,5,7,21,23,25,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115};
 
   /*
   Encoder 1-2

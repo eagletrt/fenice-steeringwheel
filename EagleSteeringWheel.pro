@@ -7,7 +7,7 @@
 #        \/           \/     \/              \//_____/  #
 #########################################################
 
-target.path = root
+target.path = /root
 INSTALLS   += target
 
 TEMPLATE = app
@@ -22,7 +22,7 @@ QT += core gui qml quick serialbus
 HEADERS += header/buttons.h \
            header/console.h \
            header/canbus.h \
-           header/carstatus.h
+           header/carstatus.h 
 
 SOURCES += core/main.cpp \
            core/buttons.cpp \
@@ -34,3 +34,4 @@ RESOURCES += qml.qrc
 
 LIBS += -L/usr/local/lib -lwiringPi
 #LIBS += -Llib -lwiringPi
+#INCLUDEPATH += /usr/local/include

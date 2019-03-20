@@ -6,8 +6,8 @@
 #include <QGuiApplication>
 #include <QTime>
 
-#include "lib/mcp23017.h"
-#include "lib/wiringPi.h"
+// #include "../lib/mcp23017.h"
+// #include "../lib/wiringPi.h"
 
 class Buttons : public QObject
 {

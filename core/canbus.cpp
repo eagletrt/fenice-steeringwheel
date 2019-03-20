@@ -9,6 +9,7 @@ Canbus::Canbus(CarStatus* m_carStatus, const QString can_interface) {
    //Right Can for 5.10.1 RPI
 
    QString errorString;
+
    device = QCanBus::instance()->createDevice(
       QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
       if (!device)
@@ -16,59 +17,59 @@ Canbus::Canbus(CarStatus* m_carStatus, const QString can_interface) {
       else
       device->connectDevice();
 
-      /*
-      foreach (const QByteArray &backend, QCanBus::instance()->plugins()) {
-      if (backend == can_interface) {
-      qDebug() << "Socketcan Found";
-      break;
-   }
-}
+      
+   // foreach (const QByteArray &backend, QCanBus::instance()->plugins()) {
+   //    if (backend == can_interface) {
+   //       qDebug() << "Socketcan Found";
+   //       break;
+   //    }
+   // }
 
-device = QCanBus::instance()->createDevice("socketcan", QStringLiteral("vcan0"));
-device->connectDevice();
-*/
-carStatus = m_carStatus;
+   // device = QCanBus::instance()->createDevice("socketcan", QStringLiteral("vcan0"));
+   // device->connectDevice();
 
-qDebug() << "CAN Interface Init";
+   carStatus = m_carStatus;
 
-timerSteeringWheel = new QTimer(this);
-timerStatus = new QTimer(this);
-timerEnc = new QTimer(this);
+   qDebug() << "CAN Interface Init";
 
-// Setup signal/slot mechanism
-connect(timerSteeringWheel, SIGNAL(timeout()),
-this, SLOT(steerConnected()));
+   timerSteeringWheel = new QTimer(this);
+   timerStatus = new QTimer(this);
+   timerEnc = new QTimer(this);
 
-connect(timerEnc, SIGNAL(timeout()),
-this, SLOT(sendEncState()));
+   // Setup signal/slot mechanism
+   connect(timerSteeringWheel, SIGNAL(timeout()),
+   this, SLOT(steerConnected()));
 
-connect(timerStatus, SIGNAL(timeout()),
-this, SLOT(askStatus()));
+   connect(timerEnc, SIGNAL(timeout()),
+   this, SLOT(sendEncState()));
 
-connect(device, SIGNAL(framesReceived()),
-this, SLOT(parseSerial()));
+   connect(timerStatus, SIGNAL(timeout()),
+   this, SLOT(askStatus()));
 
-connect(carStatus, SIGNAL(toggleCar()),
-this, SLOT(toggleCar()));
+   connect(device, SIGNAL(framesReceived()),
+   this, SLOT(parseSerial()));
 
-connect(carStatus, SIGNAL(CTRLEnabledChanged()),
-this, SLOT(toggleCar()));
+   connect(carStatus, SIGNAL(toggleCar()),w
+   this, SLOT(toggleCar()));
 
-timerEnc->start(500);
-timerSteeringWheel->start(1000);
-timerStatus->start(1000);
+   connect(carStatus, SIGNAL(CTRLEnabledChanged()),
+   this, SLOT(toggleCar()));
 
-invLeftState = -1;
-invRightState = -1;
-preChargeState = -1;
+   timerEnc->start(500);
+   timerSteeringWheel->start(1000);
+   timerStatus->start(1000);
 
-error = -1;
-warning = -1;
+   invLeftState = -1;
+   invRightState = -1;
+   preChargeState = -1;
+
+   error = -1;
+   warning = -1;
 
 
-idIsArrived = 0;
+   idIsArrived = 0;
 
-m_actuatorRangePendingFlag = 0;
+   m_actuatorRangePendingFlag = 0;
 
 }
 
