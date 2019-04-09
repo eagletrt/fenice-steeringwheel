@@ -4,7 +4,7 @@
 
 QCanBusDevice *device;
 
-Canbus::Canbus(CarStatus* m_carStatus, const QString can_interface) {
+Canbus::Canbus(CarStatus* m_carStatus) {
 
    //Right Can for 5.10.1 RPI
 
@@ -16,17 +16,6 @@ Canbus::Canbus(CarStatus* m_carStatus, const QString can_interface) {
       qDebug() << "NO CAN!";
       else
       device->connectDevice();
-
-      
-   // foreach (const QByteArray &backend, QCanBus::instance()->plugins()) {
-   //    if (backend == can_interface) {
-   //       qDebug() << "Socketcan Found";
-   //       break;
-   //    }
-   // }
-
-   // device = QCanBus::instance()->createDevice("socketcan", QStringLiteral("vcan0"));
-   // device->connectDevice();
 
    carStatus = m_carStatus;
 
@@ -49,7 +38,7 @@ Canbus::Canbus(CarStatus* m_carStatus, const QString can_interface) {
    connect(device, SIGNAL(framesReceived()),
    this, SLOT(parseSerial()));
 
-   connect(carStatus, SIGNAL(toggleCar()),w
+   connect(carStatus, SIGNAL(toggleCar()),
    this, SLOT(toggleCar()));
 
    connect(carStatus, SIGNAL(CTRLEnabledChanged()),
@@ -125,7 +114,8 @@ void Canbus::sendEncState() {
    //state[0] = 0x00;
    //state[1] = 0x00; //carStatus->getMap();
    //state[2] = carStatus->getPump();
-   qDebug() << "updating pump with value " << carStatus->getPump();
+   
+   //qDebug() << "updating pump with value " << carStatus->getPump();
    sendCanMessage(0xAF, state);
 }
 

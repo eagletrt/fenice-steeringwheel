@@ -23,7 +23,7 @@ fi
 cd $BUILD_DIR
 
 $RASP_PI_QMAKE -spec devices/linux-rasp-pi-g++ -o Makefile ../$RASP_PI_PROJECT
-make
+make -j4
 
 #new host
 #pi@eaglepi eaglepi

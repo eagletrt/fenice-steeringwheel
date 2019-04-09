@@ -56,7 +56,7 @@ class Canbus : public QObject
     Q_PROPERTY(int actuatorRangePendingFlag READ actuatorRangePendingFlag NOTIFY actuatorRangePendingFlagCleared)
 
     public:
-        Canbus(CarStatus* carStatus, const QString can_interface);
+        Canbus(CarStatus* carStatus);
         ~Canbus();
 
         int invLeftState;

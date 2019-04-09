@@ -12,6 +12,12 @@ Rectangle {
    property int speed: CarStatus.speed;
    property int invSxTemp: CarStatus.invSxTemp;
    property int invDxTemp: CarStatus.invDxTemp;
+   property variant throttlenames : ["../img/t1.png","../img/t2.png","../img/t3.png","../img/t4.png","../img/t5.png","../img/t6.png",
+   "../img/t7.png","../img/t8.png","../img/t9.png","../img/t10.png"];
+   property variant brakenames : ["../img/b1.png","../img/b2.png","../img/b3.png","../img/b4.png","../img/b5.png","../img/b6.png",
+   "../img/b7.png","../img/b8.png","../img/b9.png","../img/b10.png"];
+   property int brakeidx :0;
+   property int throttleidx : 0;
 
    property int velocity: CarStatus.velocity
 
@@ -97,207 +103,24 @@ Rectangle {
       property var throttleVal: CarStatus.throttleVal;
       property int throttleValore: throttleVal;
 
+
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter
       anchors.verticalCenterOffset: -130
       anchors.horizontalCenterOffset: -172
 
       onThrottleValChanged: function(){
-         throttleValore = CarStatus.throttleVal;
-         if(throttleValore < 10){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 0;
-               t5.opacity = 0;
-               t4.opacity = 0;
-               t3.opacity = 0;
-               t2.opacity = 0;
-               t1.opacity = 0;
-         }else if(throttleValore>=10 && throttleValore<20){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 0;
-               t5.opacity = 0;
-               t4.opacity = 0;
-               t3.opacity = 0;
-               t2.opacity = 0;
-               t1.opacity = 1;
-         }else if(throttleValore>=20 && throttleValore<30){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 0;
-               t5.opacity = 0;
-               t4.opacity = 0;
-               t3.opacity = 0;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=30 && throttleValore<40){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 0;
-               t5.opacity = 0;
-               t4.opacity = 0;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=40 && throttleValore<50){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 0;
-               t5.opacity = 0;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=50 && throttleValore<60){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 0;
-               t5.opacity = 1;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=60 && throttleValore<70){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 0;
-               t6.opacity = 1;
-               t5.opacity = 1;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=70 && throttleValore<80){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 0;
-               t7.opacity = 1;
-               t6.opacity = 1;
-               t5.opacity = 1;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=80 && throttleValore<90){
-               t10.opacity = 0;
-               t9.opacity = 0;
-               t8.opacity = 1;
-               t7.opacity = 1;
-               t6.opacity = 1;
-               t5.opacity = 1;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=90 && throttleValore<100){
-               t10.opacity = 0;
-               t9.opacity = 1;
-               t8.opacity = 1;
-               t7.opacity = 1;
-               t6.opacity = 1;
-               t5.opacity = 1;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }else if(throttleValore>=100){
-               t10.opacity = 1;
-               t9.opacity = 1;
-               t8.opacity = 1;
-               t7.opacity = 1;
-               t6.opacity = 1;
-               t5.opacity = 1;
-               t4.opacity = 1;
-               t3.opacity = 1;
-               t2.opacity = 1;
-               t1.opacity = 1;
-         }
+         throttleValore = CarStatus.throttleVal
+         throttleidx = throttleValore/10
       }
-
-      Image {
-         id: t1
-         objectName: "t1"
-         source: "../img/t1.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t2
-         objectName: "t2"
-         source: "../img/t2.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t3
-         objectName: "t3"
-         source: "../img/t3.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t4
-         objectName: "t4"
-         source: "../img/t4.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t5
-         objectName: "t5"
-         source: "../img/t5.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t6
-         objectName: "t6"
-         source: "../img/t6.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t7
-         objectName: "t7"
-         source: "../img/t7.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t8
-         objectName: "t8"
-         source: "../img/t8.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t9
-         objectName: "t9"
-         source: "../img/t9.png"
-         opacity: 1
-      }
-
-      Image {
-         id: t10
-         objectName: "t10"
-         source: "../img/t10.png"
-         opacity: 1
-      }
-
+      Repeater{
+        model: throttleidx
+            Image{
+               id: throttles
+               source: throttlenames[index]
+               opacity: 1
+            }
+          }
    }
 
    Text {
@@ -332,200 +155,16 @@ Rectangle {
 
       onBrakeValChanged: function(){
          brakeValore = CarStatus.brakeVal;
+         brakeidx = brakeValore/10;
          //console.log("Brake Changed: " + brakeValore);
-         if(brakeValore == 0){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 0;
-               b5.opacity = 0;
-               b4.opacity = 0;
-               b3.opacity = 0;
-               b2.opacity = 0;
-               b1.opacity = 0;
-         }else if(brakeValore>=10 && brakeValore<20){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 0;
-               b5.opacity = 0;
-               b4.opacity = 0;
-               b3.opacity = 0;
-               b2.opacity = 0;
-               b1.opacity = 1;
-         }else if(brakeValore>=20 && brakeValore<30){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 0;
-               b5.opacity = 0;
-               b4.opacity = 0;
-               b3.opacity = 0;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=30 && brakeValore<40){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 0;
-               b5.opacity = 0;
-               b4.opacity = 0;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=40 && brakeValore<50){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 0;
-               b5.opacity = 0;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=50 && brakeValore<60){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 0;
-               b5.opacity = 1;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=60 && brakeValore<70){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 0;
-               b6.opacity = 1;
-               b5.opacity = 1;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=70 && brakeValore<80){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 0;
-               b7.opacity = 1;
-               b6.opacity = 1;
-               b5.opacity = 1;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=80 && brakeValore<90){
-               b10.opacity = 0;
-               b9.opacity = 0;
-               b8.opacity = 1;
-               b7.opacity = 1;
-               b6.opacity = 1;
-               b5.opacity = 1;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore>=90 && brakeValore<100){
-               b10.opacity = 0;
-               b9.opacity = 1;
-               b8.opacity = 1;
-               b7.opacity = 1;
-               b6.opacity = 1;
-               b5.opacity = 1;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }else if(brakeValore==1){
-               b10.opacity = 1;
-               b9.opacity = 1;
-               b8.opacity = 1;
-               b7.opacity = 1;
-               b6.opacity = 1;
-               b5.opacity = 1;
-               b4.opacity = 1;
-               b3.opacity = 1;
-               b2.opacity = 1;
-               b1.opacity = 1;
-         }
+       }
+       Repeater{
+         model: brakeidx
+         Image{
+           id: breaks
+           source: brakenames[index]
+           opacity: 1
+          }
+        }
       }
-
-      Image {
-         id: b1
-         objectName: "b1"
-         source: "../img/b1.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b2
-         objectName: "b2"
-         source: "../img/b2.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b3
-         objectName: "b3"
-         source: "../img/b3.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b4
-         objectName: "b4"
-         source: "../img/b4.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b5
-         objectName: "b5"
-         source: "../img/b5.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b6
-         objectName: "b6"
-         source: "../img/b6.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b7
-         objectName: "b7"
-         source: "../img/b7.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b8
-         objectName: "b8"
-         source: "../img/b8.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b9
-         objectName: "b9"
-         source: "../img/b9.png"
-         opacity: 1
-      }
-
-      Image {
-         id: b10
-         objectName: "b10"
-         source: "../img/b10.png"
-         opacity: 1
-      }
-
-   }
 }

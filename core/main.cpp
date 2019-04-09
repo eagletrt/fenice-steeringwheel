@@ -9,8 +9,6 @@
 #include "../header/canbus.h"
 #include "../header/carstatus.h"
 
-const QString CAN_INTERFACE = "socketcan";
-
 int main(int argc, char* argv[])
 {
     qDebug() << "Running ARM";
@@ -21,7 +19,7 @@ int main(int argc, char* argv[])
     Buttons buttons(&app);
     Console logger;
     CarStatus carStatus;
-    Canbus canInterface(&carStatus, CAN_INTERFACE);
+    Canbus canInterface(&carStatus);
 
     QObject::connect(&buttons, &Buttons::presetChanged,
                      &carStatus, &CarStatus::changePreset);
