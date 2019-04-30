@@ -1,9 +1,13 @@
 #!/bin/bash
 
-#QMAKE="/home/$USER/Qt/5.10.1//gcc_64/bin/qmake"
+# This tool is used to deploy the application for raspberry pi 3 in desktop mode. 
+# Here you can find the variables get it from Qt Creator
 
-QMAKE="/opt/Qt/5.10.1/gcc_64/bin/qmake"
+#EagleTRT-LAB
+QMAKE="/home/$USER/Qt/5.10.1//gcc_64/bin/qmake"
 
+#lucagump
+#QMAKE="/opt/Qt/5.10.1/gcc_64/bin/qmake"
 
 QT_PROJECT="EagleSteeringWheel_x86.pro"
 BUILD_DIR=build/
