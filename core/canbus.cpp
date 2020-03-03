@@ -1,8 +1,13 @@
 #include "../header/canbus.h"
+#include "../header/worker.h"
 #include <QDebug>
 #include <QFileInfo>
+#include <QThread>
 
 QCanBusDevice *device;
+
+QThread* thread;
+Worker* worker;
 
 Canbus::Canbus(CarStatus* m_carStatus) {
 
@@ -59,6 +64,16 @@ Canbus::Canbus(CarStatus* m_carStatus) {
    idIsArrived = 0;
 
    m_actuatorRangePendingFlag = 0;
+
+   //thread = new QThread;
+   //worker = new Worker();
+   //worker -> moveToThread(thread);
+   //connect(worker, SIGNAL (error(QString)), this, SLOT (errorString(QString)));
+   //connect(thread, SIGNAL (started()), worker, SLOT (process()));
+   //connect(worker, SIGNAL (finished()), thread, SLOT (quit()));
+   //connect(worker, SIGNAL (finished()), worker, SLOT (deleteLater()));
+   //connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
+   //thread->start();
 
 }
 // Send to ECU msg for presence in Can-Bus 
