@@ -49,7 +49,7 @@ Rectangle {
                 anchors.centerIn: parent
                 text: root.text
                 font.family: blackops.name;
-                font.pointSize: 5
+                font.pointSize: 15
                 color: "lightgray"
             }
         }

@@ -16,8 +16,9 @@ class Buttons : public QObject
         void btnClicked(int btnID);
         void btnPressed(int btnID);
         void btnReleased(int btnID);
-        void presetChanged(int presetID);
+        void mapChanged(int mapID);
         void pumpChanged(int pumpID);
+        void tcChanged(int tcID);
 
     public slots:
         void handleKeyboardPress(int btnID);

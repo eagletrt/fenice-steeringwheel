@@ -24,6 +24,22 @@ Rectangle {
         ["Tot E", "0", "J"]
     ]
 
+	function connect() {
+        // console.log("Tab connessa - Errors");
+        mainwindow.btnClicked.connect(btnClickedHandler);
+    }
+
+    function disconnect() {
+        // console.log("Tab disconnessa - Errors");
+        mainwindow.btnClicked.disconnect(btnClickedHandler);
+    }
+
+    function btnClickedHandler(btnID) {
+        if (btnID == 3){
+            CAN.sendMarker();
+        }
+    }
+
     GridLayout {
         anchors.fill: parent
         rows: 2
@@ -46,23 +62,27 @@ Rectangle {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    border.color: "black"
+                    border.width: 4
                     color: "green"
 
                     Text {
                         text: "HV"
                         font.family: blackops.name;
-                        font.pointSize: 10
+                        font.pointSize: 30
                         anchors.centerIn: parent
                     }
                 }
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    border.color: "black"
+                    border.width: 4
                     color: "blue"
 
                     Text {
                         font.family: blackops.name;
-                        font.pointSize: 10
+                        font.pointSize: 30
                         text: "LV"
                         anchors.centerIn: parent
                     }
@@ -116,7 +136,7 @@ Rectangle {
                                         Text {
                                             anchors.centerIn: parent
                                             font.family: blackops.name;
-                                            font.pointSize: 6
+                                            font.pointSize: 18
                                             text: modelData[0] + ":" + modelData[1] + " " + modelData[2]
                                             color: "lightgray"
                                         }
@@ -156,7 +176,7 @@ Rectangle {
                                         Text {
                                             anchors.centerIn: parent
                                             font.family: blackops.name;
-                                            font.pointSize: 6
+                                            font.pointSize: 18
                                             text: modelData[0] + ":" + modelData[1] + " " + modelData[2]
                                             color: "lightgray"
                                         }

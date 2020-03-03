@@ -1,0 +1,31 @@
+QCanBusDevice *device;
+
+Canbus::Canbus(CarStatus* m_carStatus, const QString can_interface) {
+    printf("Compiled with Qt Version %s\n", QT_VERSION_STR);
+    const char *qt_version = qVersion();
+    if(strcmp(qt_version, QT_VERSION_STR) != 0)
+    {
+      // version mismatch...
+      // here you could verify whether just the patch is different
+      // or the full blown major/minor versions
+      qDebug() << "--- VERSIONE DIVERSA: " << qt_version << endl;
+    }
+    else
+        qDebug() << "Stessa versione al runtime" << endl;
+
+    QString errorString;
+    /*const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
+        QStringLiteral("socketcan"), &errorString);
+    if (!errorString.isEmpty())
+        qDebug() << errorString;
+    else
+        qDebug() << "Found socketcan";*/
+
+    device = QCanBus::instance()->createDevice(
+        QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
+    if (!device)
+        qDebug() << errorString;
+    else
+        device->connectDevice();
+
+    carStatus = m_carStatus;

@@ -15,6 +15,6 @@ Rectangle {
         anchors.centerIn: parent
         color: "lightgray"
         font.family: blackops.name;
-        font.pointSize: 70
+        font.pointSize: 140
     }
 }

@@ -20,7 +20,7 @@ Rectangle {
    ]
 
    onCanstatusChanged: {
-      console.log("Cambiato il CAN Status da Centralina");
+      // console.log("Cambiato il CAN Status da Centralina");
       var newCanLeds = canLeds;
 
       for (var i=0; i < canstatus.length; i++) {
@@ -31,12 +31,12 @@ Rectangle {
    }
 
    function connect() {
-      console.log("Tab connessa - Status");
+      // console.log("Tab connessa - Status");
       mainwindow.btnClicked.connect(btnClickedHandler);
    }
 
    function disconnect() {
-      console.log("Tab disconnessa - Status");
+      // console.log("Tab disconnessa - Status");
       mainwindow.btnClicked.disconnect(btnClickedHandler);
    }
 
@@ -48,6 +48,7 @@ Rectangle {
       }
       if (btnID == 1) {
           CAN.askSetupOrIdle(1);
+          console.log("Asking to go from IDLE to Setup");
           //isStarted = true;
          // Step into this tab and change the behaviour of btnID
          //if (!isStarted) {
@@ -78,9 +79,15 @@ Rectangle {
          } else {
             console.log("Asking to go from Setup to Idle");
             //CAN.checkCANCommunication(false);
-             CAN.askSetupOrIdle(0);
+            // CarStatus.stopMessage(2);
+            CAN.askSetupOrIdle(0);
+
          }
       }
+      if (btnID == 3){
+         CAN.sendMarker();
+      }
+
       tabView.stepIntoTab = false;
    }
 

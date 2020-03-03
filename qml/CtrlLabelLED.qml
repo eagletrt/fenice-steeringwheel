@@ -15,8 +15,8 @@ Rectangle {
     }
 
     onCtrlStatusChanged: {
-        console.log("Controllo cambiato!");
-        console.log(ctrlStatus);
+        // console.log("Controllo cambiato!");
+        // console.log(ctrlStatus);
         this.state = ctrlStatus ? 'enabled' : 'disabled';
 
     }

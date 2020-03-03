@@ -3,13 +3,13 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     color: "transparent"
-    property var warning : CarStatus.warning;
+    property var warning : CarStatus.getWarning;
     property int warningVal : warning;
     property var error : CarStatus.error;
     property int errorVal : error;
 
    onWarningChanged: {
-      warningVal = CarStatus.warning;
+      warningVal = CarStatus.varWarning;
       if(warningVal == 1)
           warnLED.state = 'on';
       else
@@ -22,8 +22,6 @@ Rectangle {
       else
           errLED.state = 'off';
    }
-
-
 
     GridLayout {
         anchors.fill: parent

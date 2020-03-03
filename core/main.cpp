@@ -21,11 +21,14 @@ int main(int argc, char* argv[])
     CarStatus carStatus;
     Canbus canInterface(&carStatus);
 
-    QObject::connect(&buttons, &Buttons::presetChanged,
-                     &carStatus, &CarStatus::changePreset);
+    QObject::connect(&buttons, &Buttons::mapChanged,
+                     &carStatus, &CarStatus::changeMap);
 
     QObject::connect(&buttons, &Buttons::pumpChanged,
                      &carStatus, &CarStatus::changePump);
+
+    QObject::connect(&buttons, &Buttons::tcChanged,
+                     &carStatus, &CarStatus::changeTc);
 
     view->rootContext()->setContextProperty("Buttons", &buttons);
     view->rootContext()->setContextProperty("CAN", &canInterface);

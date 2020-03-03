@@ -4,15 +4,14 @@ import QtQuick.Layouts 1.3
 Rectangle {
     FontLoader {id:blackops; source: "../lib/blops.ttf"}
     id: root
-    color: "#000000"
+    color: "#008000"
+    radius: 20
     property var text
     property var selected
 
 
     onSelectedChanged: {
         if (root.selected) {
-            //root.color = "#dddddd";
-            //root.opacity = 0.5
             button.state = "RESET"//START
         } else {
             root.color = "#000000";
@@ -54,14 +53,14 @@ Rectangle {
 
         Rectangle {
             width: root.width * 5/9 //1/2
-            height: root.height
+            height: root.height 
             color: "transparent"
 
             Text {
                 anchors.centerIn: parent
                 font.family: blackops.name;
                 text: root.text
-                font.pixelSize: 10
+                font.pixelSize: 20
                 color: "lightgray"
             }
         }
@@ -74,9 +73,9 @@ Rectangle {
             Rectangle {
                 id: led
                 anchors.centerIn: parent
-                width: 40
-                height: 40
-                radius: 40
+                width: 30
+                height: 30
+                radius: 30
             }
         }
 
@@ -97,7 +96,7 @@ Rectangle {
                         }
                         PropertyChanges {
                             target: text
-                            text: "Reset"
+                            text: "ASK"
                         }
                     },
                     State {
@@ -114,17 +113,17 @@ Rectangle {
                 ]
                 anchors.centerIn: parent
                 width: parent.width - 20
-                height: parent.height - 30
+                height: parent.height - 40
                 color: "#888888"
                 radius: 5
 
                 Text {
                     id: text
                     font.family: blackops.name;
-                    font.pixelSize: 7
+                    font.pixelSize: 20
                     anchors.centerIn: parent
-                    text: "RESET"
-                    color: "lightgray"
+                    text: "ASK"
+                    color: "lightgrey"
                 }
             }
         }

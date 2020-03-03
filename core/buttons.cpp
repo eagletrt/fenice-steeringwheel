@@ -1,262 +1,227 @@
-#include "../lib/drcNet.h"     
-#include "../lib/htu21d.h"         
-#include "../lib/mcp23017.h"    
-#include "../lib/mcp23x08.h"  
-#include "../lib/mcp3422.h" 
-#include "../lib/ads1115.h"           
-#include "../lib/mcp23008.h"          
-#include "../lib/pcf8591.h"     
-#include "../lib/rht03.h"    
-#include "../lib/softServo.h"  
-#include "../lib/wiringPi.h"     
-#include "../lib/wiringSerial.h"
-#include "../lib/drcSerial.h"     
-#include "../lib/mcp23s08.h"    
-#include "../lib/mcp3002.h"   
-#include "../lib/mcp4802.h"             
-#include "../lib/bmp180.h"            
-#include "../lib/max31855.h"  
-#include "../lib/mcp23016.h"       
-#include "../lib/sn3218.h"   
-#include "../lib/softTone.h"   
-#include "../lib/wiringPiI2C.h"  
-#include "../lib/wiringShift.h"
-#include "../lib/ds18b20.h"       
-#include "../lib/mcp23016reg.h"  
-#include "../lib/mcp23s17.h"    
-#include "../lib/mcp3004.h"                     
-#include "../lib/max5322.h"        
-#include "../lib/mcp23x0817.h"    
-#include "../lib/pcf8574.h"     
-#include "../lib/pseudoPins.h"  
-#include "../lib/softPwm.h"  
-#include "../lib/sr595.h"      
-#include "../lib/wiringPiSPI.h"  
-
-
 #include "../header/buttons.h"
 #include <QDebug>
 
-//wiringpi definition for GPIO
-#define BTN_TOP_LEFT       110
-#define BTN_TOP_RIGHT      108
-#define BTN_BOTTOM_LEFT    111
-#define BTN_BOTTOM_RIGHT   25
-#define PADDLE_LEFT        109
-#define PADDLE_RIGHT       23
-// #define PADDLE_TOP_LEFT        
-// #define PADDLE_TOP_RIGHT        
-// #define PADDLE_BOTTOM_LEFT        
-// #define PADDLE_BOTTOM_LEFT    
-   
-// #define CONTROL_1              7
-// #define CONTROL_2              2
-// #define CONTROL_3              3
-// #define CONTROL_4              4
-// #define CONTROL_5              5
-// #define CONTROL_6              21
+/*
 
-#define MAP_1              7
-#define MAP_2              2
-#define MAP_3              3
-#define MAP_4              4
-#define MAP_5              5
-#define MAP_6              21
+This class is used to handle events from rpi gpio
 
-#define PUMP_1             106 //100
-#define PUMP_2             107 //101
-#define PUMP_3             115 //102
-#define PUMP_4             113 //103
-#define PUMP_5             114 //104
-#define PUMP_6             112 //105
+Encoder 1-2-3
 
+100  1        106  1        108   1
+101  2        107  2        109   2
+102  3        115  3        110   3
+103  4        113  4        111   4  
+104  5        114  5        112   5
+105  6        112  6        113   6
 
-Buttons::Buttons(QGuiApplication *app)
-{
-  // Init GPIO access
-  wiringPiSetup();
-  mcp23017Setup (100, 0x20) ;
-  // Create a timer
-  timer = new QTimer(this);
+Buttons:
 
-  pinMap = QVector<int>();
-  pinState = QVector<int>();
-  previusPinState = QVector<int>();
-  btnState = QVector<int>();
+paddle top L/R  108/109
+paddle bottom L/R  
 
-  btnAction = -1;
-  map = -1;
-  oldMap = -1;
-  pump = -1;
-  oldPump = -1;
+bottom left/right 110/111
 
-  switchTimer = QTime();
-  switchTimer.start();
+*/
 
-  isBackFromMap6 = false;
-  isBackFromMap3 = false;
-  switchIsWrong = false;
-  //
-  // pinEnabled = {2,3,4,5,7,21,23,25,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115};
+Buttons::Buttons(QGuiApplication *app){
 
-  /*
-  Encoder 1-2
-  100  1         106  1
-  101  2         107  2
-  102  3         115  3
-  103  4         113  4
-  104  5         114  5
-  105  6         112  6
-  Buttons
-  paddle L/R  108/109
-  bottom left/right 110/111
+    // Init GPIO access
+    wiringPiSetup();
+    mcp23017Setup (100, 0x20) ;
+    // Create a timer
+    timer = new QTimer(this);
 
-  */
+    pinMap = QVector<int>();
+    pinState = QVector<int>();
+    previusPinState = QVector<int>();
+    buttonState = QVector<States>();
 
-  for (int i=0; i < pinEnabled.size(); i++) {
-    pinMode(pinEnabled[i], INPUT);
-    pullUpDnControl(pinEnabled[i], PUD_UP);
+    buttonAction = -1;
+    oldTc = -1;
+    oldPump = -1;
+    oldMap = -1;
+    tc = -1;
+    pump = -1;
+    map = -1;
 
-    pinState.append(1);
-    previusPinState.append(1);
-    btnState.append(BTN_NORMAL);
-  }
+    switchTimer = QTime();
+    switchTimer.start();
 
-  // Setup signal/slot mechanism
-  connect(timer, SIGNAL(timeout()),
-  this, SLOT(readGPIOState()));
+    switchIsWrong = false;
 
-  // Start timer
-  timer->start(30);
-}
+    pinEnabled = {2,3,4,5,7,21,23,25,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115};
 
-void Buttons::emitBtnEvent(int btnId, int btnAction) {
-  qDebug() << "Emitting " << btnAction << " on " << btnId;
-  if (btnAction == BTN_PRESSED) {
-    emit btnPressed(btnId);
-  } else {
-    emit btnReleased(btnId);
-    emit btnClicked(btnId);
-  }
-}
+    for (int i=0; i < pinEnabled.size(); i++) {
+        pinMode(pinEnabled[i], INPUT);
+        pullUpDnControl(pinEnabled[i], PUD_UP);
 
-void Buttons::readGPIOState()
-{
-  // Controllo degli input di Raspberry
-
-  //inviare messaggio in can checkSteer
-  //inviare ogni 10milli
-  //se non va faccio un altro timer
-
-  for (int i=0; i < pinEnabled.size(); i++) {
-    pinState[i] = digitalRead(pinEnabled.at(i));
-
-    if (pinState.at(i) != previusPinState.at(i)) {
-      btnAction = -1;
-
-      qDebug() << "####### PIN " << pinEnabled[i] << "is " << pinState[i] << " #######";
-
-      switch (btnState.at(i)) {
-        case BTN_NORMAL:
-        btnState[i] = BTN_PRESSED;
-        btnAction = BTN_PRESSED;
-        break;
-        case BTN_PRESSED:
-        btnState[i] = BTN_NORMAL;
-        btnAction = BTN_NORMAL;
-        break;
-      }
-
-      // Emit btn events
-      switch (pinEnabled[i]) {
-        case BTN_TOP_LEFT:
-        emitBtnEvent(0, btnAction);
-        break;
-        case BTN_BOTTOM_LEFT:
-        emitBtnEvent(1, btnAction);
-        break;
-        case BTN_BOTTOM_RIGHT:
-        emitBtnEvent(2, btnAction);
-        break;
-        case BTN_TOP_RIGHT:
-        emitBtnEvent(3, btnAction);
-        break;
-        case PADDLE_LEFT:
-        emitBtnEvent(4, btnAction);
-        break;
-        case PADDLE_RIGHT:
-        emitBtnEvent(5, btnAction);
-        break;
-      }
-
-      int pump = -1;
-      int map = -1;
-
-      // Change Maps
-      switch(pinEnabled[i]) {
-        case PUMP_1:
-        pump = 1;
-        break;
-        case PUMP_2:
-        pump = 2;
-        break;
-        case PUMP_3:
-        pump = 3;
-        break;
-        case PUMP_4:
-        pump = 4;
-        break;
-        case PUMP_5:
-        pump = 5;
-        break;
-        case PUMP_6:
-          pump = 6;
-        break;
-        case MAP_1:
-        map = 1;
-        break;
-        case MAP_2:
-        map = 2;
-        break;
-        case MAP_3:
-        map = 3;
-        break;
-        case MAP_4:
-        map = 4;
-        break;
-        case MAP_5:
-        map = 5;
-        break;
-        case MAP_6:
-        map = 6;
-        break;
-      }
-
-      if ((map != -1 && map != oldMap) || (pump != -1 && pump != oldPump)) {
-
-        int timeElapsed = switchTimer.restart();
-
-        if (timeElapsed < 15) {
-          switchIsWrong = true;
-        }
-
-        if (!switchIsWrong) {
-            if(map != -1 && map != oldMap)
-            {
-                presetChanged(map);
-                oldMap = map;
-            }
-            if(pump != -1 && pump != oldPump)
-            {
-                pumpChanged(pump);
-                oldPump = pump;
-            }
-        }
-
-        switchIsWrong = false;
-      }
+        pinState.append(1);
+        previusPinState.append(1);
+        buttonState.append(BUTTON_NORMAL);
     }
 
-    previusPinState[i] = pinState.at(i);
-  }
+    // Setup signal/slot mechanism
+    connect(timer, SIGNAL(timeout()),this, SLOT(readGPIOState()));
+
+    // Start timer
+    timer->start(30);
+}
+
+void Buttons::readGPIOState(){
+  
+    for (int i=0; i < pinEnabled.size(); i++) {
+        pinState[i] = digitalRead(pinEnabled.at(i));
+
+        if (pinState.at(i) != previusPinState.at(i)) {
+
+            buttonAction = -1;
+            pump = -1;
+            map = -1;
+            tc = -1;
+
+            // qDebug() << "####### PIN " << pinEnabled[i] << "is " << pinState[i] << " #######";
+
+            changeButtonState(i);
+
+            emitButton(pinEnabled[i]);
+
+            changeManettino(pinEnabled[i]);
+            
+            if ((map != -1 && map != oldMap) || (pump != -1 && pump != oldPump) || (tc != -1 && tc != oldTc)) {
+                
+                int timeElapsed = switchTimer.restart();
+
+                if (timeElapsed < 15) {
+                    switchIsWrong = true;
+                }
+
+                if (!switchIsWrong) {
+                    if(map != -1 && map != oldMap){
+                        mapChanged(map);
+                        oldMap = map;
+                    }
+                    if(pump != -1 && pump != oldPump){
+                        pumpChanged(pump);
+                        oldPump = pump;
+                    }
+                    if(tc != -1 && tc != oldTc){
+                        tcChanged(tc);
+                        oldTc = tc;
+                    }
+                }
+
+                switchIsWrong = false;
+            }
+        }
+
+      previusPinState[i] = pinState.at(i);
+    }
+}
+    
+void Buttons::changeManettino(int gpio){
+    // Change TC, Pump, Maps
+    switch(gpio) {
+        case PUMP_1:
+            this->pump = 1;
+        break;
+        case PUMP_2:
+            this->pump = 2;
+        break;
+        case PUMP_3:
+            this->pump = 3;
+        break;
+        case PUMP_4:
+            this->pump = 4;
+        break;
+        case PUMP_5:
+            this->pump = 5;
+        break;
+        case PUMP_6:
+            this->pump = 6;
+        break;
+        case MAP_1:
+            this->map = 1;
+        break;
+        case MAP_2:
+            this->map = 2;
+        break;
+        case MAP_3:
+            this->map = 3;
+        break;
+        case MAP_4:
+            this->map = 4;
+        break;
+        case MAP_5:
+            this->map = 5;
+        break;
+        case MAP_6:
+            this->map = 6;
+        break;
+        case TC_OFF:
+            this->tc = 0;
+        break;
+        case TC_1:
+            this->tc = 1;
+        break;
+        case TC_2:
+            this->tc = 2;
+        break;
+        case TC_3:
+            this->tc = 3;
+        break;
+        case TC_4:
+            this->tc = 4;
+        break;
+        case TC_AUTO:
+            this->tc = 4;
+        break;
+    }
+}
+
+void Buttons::changeButtonState(int index){
+    // Set Button State
+    switch (buttonState.at(index)) {
+        case BUTTON_NORMAL:
+            this->buttonState[index] = BUTTON_PRESSED;
+            this->buttonAction = BUTTON_PRESSED;
+        break;
+        case BUTTON_PRESSED:
+            this->buttonState[index] = BUTTON_NORMAL;
+            this->buttonAction = BUTTON_NORMAL;
+        break;
+    }
+}
+
+void Buttons::emitButton(int gpio){
+    // Emit btn 
+    switch (gpio) {
+        case BUTTON_TOP_LEFT:
+            emitButtonEvent(0, this->buttonAction);
+        break;
+        case BUTTON_BOTTOM_LEFT:
+            emitButtonEvent(1, this->buttonAction);
+        break;
+        case BUTTON_BOTTOM_RIGHT:
+            emitButtonEvent(2, this->buttonAction);
+        break;
+        case BUTTON_TOP_RIGHT:
+            emitButtonEvent(3, this->buttonAction);
+        break;
+        case PADDLE_LEFT:
+            emitButtonEvent(4, this->buttonAction);
+        break;
+        case PADDLE_RIGHT:
+            emitButtonEvent(5, this->buttonAction);
+        break;
+    }
+}
+
+void Buttons::emitButtonEvent(int buttonId, int buttonAction) {
+    // Emit btn events
+    if (buttonAction == BUTTON_PRESSED) {
+        emit btnPressed(buttonId);
+    } else {
+       emit btnReleased(buttonId);
+       emit btnClicked(buttonId);
+    }
 }

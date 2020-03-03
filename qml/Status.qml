@@ -7,7 +7,6 @@ Rectangle {
     property int fontsize
 
     height: parent.height
-    //border.width: 5
 
     anchors.verticalCenter: parent.verticalCenter
 

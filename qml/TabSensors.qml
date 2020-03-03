@@ -98,12 +98,12 @@ Rectangle {
    property var sensorSelectedIndex: -1
 
    function connect() {
-      console.log("Tab connessa - Sensors");
+      // console.log("Tab connessa - Sensors");
       menu.btnClicked.connect(btnClickedHandler);
    }
 
    function disconnect() {
-      console.log("Tab disconnessa - Sensors");
+      // console.log("Tab disconnessa - Sensors");
       menu.btnClicked.disconnect(btnClickedHandler);
 
    }
@@ -188,6 +188,9 @@ Rectangle {
             }
          }
       }
+      if (btnID == 3){
+         CAN.sendMarker();
+      }
    }
 
    ColumnLayout {
@@ -227,7 +230,7 @@ Rectangle {
                verticalAlignment: Text.AlignVCenter
                horizontalAlignment: Text.AlignHCenter
                font.family: blackops.name;
-               font.pointSize: 7
+               font.pointSize: 21
             }
 
             Item {
@@ -235,7 +238,7 @@ Rectangle {
                Layout.fillWidth: true
                width: 50
                ChoiceButton {
-                  width: 150
+                  width: 135
                   height: 40
                   btnColor: "green"
                   btnText: mBtnSetText

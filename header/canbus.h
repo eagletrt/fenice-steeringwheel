@@ -32,6 +32,8 @@
 #define ASK_SENSORS_VALUE_ID    0xED
 #define ASK_BATTERY_STATUS      0xEE
 #define CHANGE_EXEC_MODE_ID     0xEF
+#define MARKER                  100
+#define TELEMETRY               0xAB
 
 //NEW DEFINE FOR VARANO 2018
 #define STEERING_WHEEL_ID       0xA0
@@ -40,6 +42,8 @@
 #define ECU_MSG                 0x55
 #define ECU_INV_LEFT            0x08
 #define ECU_INV_RIGHT           0x09
+#define ECU_INV_LEFT_STOP       0x0C
+#define ECU_INV_RIGHT_STOP      0x0D
 #define ECU_ERRORS              0x01
 #define STM_PEDALS              0xB0
 #define GET_ACTUATORS_RANGE_ACK 0xBC
@@ -67,32 +71,6 @@ class Canbus : public QObject
         int error;        
         int ctrlIsEnabled;
 
-        uint16_t m_speed;
-        uint16_t m_invSxTemp;
-        uint16_t m_invDxTemp;
-        uint32_t m_hvTemp;
-        uint32_t m_hvVolt;
-        int m_lvVoltVal;
-        int m_lvTemp;
-        int m_lvVolt;
-
-        int m_brakeVal;
-        int m_throttleVal;
-        int m_velocity;
-
-        int velocity() const;
-        int speed() const;
-        int invSxTemp() const;
-        int invDxTemp() const;
-        int hvTemp() const;
-        int lvTemp() const;
-        int hvVolt() const;
-        int lvVoltVal() const;
-        int lvVolt() const;
-
-        int brakeVal() const;
-        int throttleVal() const;
-
         int ctrlIsOn;
         int goStatus;
         int map;
@@ -112,6 +90,7 @@ class Canbus : public QObject
         QTimer *timerSteeringWheel;
         QTimer *timerStatus;
         QTimer *timerEnc;
+        QTimer *timerTelemetry;
 
         qint64 canID;
         QByteArray canMSG;
@@ -126,24 +105,14 @@ class Canbus : public QObject
 
     signals:
         void controlStateChanged(int ctrlState, int warn, int err);
-        void presetChanged(int presetID);
+        void mapChanged(int mapID);
         void pumpChanged(int pumpID);
+        void tcChanged(int tcID);
         void actuatorRangePendingFlagCleared();
-
-        //signal per qml hv e lv temp volt
-        void speedChanged();
-        void hvTempChanged();
-        void lvTempChanged();
-        void hvVoltChanged();
-        void lvVoltChanged();
-        void invSxTempChanged();
-        void invDxTempChanged();
-
-        void brakeValChanged();
-        void throttleValChanged();
 
     public slots:
         void parseSerial();
+        void sendMarker();
         void toggleCar();
         void askHVUpdate(int);
         void setActuatorsRange(int, int);
@@ -152,8 +121,10 @@ class Canbus : public QObject
         void steerConnected();
         void askStatus();
         void sendEncState();
+        void sendTelemetry();
         void askSetupOrIdle(int);
         void PWMCheck();
+        void asktelemetry();
 };
 
 #endif // CANBUS_H

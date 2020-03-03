@@ -95,13 +95,10 @@
 #define	PI_ALPHA		 5
 #define	PI_MODEL_CM		 6
 #define	PI_MODEL_07		 7
-#define	PI_MODEL_3B		 8
+#define	PI_MODEL_3		 8
 #define	PI_MODEL_ZERO		 9
 #define	PI_MODEL_CM3		10
 #define	PI_MODEL_ZERO_W		12
-#define	PI_MODEL_3BP 		13
-#define	PI_MODEL_3AP 		14
-#define	PI_MODEL_CM3P 		16
 
 #define	PI_VERSION_1		0
 #define	PI_VERSION_1_1		1
@@ -113,7 +110,7 @@
 #define	PI_MAKER_EMBEST		2
 #define	PI_MAKER_UNKNOWN	3
 
-extern const char *piModelNames    [20] ;
+extern const char *piModelNames    [16] ;
 extern const char *piRevisionNames [16] ;
 extern const char *piMakerNames    [16] ;
 extern const int   piMemorySize    [ 8] ;
@@ -164,15 +161,6 @@ struct wiringPiNodeStruct
 } ;
 
 extern struct wiringPiNodeStruct *wiringPiNodes ;
-
-// Export variables for the hardware pointers
-
-extern volatile unsigned int *_wiringPiGpio ;
-extern volatile unsigned int *_wiringPiPwm ;
-extern volatile unsigned int *_wiringPiClk ;
-extern volatile unsigned int *_wiringPiPads ;
-extern volatile unsigned int *_wiringPiTimer ;
-extern volatile unsigned int *_wiringPiTimerIrqRaw ;
 
 
 // Function prototypes

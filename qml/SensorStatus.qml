@@ -12,8 +12,8 @@ Rectangle {
     FontLoader {id:blackops; source: "../lib/blops.ttf"}
 
     color: root.selected == 1 ? "green" : menu.color
-
-
+    radius: root.selected == 1 ? "20" : "0"
+    
     RowLayout {
         anchors.fill: parent
         spacing: 10
@@ -28,7 +28,7 @@ Rectangle {
             Text {
                 text: root.text
                 font.family: blackops.name;
-                font.pointSize: 6
+                font.pointSize: 18
                 color: "lightgray"
                 anchors.centerIn: parent
             }

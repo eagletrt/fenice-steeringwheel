@@ -34,6 +34,6 @@ Rectangle {
         anchors.centerIn: parent
         color: "lightgray"
         font.family: blackops.name;
-        font.pointSize: 7
+        font.pointSize: 21
     }
 }

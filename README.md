@@ -1,18 +1,29 @@
-<h1 align="center">Steering Wheel UI 2019</h1>
+# Steering Wheel Project 
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-swag.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/fo-real.svg)](https://forthebadge.com)
+## Repository Description 
 
-# Fenice Steering Wheel [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)]
+In this repository you can find the source code of our steering wheel.
 
-![](giphy.gif)
+The project is divided in 2 version: 
 
-> README IS FOR PUSSY WE DON'T NEED IT AKA IN MY TODO LIST
+* **Desktop**: is compiled for Desktop (Linux x86), and is used to the development part, to test and introduce new feature. This version used different `.cpp` files that you can find in the `.pro` file. In order to work without wiringpi we mapped the input and use the keyboard also for the inteface to comunicate with the car through can-utils we virtualized the interface.
 
-## rasp deploy
+* **Embedded**: is compiled for arm using this [guide](https://eagletrt.github.io/volanteCrosscompilazione.html) and is sended via SSH to the target device. 
 
-Il deploy è possibile in tre modi diversi ancora da implememntare. Considerare valido solo quello attraverso Qt Creator e la versione per x86 entrambi
+## Cross Compile for Taget Device
 
-## Chimera to Fenice UI
+### Stop the process
 
-Aggiungere un main.qml da compilare solo per fenice e chimera con i relativi qml, in più utilizzare un file .h diverso per quanto riguarda i file .h **ATTENZIONE** questo permetterrà di mantenere la stessa repo ma solo se cambierrano gli id non le funzionalità, probabilmente potrà andare bene fino alla fine di questo periodo di transizione
+```sh
+$ ssh root@eaglepi
+$ kill -9 "pid"
+```
+
+### Compile for the Steering Wheel
+
+```sh
+$ ./chimera-deploy.sh
+```
+
+
+

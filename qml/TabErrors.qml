@@ -3,8 +3,8 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: errors
-	   anchors.fill: parent
-	    color: "#000000"
+    anchors.fill: parent
+    color: "#000000"
 
     property var isStarted: false
     property var btnClickable: false
@@ -12,21 +12,21 @@ Rectangle {
     property var ledStates: ['OK', 'NO', 'DEFAULT'];
 
 	function connect() {
-        console.log("Tab connessa - Errors");
+        // console.log("Tab connessa - Errors");
         mainwindow.btnClicked.connect(btnClickedHandler);
     }
 
     function disconnect() {
-        console.log("Tab disconnessa - Errors");
+        // console.log("Tab disconnessa - Errors");
         mainwindow.btnClicked.disconnect(btnClickedHandler);
     }
 
     onErrstatusChanged: {
-        console.log("Cambiato ERR Status da Centralina");
+        // console.log("Cambiato ERR Status da Centralina");
 
         var newErrStatus = errorsLEDS;
 
-        console.log(errorsLEDS);
+        // console.log(errorsLEDS);
 
         // APPS
         newErrStatus[0][0][1] = ledStates[errstatus[0]];
@@ -54,6 +54,9 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
+        if (btnID == 3){
+            CAN.sendMarker();
+        }
         if (btnID == 2) {
             /*
             // Step into this tab and change the behaviour of btnID

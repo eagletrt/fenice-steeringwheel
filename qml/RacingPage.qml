@@ -5,7 +5,7 @@ Rectangle {
     id: racingPage
     color: "#000000"
 
-    property int loopThroughPresets: -1
+    property int loopThroughMaps: -1
 
     property int currentCharge: 10
     property int currentTemperature: 8
@@ -14,32 +14,32 @@ Rectangle {
 
     property int carIsGo: 0
 
-    signal presetChanged(int presetID)
+    signal mapChanged(int mapID)
     signal controlStateChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error)
 
     function disconnect() {
-        console.log("Disconnetto! Racing");
+        // console.log("Disconnetto! Racing");
         mainwindow.btnPressed.disconnect(btnPressedHandler);
         mainwindow.btnReleased.disconnect(btnReleasedHandler);
         mainwindow.btnClicked.disconnect(btnClickedHandler);
 
         mainwindow.controlStateChanged.disconnect(controlStateChangedHandler);
-        mainwindow.presetChanged.disconnect(presetChangedHandler);
+        mainwindow.mapChanged.disconnect(mapChangedHandler);
     }
 
     function connect() {
-        console.log("Connetto! Racing");
+        // console.log("Connetto! Racing");
         mainwindow.btnPressed.connect(btnPressedHandler);
         mainwindow.btnReleased.connect(btnReleasedHandler);
         mainwindow.btnClicked.connect(btnClickedHandler);
 
         mainwindow.controlStateChanged.connect(controlStateChangedHandler);
-        mainwindow.presetChanged.connect(presetChangedHandler);
+        mainwindow.mapChanged.connect(mapChangedHandler);
     }
 
 
-    function presetChangedHandler(presetID) {
-        presetChanged(presetID);
+    function mapChangedHandler(mapID) {
+        mapChanged(mapID);
     }
 
 
@@ -76,7 +76,8 @@ Rectangle {
         }
 
         if (btnID == 3) {
-            CAN.PWMCheck();
+            // CAN.PWMCheck();
+            CAN.sendMarker();
             /*
                emit della funziona che ti permette di cambiare
                hv lv throttle brake e velocity
