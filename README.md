@@ -50,8 +50,8 @@ RaspberryPI doesn't keep the same IP each session. So check each time the correc
 
 ### BackEnd
 
-SteeringWheel works thanks to CAN messages. These are sended through CAN-Bus (which is a bus :D). Each time a message came to SW, is stored into an object called ** device ** and then paresed via ```parseCanMessage``` in CanBus class. This function has the task to update the different status of the car (like inverters temperature as well as speed). These statuses are stored in CarStatus.
+SteeringWheel works thanks to CAN messages. These are sended through CAN-Bus (which is a bus :D). Each time a message came to SW, is stored into an object called **device** and then paresed via ```parseCanMessage``` in CanBus class. This function has the task to update the different status of the car (like inverters temperature as well as speed). These statuses are stored in CarStatus.
 
 ### FrontEnd
 
-Each time a value changes, a signal will send to ** qml ** interface (thanks to Qt framework). Here functions called *Changed (such as TelemetrystatusChanged) have the task to update the interface in order to show to the screen the current status of the car.
+Each time a value changes, a signal will send to **qml** interface (thanks to Qt framework). Here functions called *Changed (such as TelemetrystatusChanged) have the task to update the interface in order to show to the screen the current status of the car.
