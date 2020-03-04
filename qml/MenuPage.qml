@@ -260,7 +260,7 @@ Rectangle {
       id: popupText
       anchors.centerIn: parent
       font.family: blackops.name
-      font.pointSize: 60
+      font.pointSize: 50
       color: "lightgrey"
     }
   }
