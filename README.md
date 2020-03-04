@@ -54,4 +54,4 @@ SteeringWheel works thanks to CAN messages. These are sended through CAN-Bus (wh
 
 ### FrontEnd
 
-Each time a value changes, a signal will send to **qml** interface (thanks to Qt framework). Here functions called *Changed (such as TelemetrystatusChanged) have the task to update the interface in order to show to the screen the current status of the car.
+Each time a value changes, a signal will send to **qml** interface (thanks to Qt framework). Here functions called *Changed (such as ```TelemetrystatusChanged```) have the task to update the interface in order to show to the screen the current status of the car.
