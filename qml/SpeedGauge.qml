@@ -155,7 +155,7 @@ Rectangle {
    Text {
       id: carSpeed
       text: speed
-      font.pointSize: 85
+      font.pointSize: 60
       font.family: blackops.name;
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter
