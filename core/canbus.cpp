@@ -1,5 +1,5 @@
 #include "../header/canbus.h"
-#include "../header/worker.h"
+#include "../header/detect.h"
 #include <QDebug>
 #include <QFileInfo>
 #include <QThread>
@@ -12,7 +12,7 @@ Canbus::Canbus(CarStatus* m_carStatus) {
 
    QString errorString;
    device = QCanBus::instance()->createDevice(
-      QStringLiteral("socketcan"), QStringLiteral("can0"), &errorString);
+      QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
       if (!device)
          qDebug() << "NO CAN!";
       else
@@ -37,8 +37,8 @@ Canbus::Canbus(CarStatus* m_carStatus) {
    connect(timerTelemetry, SIGNAL(timeout()),
    this, SLOT(sendTelemetry()));
 
-   connect(device, SIGNAL(framesReceived()),
-   this, SLOT(parseSerial()));
+   //connect(device, SIGNAL(framesReceived()),
+   //this, SLOT(parseSerial()));
 
    connect(carStatus, SIGNAL(toggleCar()),
    this, SLOT(toggleCar()));
@@ -61,6 +61,17 @@ Canbus::Canbus(CarStatus* m_carStatus) {
    idIsArrived = 0;
 
    m_actuatorRangePendingFlag = 0;
+
+   QThread* threadDevice = new QThread(this);
+   Detect* detect = new Detect(device);
+   detect->moveToThread(threadDevice);
+
+   connect(threadDevice, SIGNAL(started()),
+           detect, SLOT(doWork()));
+   connect(detect, SIGNAL(result(int, QByteArray)),
+           this, SLOT(parseSerial(int, QByteArray)));
+   
+   threadDevice->start();
 
 }
 // Send to ECU msg for presence in Can-Bus 
@@ -374,20 +385,23 @@ void Canbus::sendCanMessage(int id, QByteArray message) {
 }
 
 // Read Can-Bus
-void Canbus::parseSerial() {
-   QByteArray canMsg;
-   int canId;
+void Canbus::parseSerial(int canId, QByteArray canMsg) {
+   //QByteArray canMsg;
+   //int canId;
 
-   while(device->framesAvailable()){
-
-      QCanBusFrame frame = device->readFrame();
-      canMsg = frame.payload();
-      canId = frame.frameId();
-
-      if(canId != 0){
-         parseCANMessage(canId,canMsg);
-      }
-   }
+   //while(device->framesAvailable()){
+//
+   //   QCanBusFrame frame = device->readFrame();
+   //   canMsg = frame.payload();
+   //   canId = frame.frameId();
+//
+   //   if(canId != 0){
+   //      parseCANMessage(canId,canMsg);
+   //   }
+   //   
+   //}
+   qDebug() << "parseSerial";
+   parseCANMessage(canId, canMsg);
 }
 
 // Main Switch for Can Message

@@ -111,7 +111,7 @@ class Canbus : public QObject
         void actuatorRangePendingFlagCleared();
 
     public slots:
-        void parseSerial();
+        void parseSerial(int, QByteArray);
         void sendMarker();
         void toggleCar();
         void askHVUpdate(int);
