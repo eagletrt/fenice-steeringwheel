@@ -5,6 +5,7 @@
 #include <QByteArray>
 #include <QHash>
 #include "carstatus.h"
+#include "detect.h"
 
 #include <QCanBus>
 
@@ -96,12 +97,14 @@ class Canbus : public QObject
         QByteArray canMSG;
         QString canMessage;
 
-        void parseCANMessage(int mid, QByteArray msg);
         void sendCanMessage(int, QByteArray);
 
         int idIsArrived;
 
         int m_actuatorRangePendingFlag;
+
+        QThread* threadDevice;
+        Detect* detect;
 
     signals:
         void controlStateChanged(int ctrlState, int warn, int err);
@@ -111,7 +114,8 @@ class Canbus : public QObject
         void actuatorRangePendingFlagCleared();
 
     public slots:
-        void parseSerial(int, QByteArray);
+        //void parseSerial();
+        void parseCANMessage(int mid, QByteArray msg);
         void sendMarker();
         void toggleCar();
         void askHVUpdate(int);

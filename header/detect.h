@@ -10,7 +10,7 @@ class Detect : public QObject {
     Q_OBJECT
     QCanBusDevice* device;
 public slots:
-    void doWork();
+    void startDevice();
     void getSerial();
 signals:
     void result(int canId, QByteArray canMsg);

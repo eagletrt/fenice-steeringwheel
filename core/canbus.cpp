@@ -1,5 +1,4 @@
 #include "../header/canbus.h"
-#include "../header/detect.h"
 #include <QDebug>
 #include <QFileInfo>
 #include <QThread>
@@ -62,14 +61,14 @@ Canbus::Canbus(CarStatus* m_carStatus) {
 
    m_actuatorRangePendingFlag = 0;
 
-   QThread* threadDevice = new QThread(this);
-   Detect* detect = new Detect(device);
+   threadDevice = new QThread(this);
+   detect = new Detect(device);
    detect->moveToThread(threadDevice);
 
    connect(threadDevice, SIGNAL(started()),
-           detect, SLOT(doWork()));
+           detect, SLOT(startDevice()));
    connect(detect, SIGNAL(result(int, QByteArray)),
-           this, SLOT(parseSerial(int, QByteArray)));
+           this, SLOT(parseCANMessage(int, QByteArray)));
    
    threadDevice->start();
 
@@ -385,24 +384,23 @@ void Canbus::sendCanMessage(int id, QByteArray message) {
 }
 
 // Read Can-Bus
-void Canbus::parseSerial(int canId, QByteArray canMsg) {
-   //QByteArray canMsg;
-   //int canId;
-
-   //while(device->framesAvailable()){
+//void Canbus::parseSerial(int canId, QByteArray canMsg) {
+//   QByteArray canMsg;
+//   int canId
+//   while(device->framesAvailable()){
 //
-   //   QCanBusFrame frame = device->readFrame();
-   //   canMsg = frame.payload();
-   //   canId = frame.frameId();
+//      QCanBusFrame frame = device->readFrame();
+//      canMsg = frame.payload();
+//      canId = frame.frameId();
 //
-   //   if(canId != 0){
-   //      parseCANMessage(canId,canMsg);
-   //   }
-   //   
-   //}
-   qDebug() << "parseSerial";
-   parseCANMessage(canId, canMsg);
-}
+//      if(canId != 0){
+//         parseCANMessage(canId,canMsg);
+//      }
+//      
+//   }
+//   qDebug() << "parseSerial";
+//   parseCANMessage(canId, canMsg);
+//}
 
 // Main Switch for Can Message
 void Canbus::parseCANMessage(int mid, QByteArray msg) {
@@ -716,5 +714,7 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 
 // Destroy, BOOM!
 Canbus::~Canbus() {
+   threadDevice->quit();
+   qDebug() << "Stop Thread";
    qDebug() << "Closing CAN...";
 }
