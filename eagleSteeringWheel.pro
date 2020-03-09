@@ -31,7 +31,8 @@ HEADERS += header/buttons_x86.h \
            header/sensors.h \
            header/telemetry.h \
            header/warning.h \
-           header/detect.h
+           header/detect.h \
+           header/graphics.h
 
 
 SOURCES += core/main_x86.cpp \
@@ -50,6 +51,7 @@ SOURCES += core/main_x86.cpp \
            core/hv.cpp \
            core/telemetry.cpp \
            core/lv.cpp \
-           core/detect.cpp
+           core/detect.cpp \
+           core/graphics.cpp
 
 RESOURCES += qml.qrc

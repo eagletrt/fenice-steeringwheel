@@ -6,7 +6,7 @@ Detect::Detect(QCanBusDevice* device) {
 }
 
 void Detect::startDevice() {
-    qDebug() << "Start Thread";
+    qDebug() << "Start Device Thread";
     connect(device, SIGNAL(framesReceived()),
             this, SLOT(getSerial()));
 }

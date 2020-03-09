@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QQuickView>
 #include <QQmlContext>
+#include <QThread>
 
 #include "../header/buttons_x86.h"
 
@@ -10,6 +11,7 @@
 #include "../header/console.h"
 #include "../header/canbus.h"
 #include "../header/carstatus.h"
+#include "../header/graphics.h"
 
 int main(int argc, char* argv[])
 {
@@ -37,7 +39,16 @@ int main(int argc, char* argv[])
     view->rootContext()->setContextProperty("CarStatus", &carStatus);
 
     view->setSource(QUrl("qrc:///qml/main.qml"));
-    view->show();
+    //view->show();
+
+    QThread* threadG = new QThread();
+    Graphics* graphics = new Graphics(view);
+    graphics->moveToThread(threadG);
+
+    QObject::connect(threadG, SIGNAL(started()),
+                     graphics, SLOT(startGraphics()));
+    
+    threadG->start();
 
     return app.exec();
 }
