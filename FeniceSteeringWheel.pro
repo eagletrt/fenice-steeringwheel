@@ -19,7 +19,7 @@ INCLUDEPATH += . \
 QT += core gui qml quick serialbus
 
 
-HEADERS += header/buttons_x86.h \
+HEADERS += header/buttons.h \
            header/control.h \
            header/errors.h \
            header/hv.h \
@@ -37,8 +37,8 @@ HEADERS += header/buttons_x86.h \
            header/graphics.h
  
 
-SOURCES += core/main_x86.cpp \
-           core/buttons_x86.cpp \
+SOURCES += core/main.cpp \
+           core/buttons.cpp \
            core/console.cpp \
            core/canbus.cpp \
            core/carstatus.cpp \
