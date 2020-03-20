@@ -24,7 +24,6 @@ HEADERS += header/buttons_x86.h \
            header/errors.h \
            header/hv.h \
            header/inverters.h \
-           header/keypresseventfilter.h \
            header/console.h \
            header/canbus.h \
            header/carstatus.h \
@@ -40,7 +39,6 @@ HEADERS += header/buttons_x86.h \
 
 SOURCES += core/main_x86.cpp \
            core/buttons_x86.cpp \
-           core/keypresseventfilter.cpp \
            core/console.cpp \
            core/canbus.cpp \
            core/carstatus.cpp \
