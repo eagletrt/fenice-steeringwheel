@@ -6,7 +6,7 @@ Item{
    property int hvCounter : hvVal;
 
    property variant hvnames : ["../img/hv3.png","../img/hv4.png","../img/hv5.png","../img/hv6.png","../img/hv7.png",
-   "../img/hv8.png","../img/hv9.png","../img/hv10.png","../img/hv11.png","../img/hv12.png","../img/hv13.png"];//"../img/hv14.png"
+   "../img/hv8.png","../img/hv9.png","../img/hv10.png","../img/hv11.png","../img/hv12.png","../img/hv13.png","../img/hv14.png","../img/hv15.png"];//"../img/hv16.png"
 
 /*
    Il valore che viene preso da cpp + già diviso 1000

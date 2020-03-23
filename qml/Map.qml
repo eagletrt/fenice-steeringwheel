@@ -48,7 +48,7 @@ Rectangle {
         id: text
         text: root.index //"P" + root.index
         anchors.centerIn: parent
-        font.family: blackops.name;
+        font.family: labelFont.name;
         font.pointSize: 18
         color: "lightgray"
     }

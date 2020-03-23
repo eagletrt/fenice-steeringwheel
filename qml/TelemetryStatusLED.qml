@@ -7,8 +7,6 @@ Rectangle {
 
     state: "0" //UNSELECTED
 
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
     property var text
     property var selected
     
@@ -34,7 +32,7 @@ Rectangle {
             id: sensor
             text: root.text
             anchors.centerIn: parent
-            font.family: blackops.name
+            font.family: labelFont.name
             font.pointSize: 18
             color: "lightgrey"
         }

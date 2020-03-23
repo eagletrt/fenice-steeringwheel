@@ -5,9 +5,12 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 
 Rectangle {
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
-    width: 480
-    height: 272
+    FontLoader {id:valueFont; source: "../lib/blops.ttf"}
+    FontLoader {id:labelFont; source: "../lib/blops-chimera-good.ttf"}
+
+    width: 800
+    height: 480
+    z:0
     color: "black"
     id: frame
 
@@ -53,27 +56,29 @@ Rectangle {
 
   Rectangle{
      id: timeRectangle
-     color: "black"
-     width: 152
-     height: 37
-     x: 164
+     color: "transparent"
+     width: 200
+     height: 60
+     x: 300
      y: 3
 
      Text {
         id: mainTime
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        font.family: blackops.name;
+        font.family: valueFont.name;
         font.pointSize: 30
         color: "lightgray"
      }
   }
 
   Rectangle {
-      width: 370
-      height: 220
-      x: 55
-      y: 52
+      width: 680
+      height: 410
+      color: "transparent"
+      x: 60
+      y: 60
+      z: 2
 
       id: mainwindow
 
@@ -136,14 +141,14 @@ Rectangle {
       }
   }
   StatusFrame{
-
+    z: 1
   }
 
   HVFrame{
-
+    z: 1
   }
 
   LVFrame{
-
+    z: 1
   }
 }

@@ -2,8 +2,6 @@ import QtQuick 2.7
 
 Rectangle {
 
-   FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
    property int hvTemp: CarStatus.hvTemp;
    property int hvVolt: CarStatus.hvVolt;
    property int lvTemp: CarStatus.lvTemp;
@@ -30,10 +28,10 @@ Rectangle {
    Text {
       id: textVelocity
       text: velocity + " KW"
-      font.family: blackops.name;
-      font.pointSize: 15
-      y: 145
-      x: 25
+      font.family: valueFont.name;
+      font.pointSize: 10
+      y: 260
+      x: 180
       width:200
       horizontalAlignment: Text.AlignHCenter;
       color: "lightgray"
@@ -42,10 +40,10 @@ Rectangle {
    Text {
       id: textKm
       text: km + " m"
-      font.family: blackops.name;
-      font.pointSize: 15
-      y: 145
-      x: 145
+      font.family: valueFont.name;
+      font.pointSize: 10
+      y: 260
+      x: 240
       width:200
       horizontalAlignment: Text.AlignHCenter;
       color: "lightgray"
@@ -54,9 +52,10 @@ Rectangle {
    Text {
       id: textInvSxTemp
       text: invSxTemp / 10.0 + "°C"
-      font.family: blackops.name;
-      font.pointSize: 15
-      y: 80
+      font.family: valueFont.name;
+      font.pointSize: 10
+      x: 10
+      y: 160
       color: "lightgray"
    }
 
@@ -64,10 +63,10 @@ Rectangle {
       id: textInvDxTemp
       text: invDxTemp / 10 + "°C"
       horizontalAlignment: Text.AlignLeft;
-      font.pointSize: 15
-      font.family: blackops.name;
-      x: 305
-      y: 80
+      font.pointSize: 10
+      font.family: valueFont.name;
+      x: 610
+      y: 160
       width: 70
       color: "lightgray"
    }
@@ -79,9 +78,10 @@ Rectangle {
 
       text: hvTemp/10 +  " °C"
 
-      font.family: blackops.name;
-      font.pointSize: 15
-      y: 120
+      font.family: valueFont.name;
+      font.pointSize: 10
+      x: 10
+      y: 220
       color: "lightgray"
    }
 
@@ -92,9 +92,10 @@ Rectangle {
       
       text: hvVolt/10 +  " V"
 
-      font.family: blackops.name;
-      font.pointSize: 15
-      y: 140
+      font.family: valueFont.name;
+      font.pointSize: 10
+      x: 10
+      y: 260
       color: "lightgray"
    }
 
@@ -106,10 +107,10 @@ Rectangle {
       text: lvTemp/5 + " °C"
 
       horizontalAlignment: Text.AlignLeft;
-      font.pointSize: 15
-      font.family: blackops.name;
-      x: 305
-      y: 120
+      font.pointSize: 10
+      font.family: valueFont.name;
+      x: 610
+      y: 220
       width: 70
       color: "lightgray"
    }
@@ -121,10 +122,10 @@ Rectangle {
 
       text: lvVolt/10 + " V"
       horizontalAlignment: Text.AlignLeft;
-      font.pointSize: 15
-      font.family: blackops.name;
-      x: 305
-      y: 140
+      font.pointSize: 10
+      font.family: valueFont.name;
+      x: 610
+      y: 260
       width: 70
       color: "lightgray"
    }
@@ -135,8 +136,8 @@ Rectangle {
 
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter
-      anchors.verticalCenterOffset: -140
-      anchors.horizontalCenterOffset: -172
+      anchors.verticalCenterOffset: -310
+      anchors.horizontalCenterOffset: -430
 
       onThrottleValChanged: function(){
          throttleValore = CarStatus.throttleVal
@@ -155,21 +156,21 @@ Rectangle {
    Text {
       id: carSpeed
       text: speed
-      font.pointSize: 60
-      font.family: blackops.name;
+      font.pointSize: 55
+      font.family: valueFont.name;
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter
-      anchors.verticalCenterOffset: -22
+      anchors.verticalCenterOffset: -15
       color: "lightgray"
    }
 
    Text {
       text: "km/h"
-      font.family: blackops.name;
-      font.pointSize: 12
+      font.family: labelFont.name;
+      font.pointSize: 8
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter
-      anchors.verticalCenterOffset: 18
+      anchors.verticalCenterOffset: 48
       color: "lightgray"
    }
    Item{
@@ -178,8 +179,8 @@ Rectangle {
 
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter
-      anchors.verticalCenterOffset: -129
-      anchors.horizontalCenterOffset: -207
+      anchors.verticalCenterOffset: -295
+      anchors.horizontalCenterOffset: -380
 
       onBrakeValChanged: function(){
          brakeValore = CarStatus.brakeVal;

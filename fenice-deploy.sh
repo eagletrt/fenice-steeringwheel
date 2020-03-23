@@ -27,5 +27,5 @@ cd $BUILD_DIR
 $RASP_PI_QMAKE -spec devices/linux-rasp-pi-g++ -o Makefile ../$RASP_PI_PROJECT
 make -j4
 
-scp EagleSteeringWheel root@$PI_ADDRESS:/
+scp FeniceSteeringWheel root@$PI_ADDRESS:/
 

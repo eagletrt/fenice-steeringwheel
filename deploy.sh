@@ -7,7 +7,7 @@
 QMAKE="/home/$USER/Qt/5.12.5/gcc_64/bin/qmake"
 #QMAKE="/home/$USER/Qt/5.9.8/gcc_64/bin/qmake"
 
-QT_PROJECT="eagleSteeringWheel.pro"
+QT_PROJECT="EagleSteeringWheel.pro"
 BUILD_DIR=build/
 
 if [ ! "$( ls -A $BUILD_DIR)" ]; then

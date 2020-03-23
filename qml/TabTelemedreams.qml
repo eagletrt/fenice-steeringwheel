@@ -5,10 +5,9 @@ import QtQuick.Controls.Styles 1.4
 
 Rectangle{
     id: backgroundTelemetry
-    color: "black"
+    color: "transparent"
     anchors.fill: parent
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
+    
     property var tabSelected: -1
     property var stepIntoTabTest: false
     property var stepIntoTabDriver: false
@@ -148,8 +147,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==0 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==0 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==0 ? "yellow" :"lightgrey"
                         text: tests[0][0]
                     }
@@ -161,8 +160,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==0 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==0 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==0 ? "yellow" :"lightgrey"
                         text: tests[1][0]
                     }
@@ -174,8 +173,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==0 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==0 ? 45 : 30
+                        font.family: labelFont.name
                         color: tabSelected==0 ? "yellow" :"lightgrey"
                         text: tests[2][0]
                     }
@@ -187,8 +186,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==0 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==0 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==0 ? "yellow" :"lightgrey"
                         text: tests[3][0]
                     }
@@ -200,8 +199,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==0 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==0 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==0 ? "yellow" :"lightgrey"
                         text: tests[4][0]
                     }
@@ -231,8 +230,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==1 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==1 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==1 ? "yellow" :"lightgrey"
                         text: drivers[0][0]
                     }
@@ -244,8 +243,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==1 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==1 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==1 ? "yellow" :"lightgrey"
                         text: drivers[1][0]
                     }
@@ -257,8 +256,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==1 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==1 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==1 ? "yellow" :"lightgrey"
                         text: drivers[2][0]
                     }
@@ -270,8 +269,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==1 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==1 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==1 ? "yellow" :"lightgrey"
                         text: drivers[3][0]
                     }
@@ -283,8 +282,8 @@ Rectangle{
                     color: "black"
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected==1 ? 60 : 45
-                        font.family: blackops.name
+                        font.pixelSize: tabSelected==1 ? 40 : 25
+                        font.family: labelFont.name
                         color: tabSelected==1 ? "yellow" :"lightgrey"
                         text: drivers[4][0]
                     }

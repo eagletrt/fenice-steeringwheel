@@ -11,7 +11,7 @@ target.path = /root
 INSTALLS   += target
 
 TEMPLATE = app
-TARGET = steering
+TARGET = FeniceSteeringWheel
 
 INCLUDEPATH += . \
                lib/

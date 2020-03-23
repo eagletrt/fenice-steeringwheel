@@ -6,7 +6,6 @@ Rectangle {
    id: root
    color: "#000000"
    anchors.fill: parent
-   FontLoader {id:blackops; source: "../lib/blops.ttf"}
 
    property var appsStatus: CarStatus.APPSStatus
    property var bseStatus: CarStatus.BSEStatus
@@ -229,17 +228,17 @@ Rectangle {
                color: "lightgray"
                verticalAlignment: Text.AlignVCenter
                horizontalAlignment: Text.AlignHCenter
-               font.family: blackops.name;
-               font.pointSize: 21
+               font.family: labelFont.name;
+               font.pointSize: 10
             }
 
             Item {
                Layout.fillHeight: true
                Layout.fillWidth: true
-               width: 50
+               width: 90
                ChoiceButton {
-                  width: 135
-                  height: 40
+                  width: 195
+                  height: 60
                   btnColor: "green"
                   btnText: mBtnSetText
                   selected: choiceButtonSelected && (setPendingFlag>0)

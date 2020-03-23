@@ -9,8 +9,6 @@ Rectangle {
     property var barValue
     property var selected
 
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
     color: root.selected == 1 ? "green" : menu.color
     radius: root.selected == 1 ? "20" : "0"
     
@@ -27,7 +25,7 @@ Rectangle {
 
             Text {
                 text: root.text
-                font.family: blackops.name;
+                font.family: labelFont.name;
                 font.pointSize: 18
                 color: "lightgray"
                 anchors.centerIn: parent

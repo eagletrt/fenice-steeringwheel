@@ -7,8 +7,6 @@ Rectangle {
 
     state: "CAN_DEFAULT"
 
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
     property var text
 
     states: [
@@ -48,7 +46,7 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
                 text: root.text
-                font.family: blackops.name;
+                font.family: labelFont.name;
                 font.pointSize: 15
                 color: "lightgray"
             }

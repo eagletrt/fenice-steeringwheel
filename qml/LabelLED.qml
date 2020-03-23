@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: root
     color: "transparent"
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
     property var text
     property var ledColor
 
@@ -65,7 +64,7 @@ Rectangle {
 
                 text: root.text
                 font.pointSize: 18
-                font.family: blackops.name;
+                font.family: labelFont.name;
                 color: "lightgray"
             }
         }

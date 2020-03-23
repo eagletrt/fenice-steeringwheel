@@ -4,8 +4,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: root
     color: "#000000"
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
+    
     property var statusHV: [
         ["T Max", "0", "° C"],
         ["T Avg", "0", "° C"],
@@ -62,27 +61,27 @@ Rectangle {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    border.color: "black"
+                    border.color: "transparent"
                     border.width: 4
                     color: "green"
 
                     Text {
                         text: "HV"
-                        font.family: blackops.name;
-                        font.pointSize: 30
+                        font.family: labelFont.name;
+                        font.pointSize: 10
                         anchors.centerIn: parent
                     }
                 }
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    border.color: "black"
+                    border.color: "transparent"
                     border.width: 4
                     color: "blue"
 
                     Text {
-                        font.family: blackops.name;
-                        font.pointSize: 30
+                        font.family: labelFont.name;
+                        font.pointSize: 10
                         text: "LV"
                         anchors.centerIn: parent
                     }
@@ -105,7 +104,7 @@ Rectangle {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    color: "black"
+                    color: "transparent"
 
                     GridLayout {
                         anchors.fill: parent
@@ -135,8 +134,8 @@ Rectangle {
 
                                         Text {
                                             anchors.centerIn: parent
-                                            font.family: blackops.name;
-                                            font.pointSize: 18
+                                            font.family: valueFont.name;
+                                            font.pointSize: 10
                                             text: modelData[0] + ":" + modelData[1] + " " + modelData[2]
                                             color: "lightgray"
                                         }
@@ -150,7 +149,7 @@ Rectangle {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    color: "black"
+                    color: "transparent"
 
                     GridLayout {
                         anchors.fill: parent
@@ -175,8 +174,8 @@ Rectangle {
 
                                         Text {
                                             anchors.centerIn: parent
-                                            font.family: blackops.name;
-                                            font.pointSize: 18
+                                            font.family: valueFont.name;
+                                            font.pointSize: 10
                                             text: modelData[0] + ":" + modelData[1] + " " + modelData[2]
                                             color: "lightgray"
                                         }

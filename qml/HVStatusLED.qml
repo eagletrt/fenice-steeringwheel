@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
 Rectangle {
-    FontLoader {id:blackops; source: "../lib/blops.ttf"}
     id: root
     color: "#008000"
     radius: 20
@@ -58,7 +57,7 @@ Rectangle {
 
             Text {
                 anchors.centerIn: parent
-                font.family: blackops.name;
+                font.family: labelFont.name;
                 text: root.text
                 font.pixelSize: 20
                 color: "lightgray"
@@ -119,7 +118,7 @@ Rectangle {
 
                 Text {
                     id: text
-                    font.family: blackops.name;
+                    font.family: labelFont.name;
                     font.pixelSize: 20
                     anchors.centerIn: parent
                     text: "ASK"

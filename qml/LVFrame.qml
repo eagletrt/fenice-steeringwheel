@@ -6,7 +6,7 @@ Item{
    property int lvCounter : lvVal;
 
    property variant lvnames : ["../img/lv3.png","../img/lv4.png","../img/lv5.png","../img/lv6.png","../img/lv7.png",
-   "../img/lv8.png","../img/lv9.png","../img/lv10.png","../img/lv11.png","../img/lv12.png","../img/lv13.png"];//"../img/lv14.png"
+   "../img/lv8.png","../img/lv9.png","../img/lv10.png","../img/lv11.png","../img/lv12.png","../img/lv13.png","../img/lv14.png","../img/lv15.png"];//"../img/lv16.png"
 
    onLvVoltChanged: function(){
       lvCounter = CarStatus.lvVolt - 80;

@@ -16,9 +16,6 @@ Rectangle {
   signal btnReleased(int btnID)
   signal btnClicked(int btnID)
 
-  FontLoader {id:blackops; source: "../lib/blops.ttf"}
-
-
   function connect() {
     mainwindow.btnPressed.connect(btnPressedHandler);
     mainwindow.btnReleased.connect(btnReleasedHandler);
@@ -223,14 +220,6 @@ Rectangle {
       RacingPage {
       }
     }
-    // Tab {
-    //   TabBattery {
-    //   }
-    // }
-    // Tab{
-    //   TabTelemetry{
-    //   }
-    // }
     Tab{
       TabTelemedreams{
       }
@@ -242,7 +231,7 @@ Rectangle {
         color: styleData.selected ? "lightgray" : "black" //#2266FF
         border.color: "lightgray"
         border.width:  0.5
-        x: 2
+        x: 1
         implicitWidth: tabView.width/6
         implicitHeight:  5
       }
@@ -252,14 +241,18 @@ Rectangle {
   //This will popup messages over the Tabview
   Rectangle {
     id: popup
-    anchors.fill: parent
-    color: "transparent"
+    width: 800
+    height: 482
+    x: -60
+    y: -64
+    z: 2
+    color: "red"
     visible: false
 
     Text {
       id: popupText
       anchors.centerIn: parent
-      font.family: blackops.name
+      font.family: labelFont.name
       font.pointSize: 50
       color: "lightgrey"
     }
