@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/main.qml</file>
+        <file>qml/Main.qml</file>
         <file>lib/blops.ttf</file>
         <file>lib/blops-chimera.ttf</file>
         <file>lib/blops-chimera-good.ttf</file>
@@ -86,10 +86,6 @@
         <file>img/b8.png</file>
         <file>img/b9.png</file>
         <file>img/b10.png</file>
-        <file>qml/TabTelemetry.qml</file>
         <file>qml/TabTelemedreams.qml</file>
-        <file>qml/TelemetryStatusLED.qml</file>
-        <file>qml/TelemetryStatus.qml</file>
-        <file>qml/TabTelemetryOld.qml</file>
     </qresource>
 </RCC>

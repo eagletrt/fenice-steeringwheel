@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 
 Rectangle{
     id: backgroundTelemetry
@@ -129,6 +130,10 @@ Rectangle{
             }
         }
     }
+// introdurre stato active o no per poter
+// gestire il gradient del testo, questa funzionalità va implementata
+// anche della racing page per il superamento di certe soglie da parte
+// dei valori "critici" temperatura, voltaggio e anche la velocità
 
     ColumnLayout{
         id: telemetry
@@ -172,11 +177,20 @@ Rectangle{
                 Rectangle { 
                     color: "black"
                     Text {
+                        id: textTest2
                         anchors.centerIn: parent
                         font.pixelSize: tabSelected==0 ? 45 : 30
                         font.family: labelFont.name
                         color: tabSelected==0 ? "yellow" :"lightgrey"
                         text: tests[2][0]
+                    }
+                    LinearGradient  {
+                        anchors.fill: textTest2
+                        source: textTest2
+                        gradient: Gradient {
+                            GradientStop { position: 0; color: "lightgrey" }
+                            GradientStop { position: 1; color: "yellow" }
+                        }
                     }
                 }
             }

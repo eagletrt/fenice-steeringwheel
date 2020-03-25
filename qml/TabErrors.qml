@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: errors
     anchors.fill: parent
+    // color: "transparent"
     color: "#000000"
 
     property var isStarted: false
@@ -12,20 +13,15 @@ Rectangle {
     property var ledStates: ['OK', 'NO', 'DEFAULT'];
 
 	function connect() {
-        // console.log("Tab connessa - Errors");
         mainwindow.btnClicked.connect(btnClickedHandler);
     }
 
     function disconnect() {
-        // console.log("Tab disconnessa - Errors");
         mainwindow.btnClicked.disconnect(btnClickedHandler);
     }
 
     onErrstatusChanged: {
-        // console.log("Cambiato ERR Status da Centralina");
-
         var newErrStatus = errorsLEDS;
-
         // console.log(errorsLEDS);
 
         // APPS
@@ -57,35 +53,10 @@ Rectangle {
         if (btnID == 3){
             CAN.sendMarker();
         }
-        if (btnID == 2) {
-            /*
-            // Step into this tab and change the behaviour of btnID
-            if (!tabView.stepIntoTab) {
-                // Set the button clickable
-                btnClickable = true;
-                isStarted = false;
+    }
 
-                // Prevent the button 0 to switch to Racing Page!
-                tabView.stepIntoTab = true;
-                mainwindow.canSwitchPage = false;
-
-            } else {
-                if (!isStarted) {
-                    // Update the errors
-                    isStarted = true;
-                    console.log("Update Errors");
-                    CAN.checkSensorsError();
-                }
-
-                // Set the button again to be not clickable
-                btnClickable = false;
-
-                // Restore Button 0 initial handler
-                mainwindow.canSwitchPage = true;
-                tabView.stepIntoTab = false;
-            }
-            */
-        }
+    Component.onCompleted: {
+        connect();
     }
 
 	property var errorsLEDS: [
@@ -142,18 +113,5 @@ Rectangle {
                 Layout.preferredHeight: errors.height / 4
             }
         }
-
-        /*Rectangle {
-            Layout.preferredWidth: errors.width
-            Layout.preferredHeight: errors.height / 6
-            Layout.columnSpan: 3
-            color: "#000000"
-
-            Button {
-                state: !btnClickable ? 'IDLE' : 'SELECTED'
-                activeColor: "blue"
-                text: "UPDATE"
-            }
-        }*/
     }
 }

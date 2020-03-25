@@ -33,13 +33,6 @@ Item{
    }
 
    Image {
-      id: lv0
-      objectName: "lv0"
-      source: "../img/lv0.png"
-      opacity: 1
-   }
-
-   Image {
       id: lv1
       objectName: "lv1"
       source: "../img/lv1.png"

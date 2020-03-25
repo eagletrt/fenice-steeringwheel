@@ -31,12 +31,10 @@ Rectangle {
    }
 
    function connect() {
-      // console.log("Tab connessa - Status");
       mainwindow.btnClicked.connect(btnClickedHandler);
    }
 
    function disconnect() {
-      // console.log("Tab disconnessa - Status");
       mainwindow.btnClicked.disconnect(btnClickedHandler);
    }
 
@@ -91,14 +89,10 @@ Rectangle {
       tabView.stepIntoTab = false;
    }
 
-   Component.onCompleted: {
-      // First tab, connect it!
-      connect();
-   }
-
    Rectangle {
       id: status
-      color: menu.color
+      // color: menu.color
+      color: "black"
       anchors.fill: parent
 
       GridLayout {
@@ -107,45 +101,49 @@ Rectangle {
          rows: 4
          anchors.fill: parent
          columnSpacing: -15
-         rowSpacing: -12
+         rowSpacing: -20
 
          Repeater {
             model: canLeds
             delegate: CANStatusLED {
                text: modelData[0]
                state: modelData[1]
-               Layout.preferredWidth: status.width / 2
+               Layout.preferredWidth: status.width * 0.69
                Layout.preferredHeight: status.height / 5
             }
          }
 
 
          Rectangle {
-            Layout.preferredWidth: status.width / 2
-            Layout.preferredHeight: status.height / 4
-            color: "#000000"
-
-            Button {
-               id: startstop
-               state: root.btnClickable & !isStarted ? 'SELECTED' : 'IDLE'
-               activeColor: "green"
+            Layout.preferredWidth: status.width * 0.33
+            Layout.preferredHeight: status.height / 7
+            state: root.btnClickable & !isStarted ? 'SELECTED' : 'IDLE'
+            radius: 20
+            color: "green"
+            Text {
                text: "START"
+               color: "lightgray"
+               anchors.centerIn: parent
+               font.pixelSize: 15
+               font.family: labelFont.name
             }
          }
 
          Rectangle {
-            Layout.preferredWidth: status.width / 2
-            Layout.preferredHeight: status.height / 4
-            color: "#000000"
-
-            Button {
-               id: ask
-               state: root.btnClickable ? 'SELECTED' : 'IDLE'
-               activeColor: "red"
+            id: ask
+            Layout.preferredWidth: status.width * 0.33
+            Layout.preferredHeight: status.height / 7
+            state: root.btnClickable ? 'SELECTED' : 'IDLE'
+            radius: 20
+            color: "red"
+            Text {
                text: "STOP"
+               color: "lightgray"
+               anchors.centerIn: parent
+               font.pixelSize: 15
+               font.family: labelFont.name
             }
          }
-
       }
    }
 }

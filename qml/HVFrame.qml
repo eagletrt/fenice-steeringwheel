@@ -42,13 +42,6 @@ Item{
    }
 
    Image {
-      id: hv0
-      objectName: "hv0"
-      source: "../img/hv0.png"
-      opacity: 1
-   }
-
-   Image {
       id: hv1
       objectName: "hv1"
       source: "../img/hv1.png"

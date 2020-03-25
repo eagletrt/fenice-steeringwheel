@@ -3,7 +3,8 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: root
-    color: "#000000"
+    // color: "#000000"
+    color: "transparent"
 
     state: "CAN_DEFAULT"
 
@@ -14,20 +15,32 @@ Rectangle {
             name: "OK"
             PropertyChanges {
                 target: led
-                color: "green"
+                gradColor: "green"
+            }
+            PropertyChanges {
+                target: ledText
+                color: "lightgray"
             }
         },
         State {
             name: "NO"
             PropertyChanges {
                 target: led
-                color: "red"
+                gradColor: "red"
+            }
+            PropertyChanges {
+                target: ledText
+                color: "lightgray"
             }
         },
         State {
             name: "DEFAULT"
             PropertyChanges {
                 target: led
+                gradColor: "gray"
+            }
+            PropertyChanges {
+                target: ledText
                 color: "lightgray"
             }
         }
@@ -39,33 +52,23 @@ Rectangle {
         spacing: 0
 
         Rectangle {
-            width: root.width * 3/6
-            height: root.height
-            color: "transparent"
-
+            id: led
+            width: 218
+            height: 65
+            radius: 50
+            property color gradColor: "gray"
+            gradient: Gradient {
+                GradientStop { position: 0.8; color: "transparent" }
+                GradientStop { position: 0.9; color: led.gradColor }
+            }
             Text {
-                anchors.centerIn: parent
+                id: ledText
                 text: root.text
+                anchors.centerIn: parent
                 font.family: labelFont.name;
-                font.pointSize: 15
+                font.pointSize: 10
                 color: "lightgray"
             }
         }
-
-        Rectangle {
-            color: "transparent"
-            width: root.width * 3/6
-            height: root.height
-
-            Rectangle {
-                id: led
-                anchors.centerIn: parent
-                width: 30
-                height: 30
-                radius: 30
-                color: "transparent"
-            }
-        }
-
     }
 }

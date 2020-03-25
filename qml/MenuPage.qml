@@ -5,7 +5,8 @@ import QtQuick.Controls.Styles 1.4
 
 Rectangle {
   id: menu
-  color: "#000000"
+  color: "green"
+  // color: "#000000"
   property var steeringWheelPopup: CarStatus.SteeringWheelPopup;
   property var animationDuration: 0;
   property var buttonsClick: true;

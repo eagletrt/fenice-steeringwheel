@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: root
-    color: "transparent"
+    color: "yellow"
     property var text
     property var ledColor
 

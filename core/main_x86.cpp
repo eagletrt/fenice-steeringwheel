@@ -38,9 +38,8 @@ int main(int argc, char* argv[])
     view->rootContext()->setContextProperty("CAN", &canInterface);
     view->rootContext()->setContextProperty("CarStatus", &carStatus);
 
-    view->setSource(QUrl("qrc:///qml/main.qml"));
-    //view->show();
-
+    view->setSource(QUrl("qrc:///qml/Main.qml"));
+    
     QThread* threadG = new QThread();
     Graphics* graphics = new Graphics(view);
     graphics->moveToThread(threadG);

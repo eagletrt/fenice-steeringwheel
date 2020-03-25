@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     view->rootContext()->setContextProperty("CAN", &canInterface);
     view->rootContext()->setContextProperty("CarStatus", &carStatus);
 
-    view->setSource(QUrl("qrc:///qml/main.qml"));
+    view->setSource(QUrl("qrc:///qml/Main.qml"));
     view->show();
 
     QThread* threadG = new QThread();
