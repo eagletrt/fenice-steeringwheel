@@ -8,7 +8,6 @@ Rectangle {
   color: "transparent"
   // color: "#000000"
 
-  //popup in Main.qml --> asap
   property var steeringWheelPopup: CarStatus.SteeringWheelPopup;
   property var animationDuration: 0;
   property var buttonsClick: true;
@@ -18,11 +17,15 @@ Rectangle {
   signal btnPressed(int btnID)
   signal btnReleased(int btnID)
   signal btnClicked(int btnID)
+  signal popupChanged(string s); /*In order to use the popup inside the qml
+                                   must be called this signal
+                                   (menu.popupChanged(popup_format))*/
 
   function connect() {
     mainwindow.btnPressed.connect(btnPressedHandler);
     mainwindow.btnReleased.connect(btnReleasedHandler);
     mainwindow.btnClicked.connect(btnClickedHandler);
+    menu.popupChanged.connect(popupUpdate);
   }
 
   function disconnect() {
@@ -48,6 +51,10 @@ Rectangle {
 
   function btnClickedHandler(btnID) {
     menu.btnClicked(btnID);
+  }
+
+  function popupUpdate(str) {
+    steeringWheelPopup = str;
   }
 
   onSteeringWheelPopupChanged: {
