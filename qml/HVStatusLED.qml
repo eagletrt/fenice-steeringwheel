@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: root
     color: "#008000"
-    radius: 20
+    radius: 100
     property var text
     property var selected
 
@@ -59,7 +59,7 @@ Rectangle {
                 anchors.centerIn: parent
                 font.family: labelFont.name;
                 text: root.text
-                font.pixelSize: 20
+                font.pixelSize: 15
                 color: "lightgray"
             }
         }
@@ -72,9 +72,9 @@ Rectangle {
             Rectangle {
                 id: led
                 anchors.centerIn: parent
-                width: 30
-                height: 30
-                radius: 30
+                width: 45
+                height: 45
+                radius: 45
             }
         }
 
@@ -85,7 +85,6 @@ Rectangle {
 
             Rectangle {
                 id: button
-
                 states: [
                     State {
                         name: "RESET"
@@ -111,15 +110,15 @@ Rectangle {
                     }
                 ]
                 anchors.centerIn: parent
-                width: parent.width - 20
-                height: parent.height - 40
+                width: parent.width - 40
+                height: parent.height - 100
                 color: "#888888"
                 radius: 5
 
                 Text {
                     id: text
                     font.family: labelFont.name;
-                    font.pixelSize: 20
+                    font.pixelSize: 15
                     anchors.centerIn: parent
                     text: "ASK"
                     color: "lightgrey"

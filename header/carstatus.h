@@ -173,6 +173,7 @@ class CarStatus : public QObject
         Hv hv;
         Lv lv;
         Telemetry telemetry;
+        QTimer *graphicTimer;
 
     signals:
         void tempChanged(int temperature);

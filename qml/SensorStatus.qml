@@ -10,7 +10,7 @@ Rectangle {
     property var selected
 
     color: root.selected == 1 ? "green" : menu.color
-    radius: root.selected == 1 ? "20" : "0"
+    radius: root.selected == 1 ? "100" : "0"
     
     RowLayout {
         anchors.fill: parent
@@ -18,15 +18,15 @@ Rectangle {
 
         Rectangle {
             Layout.preferredWidth: parent.width*1/8
-            Layout.preferredHeight: parent.height/3
+            Layout.preferredHeight: parent.height/5
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            Layout.fillHeight: false
             color: "transparent"
 
             Text {
                 text: root.text
                 font.family: labelFont.name;
-                font.pointSize: 18
+                font.pointSize: 15
                 color: "lightgray"
                 anchors.centerIn: parent
             }

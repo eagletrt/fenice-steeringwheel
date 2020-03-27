@@ -7,11 +7,9 @@ QCanBusDevice *device;
 
 Canbus::Canbus(CarStatus* m_carStatus) {
 
-   //Right Can for 5.10.1 RPI
-
    QString errorString;
    device = QCanBus::instance()->createDevice(
-      QStringLiteral("socketcan"), QStringLiteral("can0"), &errorString);
+      QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
       if (!device)
          qDebug() << "NO CAN!";
       else
@@ -716,5 +714,10 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 Canbus::~Canbus() {
    threadDevice->quit();
    qDebug() << "Stop Thread";
+   delete timerSteeringWheel;
+   delete timerStatus;
+   delete timerEnc;
+   delete timerTelemetry;
+   delete detect;
    qDebug() << "Closing CAN...";
 }

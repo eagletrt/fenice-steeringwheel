@@ -17,8 +17,8 @@ Rectangle {
     width: 800
     height: 480
     z:0
-    // color: "black"
-    color: "purple"
+    color: "black"
+    // color: "purple"
     id: frame
 
     property string timeString
@@ -63,11 +63,10 @@ Rectangle {
 
     Rectangle{
         id: timeRectangle
-        //  color: "transparent"
-        color: "red"
-        width: 200
+         color: "transparent"
+        width: 275
         height: 60
-        x: 300
+        x: 265
         y: 3
 
         Text {
@@ -81,11 +80,11 @@ Rectangle {
     }
  
     Rectangle {
-        width: 674
-        height: 415
+        width: 647
+        height: 408
         color: "transparent"
-        x: 64
-        y: 63
+        x: 77
+        y: 70
         z: 2
 
         id: mainwindow

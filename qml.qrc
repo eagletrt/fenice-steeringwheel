@@ -28,12 +28,19 @@
         <file>qml/TabSensors.qml</file>
         <file>qml/TabBattery.qml</file>
         <file>qml/TabErrors.qml</file>
+        <file>qml/TabTelemedreams.qml</file>
         <file>qml/LED.qml</file>
         <file>img/HV.png</file>
         <file>img/LV.png</file>
+        <file>img/brk.png</file>
+        <file>img/thr.png</file>
         <file>img/run.png</file>
         <file>img/idle.png</file>
+        <file>img/idle-na.png</file>
         <file>img/setup.png</file>
+        <file>img/stop.png</file>
+        <file>img/telemetry.png</file>
+        <file>img/telemetry-na.png</file>
         <file>img/hv1.png</file>
         <file>img/hv2.png</file>
         <file>img/hv3.png</file>
@@ -50,6 +57,7 @@
         <file>img/hv14.png</file>
         <file>img/hv15.png</file>
         <file>img/hv16.png</file>
+        <file>img/lv0.png</file>
         <file>img/lv1.png</file>
         <file>img/lv2.png</file>
         <file>img/lv3.png</file>
@@ -65,7 +73,6 @@
         <file>img/lv13.png</file>
         <file>img/lv14.png</file>
         <file>img/lv15.png</file>
-        <file>img/lv16.png</file>
         <file>img/t1.png</file>
         <file>img/t2.png</file>
         <file>img/t3.png</file>
@@ -86,6 +93,5 @@
         <file>img/b8.png</file>
         <file>img/b9.png</file>
         <file>img/b10.png</file>
-        <file>qml/TabTelemedreams.qml</file>
     </qresource>
 </RCC>

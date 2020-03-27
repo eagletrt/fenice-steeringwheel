@@ -22,16 +22,15 @@ Rectangle {
    
    property int brakeidx :0;
    property int throttleidx : 0;
-
    color: "transparent"
 
    Text {
       id: textVelocity
       text: velocity + " KW"
       font.family: valueFont.name;
-      font.pointSize: 10
-      y: 260
-      x: 180
+      font.pointSize: 18
+      y: 290
+      x: 160
       width:200
       horizontalAlignment: Text.AlignHCenter;
       color: "lightgray"
@@ -41,9 +40,9 @@ Rectangle {
       id: textKm
       text: km + " m"
       font.family: valueFont.name;
-      font.pointSize: 10
-      y: 260
-      x: 240
+      font.pointSize: 18
+      y: 290
+      x: 260
       width:200
       horizontalAlignment: Text.AlignHCenter;
       color: "lightgray"
@@ -53,7 +52,7 @@ Rectangle {
       id: textInvSxTemp
       text: invSxTemp / 10.0 + "°C"
       font.family: valueFont.name;
-      font.pointSize: 10
+      font.pointSize: 15
       x: 10
       y: 160
       color: "lightgray"
@@ -63,7 +62,7 @@ Rectangle {
       id: textInvDxTemp
       text: invDxTemp / 10 + "°C"
       horizontalAlignment: Text.AlignLeft;
-      font.pointSize: 10
+      font.pointSize: 15
       font.family: valueFont.name;
       x: 610
       y: 160
@@ -79,7 +78,7 @@ Rectangle {
       text: hvTemp/10 +  " °C"
 
       font.family: valueFont.name;
-      font.pointSize: 10
+      font.pointSize: 15
       x: 10
       y: 220
       color: "lightgray"
@@ -93,7 +92,7 @@ Rectangle {
       text: hvVolt/10 +  " V"
 
       font.family: valueFont.name;
-      font.pointSize: 10
+      font.pointSize: 15
       x: 10
       y: 260
       color: "lightgray"
@@ -107,7 +106,7 @@ Rectangle {
       text: lvTemp/5 + " °C"
 
       horizontalAlignment: Text.AlignLeft;
-      font.pointSize: 10
+      font.pointSize: 15
       font.family: valueFont.name;
       x: 610
       y: 220
@@ -122,7 +121,7 @@ Rectangle {
 
       text: lvVolt/10 + " V"
       horizontalAlignment: Text.AlignLeft;
-      font.pointSize: 10
+      font.pointSize: 15
       font.family: valueFont.name;
       x: 610
       y: 260
@@ -130,6 +129,27 @@ Rectangle {
       color: "lightgray"
    }
 
+
+   Text {
+      id: carSpeed
+      text: speed
+      font.pointSize: 65
+      font.family: valueFont.name;
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.verticalCenterOffset: -15
+      color: "lightgray"
+   }
+
+   Text {
+      text: "km/h"
+      font.family: labelFont.name;
+      font.pointSize: 10
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.verticalCenterOffset: 48
+      color: "lightgray"
+   }
    Item{
       property var throttleVal: CarStatus.throttleVal;
       property int throttleValore: throttleVal;
@@ -152,27 +172,6 @@ Rectangle {
          }
       }
    }
-
-   Text {
-      id: carSpeed
-      text: speed
-      font.pointSize: 55
-      font.family: valueFont.name;
-      anchors.horizontalCenter: parent.horizontalCenter
-      anchors.verticalCenter: parent.verticalCenter
-      anchors.verticalCenterOffset: -15
-      color: "lightgray"
-   }
-
-   Text {
-      text: "km/h"
-      font.family: labelFont.name;
-      font.pointSize: 8
-      anchors.horizontalCenter: parent.horizontalCenter
-      anchors.verticalCenter: parent.verticalCenter
-      anchors.verticalCenterOffset: 48
-      color: "lightgray"
-   }
    Item{
       property var brakeVal: CarStatus.brakeVal;
       property int brakeValore: brakeVal;
@@ -194,6 +193,28 @@ Rectangle {
            source: brakenames[index]
            opacity: 1
          }
+      }
+   }
+   Item{
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.verticalCenterOffset: -295
+      anchors.horizontalCenterOffset: -380
+      Image {
+         id: thr
+         source: "../img/thr.png"
+         opacity: 1
+      }
+   }
+      Item{
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.verticalCenterOffset: -295
+      anchors.horizontalCenterOffset: -380
+      Image {
+         id: brk
+         source: "../img/brk.png"
+         opacity: 1
       }
    }
 }

@@ -9,7 +9,6 @@ Item{
 
    onCarStatusChanged: function() {
       statusID = CarStatus.carStatus;
-      // console.log("Car Status Changed: " + statusID);
       switch (statusID){
          case 0:
             idle.opacity = 1;
@@ -42,18 +41,18 @@ Item{
       console.log(telemetryenabledstatus);
       switch(telemetryenabledstatus){
          case 0:
-            radioAnimation.stop();
-            radio.opacity = 0;
-            radio_na.opacity = 1;
+            telemetryAnimation.stop();
+            telemetry.opacity = 0;
+            telemetry_na.opacity = 1;
             break;
          case 1:
-            radioAnimation.stop();
-            radio.opacity = 1;
-            radio_na.opacity = 0;         
+            telemetryAnimation.stop();
+            telemetry.opacity = 1;
+            telemetry_na.opacity = 0;         
             break;
          case 2:
-            radio_na.opacity = 0; //for avoiding a bug passing from 1 to 2
-            radioAnimation.start();
+            telemetry_na.opacity = 0; //for avoiding a bug passing from 1 to 2
+            telemetryAnimation.start();
             break;         
       }
    }
@@ -62,6 +61,13 @@ Item{
       id: idle
       objectName: "idle"
       source: "../img/idle.png"
+      opacity: 1
+   }
+
+   Image {
+      id: idle_na
+      objectName: "idle-na"
+      source: "../img/idle-na.png"
       opacity: 1
    }
 
@@ -87,38 +93,38 @@ Item{
    }
 
    Image {
-      id: radio
-      objectName: "radio"
-      source: "../img/radio.png"
-      opacity: 0
-   } 
+      id: telemetry_na
+      objectName: "telemetry_na"
+      source: "../img/telemetry-na.png"
+      opacity: 1
+   }
 
    Image {
-      id: radio_na
-      objectName: "radio_na"
-      source: "../img/radio_na.png"
+      id: telemetry
+      objectName: "telemetry"
+      source: "../img/telemetry.png"
       opacity: 1
    }
 
     SequentialAnimation {
-         id: radioAnimation
+         id: telemetryAnimation
          running: false
          loops: Animation.Infinite
          PropertyAnimation {
-            id: radioEnabled; 
-            target: radio; 
+            id: telemetryEnabled; 
+            target: telemetry; 
             properties: "opacity"; 
             from: 0;
             to: 1; 
-            duration: 1000
+            duration: 700
          }
          PropertyAnimation {
-            id: radioDisabled; 
-            target: radio; 
+            id: telemetryDisabled; 
+            target: telemetry; 
             properties: "opacity"; 
             from: 1;
             to: 0; 
-            duration: 1000
+            duration: 500
          }
     }
 

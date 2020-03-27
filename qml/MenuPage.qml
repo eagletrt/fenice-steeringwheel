@@ -5,8 +5,10 @@ import QtQuick.Controls.Styles 1.4
 
 Rectangle {
   id: menu
-  color: "green"
+  color: "transparent"
   // color: "#000000"
+
+  //popup in Main.qml --> asap
   property var steeringWheelPopup: CarStatus.SteeringWheelPopup;
   property var animationDuration: 0;
   property var buttonsClick: true;
@@ -91,36 +93,8 @@ Rectangle {
     } else {
       console.log("Priority has to be a number in the range of [0, 2]")
     }
-
     //Set up text
     popupText.text = steeringWheelPopup.slice(2);
-
-    //popupText.text = decoder[steeringWheelPopup];
-//
-    //if(steeringWheelPopup >= 0 && steeringWheelPopup <= 2) {
-    //  
-    //  if(steeringWheelPopup == 0) popupText.color = "blue";
-    //  if(steeringWheelPopup == 1) popupText.color = "green";
-    //  if(steeringWheelPopup == 2) popupText.color = "yellow";
-//
-    //  animationDuration = 500
-    //  popup.visible = true;
-    //  popupStatic.start();
-    //}
-//
-    //else if(steeringWheelPopup == 3 || steeringWheelPopup == 4) {
-    //  popup.visible = true;
-    //  tabView.visible = false;
-    //  buttonsClick = false
-    //  animationDuration = 2500
-    //  popupStatic.start();
-    //}
-//
-    //else {
-    //  popup.visible = true;
-    //  tabView.visible = false;
-    //  buttonsClick = false;
-    //}
   }
 
   ParallelAnimation {
@@ -244,9 +218,9 @@ Rectangle {
     id: popup
     width: 800
     height: 482
-    x: -60
-    y: -64
-    z: 2
+    x: -77
+    y: -70
+    z: 3
     color: "red"
     visible: false
 

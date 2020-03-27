@@ -7,6 +7,8 @@ Rectangle {
    color: "#000000"
    anchors.fill: parent
 
+//connect pedals from cpp with property
+
    property var appsStatus: CarStatus.APPSStatus
    property var bseStatus: CarStatus.BSEStatus
    property var steerStatus: CarStatus.STEERStatus
@@ -16,6 +18,10 @@ Rectangle {
    property var mBtnSetText: "SET"
    property var mHelpSetText: "Set Actuators [MIN,MAX]"
 
+   property var btnClickable: false
+   property var isStarted: false
+   property var sensorSelectedIndex: -1
+
    property var setPendingFlag: CAN.actuatorRangePendingFlag
 
    ListModel {
@@ -23,7 +29,7 @@ Rectangle {
 
       ListElement {
          mText: "APPS"
-         mColor: "green"
+         mColor: "yellow"
          mValue: 50
          mSelected: 0
       }
@@ -91,10 +97,6 @@ Rectangle {
          break;
       }
    }
-
-   property var btnClickable: false
-   property var isStarted: false
-   property var sensorSelectedIndex: -1
 
    function connect() {
       // console.log("Tab connessa - Sensors");

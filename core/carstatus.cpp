@@ -4,7 +4,7 @@ CarStatus::CarStatus() {
 
     //m_speed = 100; moved into race
     
-    QTimer *graphicTimer = new QTimer(this);
+    graphicTimer = new QTimer(this);
     connect(graphicTimer, SIGNAL(timeout()), this, SLOT(processingTimeout()));
     graphicTimer->start(GRAPHICTIMER);
 }
@@ -549,5 +549,6 @@ int CarStatus::error() const {
 
 // Destroy, BOOM!
 CarStatus::~CarStatus() {
+    delete graphicTimer;
     qDebug() << "Closing CarStatus...";
 }

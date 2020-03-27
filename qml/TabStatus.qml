@@ -43,6 +43,7 @@ Rectangle {
       if (btnID == 0) {
          //tabView.stepIntoTab = false;
          //btnClickable = false;
+         mainwindow.menu.popupStatic.start();
       }
       if (btnID == 1) {
           CAN.askSetupOrIdle(1);

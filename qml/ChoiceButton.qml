@@ -15,7 +15,7 @@ Rectangle {
         anchors.centerIn: parent
         color: "lightgray"
         text: root.btnText
-        font.pointSize: 21
+        font.pointSize: 10
         font.family: labelFont.name;
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
