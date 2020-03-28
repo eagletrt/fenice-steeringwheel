@@ -17,10 +17,13 @@ Rectangle {
   signal btnPressed(int btnID)
   signal btnReleased(int btnID)
   signal btnClicked(int btnID)
-  signal popupChanged(string s); /*In order to use the popup inside the qml
-                                   must be called this signal
-                                   (menu.popupChanged(popup_format))*/
-
+  signal popupChanged(string s); 
+  /*In order to use the popup inside the qml
+    must be called this signal
+    menu.popupChanged('PRIORITY','COLOR',"Message")
+    PRIORITY: 0,1,2
+    COLOR: R,G,Y
+  */
   function connect() {
     mainwindow.btnPressed.connect(btnPressedHandler);
     mainwindow.btnReleased.connect(btnReleasedHandler);
