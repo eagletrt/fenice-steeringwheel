@@ -101,7 +101,7 @@ void CarStatus::changeMap(int mapID) {
 
     //This should avoid first map popup
     if(!manettini.getFirstChange()) {
-        setSteeringWheelPopup('0', 'B', "MAP\n " + QString::number(manettini.getMap()));
+        setSteeringWheelPopup('0', 'B', "MAP:" + QString::number(manettini.getMap()));
     } 
     else { //If first change set manettini.firstChange = false -> next time will show the popup
         manettini.setFirstChange();
@@ -118,7 +118,7 @@ void CarStatus::changePump(int pumpID) {
         manettini.incPump(PUMP_NUMBER);
     }
 
-    setSteeringWheelPopup('0', 'G', "PUMP\n " + QString::number(manettini.getPump()));
+    setSteeringWheelPopup('0', 'G', "PUMP:" + QString::number(manettini.getPump()));
     //emit pumpChanged();
 }
 
@@ -131,7 +131,7 @@ void CarStatus::changeTc(int tcID) {
         manettini.incTc(TC_NUMBER);
     }
 
-    setSteeringWheelPopup('0', 'Y', "TC\n " + QString::number(manettini.getTc()));
+    setSteeringWheelPopup('0', 'Y', "TC:" + QString::number(manettini.getTc()));
     emit tcChanged();
 }
 

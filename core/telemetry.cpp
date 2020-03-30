@@ -13,7 +13,7 @@ Telemetry::Telemetry()
 
     this->sender = false;
     this->telemetryEnStatus = 0; //0 off, 1 is setting up, 2 setted
-    this->popup = "10steering \nwheel";
+    this->popup = "10steering:wheel"; //'Priority' + 'Color' + 'Message' (: = \n) [Look in MainPage.qml for more informations]
     this->ask = false;
 }
 

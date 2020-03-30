@@ -9,6 +9,7 @@ Rectangle {
   // color: "#000000"
 
   property var steeringWheelPopup: CarStatus.SteeringWheelPopup;
+  property var linePos;
   property var animationDuration: 0;
   property var buttonsClick: true;
   property var col;
@@ -20,7 +21,7 @@ Rectangle {
   signal popupChanged(string s); 
   /*In order to use the popup inside the qml
     must be called this signal
-    menu.popupChanged('PRIORITY','COLOR',"Message")
+    menu.popupChanged('PRIORITY' + 'COLOR' + "Message")
     PRIORITY: 0,1,2
     COLOR: R,G,Y
   */
@@ -66,21 +67,6 @@ Rectangle {
     col = steeringWheelPopup[1];
     priority = steeringWheelPopup[0];
 
-    //Set up the color
-    if(col == 'B') {
-      popup.color = "blue";
-    } 
-    else if (col == 'G') {
-      popup.color = "green";
-    } 
-    else if (col == 'Y') {
-      popup.color = 'yellow';
-      popupText.color = "#000";
-    } 
-    else {
-      popup.color = '#000';
-    }
-
     //Set up the priority
     if(priority == 0) {
       animationDuration = 500
@@ -103,8 +89,33 @@ Rectangle {
     } else {
       console.log("Priority has to be a number in the range of [0, 2]")
     }
+
+    //Set up the color
+    if(col == 'B') {
+      popup.color = "blue";
+    } 
+    else if (col == 'G') {
+      popup.color = "green";
+    } 
+    else if (col == 'Y') {
+      popup.color = 'yellow';
+      topText.color = "#000";
+      botText.color = "#000";
+    } 
+    else {
+      popup.color = '#000';
+    }
+
     //Set up text
-    popupText.text = steeringWheelPopup.slice(2);
+    linePos = steeringWheelPopup.lastIndexOf(':');
+    if(linePos != -1){
+
+      topText.text = steeringWheelPopup.slice(2, linePos);
+      botText.text = steeringWheelPopup.slice(linePos + 1);
+
+    } else {
+      topText.text = steeringWheelPopup.slice(2);
+    }
   }
 
   ParallelAnimation {
@@ -128,7 +139,10 @@ Rectangle {
     //When animation stops, enables the buttons again
     onStopped: {
       buttonsClick = true;
-      popupText.color = "lightgrey";
+      topText.color = "lightgrey";
+      botText.color = "lightgrey";
+      topText.text = "";
+      botText.text = "";
     }
   }
 
@@ -234,13 +248,39 @@ Rectangle {
     color: "red"
     visible: false
 
-    Text {
-      id: popupText
-      anchors.centerIn: parent
-      font.family: labelFont.name
-      font.pointSize: 50
-      color: "lightgrey"
-    }
-  }
+    Rectangle {
+      id: topPopup
+      width: parent.width
+      height: parent.height/2 + 25
+      anchors.top: parent.top
+      color: parent.color
 
+      Text {
+        id: topText
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        font.family: labelFont.name
+        font.pointSize: 50
+        color: "lightgrey"
+      }
+    }
+
+    Rectangle {
+      id: botPopup
+      width: parent.width
+      height: parent.height/2 - 25
+      anchors.top: topPopup.bottom
+      anchors.topMargin: 10
+      color: parent.color
+
+      Text {
+        id: botText
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.topText
+        font.family: labelFont.name
+        font.pointSize: 50
+        color: "lightgrey"
+      }
+    }   
+  }
 }
