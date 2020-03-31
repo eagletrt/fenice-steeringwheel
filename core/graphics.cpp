@@ -8,3 +8,7 @@ void Graphics::startGraphics() {
     qDebug() << "Start Graphics Thread";
     view->show();
 }
+
+Graphics::~Graphics() {
+    delete view;
+}

@@ -45,3 +45,8 @@ void Buttons::handleKeyboardPress(int btnID) {
         emit mapChanged(btnID - 30);
     }
 }
+
+Buttons::~Buttons() {
+    qDebug() << "Closing Buttons...";
+    delete filter;
+}

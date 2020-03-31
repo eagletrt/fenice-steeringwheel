@@ -8,4 +8,5 @@ public slots:
     void startGraphics();
 public:
     Graphics(QQuickView*);
+    ~Graphics();
 };

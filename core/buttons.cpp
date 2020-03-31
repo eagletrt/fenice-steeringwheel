@@ -225,3 +225,7 @@ void Buttons::emitButtonEvent(int buttonId, int buttonAction) {
        emit btnClicked(buttonId);
     }
 }
+
+Buttons::~Buttons() {
+    delete timer;
+}

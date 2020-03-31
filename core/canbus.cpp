@@ -3,8 +3,6 @@
 #include <QFileInfo>
 #include <QThread>
 
-QCanBusDevice *device;
-
 Canbus::Canbus(CarStatus* m_carStatus) {
 
    QString errorString;
@@ -719,5 +717,7 @@ Canbus::~Canbus() {
    delete timerEnc;
    delete timerTelemetry;
    delete detect;
+   delete device;
+   delete threadDevice;
    qDebug() << "Closing CAN...";
 }

@@ -11,6 +11,7 @@ class Buttons : public QObject
     Q_OBJECT
     public:
         Buttons(QGuiApplication *app);
+        ~Buttons();
 
     signals:
         void btnClicked(int btnID);

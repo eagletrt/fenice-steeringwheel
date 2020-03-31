@@ -92,6 +92,7 @@ class Canbus : public QObject
         QTimer *timerStatus;
         QTimer *timerEnc;
         QTimer *timerTelemetry;
+        QCanBusDevice *device;
 
         qint64 canID;
         QByteArray canMSG;

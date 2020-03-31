@@ -52,6 +52,7 @@ class Buttons : public QObject
     Q_OBJECT
     public:
         Buttons(QGuiApplication *app);
+        ~Buttons();
         QTimer *timer;
         enum States {
             BUTTON_NORMAL = 0,
