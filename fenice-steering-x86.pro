@@ -7,23 +7,22 @@
 #        \/           \/     \/              \//_____/  #
 #########################################################
 
-target.path = /root
-INSTALLS   += target
-
 QT += core gui qml quick serialbus opengl
 CONFIG += qtquickcompiler
 
-TARGET = FeniceSteeringWheel
+TARGET = fenice-steering
 
 INCLUDEPATH += . \
                lib/ \
                include/
 
-HEADERS += include/buttons.h \
+# Input
+HEADERS += include/buttons_x86.h \
            include/control.h \
            include/errors.h \
            include/hv.h \
            include/inverters.h \
+           include/keypresseventfilter.h \
            include/console.h \
            include/canbus.h \
            include/carstatus.h \
@@ -35,10 +34,11 @@ HEADERS += include/buttons.h \
            include/warning.h \
            include/detect.h \
            include/graphics.h
- 
 
-SOURCES += src/main.cpp \
-           src/buttons.cpp \
+
+SOURCES += src/main_x86.cpp \
+           src/buttons_x86.cpp \
+           src/keypresseventfilter.cpp \
            src/console.cpp \
            src/canbus.cpp \
            src/carstatus.cpp \
@@ -56,7 +56,3 @@ SOURCES += src/main.cpp \
            src/graphics.cpp
 
 RESOURCES += qml.qrc
-
-LIBS += -L/usr/local/lib -lwiringPi
-#LIBS += -Llib -lwiringPi
-#INCLUDEPATH += /usr/local/include
