@@ -11,6 +11,7 @@ Rectangle {
     radius: 100
     onSelectedChanged: {
         if (root.selected) {
+            root.color = "#008000";
             button.state = "RESET"; //START
         } else {
             root.color = "#000000";

@@ -1,11 +1,13 @@
 import QtQml.Models 2.2
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
+import "components"
 
 Rectangle {
     //connect pedals from cpp with property
     //&& !setPendingFlag
     //console.log(sensorSelectedIndex+" D2");
+    // Loop through sensors
 
     id: root
 
@@ -47,8 +49,6 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
-        // Loop through sensors
-
         if (btnID == 0) {
             if (tabView.stepIntoTab && !choiceButtonSelected) {
                 // We are into the tab, get out!

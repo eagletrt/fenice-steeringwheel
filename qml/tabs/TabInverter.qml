@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
+import "components"
 
 Rectangle {
     // Increase the current selected row
@@ -88,6 +89,8 @@ Rectangle {
         anchors.fill: parent
         columns: 1
         rows: 3
+        rowSpacing: 0
+        columnSpacing: 0
 
         Repeater {
             model: hvStatus

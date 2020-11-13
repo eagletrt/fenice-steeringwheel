@@ -7,7 +7,59 @@ import QtQuick 2.4
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 
-Rectangle {
+Window {
+    //    Timer {
+    //        id: tim1
+    //        interval: 1000
+    //        running: true
+    //        repeat: true
+    //        onTriggered: {
+    //            secInt[1]++;
+    //            if (secInt[1] > 9) {
+    //                secInt[0]++;
+    //                secInt[1] = 0;
+    //                if (secInt[0] > 5) {
+    //                    secInt[0] = 0;
+    //                    minInt[1]++;
+    //                }
+    //            }
+    //            if (minInt[1] > 9) {
+    //                minInt[1] = 0;
+    //                minInt[0]++;
+    //                if (minInt[0] > 5) {
+    //                    minInt[0] = 0;
+    //                    hourInt[1]++;
+    //                }
+    //            }
+    //            if (hourInt[1] > 9) {
+    //                hourInt[1] = 0;
+    //                hourInt[0]++;
+    //            }
+    //            timeString = hourInt[0].toString() + hourInt[1].toString() + ":" + minInt[0].toString() + minInt[1].toString() + ":" + secInt[0].toString() + secInt[1].toString();
+    //            mainTime.text = timeString;
+    //        }
+    //        Component.onCompleted: {
+    //            timeString = hourInt[0].toString() + hourInt[1].toString() + ":" + minInt[0].toString() + minInt[1].toString() + ":" + secInt[0].toString() + secInt[1].toString();
+    //            mainTime.text = timeString;
+    //        }
+    //    }
+    //    Rectangle {
+    //        id: timeRectangle
+    //        color: "transparent"
+    //        width: 275
+    //        height: 60
+    //        x: 265
+    //        y: 3
+    //        Text {
+    //            id: mainTime
+    //            anchors.horizontalCenter: parent.horizontalCenter
+    //            anchors.verticalCenter: parent.verticalCenter
+    //            font.family: valueFont.name
+    //            font.pointSize: 50
+    //            color: "lightgray"
+    //        }
+    //    }
+
     // color: "purple"
     id: frame
 
@@ -16,11 +68,13 @@ Rectangle {
     property var minInt: [0, 0]
     property var hourInt: [0, 0]
 
-    // Dimension of the window, z-index is recently added
-    // z allows to handle the element to make it visible
     width: 800
+    maximumWidth: 800
+    minimumWidth: 800
     height: 480
-    z: 0
+    maximumHeight: 480
+    minimumHeight: 480
+    visible: true
     color: "black"
 
     FontLoader {
@@ -33,64 +87,6 @@ Rectangle {
         id: labelFont
 
         source: "qrc:///qml/font/blops-chimera-good.ttf"
-    }
-
-    Timer {
-        id: tim1
-
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: {
-            secInt[1]++;
-            if (secInt[1] > 9) {
-                secInt[0]++;
-                secInt[1] = 0;
-                if (secInt[0] > 5) {
-                    secInt[0] = 0;
-                    minInt[1]++;
-                }
-            }
-            if (minInt[1] > 9) {
-                minInt[1] = 0;
-                minInt[0]++;
-                if (minInt[0] > 5) {
-                    minInt[0] = 0;
-                    hourInt[1]++;
-                }
-            }
-            if (hourInt[1] > 9) {
-                hourInt[1] = 0;
-                hourInt[0]++;
-            }
-            timeString = hourInt[0].toString() + hourInt[1].toString() + ":" + minInt[0].toString() + minInt[1].toString() + ":" + secInt[0].toString() + secInt[1].toString();
-            mainTime.text = timeString;
-        }
-        Component.onCompleted: {
-            timeString = hourInt[0].toString() + hourInt[1].toString() + ":" + minInt[0].toString() + minInt[1].toString() + ":" + secInt[0].toString() + secInt[1].toString();
-            mainTime.text = timeString;
-        }
-    }
-
-    Rectangle {
-        id: timeRectangle
-
-        color: "transparent"
-        width: 275
-        height: 60
-        x: 265
-        y: 3
-
-        Text {
-            id: mainTime
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            font.family: valueFont.name
-            font.pointSize: 50
-            color: "lightgray"
-        }
-
     }
 
     Rectangle {
@@ -109,11 +105,8 @@ Rectangle {
         signal controlStateChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error)
         signal hvStatusChanged(int invRight, int invLeft, int preCharge)
 
-        width: 647
-        height: 408
+        anchors.fill: parent
         color: "transparent"
-        x: 77
-        y: 70
         z: 2
 
         Connections {
@@ -163,18 +156,6 @@ Rectangle {
 
         }
 
-    }
-
-    StatusFrame {
-        z: 1
-    }
-
-    HVFrame {
-        z: 1
-    }
-
-    LVFrame {
-        z: 1
     }
 
 }

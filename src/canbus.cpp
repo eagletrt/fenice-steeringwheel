@@ -55,15 +55,17 @@ Canbus::Canbus(CarStatus *m_carStatus) {
 
   m_actuatorRangePendingFlag = 0;
 
-  threadDevice = new QThread(this);
-  detect = new Detect(device);
-  detect->moveToThread(threadDevice);
+  if (m_hasCan) {
+    threadDevice = new QThread(this);
+    detect = new Detect(device);
+    detect->moveToThread(threadDevice);
 
-  connect(threadDevice, SIGNAL(started()), detect, SLOT(startDevice()));
-  connect(detect, SIGNAL(result(int, QByteArray)), this,
-          SLOT(parseCANMessage(int, QByteArray)));
+    connect(threadDevice, SIGNAL(started()), detect, SLOT(startDevice()));
+    connect(detect, SIGNAL(result(int, QByteArray)), this,
+            SLOT(parseCANMessage(int, QByteArray)));
 
-  threadDevice->start();
+    threadDevice->start();
+  }
 }
 // Send to ECU msg for presence in Can-Bus
 void Canbus::steerConnected() {
@@ -680,14 +682,16 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 
 // Destroy, BOOM!
 Canbus::~Canbus() {
-  threadDevice->quit();
+  if (m_hasCan) {
+    threadDevice->exit();
+    delete detect;
+    delete threadDevice;
+  }
   qDebug() << "Stop Thread";
+  delete device;
   delete timerSteeringWheel;
   delete timerStatus;
   delete timerEnc;
   delete timerTelemetry;
-  delete detect;
-  delete device;
-  delete threadDevice;
   qDebug() << "Closing CAN...";
 }

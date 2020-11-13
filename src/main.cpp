@@ -12,10 +12,23 @@
 #include "graphics.h"
 
 int main(int argc, char *argv[]) {
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // ?
+
   qDebug() << "Running ARM";
 
   QGuiApplication app(argc, argv);
-  QQuickView *view = new QQuickView();
+  QQmlApplicationEngine engine;
+  const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
+
+  QObject::connect(
+      &engine, &QQmlApplicationEngine::objectCreated, &app,
+      [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+          QCoreApplication::exit(-1);
+      },
+      Qt::QueuedConnection);
+
+  engine.addImportPath(QStringLiteral("qrc:/"));
 
   Buttons buttons(&app);
   Console logger;
@@ -31,20 +44,20 @@ int main(int argc, char *argv[]) {
   QObject::connect(&buttons, &Buttons::tcChanged, &carStatus,
                    &CarStatus::changeTc);
 
-  view->rootContext()->setContextProperty("Buttons", &buttons);
-  view->rootContext()->setContextProperty("CAN", &canInterface);
-  view->rootContext()->setContextProperty("CarStatus", &carStatus);
+  engine.rootContext()->setContextProperty("Buttons", &buttons);
+  engine.rootContext()->setContextProperty("CAN", &canInterface);
+  engine.rootContext()->setContextProperty("CarStatus", &carStatus);
 
-  view->setSource(QUrl("qrc:///qml/Main.qml"));
-  view->show();
+  engine.load(url);
 
-  QThread *threadG = new QThread();
-  Graphics *graphics = new Graphics(view);
-  graphics->moveToThread(threadG);
+  // QThread *threadG = new QThread();
+  // Graphics *graphics = new Graphics(view);
+  // graphics->moveToThread(threadG);
 
-  QObject::connect(threadG, SIGNAL(started()), graphics, SLOT(startGraphics()));
+  // QObject::connect(threadG, SIGNAL(started()), graphics,
+  // SLOT(startGraphics()));
 
-  threadG->start();
+  // threadG->start();
 
   return app.exec();
 }

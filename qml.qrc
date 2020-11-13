@@ -1,35 +1,35 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/src/Main.qml</file>
+        <file>qml/Main.qml</file>
+        <file>qml/MenuPage.qml</file>
         <file>qml/font/blops.ttf</file>
         <file>qml/font/blops-chimera.ttf</file>
         <file>qml/font/blops-chimera-good.ttf</file>
         <file>qml/font/blops-jetbrains.ttf</file>
-        <file>qml/src/RacingPage.qml</file>
-        <file>qml/src/SpeedGauge.qml</file>
-        <file>qml/src/Status.qml</file>
-        <file>qml/src/Map.qml</file>
-        <file>qml/src/Maps.qml</file>
-        <file>qml/src/StatusLED.qml</file>
-        <file>qml/src/CentralView.qml</file>
-        <file>qml/src/LabelLED.qml</file>
-        <file>qml/src/CtrlLabelLED.qml</file>
-        <file>qml/src/MenuPage.qml</file>
-        <file>qml/src/CANStatusLED.qml</file>
-        <file>qml/src/HVStatusLED.qml</file>
-        <file>qml/src/HVFrame.qml</file>
-        <file>qml/src/LVFrame.qml</file>
-        <file>qml/src/StatusFrame.qml</file>
-        <file>qml/src/Button.qml</file>
-        <file>qml/src/SensorStatus.qml</file>
-        <file>qml/src/ChoiceButton.qml</file>
-        <file>qml/src/TabStatus.qml</file>
-        <file>qml/src/TabInverter.qml</file>
-        <file>qml/src/TabSensors.qml</file>
-        <file>qml/src/TabBattery.qml</file>
-        <file>qml/src/TabErrors.qml</file>
-        <file>qml/src/TabTelemedreams.qml</file>
-        <file>qml/src/LED.qml</file>
+        <file>qml/tabs/components/SpeedGauge.qml</file>
+        <file>qml/tabs/components/Status.qml</file>
+        <file>qml/tabs/components/Map.qml</file>
+        <file>qml/tabs/components/Maps.qml</file>
+        <file>qml/tabs/components/StatusLED.qml</file>
+        <file>qml/tabs/components/CentralView.qml</file>
+        <file>qml/tabs/components/LabelLED.qml</file>
+        <file>qml/tabs/components/CtrlLabelLED.qml</file>
+        <file>qml/tabs/components/CANStatusLED.qml</file>
+        <file>qml/tabs/components/HVStatusLED.qml</file>
+        <file>qml/tabs/components/HVFrame.qml</file>
+        <file>qml/tabs/components/LVFrame.qml</file>
+        <file>qml/tabs/components/StatusFrame.qml</file>
+        <file>qml/tabs/components/Button.qml</file>
+        <file>qml/tabs/components/SensorStatus.qml</file>
+        <file>qml/tabs/components/ChoiceButton.qml</file>
+        <file>qml/tabs/components/LED.qml</file>
+        <file>qml/tabs/TabRacing.qml</file>
+        <file>qml/tabs/TabStatus.qml</file>
+        <file>qml/tabs/TabInverter.qml</file>
+        <file>qml/tabs/TabSensors.qml</file>
+        <file>qml/tabs/TabBattery.qml</file>
+        <file>qml/tabs/TabErrors.qml</file>
+        <file>qml/tabs/TabTelemedreams.qml</file>
         <file>qml/img/HV.png</file>
         <file>qml/img/LV.png</file>
         <file>qml/img/brk.png</file>
