@@ -26,7 +26,8 @@
 extern "C" {
 #endif
 
-extern int drcSetupSerial (const int pinBase, const int numPins, const char *device, const int baud) ;
+extern int drcSetupSerial(const int pinBase, const int numPins,
+                          const char *device, const int baud);
 
 #ifdef __cplusplus
 }

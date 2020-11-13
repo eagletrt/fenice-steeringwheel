@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-extern int htu21dSetup (const int pinBase) ;
+extern int htu21dSetup(const int pinBase);
 
 #ifdef __cplusplus
 }

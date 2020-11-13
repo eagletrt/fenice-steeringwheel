@@ -7,51 +7,52 @@
 #        \/           \/     \/              \//_____/  #
 #########################################################
 
-TEMPLATE = app
-TARGET = EagleSteeringWheel
-INCLUDEPATH += . \
-               lib/
-
-QT += core gui qml quick serialbus
+QT += core gui qml quick serialbus opengl
 CONFIG += qtquickcompiler
 
+TARGET = EagleSteeringWheel
+
+INCLUDEPATH += . \
+               lib/ \
+               include/
+
 # Input
-HEADERS += header/buttons_x86.h \
-           header/control.h \
-           header/errors.h \
-           header/hv.h \
-           header/inverters.h \
-           header/keypresseventfilter.h \
-           header/console.h \
-           header/canbus.h \
-           header/carstatus.h \
-           header/lv.h \
-           header/manettini.h \
-           header/race.h \
-           header/sensors.h \
-           header/telemetry.h \
-           header/warning.h \
-           header/detect.h \
-           header/graphics.h
+HEADERS += include/buttons_x86.h \
+           include/control.h \
+           include/errors.h \
+           include/hv.h \
+           include/inverters.h \
+           include/keypresseventfilter.h \
+           include/console.h \
+           include/canbus.h \
+           include/carstatus.h \
+           include/lv.h \
+           include/manettini.h \
+           include/race.h \
+           include/sensors.h \
+           include/telemetry.h \
+           include/warning.h \
+           include/detect.h \
+           include/graphics.h
 
 
-SOURCES += core/main_x86.cpp \
-           core/buttons_x86.cpp \
-           core/keypresseventfilter.cpp \
-           core/console.cpp \
-           core/canbus.cpp \
-           core/carstatus.cpp \
-           core/inverters.cpp \
-           core/control.cpp \
-           core/race.cpp \
-           core/warning.cpp \
-           core/manettini.cpp \
-           core/errors.cpp \
-           core/sensors.cpp \
-           core/hv.cpp \
-           core/telemetry.cpp \
-           core/lv.cpp \
-           core/detect.cpp \
-           core/graphics.cpp
+SOURCES += src/main_x86.cpp \
+           src/buttons_x86.cpp \
+           src/keypresseventfilter.cpp \
+           src/console.cpp \
+           src/canbus.cpp \
+           src/carstatus.cpp \
+           src/inverters.cpp \
+           src/control.cpp \
+           src/race.cpp \
+           src/warning.cpp \
+           src/manettini.cpp \
+           src/errors.cpp \
+           src/sensors.cpp \
+           src/hv.cpp \
+           src/telemetry.cpp \
+           src/lv.cpp \
+           src/detect.cpp \
+           src/graphics.cpp
 
 RESOURCES += qml.qrc

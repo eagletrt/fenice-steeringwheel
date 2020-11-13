@@ -23,4 +23,4 @@
  ***********************************************************************
  */
 
-extern int pseudoPinsSetup (const int pinBase) ;
+extern int pseudoPinsSetup(const int pinBase);

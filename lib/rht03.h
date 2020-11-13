@@ -22,4 +22,4 @@
  ***********************************************************************
  */
 
-extern int rht03Setup (const int pinBase, const int devicePin) ;
+extern int rht03Setup(const int pinBase, const int devicePin);

@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-extern int bmp180Setup (const int pinBase) ;
+extern int bmp180Setup(const int pinBase);
 
 #ifdef __cplusplus
 }

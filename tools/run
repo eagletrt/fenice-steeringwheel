@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Usage: ./tools/run
+
+# -------------
+# Configuration
+# -------------
+
+TARGET=EagleSteeringWheel
+
+# -------------
+# Logic
+# -------------
+
+if ! [ -d .git ]; then
+  echo "[!] Please run this script from the root of the repository"
+  exit 1
+fi
+
+bash tools/make
+
+BUILD_DIR=./build
+
+if [ -z ${CI+x} ]; then
+  # run if not in CI env
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS build
+    $BUILD_DIR/$TARGET.app/Contents/MacOS/$TARGET
+  else
+    # linux build
+    $BUILD_DIR/$TARGET
+  fi
+fi

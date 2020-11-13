@@ -35,7 +35,9 @@ struct drcNetStruct
 extern "C" {
 #endif
 
-extern int drcSetupNet (const int pinBase, const int numPins, const char *ipAddress, const char *port, const char *password) ;
+extern int drcSetupNet(const int pinBase, const int numPins,
+                       const char *ipAddress, const char *port,
+                       const char *password);
 
 #ifdef __cplusplus
 }

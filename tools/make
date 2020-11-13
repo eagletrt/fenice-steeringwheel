@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Usage: ./tools/make
+
+# -------------
+# Configuration
+# -------------
+
+QT_PROJECT=EagleSteeringWheel.pro
+QT_BUILD_DIR=build
+
+# -------------
+# Logic
+# -------------
+
+if ! [ -d .git ]; then
+  echo "[!] Please run this script from the root of the repository"
+  exit 1
+fi
+
+source tools/env
+
+mkdir -p $QT_BUILD_DIR
+
+cd $QT_BUILD_DIR || exit 1
+
+$QT_MAKE -o Makefile ../$QT_PROJECT || exit 1
+make || exit 1

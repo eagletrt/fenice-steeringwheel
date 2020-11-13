@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-extern int ds18b20Setup (const int pinBase, const char *serialNum) ;
+extern int ds18b20Setup(const int pinBase, const char *serialNum);
 
 #ifdef __cplusplus
 }
