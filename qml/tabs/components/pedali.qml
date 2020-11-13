@@ -22,12 +22,12 @@ Rectangle {
         antialiasing: true
         smooth: true
         Keys.onPressed: {
-            if (event.key == Qt.Key_Z)
+            if (event.key === Qt.Key_Z)
                 acceleratore.width = pedali.width * 75 / 100;
 
         }
         Keys.onReleased: {
-            if (event.key == Qt.Key_Z)
+            if (event.key === Qt.Key_Z)
                 acceleratore.width = pedali.width * 0 / 100;
 
         }
@@ -35,12 +35,12 @@ Rectangle {
         Connections {
             target: Buttons
             onBtnPressed: {
-                if (btnID == 1)
+                if (btnID === 1)
                     acceleratore.width = pedali.width * 75 / 100;
 
             }
             onBtnReleased: {
-                if (btnID == 1)
+                if (btnID === 1)
                     acceleratore.width = pedali.width * 0 / 100;
 
             }
@@ -87,13 +87,13 @@ Rectangle {
             antialiasing: true
             smooth: true
             Keys.onPressed: {
-                if (event.key == Qt.Key_X) {
+                if (event.key === Qt.Key_X) {
                     capsula.state = "fDefault";
                     freno.width = pedali.width * 0 / 100;
                 }
             }
             Keys.onReleased: {
-                if (event.key == Qt.Key_X)
+                if (event.key === Qt.Key_X)
                     freno.width = pedali.width * 25 / 100;
 
             }
@@ -101,13 +101,13 @@ Rectangle {
             Connections {
                 target: Buttons
                 onBtnPressed: {
-                    if (btnID == 2) {
+                    if (btnID === 2) {
                         capsula.state = "fDefault";
                         freno.width = pedali.width * 0 / 100;
                     }
                 }
                 onBtnReleased: {
-                    if (btnID == 2)
+                    if (btnID === 2)
                         freno.width = pedali.width * 25 / 100;
 
                 }

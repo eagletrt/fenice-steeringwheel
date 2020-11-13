@@ -5,14 +5,6 @@ import QtQuick.Layouts 1.3
 import "tabs"
 
 Rectangle {
-    // color: "#000000"
-    /*In order to use the popup inside the qml
-    must be called this signal
-    menu.popupChanged('PRIORITY' + 'COLOR' + "Message")
-    PRIORITY: 0,1,2
-    COLOR: R,G,Y
-  */
-
     id: menu
 
     property var steeringWheelPopup: CarStatus.SteeringWheelPopup
@@ -66,41 +58,41 @@ Rectangle {
         steeringWheelPopup.toUpperCase();
         col = steeringWheelPopup[1];
         priority = steeringWheelPopup[0];
-        //Set up the priority
-        if (priority == 0) {
+        // Set up the priority
+        if (priority === 0) {
             animationDuration = 500;
             popup.visible = true;
             tabView.visible = false;
             buttonsClick = false;
             popupStatic.start();
-        } else if (priority == 1) {
+        } else if (priority === 1) {
             popup.visible = true;
             tabView.visible = false;
             buttonsClick = false;
             animationDuration = 700;
             popupStatic.start();
-        } else if (priority == 2) {
+        } else if (priority === 2) {
             popup.visible = true;
             tabView.visible = false;
             buttonsClick = false;
         } else {
             console.log("Priority has to be a number in the range of [0, 2]");
         }
-        //Set up the color
-        if (col == 'B') {
+        // Set up the color
+        if (col === 'B') {
             popup.color = "blue";
-        } else if (col == 'G') {
+        } else if (col === 'G') {
             popup.color = "green";
-        } else if (col == 'Y') {
+        } else if (col === 'Y') {
             popup.color = 'yellow';
             topText.color = "#000";
             botText.color = "#000";
         } else {
             popup.color = '#000';
         }
-        //Set up text
+        // Set up text
         linePos = steeringWheelPopup.lastIndexOf(':');
-        if (linePos != -1) {
+        if (linePos !== -1) {
             topText.text = steeringWheelPopup.slice(2, linePos);
             botText.text = steeringWheelPopup.slice(linePos + 1);
         } else {
@@ -112,7 +104,7 @@ Rectangle {
         id: popupStatic
 
         running: false
-        //When animation stops, enables the buttons again
+        // When animation stops, enables the buttons again
         onStopped: {
             buttonsClick = true;
             topText.color = "lightgrey";
@@ -150,12 +142,12 @@ Rectangle {
 
         Connections {
             function onBtnClicked(btnID) {
-                if (btnID == 4 && buttonsClick) {
+                if (btnID === 4 && buttonsClick) {
                     if (!tabView.stepIntoTab) {
                         if (tabView.getTab(tabView.currentIndex).children[0].disconnect)
                             tabView.getTab(tabView.currentIndex).children[0].disconnect();
 
-                        if (tabView.currentIndex == 0)
+                        if (tabView.currentIndex === 0)
                             tabView.currentIndex = 5;
                         else
                             tabView.currentIndex--;
@@ -164,12 +156,12 @@ Rectangle {
 
                     }
                 }
-                if (btnID == 5 && buttonsClick) {
+                if (btnID === 5 && buttonsClick) {
                     if (!tabView.stepIntoTab) {
                         if (tabView.getTab(tabView.currentIndex).children[0].disconnect)
                             tabView.getTab(tabView.currentIndex).children[0].disconnect();
 
-                        if (tabView.currentIndex == 5)
+                        if (tabView.currentIndex === 5)
                             tabView.currentIndex = 0;
                         else
                             tabView.currentIndex++;
@@ -178,7 +170,7 @@ Rectangle {
 
                     }
                 }
-                if (btnID == 0 && !buttonsClick) {
+                if (btnID === 0 && !buttonsClick) {
                     popupStatic.stop();
                     popup.visible = false;
                     tabView.visible = true;
@@ -241,7 +233,7 @@ Rectangle {
 
     }
 
-    //This will popup messages over the Tabview
+    // This will popup messages over the Tabview
     Rectangle {
         id: popup
 

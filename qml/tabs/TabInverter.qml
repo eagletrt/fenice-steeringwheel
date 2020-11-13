@@ -23,7 +23,7 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
-        if (btnID == 2) {
+        if (btnID === 2) {
             // Step into this tab and change the behaviour of btnID
             if (!tabView.stepIntoTab) {
                 tabView.stepIntoTab = true;
@@ -40,7 +40,7 @@ Rectangle {
                 var newHvStatus = hvStatus;
                 // Deselect the current selected
                 newHvStatus[currentSelected][2] = false;
-                if (currentSelected == 2)
+                if (currentSelected === 2)
                     currentSelected = 0;
                 else
                     currentSelected += 1;
@@ -50,12 +50,12 @@ Rectangle {
                 hvStatus = newHvStatus;
             }
         }
-        if (btnID == 1) {
+        if (btnID === 1) {
             if (!mainwindow.canSwitchPage)
                 CAN.askHVUpdate(currentSelected);
 
         }
-        if (btnID == 0) {
+        if (btnID === 0) {
             if (tabView.stepIntoTab) {
                 var newHvStatus = hvStatus;
                 // Select the new current row
@@ -68,7 +68,7 @@ Rectangle {
                 tabView.stepIntoTab = false;
             }
         }
-        if (btnID == 3)
+        if (btnID === 3)
             CAN.sendMarker();
 
     }

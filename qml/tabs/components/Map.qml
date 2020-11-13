@@ -1,7 +1,7 @@
 import QtQuick 2.7
 
 Rectangle {
-    //border.color: 'lightgray'
+    // border.color: 'lightgray'
 
     id: root
 
@@ -11,7 +11,7 @@ Rectangle {
     radius: this.width
     color: "transparent"
     onCurrentIndexChanged: {
-        if (currentIndex == root.index)
+        if (currentIndex === root.index)
             root.state = 'active';
         else
             root.state = 'notactive';

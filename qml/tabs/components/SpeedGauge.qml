@@ -173,7 +173,7 @@ Rectangle {
     }
 
     Item {
-        //console.log(brakeidx)
+        // console.log(brakeidx)
 
         property var brakeVal: CarStatus.brakeVal
         property int brakeValore: brakeVal

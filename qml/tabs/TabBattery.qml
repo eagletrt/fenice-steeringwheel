@@ -19,7 +19,7 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
-        if (btnID == 3)
+        if (btnID === 3)
             CAN.sendMarker();
 
     }

@@ -9,8 +9,8 @@ Rectangle {
     property var barValue
     property var selected
 
-    color: root.selected == 1 ? "green" : menu.color
-    radius: root.selected == 1 ? "100" : "0"
+    color: root.selected === 1 ? "green" : menu.color
+    radius: root.selected === 1 ? "100" : "0"
 
     RowLayout {
         anchors.fill: parent

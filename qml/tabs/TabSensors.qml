@@ -4,9 +4,9 @@ import QtQuick.Layouts 1.3
 import "components"
 
 Rectangle {
-    //connect pedals from cpp with property
+    // connect pedals from cpp with property
     //&& !setPendingFlag
-    //console.log(sensorSelectedIndex+" D2");
+    // console.log(sensorSelectedIndex+" D2");
     // Loop through sensors
 
     id: root
@@ -34,13 +34,13 @@ Rectangle {
     }
 
     function unSelectSensors() {
-        if (sensorSelectedIndex != -1)
+        if (sensorSelectedIndex !== -1)
             sensors.setProperty(sensorSelectedIndex, "mSelected", 0);
 
     }
 
     function selectSensor(index) {
-        if (sensorSelectedIndex != -1)
+        if (sensorSelectedIndex !== -1)
             sensors.setProperty(sensorSelectedIndex, "mSelected", 0);
 
         index = index % 3;
@@ -49,7 +49,7 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
-        if (btnID == 0) {
+        if (btnID === 0) {
             if (tabView.stepIntoTab && !choiceButtonSelected) {
                 // We are into the tab, get out!
                 btnClickable = false;
@@ -59,17 +59,17 @@ Rectangle {
                 mainwindow.canSwitchPage = true;
                 tabView.stepIntoTab = false;
             }
-            //se non arriva l'ack non esce
+            // se non arriva l'ack non esce
             if (choiceButtonSelected)
                 choiceButtonSelected = 0;
 
             CAN.setActuatorsRange(777, 777);
         }
-        if (btnID == 1) {
+        if (btnID === 1) {
             if (tabView.stepIntoTab && !choiceButtonSelected) {
                 // Enable buttons for current sensors!
                 choiceButtonSelected = 1;
-                //root.mBtnSetText = "Set...";
+                // root.mBtnSetText = "Set...";
                 switch (setPendingFlag) {
                 case 0:
                     CAN.setActuatorsRange(sensorSelectedIndex, 0);
@@ -86,7 +86,7 @@ Rectangle {
                 }
             }
         }
-        if (btnID == 2) {
+        if (btnID === 2) {
             // Step into this tab and change the behaviour of btnID
             if (!tabView.stepIntoTab) {
                 // Set the button clickable
@@ -102,7 +102,7 @@ Rectangle {
 
             }
         }
-        if (btnID == 3)
+        if (btnID === 3)
             CAN.sendMarker();
 
     }

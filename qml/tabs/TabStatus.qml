@@ -3,25 +3,25 @@ import QtQuick.Layouts 1.3
 import "components"
 
 Rectangle {
-    //tabView.stepIntoTab = false;
-    //btnClickable = false;
-    //isStarted = true;
+    // tabView.stepIntoTab = false;
+    // btnClickable = false;
+    // isStarted = true;
     // Step into this tab and change the behaviour of btnID
-    //if (!isStarted) {
+    // if (!isStarted) {
     // Set ok to the update!
-    //isStarted = true;
-    //console.log("Asking to go from Idle to Setup");
-    //CAN.checkCANCommunication(true);
-    //CAN.askSetupOrIdle(1);
+    // isStarted = true;
+    // console.log("Asking to go from Idle to Setup");
+    // CAN.checkCANCommunication(true);
+    // CAN.askSetupOrIdle(1);
     //}else{
-    //CarStatus.toggleCarStatus();
+    // CarStatus.toggleCarStatus();
     //}
     // Set the button again to be not clickable
-    //btnClickable = false;
+    // btnClickable = false;
     // Restore Button 0 initial handler
-    //tabView.stepIntoTab = false;
+    // tabView.stepIntoTab = false;
     // Set the button clickable
-    //btnClickable = true;
+    // btnClickable = true;
 
     id: root
 
@@ -42,24 +42,24 @@ Rectangle {
 
     function btnClickedHandler(btnID) {
         tabView.stepIntoTab = true;
-        if (btnID == 0) {
+        if (btnID === 0) {
         }
-        if (btnID == 1) {
+        if (btnID === 1) {
             CAN.askSetupOrIdle(1);
             console.log("Asking to go from IDLE to Setup");
         }
-        if (btnID == 2) {
+        if (btnID === 2) {
             if (!tabView.stepIntoTab) {
                 // Prevent the button 0 to switch to Racing Page!
                 tabView.stepIntoTab = true;
             } else {
                 console.log("Asking to go from Setup to Idle");
-                //CAN.checkCANCommunication(false);
+                // CAN.checkCANCommunication(false);
                 // CarStatus.stopMessage(2);
                 CAN.askSetupOrIdle(0);
             }
         }
-        if (btnID == 3)
+        if (btnID === 3)
             CAN.sendMarker();
 
         tabView.stepIntoTab = false;

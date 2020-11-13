@@ -14,7 +14,7 @@ Rectangle {
             } else {
                 console.log("Sent Car Setup command");
             }*/
-    /*console.log("Car is Go == " + carIsGo)
+    /*console.log("Car is Go === " + carIsGo)
             if (carIsGo) {
                 // Stop the car
                 carIsGo = CarStatus.stopCar();
@@ -68,14 +68,14 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
-        if (btnID == 0)
+        if (btnID === 0)
             carIsGo = CarStatus.toggleCarStatus();
 
-        if (btnID == 1) {
+        if (btnID === 1) {
         }
-        if (btnID == 2) {
+        if (btnID === 2) {
         }
-        if (btnID == 3)
+        if (btnID === 3)
             CAN.sendMarker();
 
     }

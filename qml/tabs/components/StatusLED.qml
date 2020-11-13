@@ -10,14 +10,14 @@ Rectangle {
     color: "transparent"
     onWarningChanged: {
         warningVal = CarStatus.varWarning;
-        if (warningVal == 1)
+        if (warningVal === 1)
             warnLED.state = 'on';
         else
             warnLED.state = 'off';
     }
     onErrorChanged: {
         errorVal = CarStatus.error;
-        if (errorVal == 1)
+        if (errorVal === 1)
             errLED.state = 'on';
         else
             errLED.state = 'off';

@@ -1,7 +1,7 @@
 import QtQuick 2.7
 
 Rectangle {
-    //property int value: Math.sqrt(acceleratore.width)*6
+    // property int value: Math.sqrt(acceleratore.width)*6
     property int value: 0
 
     width: 180

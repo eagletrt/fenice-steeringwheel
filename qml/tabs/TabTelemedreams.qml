@@ -22,14 +22,14 @@ Rectangle {
     property var selectedIndexDriver: -1
     property var test: 0
     property var driver: 1
-    //ATTENTION: In order to add or remove tests or drivers
-    //remember to change the appropriate constant value in telemetry.h
-    //because nTests and nDrivers, to maintain consistency in data,
-    //acheive their value from there
+    // ATTENTION: In order to add or remove tests or drivers
+    // remember to change the appropriate constant value in telemetry.h
+    // because nTests and nDrivers, to maintain consistency in data,
+    // acheive their value from there
     property var ntest: CarStatus.nTests
-    //Number of cells into test section
+    // Number of cells into test section
     property var ndriver: CarStatus.nDrivers
-    //Number of cells into driver section
+    // Number of cells into driver section
     property var telemetrystatus: CarStatus.TelemetryStatus
     property var tests: [["acceleration", '1'], ["skippad", '0'], ["endurance", '0'], ["brake", '0'], ["test", '0']]
     property var drivers: [["pilotapazzo", '1'], ["iron512", '0'], ["pippogas", '0'], ["nicolareds", '0'], ["mirco", '0']]
@@ -43,7 +43,7 @@ Rectangle {
     }
 
     function btnClickedHandler(btnID) {
-        if (btnID == 0) {
+        if (btnID === 0) {
             if (tabView.stepIntoTab) {
                 tabView.stepIntoTab = false;
                 mainwindow.canSwitchPage = true;
@@ -52,7 +52,7 @@ Rectangle {
             }
         } else {
         }
-        if (btnID == 2) {
+        if (btnID === 2) {
             if (!tabView.stepIntoTab) {
                 tabView.stepIntoTab = true;
                 mainwindow.canSwitchPage = false;
@@ -60,7 +60,7 @@ Rectangle {
                 console.log("tab test selected");
                 tabSelected = 0;
             } else {
-                if (tabSelected == 1) {
+                if (tabSelected === 1) {
                     tabSelected = 0;
                     console.log("tab test selected");
                 } else {
@@ -69,41 +69,41 @@ Rectangle {
                 }
             }
         }
-        if (btnID == 3) {
+        if (btnID === 3) {
             console.log("send to telemtry");
             CAN.asktelemetry();
         }
-        if (btnID == 4 && tabView.stepIntoTab) {
-            if (tabSelected == 0) {
+        if (btnID === 4 && tabView.stepIntoTab) {
+            if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
                 mainwindow.canSwitchPage = false;
-                if (tabTest.currentIndex == 0)
+                if (tabTest.currentIndex === 0)
                     tabTest.currentIndex = (ntest - 1);
                 else
                     tabTest.currentIndex--;
                 CarStatus.setTest(tabTest.currentIndex);
             }
-            if (tabSelected == 1) {
+            if (tabSelected === 1) {
                 console.log("tabDriver index: " + tabDriver.currentIndex);
                 mainwindow.canSwitchPage = false;
-                if (tabDriver.currentIndex == 0)
+                if (tabDriver.currentIndex === 0)
                     tabDriver.currentIndex = (ndriver - 1);
                 else
                     tabDriver.currentIndex--;
                 CarStatus.setDriver(tabDriver.currentIndex);
             }
         }
-        if (btnID == 5 && tabView.stepIntoTab) {
-            if (tabSelected == 0) {
+        if (btnID === 5 && tabView.stepIntoTab) {
+            if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
                 mainwindow.canSwitchPage = false;
-                if (tabTest.currentIndex == (ntest - 1))
+                if (tabTest.currentIndex === (ntest - 1))
                     tabTest.currentIndex = 0;
                 else
                     tabTest.currentIndex++;
                 CarStatus.setTest(tabTest.currentIndex);
             }
-            if (tabSelected == 1) {
+            if (tabSelected === 1) {
                 console.log("tabDriver index: " + tabDriver.currentIndex);
                 mainwindow.canSwitchPage = false;
                 tabDriver.currentIndex = (tabDriver.currentIndex + 1) % ndriver;
@@ -141,9 +141,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 0 ? 40 : 25
+                        font.pixelSize: tabSelected === 0 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 0 ? "yellow" : "lightgrey"
+                        color: tabSelected === 0 ? "yellow" : "lightgrey"
                         text: tests[0][0]
                     }
 
@@ -159,9 +159,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 0 ? 40 : 25
+                        font.pixelSize: tabSelected === 0 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 0 ? "yellow" : "lightgrey"
+                        color: tabSelected === 0 ? "yellow" : "lightgrey"
                         text: tests[1][0]
                     }
 
@@ -179,9 +179,9 @@ Rectangle {
                         id: textTest2
 
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 0 ? 45 : 30
+                        font.pixelSize: tabSelected === 0 ? 45 : 30
                         font.family: labelFont.name
-                        color: tabSelected == 0 ? "yellow" : "lightgrey"
+                        color: tabSelected === 0 ? "yellow" : "lightgrey"
                         text: tests[2][0]
                     }
 
@@ -216,9 +216,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 0 ? 40 : 25
+                        font.pixelSize: tabSelected === 0 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 0 ? "yellow" : "lightgrey"
+                        color: tabSelected === 0 ? "yellow" : "lightgrey"
                         text: tests[3][0]
                     }
 
@@ -234,9 +234,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 0 ? 40 : 25
+                        font.pixelSize: tabSelected === 0 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 0 ? "yellow" : "lightgrey"
+                        color: tabSelected === 0 ? "yellow" : "lightgrey"
                         text: tests[4][0]
                     }
 
@@ -275,9 +275,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 1 ? 40 : 25
+                        font.pixelSize: tabSelected === 1 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 1 ? "yellow" : "lightgrey"
+                        color: tabSelected === 1 ? "yellow" : "lightgrey"
                         text: drivers[0][0]
                     }
 
@@ -293,9 +293,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 1 ? 40 : 25
+                        font.pixelSize: tabSelected === 1 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 1 ? "yellow" : "lightgrey"
+                        color: tabSelected === 1 ? "yellow" : "lightgrey"
                         text: drivers[1][0]
                     }
 
@@ -311,9 +311,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 1 ? 40 : 25
+                        font.pixelSize: tabSelected === 1 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 1 ? "yellow" : "lightgrey"
+                        color: tabSelected === 1 ? "yellow" : "lightgrey"
                         text: drivers[2][0]
                     }
 
@@ -329,9 +329,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 1 ? 40 : 25
+                        font.pixelSize: tabSelected === 1 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 1 ? "yellow" : "lightgrey"
+                        color: tabSelected === 1 ? "yellow" : "lightgrey"
                         text: drivers[3][0]
                     }
 
@@ -347,9 +347,9 @@ Rectangle {
 
                     Text {
                         anchors.centerIn: parent
-                        font.pixelSize: tabSelected == 1 ? 40 : 25
+                        font.pixelSize: tabSelected === 1 ? 40 : 25
                         font.family: labelFont.name
-                        color: tabSelected == 1 ? "yellow" : "lightgrey"
+                        color: tabSelected === 1 ? "yellow" : "lightgrey"
                         text: drivers[4][0]
                     }
 
