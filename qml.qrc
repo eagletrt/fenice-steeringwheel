@@ -1,11 +1,19 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/Main.qml</file>
-        <file>qml/MenuPage.qml</file>
+        <!-- REMOVE -->
         <file>qml/font/blops.ttf</file>
         <file>qml/font/blops-chimera.ttf</file>
         <file>qml/font/blops-chimera-good.ttf</file>
         <file>qml/font/blops-jetbrains.ttf</file>
+        <!--END REMOVE-->
+        <file>qml/font/Roboto-Regular.ttf</file>
+        <file>qml/font/Roboto-Bold.ttf</file>
+        <file>qml/font/RobotoMono-Regular.ttf</file>
+        <file>qml/font/RobotoMono-Bold.ttf</file>
+        <file>qml/Main.qml</file>
+        <file>qml/MenuPage.qml</file>
+        <file>qml/const/Style.qml</file>
+        <file>qml/const/Status.qml</file>
         <file>qml/tabs/components/SpeedGauge.qml</file>
         <file>qml/tabs/components/Status.qml</file>
         <file>qml/tabs/components/Map.qml</file>
@@ -30,6 +38,7 @@
         <file>qml/tabs/TabBattery.qml</file>
         <file>qml/tabs/TabErrors.qml</file>
         <file>qml/tabs/TabTelemedreams.qml</file>
+        <!--REMOVE-->
         <file>qml/img/HV.png</file>
         <file>qml/img/LV.png</file>
         <file>qml/img/brk.png</file>
@@ -93,5 +102,6 @@
         <file>qml/img/b8.png</file>
         <file>qml/img/b9.png</file>
         <file>qml/img/b10.png</file>
+        <!--END REMOVE-->
     </qresource>
 </RCC>
