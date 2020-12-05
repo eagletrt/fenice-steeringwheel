@@ -10,7 +10,7 @@ QMAKE="/home/$USER/Qt/5.12.5/gcc_64/bin/qmake"
 QT_PROJECT="fenice-steering-x86.pro"
 BUILD_DIR=build/
 
-if [ ! "$( ls -A $BUILD_DIR)" ]; then
+if [ ! -d $BUILD_DIR ]; then
     mkdir $BUILD_DIR
 fi
 
@@ -21,4 +21,4 @@ cd $BUILD_DIR
 $QMAKE $QT_PROJECT -o Makefile ../$QT_PROJECT
 make || exit 1
 
-./fenice-steering-x86
+./fenice-steering

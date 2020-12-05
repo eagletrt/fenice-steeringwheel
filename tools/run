@@ -17,7 +17,7 @@ if ! [ -d .git ]; then
   exit 1
 fi
 
-bash tools/make
+bash tools/make || exit 1
 
 BUILD_DIR=./build
 

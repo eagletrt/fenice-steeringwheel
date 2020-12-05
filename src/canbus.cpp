@@ -12,6 +12,7 @@ Canbus::Canbus(CarStatus *m_carStatus) {
     qDebug() << "NO CAN!";
     m_hasCan = false;
   } else {
+    qDebug() << "YES CAN!";
     device->connectDevice();
     m_hasCan = true;
   }
@@ -681,12 +682,18 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 
 // Destroy, BOOM!
 Canbus::~Canbus() {
+  qDebug() << "Canbus destructor";
   if (m_hasCan) {
-    threadDevice->exit();
+    // gracefully stop the thread
+    threadDevice->quit();
+    if(!threadDevice->wait(3000)) {
+        threadDevice->terminate();
+        threadDevice->wait();
+    }
     delete detect;
     delete threadDevice;
+    qDebug() << "Stop Thread";
   }
-  qDebug() << "Stop Thread";
   delete device;
   delete timerSteeringWheel;
   delete timerStatus;
