@@ -20,11 +20,8 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication app(argc, argv);
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/app/Style.qml"), "Const", 1, 0,
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0,
                            "Style");
-
-  qmlRegisterSingletonType(QUrl("qrc:///qml/app/Status.qml"), "Const", 1, 0,
-                           "Status");
 
   QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));

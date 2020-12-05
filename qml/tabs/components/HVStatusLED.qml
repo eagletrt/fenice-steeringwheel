@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
@@ -62,9 +63,8 @@ Rectangle {
 
             Text {
                 anchors.centerIn: parent
-                font.family: labelFont.name
+                font: Style.sans.p
                 text: root.text
-                font.pixelSize: 15
                 color: "lightgray"
             }
 
@@ -133,8 +133,7 @@ Rectangle {
                 Text {
                     id: text
 
-                    font.family: labelFont.name
-                    font.pixelSize: 15
+                    font: Style.sans.p
                     anchors.centerIn: parent
                     text: "ASK"
                     color: "lightgrey"

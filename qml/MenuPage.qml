@@ -1,10 +1,11 @@
+import Const 1.0
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 import "tabs"
 
-Rectangle {
+Item {
     id: menu
 
     property var steeringWheelPopup: CarStatus.SteeringWheelPopup
@@ -53,7 +54,6 @@ Rectangle {
         steeringWheelPopup = str;
     }
 
-    color: "transparent"
     onSteeringWheelPopupChanged: {
         steeringWheelPopup.toUpperCase();
         col = steeringWheelPopup[1];
@@ -220,6 +220,10 @@ Rectangle {
         style: TabViewStyle {
             frameOverlap: 0
 
+            frame: Rectangle {
+                color: Style.background
+            }
+
             tab: Rectangle {
                 color: styleData.selected ? "lightgray" : "black" //#2266FF
                 border.color: "lightgray"
@@ -258,8 +262,7 @@ Rectangle {
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
-                font.family: labelFont.name
-                font.pointSize: 50
+                font: Style.sans.h3
                 color: "lightgrey"
             }
 
@@ -279,8 +282,7 @@ Rectangle {
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.topText
-                font.family: labelFont.name
-                font.pointSize: 50
+                font: Style.sans.h3
                 color: "lightgrey"
             }
 

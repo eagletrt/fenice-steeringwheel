@@ -6,7 +6,7 @@
 RASP_PI_ROOT=/mnt/rasp-pi-rootfs
 RASP_PI_IMAGE=~/crosscompile-tools/raspbian.img
 RASP_PI_QMAKE=/mnt/rasp-pi-rootfs/usr/local/qt5pi/bin/qmake
-RASP_PI_PROJECT=FeniceSteeringWheel.pro
+RASP_PI_PROJECT=fenice-steering-rpi.pro
 BUILD_DIR=build-fenice/
 PI_ADDRESS=192.168.43.244
 #PI_ADDRESS=root
@@ -27,5 +27,5 @@ cd $BUILD_DIR
 $RASP_PI_QMAKE -spec devices/linux-rasp-pi-g++ -o Makefile ../$RASP_PI_PROJECT
 make -j4
 
-scp FeniceSteeringWheel root@$PI_ADDRESS:/
+scp fenice-steering-rpi root@$PI_ADDRESS:/
 

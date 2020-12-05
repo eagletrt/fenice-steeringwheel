@@ -7,7 +7,7 @@
 QMAKE="/home/$USER/Qt/5.12.5/gcc_64/bin/qmake"
 #QMAKE="/home/$USER/Qt/5.9.8/gcc_64/bin/qmake"
 
-QT_PROJECT="EagleSteeringWheel.pro"
+QT_PROJECT="fenice-steering-x86.pro"
 BUILD_DIR=build/
 
 if [ ! "$( ls -A $BUILD_DIR)" ]; then
@@ -21,4 +21,4 @@ cd $BUILD_DIR
 $QMAKE $QT_PROJECT -o Makefile ../$QT_PROJECT
 make || exit 1
 
-./EagleSteeringWheel
+./fenice-steering-x86

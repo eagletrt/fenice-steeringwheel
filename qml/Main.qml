@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQuick 2.4
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
@@ -7,27 +8,14 @@ Window {
 
     property var currentIndex: 0
 
-    width: 800
-    maximumWidth: 800
-    minimumWidth: 800
-    height: 480
-    maximumHeight: 480
-    minimumHeight: 480
+    width: Style.width
+    maximumWidth: Style.width
+    minimumWidth: Style.width
+    height: Style.height
+    maximumHeight: Style.height
+    minimumHeight: Style.height
     visible: true
     title: qsTr("Steering Wheel") + " #" + currentIndex
-    color: "black"
-
-    FontLoader {
-        id: valueFont
-
-        source: "qrc:///qml/font/blops.ttf"
-    }
-
-    FontLoader {
-        id: labelFont
-
-        source: "qrc:///qml/font/blops-chimera-good.ttf"
-    }
 
     Item {
         id: mainwindow

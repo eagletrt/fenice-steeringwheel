@@ -9,7 +9,6 @@ Canbus::Canbus(CarStatus *m_carStatus) {
   device = QCanBus::instance()->createDevice(
       QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
   if (!device) {
-
     qDebug() << "NO CAN!";
     m_hasCan = false;
   } else {

@@ -35,8 +35,7 @@ Rectangle {
         text: root.text
         anchors.centerIn: parent
         color: "lightgray"
-        font.family: labelFont.name
-        font.pointSize: 21
+        font: Style.sans.p
     }
 
 }

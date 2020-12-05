@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
@@ -74,8 +75,7 @@ Rectangle {
 
                 text: root.text
                 anchors.centerIn: parent
-                font.family: labelFont.name
-                font.pointSize: 10
+                font: Style.sans.p
                 color: "lightgray"
             }
 

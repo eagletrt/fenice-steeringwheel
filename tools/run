@@ -6,7 +6,7 @@
 # Configuration
 # -------------
 
-TARGET=EagleSteeringWheel
+TARGET=fenice-steering
 
 # -------------
 # Logic

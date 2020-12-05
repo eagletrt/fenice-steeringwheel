@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQml.Models 2.2
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
@@ -222,8 +223,7 @@ Rectangle {
                     color: "lightgray"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.family: labelFont.name
-                    font.pointSize: 10
+                    font: Style.sans.h3
                 }
 
                 Item {

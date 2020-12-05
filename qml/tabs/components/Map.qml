@@ -52,8 +52,7 @@ Rectangle {
 
         text: root.index //"P" + root.index
         anchors.centerIn: parent
-        font.family: labelFont.name
-        font.pointSize: 18
+        font: Style.sans.p
         color: "lightgray"
     }
 

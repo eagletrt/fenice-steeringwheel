@@ -1,3 +1,4 @@
+import Const 1.0
 import QtGraphicalEffects 1.0
 import QtQuick 2.0
 import QtQuick.Controls 1.4
@@ -22,6 +23,7 @@ Rectangle {
     property var selectedIndexDriver: -1
     property var test: 0
     property var driver: 1
+
     // ATTENTION: In order to add or remove tests or drivers
     // remember to change the appropriate constant value in telemetry.h
     // because nTests and nDrivers, to maintain consistency in data,
@@ -31,8 +33,8 @@ Rectangle {
     property var ndriver: CarStatus.nDrivers
     // Number of cells into driver section
     property var telemetrystatus: CarStatus.TelemetryStatus
-    property var tests: [["acceleration", '1'], ["skippad", '0'], ["endurance", '0'], ["brake", '0'], ["test", '0']]
-    property var drivers: [["pilotapazzo", '1'], ["iron512", '0'], ["pippogas", '0'], ["nicolareds", '0'], ["mirco", '0']]
+    property var tests: [["Acceleration", '1'], ["Skippad", '0'], ["Endurance", '0'], ["Brake", '0'], ["Test", '0']]
+    property var drivers: [["Pilotapazzo", '1'], ["Iron512", '0'], ["Pippogas", '0'], ["Nicolareds", '0'], ["Mirco", '0']]
 
     function connect() {
         menu.btnClicked.connect(btnClickedHandler);
@@ -112,7 +114,7 @@ Rectangle {
         }
     }
 
-    color: "transparent"
+    color: Style.transparent
     anchors.fill: parent
     onTelemetrystatusChanged: {
         tabTest.currentIndex = telemetrystatus[0];
@@ -132,112 +134,20 @@ Rectangle {
             Layout.fillWidth: true
             tabPosition: Qt.BottomEdge
 
-            // property var stepIntoTab: false
-            Tab {
-                id: test0
+            Repeater {
+                model: tests
 
-                Rectangle {
-                    color: "black"
+                Tab {
+                    Rectangle {
+                        color: Style.background
 
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 0 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 0 ? "yellow" : "lightgrey"
-                        text: tests[0][0]
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: test1
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 0 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 0 ? "yellow" : "lightgrey"
-                        text: tests[1][0]
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: test2
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        id: textTest2
-
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 0 ? 45 : 30
-                        font.family: labelFont.name
-                        color: tabSelected === 0 ? "yellow" : "lightgrey"
-                        text: tests[2][0]
-                    }
-
-                    LinearGradient {
-                        anchors.fill: textTest2
-                        source: textTest2
-
-                        gradient: Gradient {
-                            GradientStop {
-                                position: 0
-                                color: "lightgrey"
-                            }
-
-                            GradientStop {
-                                position: 1
-                                color: "yellow"
-                            }
-
+                        Text {
+                            anchors.centerIn: parent
+                            font: tabSelected === 0 ? Style.sans.h2 : Style.sans.h3
+                            color: tabSelected === 0 ? Style.orange : Style.text
+                            text: modelData[0]
                         }
 
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: test3
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 0 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 0 ? "yellow" : "lightgrey"
-                        text: tests[3][0]
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: test4
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 0 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 0 ? "yellow" : "lightgrey"
-                        text: tests[4][0]
                     }
 
                 }
@@ -248,7 +158,7 @@ Rectangle {
                 frameOverlap: 0
 
                 tab: Rectangle {
-                    color: "black"
+                    color: Style.background
                     // color: styleData.selected ? "lightgrey" :"black"
                     implicitWidth: tabDriver.width / ntest
                     height: 0
@@ -266,91 +176,20 @@ Rectangle {
             Layout.fillHeight: true
             tabPosition: Qt.BottomEdge
 
-            // property var stepIntoTab: false
-            Tab {
-                id: driver0
+            Repeater {
+                model: drivers
 
-                Rectangle {
-                    color: "black"
+                Tab {
+                    Rectangle {
+                        color: Style.background
 
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 1 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 1 ? "yellow" : "lightgrey"
-                        text: drivers[0][0]
-                    }
+                        Text {
+                            anchors.centerIn: parent
+                            font: tabSelected === 1 ? Style.sans.h2 : Style.sans.h3
+                            color: tabSelected === 1 ? Style.orange : Style.text
+                            text: modelData[0]
+                        }
 
-                }
-
-            }
-
-            Tab {
-                id: driver1
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 1 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 1 ? "yellow" : "lightgrey"
-                        text: drivers[1][0]
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: driver2
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 1 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 1 ? "yellow" : "lightgrey"
-                        text: drivers[2][0]
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: driver3
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 1 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 1 ? "yellow" : "lightgrey"
-                        text: drivers[3][0]
-                    }
-
-                }
-
-            }
-
-            Tab {
-                id: driver4
-
-                Rectangle {
-                    color: "black"
-
-                    Text {
-                        anchors.centerIn: parent
-                        font.pixelSize: tabSelected === 1 ? 40 : 25
-                        font.family: labelFont.name
-                        color: tabSelected === 1 ? "yellow" : "lightgrey"
-                        text: drivers[4][0]
                     }
 
                 }
@@ -361,8 +200,10 @@ Rectangle {
                 frameOverlap: 0
 
                 tab: Rectangle {
-                    color: "black"
+                    color: Style.background
                     // color: styleData.selected ? "lightgrey" :"black"
+                    border.color: Style.foreground
+                    border.width: 5
                     implicitWidth: tabDriver.width / ndriver
                     height: 0
                 }

@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import "components"
@@ -54,8 +55,7 @@ Rectangle {
 
                     Text {
                         text: "HV"
-                        font.family: labelFont.name
-                        font.pointSize: 10
+                        font: Style.sans.p
                         anchors.centerIn: parent
                     }
 
@@ -69,8 +69,7 @@ Rectangle {
                     color: "blue"
 
                     Text {
-                        font.family: labelFont.name
-                        font.pointSize: 10
+                        font: Style.sans.h3
                         text: "LV"
                         anchors.centerIn: parent
                     }
@@ -130,8 +129,7 @@ Rectangle {
 
                                         Text {
                                             anchors.centerIn: parent
-                                            font.family: valueFont.name
-                                            font.pointSize: 10
+                                            font: Style.mono.h3
                                             text: modelData[0] + ":" + modelData[1] + " " + modelData[2]
                                             color: "lightgray"
                                         }
@@ -177,8 +175,7 @@ Rectangle {
 
                                         Text {
                                             anchors.centerIn: parent
-                                            font.family: valueFont.name
-                                            font.pointSize: 10
+                                            font: Style.mono.h3
                                             text: modelData[0] + ":" + modelData[1] + " " + modelData[2]
                                             color: "lightgray"
                                         }

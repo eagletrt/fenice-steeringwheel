@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQuick 2.7
 
 Rectangle {
@@ -21,8 +22,7 @@ Rectangle {
         id: textVelocity
 
         text: velocity + " KW"
-        font.family: valueFont.name
-        font.pointSize: 18
+        font: Style.mono.p
         y: 290
         x: 160
         width: 200
@@ -34,8 +34,7 @@ Rectangle {
         id: textKm
 
         text: km + " m"
-        font.family: valueFont.name
-        font.pointSize: 18
+        font: Style.mono.p
         y: 290
         x: 260
         width: 200
@@ -47,8 +46,7 @@ Rectangle {
         id: textInvSxTemp
 
         text: invSxTemp / 10 + "°C"
-        font.family: valueFont.name
-        font.pointSize: 15
+        font: Style.mono.p
         x: 10
         y: 160
         color: "lightgray"
@@ -59,8 +57,7 @@ Rectangle {
 
         text: invDxTemp / 10 + "°C"
         horizontalAlignment: Text.AlignLeft
-        font.pointSize: 15
-        font.family: valueFont.name
+        font: Style.mono.p
         x: 610
         y: 160
         width: 70
@@ -73,8 +70,7 @@ Rectangle {
         id: texthvTemp
 
         text: hvTemp / 10 + " °C"
-        font.family: valueFont.name
-        font.pointSize: 15
+        font: Style.mono.p
         x: 10
         y: 220
         color: "lightgray"
@@ -86,8 +82,7 @@ Rectangle {
         id: texthvVolt
 
         text: hvVolt / 10 + " V"
-        font.family: valueFont.name
-        font.pointSize: 15
+        font: Style.mono.p
         x: 10
         y: 260
         color: "lightgray"
@@ -100,8 +95,7 @@ Rectangle {
 
         text: lvTemp / 5 + " °C"
         horizontalAlignment: Text.AlignLeft
-        font.pointSize: 15
-        font.family: valueFont.name
+        font: Style.mono.p
         x: 610
         y: 220
         width: 70
@@ -115,8 +109,7 @@ Rectangle {
 
         text: lvVolt / 10 + " V"
         horizontalAlignment: Text.AlignLeft
-        font.pointSize: 15
-        font.family: valueFont.name
+        font: Style.mono.p
         x: 610
         y: 260
         width: 70
@@ -127,8 +120,7 @@ Rectangle {
         id: carSpeed
 
         text: speed
-        font.pointSize: 65
-        font.family: valueFont.name
+        font: Style.mono.h1
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: -15
@@ -137,8 +129,7 @@ Rectangle {
 
     Text {
         text: "km/h"
-        font.family: labelFont.name
-        font.pointSize: 10
+        font: Style.sans.p
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: 48

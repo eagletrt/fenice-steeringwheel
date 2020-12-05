@@ -1,3 +1,4 @@
+import Const 1.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import "components"
@@ -113,8 +114,7 @@ Rectangle {
                     text: "START"
                     color: "lightgray"
                     anchors.centerIn: parent
-                    font.pixelSize: 15
-                    font.family: labelFont.name
+                    font: Style.sans.h3
                 }
 
             }
@@ -132,8 +132,7 @@ Rectangle {
                     text: "STOP"
                     color: "lightgray"
                     anchors.centerIn: parent
-                    font.pixelSize: 15
-                    font.family: labelFont.name
+                    font: Style.sans.h3
                 }
 
             }

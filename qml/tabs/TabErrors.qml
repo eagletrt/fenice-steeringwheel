@@ -1,18 +1,19 @@
 import QtQuick 2.0
-import QtQuick.Layouts 1.3
-import "components"
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.12
+import "status"
 
-Rectangle {
-    // console.log(errorsLEDS);
-
+Control {
     id: errors
 
+    // TODO: check
     property var isStarted: false
     property var btnClickable: false
     property var errstatus: CarStatus.ERRStatus
-    property var ledStates: ['OK', 'NO', 'DEFAULT']
-    property var errorsLEDS: [[["APPS", "DEFAULT"], ["BSE", "DEFAULT"], ["Steer", "DEFAULT"]], [["ENCOD L", "DEFAULT"], ["GPS", "DEFAULT"], ["ENCOD R", "DEFAULT"]], [["IMU FR", "DEFAULT"], ["IMU CN", "DEFAULT"], ["IMU RR", "DEFAULT"]]]
+    property var ledStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
+    property var errorsLEDS: [[["APPS", "DEFAULT"], ["BSE", "DEFAULT"], ["STEER", "DEFAULT"]], [["ENCOD L", "DEFAULT"], ["GPS", "DEFAULT"], ["ENCOD R", "DEFAULT"]], [["IMU FR", "DEFAULT"], ["IMU CN", "DEFAULT"], ["IMU RR", "DEFAULT"]]]
 
+    // TODO: check
     function connect() {
         mainwindow.btnClicked.connect(btnClickedHandler);
     }
@@ -28,8 +29,9 @@ Rectangle {
     }
 
     anchors.fill: parent
-    // color: "transparent"
-    color: "#000000"
+    padding: 20
+    // TODO: check protocol
+    // TODO: simplify
     onErrstatusChanged: {
         var newErrStatus = errorsLEDS;
         // APPS
@@ -52,25 +54,29 @@ Rectangle {
         newErrStatus[2][2][1] = ledStates[errstatus[8]];
         errorsLEDS = newErrStatus;
     }
+    // TODO: check
     Component.onCompleted: {
         connect();
     }
 
-    GridLayout {
+    contentItem: GridLayout {
+        rows: 5
         columns: 3
-        rows: 4
-        columnSpacing: 0
-        rowSpacing: 0
-        anchors.fill: parent
+        rowSpacing: 10
+        columnSpacing: 10
 
         Repeater {
             model: errorsLEDS[0]
 
-            CANStatusLED {
-                text: modelData[0]
-                state: modelData[1]
-                Layout.preferredWidth: errors.width / 3
-                Layout.preferredHeight: errors.height / 4
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                StatusCard {
+                    name: modelData[0]
+                    state: ledStates[Math.floor(Math.random() * ledStates.length)] // modelData[1]
+                }
+
             }
 
         }
@@ -78,11 +84,15 @@ Rectangle {
         Repeater {
             model: errorsLEDS[1]
 
-            CANStatusLED {
-                text: modelData[0]
-                state: modelData[1]
-                Layout.preferredWidth: errors.width / 3
-                Layout.preferredHeight: errors.height / 4
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                StatusCard {
+                    name: modelData[0]
+                    state: ledStates[Math.floor(Math.random() * ledStates.length)] // modelData[1]
+                }
+
             }
 
         }
@@ -90,11 +100,15 @@ Rectangle {
         Repeater {
             model: errorsLEDS[2]
 
-            CANStatusLED {
-                text: modelData[0]
-                state: modelData[1]
-                Layout.preferredWidth: errors.width / 3
-                Layout.preferredHeight: errors.height / 4
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                StatusCard {
+                    name: modelData[0]
+                    state: ledStates[Math.floor(Math.random() * ledStates.length)] // modelData[1]
+                }
+
             }
 
         }

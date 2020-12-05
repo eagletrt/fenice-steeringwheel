@@ -13,8 +13,7 @@ Rectangle {
         text: parent.value
         anchors.centerIn: parent
         color: "lightgray"
-        font.family: labelFont.name
-        font.pointSize: 140
+        font: Style.sans.h1
     }
 
 }

@@ -13,7 +13,7 @@ Rectangle {
 
         anchors.fill: parent
         anchors.verticalCenter: root.verticalCenter
-        font.family: labelFont.name
+        font: Style.sans.p
         text: root.text
         padding: 5
         color: "lightgray"
