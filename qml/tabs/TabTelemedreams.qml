@@ -2,6 +2,7 @@ import Const 1.0
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.12
 import "components"
 
 Control {
@@ -139,7 +140,8 @@ Control {
         columnSpacing: 10
 
         Rectangle {
-            color: tabSelected === 0 ? Style.red : Style.surface
+//            color: tabSelected === 0 ? Style.red : Style.surface
+            color: Style.surface
             Layout.row: 0
             Layout.column: 0
             Layout.fillHeight: true
@@ -157,7 +159,9 @@ Control {
                         Text {
                             anchors.centerIn: parent
                             font: Style.sans.h2
-                            color: Style.text
+//                            color: Style.text
+
+                            color: tabSelected === 0 ? Style.red : Style.text
                             text: modelData[0]
                         }
 
@@ -170,7 +174,8 @@ Control {
         }
 
         Rectangle {
-            color: tabSelected === 1 ? Style.red : Style.surface
+//            color: tabSelected === 1 ? Style.red : Style.surface
+            color: Style.surface
             Layout.row: 1
             Layout.column: 0
             Layout.fillWidth: true
@@ -188,7 +193,8 @@ Control {
                         Text {
                             anchors.centerIn: parent
                             font: Style.sans.h2
-                            color: Style.text
+//                            color: Style.text
+                            color: tabSelected === 1 ? Style.red : Style.text
                             text: modelData[0]
                         }
 
@@ -201,7 +207,8 @@ Control {
         }
 
         Rectangle {
-            color: tabSelected === 2 ? Style.red : Style.surface
+//            color: tabSelected === 2 ? Style.red : Style.surface
+            color: Style.surface
             Layout.row: 0
             Layout.column: 1
             Layout.rowSpan: 2
@@ -227,7 +234,8 @@ Control {
                             Text {
                                 anchors.centerIn: parent
                                 font: Style.sans.h3
-                                color: Style.text
+//                                color: Style.text
+                                color: tabSelected === 2 ? Style.red : Style.text
                                 text: modelData[0]
                             }
 
@@ -238,10 +246,17 @@ Control {
                             Layout.fillHeight: true
 
                             Image {
+                                id: track
                                 anchors.margins: 20
                                 anchors.fill: parent
                                 fillMode: Image.PreserveAspectFit
                                 source: modelData[1]
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: track
+                                source: track
+                                color: tabSelected === 2 ? Style.red : Style.transparent
                             }
 
                         }

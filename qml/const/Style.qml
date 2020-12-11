@@ -10,7 +10,7 @@ QtObject {
     property color foreground: "#FFFFFF"
     property color transparent: "transparent"
     // TODO: check
-    property color surface: "#6B7280"
+    property color surface: "#1F2937"
     property color dark: "#4F4F4F"
     property color light: "#C4C4C4"
     property color text: "#E0E0E0"
