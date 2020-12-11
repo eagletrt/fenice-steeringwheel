@@ -8,7 +8,6 @@ Rectangle {
 
     state: "CAN_DEFAULT"
     anchors.fill: parent
-    radius: 10
     states: [
         State {
             name: "OK"

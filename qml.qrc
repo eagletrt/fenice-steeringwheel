@@ -33,13 +33,9 @@
         <file>qml/tabs/TabSensors.qml</file>
         <file>qml/tabs/TabBattery.qml</file>
         <file>qml/tabs/TabTelemedreams.qml</file>
-
-
-        <!-- Checked -->
         <file>qml/const/Style.qml</file>
-        <file>qml/tabs/TabErrors.qml</file> <!-- Needs renaming to TabStatus -->
+        <file>qml/tabs/TabErrors.qml</file>
         <file>qml/tabs/status/StatusCard.qml</file>
-
         <file>qml/img/HV.png</file>
         <file>qml/img/LV.png</file>
         <file>qml/img/brk.png</file>
@@ -103,5 +99,7 @@
         <file>qml/img/b8.png</file>
         <file>qml/img/b9.png</file>
         <file>qml/img/b10.png</file>
+        <file>qml/img/racetracks/demo.png</file>
+        <file>qml/img/racetracks/demo_rot.png</file>
     </qresource>
 </RCC>

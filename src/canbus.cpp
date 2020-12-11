@@ -686,9 +686,9 @@ Canbus::~Canbus() {
   if (m_hasCan) {
     // gracefully stop the thread
     threadDevice->quit();
-    if(!threadDevice->wait(3000)) {
-        threadDevice->terminate();
-        threadDevice->wait();
+    if (!threadDevice->wait(3000)) {
+      threadDevice->terminate();
+      threadDevice->wait();
     }
     delete detect;
     delete threadDevice;
