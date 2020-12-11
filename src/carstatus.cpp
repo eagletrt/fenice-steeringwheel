@@ -174,16 +174,22 @@ QString CarStatus::TelemetryStatus() const {
 }
 
 QString CarStatus::nTests() {
-  int arr[2];
+  int arr[3];
   telemetry.getNUM(arr);
   return QString::number(arr[0]);
   qDebug() << "Asked test";
 }
 
 QString CarStatus::nDrivers() {
-  int arr[2];
+  int arr[3];
   telemetry.getNUM(arr);
   return QString::number(arr[1]);
+}
+
+QString CarStatus::nRacetracks() {
+  int arr[3];
+  telemetry.getNUM(arr);
+  return QString::number(arr[3]);
 }
 
 int CarStatus::TelemetryEnabledStatus() const {
@@ -345,6 +351,7 @@ QByteArray CarStatus::abort() {
 
 void CarStatus::setDriver(int val) { telemetry.setDriver(val); }
 void CarStatus::setTest(int val) { telemetry.setTest(val); }
+void CarStatus::setRacetrack(int val) { telemetry.setRacetrack(val); }
 
 void CarStatus::setSteeringWheelPopup(QChar priority, QChar color,
                                       QString msg) { // Value to be showned

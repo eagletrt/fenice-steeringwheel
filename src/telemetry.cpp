@@ -1,14 +1,7 @@
 #include "telemetry.h"
 
 Telemetry::Telemetry() {
-  for (int i = 0; i < NUM_TESTS; i++) {
-    test[i] = 0;
-  }
-  for (int i = 0; i < NUM_DRIVERS; i++) {
-    driver[i] = 0;
-  }
-  test[0] = 1;
-  driver[0] = 1;
+  driver = 0;
 
   this->sender = false;
   this->telemetryEnStatus = 0; // 0 off, 1 is setting up, 2 setted
@@ -19,34 +12,12 @@ Telemetry::Telemetry() {
 }
 
 // param val identify the id of the test to be enabled
-void Telemetry::setTest(int val) {
-  bool found = false;
-  int i = 0;
-  while (!found && i < NUM_TESTS) {
-    if (test[i]) {
-      test[i] = false;
-      found = true;
-    }
-    i++;
-  }
-
-  test[val] = true;
-}
+void Telemetry::setTest(int val) { test = val; }
 
 // param val identify the id of the driver to be enabled
-void Telemetry::setDriver(int val) {
-  bool found = false;
-  int i = 0;
-  while (!found && i < NUM_DRIVERS) {
-    if (driver[i]) {
-      driver[i] = false;
-      found = true;
-    }
-    i++;
-  }
+void Telemetry::setDriver(int val) { driver = val; }
 
-  driver[val] = true;
-}
+void Telemetry::setRacetrack(int val) { racetrack = val; }
 
 void Telemetry::setSender() { sender = !sender; }
 
@@ -66,37 +37,11 @@ void Telemetry::setAsk(bool ask) { this->ask = ask; }
 //}
 
 // return the id of the current test
-int Telemetry::getTest() const {
-  int pos = -1;
-  int i = 0;
-  bool found = false;
+int Telemetry::getTest() const { return test; }
 
-  while (!found && i < NUM_TESTS) {
-    if (test[i]) {
-      pos = i;
-      found = true;
-    }
-    i++;
-  }
+int Telemetry::getDriver() const { return driver; }
 
-  return pos;
-}
-
-int Telemetry::getDriver() const {
-  int pos = -1;
-  int i = 0;
-  bool found = false;
-
-  while (!found && i < NUM_DRIVERS) {
-    if (driver[i]) {
-      pos = i;
-      found = true;
-    }
-    i++;
-  }
-
-  return pos;
-}
+int Telemetry::getRacetrack() const { return racetrack; }
 
 bool Telemetry::getSender() const { return this->sender; }
 
@@ -107,7 +52,7 @@ QString Telemetry::getPopupMessage() const { return this->popup; }
 bool Telemetry::getAsk() { return !ask; }
 
 void Telemetry::getNUM(int *arr) {
-
   arr[0] = NUM_TESTS;
   arr[1] = NUM_DRIVERS;
+  arr[2] = NUM_RACETRACKS;
 }

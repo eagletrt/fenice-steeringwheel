@@ -34,6 +34,7 @@ class CarStatus : public QObject {
                  TelemetryStatusChanged)
   Q_PROPERTY(QString nTests READ nTests NOTIFY nTestsChanged)
   Q_PROPERTY(QString nDrivers READ nDrivers NOTIFY nDriversChanged)
+  Q_PROPERTY(QString nRacetracks READ nRacetracks NOTIFY nRacetracksChanged)
   Q_PROPERTY(int TelemetryEnabledStatus READ TelemetryEnabledStatus NOTIFY
                  TelemetryEnabledStatusChanged)
   Q_PROPERTY(QString SteeringWheelPopup READ SteeringWheelPopup NOTIFY
@@ -78,6 +79,7 @@ public:
   QString TelemetryStatus() const;
   QString nTests();
   QString nDrivers();
+  QString nRacetracks();
   int TelemetryEnabledStatus() const;
   QString SteeringWheelPopup() const;
   QString HVStatus() const;
@@ -157,8 +159,10 @@ public slots:
   QByteArray getTelemetryStatus();
   void setSender();
   QByteArray getTelemetryEnabledStatus();
+
   void setDriver(int);
   void setTest(int);
+  void setRacetrack(int);
 
   void processingTimeout();
 
@@ -192,6 +196,7 @@ signals:
   void TelemetryStatusChanged();
   void nTestsChanged();
   void nDriversChanged();
+  void nRacetracksChanged();
   void TelemetryEnabledStatusChanged();
   void SteeringWheelPopupChanged();
   void ERRStatusChanged();

@@ -3,6 +3,7 @@
 
 #define NUM_TESTS 5
 #define NUM_DRIVERS 5
+#define NUM_RACETRACKS 5
 
 #include <QDebug>
 
@@ -13,12 +14,14 @@ public:
   Telemetry();
   void setTest(int);
   void setDriver(int);
+  void setRacetrack(int);
   void setAsk(bool);
   void setTelemetryStatus(int);
   void setPopupMessage(QChar, QChar, QString);
   void setSender();
   int getTest() const;
   int getDriver() const;
+  int getRacetrack() const;
   bool getAsk();
   int getTelemetryStatus() const;
   QString getPopupMessage() const;
@@ -26,8 +29,9 @@ public:
   void getNUM(int *);
 
 private:
-  bool test[NUM_TESTS];
-  bool driver[NUM_DRIVERS];
+  int test;
+  int driver;
+  int racetrack;
   bool ask;
   bool sender;
   int telemetryEnStatus;

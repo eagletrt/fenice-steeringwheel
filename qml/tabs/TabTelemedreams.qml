@@ -1,8 +1,8 @@
 import Const 1.0
+import QtGraphicalEffects 1.12
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.12
 import "components"
 
 Control {
@@ -71,8 +71,6 @@ Control {
             CAN.asktelemetry();
         }
         if (btnID === 4 && tabView.stepIntoTab) {
-            // CarStatus.setRacetrack(tabRacetrack.currentIndex);
-
             if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
                 mainwindow.canSwitchPage = false;
@@ -98,11 +96,10 @@ Control {
                     tabRacetracks.currentIndex = (racetracks.length - 1);
                 else
                     tabRacetracks.currentIndex--;
+                CarStatus.setRacetrack(tabRacetracks.currentIndex);
             }
         }
         if (btnID === 5 && tabView.stepIntoTab) {
-            // CarStatus.setRacetrack(tabRacetrack.currentIndex);
-
             if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
                 mainwindow.canSwitchPage = false;
@@ -122,6 +119,7 @@ Control {
                 console.log("tabRacetrack index: " + tabRacetracks.currentIndex);
                 mainwindow.canSwitchPage = false;
                 tabRacetracks.currentIndex = (tabRacetracks.currentIndex + 1) % racetracks.length;
+                CarStatus.setRacetrack(tabRacetracks.currentIndex);
             }
         }
     }
@@ -140,7 +138,7 @@ Control {
         columnSpacing: 10
 
         Rectangle {
-//            color: tabSelected === 0 ? Style.red : Style.surface
+            //            color: tabSelected === 0 ? Style.red : Style.surface
             color: Style.surface
             Layout.row: 0
             Layout.column: 0
@@ -157,10 +155,10 @@ Control {
 
                     Item {
                         Text {
+                            //                            color: Style.text
+
                             anchors.centerIn: parent
                             font: Style.sans.h2
-//                            color: Style.text
-
                             color: tabSelected === 0 ? Style.red : Style.text
                             text: modelData[0]
                         }
@@ -174,7 +172,7 @@ Control {
         }
 
         Rectangle {
-//            color: tabSelected === 1 ? Style.red : Style.surface
+            //            color: tabSelected === 1 ? Style.red : Style.surface
             color: Style.surface
             Layout.row: 1
             Layout.column: 0
@@ -193,7 +191,7 @@ Control {
                         Text {
                             anchors.centerIn: parent
                             font: Style.sans.h2
-//                            color: Style.text
+                            //                            color: Style.text
                             color: tabSelected === 1 ? Style.red : Style.text
                             text: modelData[0]
                         }
@@ -207,7 +205,7 @@ Control {
         }
 
         Rectangle {
-//            color: tabSelected === 2 ? Style.red : Style.surface
+            //            color: tabSelected === 2 ? Style.red : Style.surface
             color: Style.surface
             Layout.row: 0
             Layout.column: 1
@@ -234,7 +232,7 @@ Control {
                             Text {
                                 anchors.centerIn: parent
                                 font: Style.sans.h3
-//                                color: Style.text
+                                //                                color: Style.text
                                 color: tabSelected === 2 ? Style.red : Style.text
                                 text: modelData[0]
                             }
@@ -247,6 +245,7 @@ Control {
 
                             Image {
                                 id: track
+
                                 anchors.margins: 20
                                 anchors.fill: parent
                                 fillMode: Image.PreserveAspectFit
