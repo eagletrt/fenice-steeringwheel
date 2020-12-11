@@ -222,19 +222,6 @@ Control {
 
                         Item {
                             Layout.fillWidth: true
-                            Layout.fillHeight: true
-
-                            Image {
-                                anchors.margins: 20
-                                anchors.fill: parent
-                                fillMode: Image.PreserveAspectFit
-                                source: modelData[1]
-                            }
-
-                        }
-
-                        Item {
-                            Layout.fillWidth: true
                             Layout.minimumHeight: childrenRect.height + 40
 
                             Text {
@@ -242,6 +229,19 @@ Control {
                                 font: Style.sans.h3
                                 color: Style.text
                                 text: modelData[0]
+                            }
+
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+
+                            Image {
+                                anchors.margins: 20
+                                anchors.fill: parent
+                                fillMode: Image.PreserveAspectFit
+                                source: modelData[1]
                             }
 
                         }
