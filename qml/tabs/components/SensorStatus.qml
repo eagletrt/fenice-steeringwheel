@@ -10,7 +10,7 @@ Rectangle {
     property var barValue
     property var selected
 
-    color: root.selected === 1 ? "green" : menu.color
+    color: root.selected === 1 ? "green" : "#000"
     radius: root.selected === 1 ? "100" : "0"
 
     RowLayout {
@@ -46,7 +46,7 @@ Rectangle {
                 anchors.centerIn: parent
                 border.width: 1
                 border.color: "lightgray"
-                color: menu.color
+                color: "#000"
 
                 Rectangle {
                     width: root.barValue

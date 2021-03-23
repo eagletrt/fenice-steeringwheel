@@ -209,7 +209,7 @@ Rectangle {
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height / 4
-            color: menu.color
+            color: "#000"
 
             GridLayout {
                 anchors.fill: parent
@@ -232,7 +232,7 @@ Rectangle {
                     width: 90
 
                     ChoiceButton {
-                        width: 195
+                        width: 300
                         height: 60
                         btnColor: "green"
                         btnText: mBtnSetText
