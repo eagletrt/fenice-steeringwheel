@@ -9,7 +9,6 @@ QtObject {
     property color background: "#000000"
     property color foreground: "#FFFFFF"
     property color transparent: "transparent"
-    // TODO: check
     property color surface: "#6B7280"
     property color dark: "#4F4F4F"
     property color light: "#C4C4C4"
@@ -21,7 +20,7 @@ QtObject {
     property color orange: "#F57C03"
     property color blue: "#3D538F"
     property color aqua: "#007EA7"
-    property int fontScaling: 2
+    property int fontScaling: 1
     property FontLoader monoRegular
     property FontLoader monoBold
     property FontLoader sansRegular
@@ -50,22 +49,22 @@ QtObject {
         property font p: Qt.font({
             "family": monoRegular.name,
             "styleName": "Regular",
-            "pointSize": 20 * fontScaling
+            "pointSize": 22 * fontScaling
         })
         property font h3: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 24 * fontScaling
+            "pointSize": 26 * fontScaling
         })
         property font h2: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 30 * fontScaling
+            "pointSize": 32 * fontScaling
         })
         property font h1: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 36 * fontScaling
+            "pointSize": 38 * fontScaling
         })
     }
 
@@ -73,22 +72,22 @@ QtObject {
         property font p: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 20 * fontScaling
+            "pointSize": 22 * fontScaling
         })
         property font h3: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 24 * fontScaling
+            "pointSize": 26 * fontScaling
         })
         property font h2: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 30 * fontScaling
+            "pointSize": 32 * fontScaling
         })
         property font h1: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 36 * fontScaling
+            "pointSize": 38 * fontScaling
         })
     }
 

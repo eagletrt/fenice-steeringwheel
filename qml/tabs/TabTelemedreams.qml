@@ -5,6 +5,9 @@ import QtQuick.Layouts 1.3
 import "components"
 
 Control {
+    // CarStatus.setRacetrack(tabRacetrack.currentIndex);
+    // CarStatus.setRacetrack(tabRacetrack.currentIndex);
+
     // introdurre stato active o no per poter
     // gestire il gradient del testo, questa funzionalità va implementata
     // anche della racing page per il superamento di certe soglie da parte
@@ -70,8 +73,6 @@ Control {
             CAN.asktelemetry();
         }
         if (btnID === 4 && tabView.stepIntoTab) {
-            // CarStatus.setRacetrack(tabRacetrack.currentIndex);
-
             if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
                 mainwindow.canSwitchPage = false;
@@ -100,8 +101,6 @@ Control {
             }
         }
         if (btnID === 5 && tabView.stepIntoTab) {
-            // CarStatus.setRacetrack(tabRacetrack.currentIndex);
-
             if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
                 mainwindow.canSwitchPage = false;
