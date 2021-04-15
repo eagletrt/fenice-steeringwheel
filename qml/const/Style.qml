@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.14
 pragma Singleton
 
 QtObject {
@@ -13,13 +13,12 @@ QtObject {
     property color dark: "#4F4F4F"
     property color light: "#C4C4C4"
     property color text: "#E0E0E0"
-    property color accent: orange
-    property color red: "#DC2626"
-    property color green: "#66BB6A"
-    property color yellow: "#F5BB00"
-    property color orange: "#F57C03"
-    property color blue: "#3D538F"
-    property color aqua: "#007EA7"
+    property color red: "#E74C3C"
+    property color green: "#2ECC71"
+    property color orange: "#E67E22"
+    property color yellow: "#F1C40F"
+    property color blue: "#3498DB"
+    property color aqua: "#1abc9c"
     property int fontScaling: 1
     property FontLoader monoRegular
     property FontLoader monoBold
@@ -46,15 +45,20 @@ QtObject {
     }
 
     mono: QtObject {
+        property font small: Qt.font({
+            "family": monoBold.name,
+            "styleName": "Regular",
+            "pointSize": 14 * fontScaling
+        })
         property font p: Qt.font({
             "family": monoRegular.name,
             "styleName": "Regular",
-            "pointSize": 22 * fontScaling
+            "pointSize": 20 * fontScaling
         })
         property font h3: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 26 * fontScaling
+            "pointSize": 27 * fontScaling
         })
         property font h2: Qt.font({
             "family": monoBold.name,
@@ -64,38 +68,63 @@ QtObject {
         property font h1: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 38 * fontScaling
+            "pointSize": 40 * fontScaling
+        })
+        property font big: Qt.font({
+            "family": monoBold.name,
+            "styleName": "Bold",
+            "pointSize": 52 * fontScaling
+        })
+        property font verybig: Qt.font({
+            "family": monoBold.name,
+            "styleName": "Bold",
+            "pointSize": 80 * fontScaling
         })
     }
 
     sans: QtObject {
+        property font small: Qt.font({
+            "family": sansRegular.name,
+            "styleName": "Regular",
+            "pointSize": 14 * fontScaling
+        })
         property font p: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 22 * fontScaling
+            "pointSize": 20 * fontScaling
         })
         property font h3: Qt.font({
             "family": sansRegular.name,
-            "styleName": "Regular",
-            "pointSize": 26 * fontScaling
+            "styleName": "Bold",
+            "pointSize": 27 * fontScaling
         })
         property font h2: Qt.font({
             "family": sansRegular.name,
-            "styleName": "Regular",
+            "styleName": "Bold",
             "pointSize": 32 * fontScaling
         })
         property font h1: Qt.font({
             "family": sansRegular.name,
-            "styleName": "Regular",
-            "pointSize": 38 * fontScaling
+            "styleName": "Bold",
+            "pointSize": 40 * fontScaling
+        })
+        property font big: Qt.font({
+            "family": sansRegular.name,
+            "styleName": "Bold",
+            "pointSize": 52 * fontScaling
+        })
+        property font verybig: Qt.font({
+            "family": sansRegular.name,
+            "styleName": "Bold",
+            "pointSize": 80 * fontScaling
         })
     }
 
     status: QtObject {
         property color def: "#828282"
-        property color error: "#9A1D1F"
-        property color warn: "#F5BB00"
-        property color ok: "#3A7D44"
+        property color error: "#E74C3C"
+        property color warn: "#F1C40F"
+        property color ok: "#2ECC71"
     }
 
 }
