@@ -38,11 +38,11 @@ QtObject {
     }
 
     sansRegular: FontLoader {
-        source: "qrc:/qml/font/Roboto-Regular.ttf"
+        source: "qrc:/qml/font/Inter-Regular.ttf"
     }
 
     sansBold: FontLoader {
-        source: "qrc:/qml/font/Roboto-Bold.ttf"
+        source: "qrc:/qml/font/Inter-SemiBold.ttf"
     }
 
     mono: QtObject {
@@ -59,7 +59,7 @@ QtObject {
         property font h3: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 27 * fontScaling
+            "pointSize": 26 * fontScaling
         })
         property font h2: Qt.font({
             "family": monoBold.name,
@@ -95,28 +95,28 @@ QtObject {
             "pointSize": 20 * fontScaling
         })
         property font h3: Qt.font({
-            "family": sansRegular.name,
-            "styleName": "Bold",
-            "pointSize": 27 * fontScaling
+            "family": sansBold.name,
+            "styleName": "SemiBold",
+            "pointSize": 26 * fontScaling
         })
         property font h2: Qt.font({
-            "family": sansRegular.name,
-            "styleName": "Bold",
+            "family": sansBold.name,
+            "styleName": "SemiBold",
             "pointSize": 32 * fontScaling
         })
         property font h1: Qt.font({
-            "family": sansRegular.name,
-            "styleName": "Bold",
+            "family": sansBold.name,
+            "styleName": "SemiBold",
             "pointSize": 40 * fontScaling
         })
         property font big: Qt.font({
-            "family": sansRegular.name,
-            "styleName": "Bold",
+            "family": sansBold.name,
+            "styleName": "SemiBold",
             "pointSize": 52 * fontScaling
         })
         property font verybig: Qt.font({
-            "family": sansRegular.name,
-            "styleName": "Bold",
+            "family": sansBold.name,
+            "styleName": "SemiBold",
             "pointSize": 80 * fontScaling
         })
     }
