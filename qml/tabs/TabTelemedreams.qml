@@ -138,7 +138,7 @@ Control {
         columnSpacing: 10
 
         Rectangle {
-            color: tabSelected === 0 ? Style.red : Style.surface
+            color: tabSelected === 0 ? Style.yellow : Style.surface
             Layout.row: 0
             Layout.column: 0
             Layout.fillHeight: true
@@ -155,8 +155,8 @@ Control {
                     Item {
                         Text {
                             anchors.centerIn: parent
-                            font: Style.sans.h2
-                            color: Style.text
+                            font: tabSelected === 0 ? Style.sans.h1 : Style.sans.h2
+                            color: Style.textInverted
                             text: modelData[0]
                         }
 
@@ -169,7 +169,7 @@ Control {
         }
 
         Rectangle {
-            color: tabSelected === 1 ? Style.red : Style.surface
+            color: tabSelected === 1 ? Style.yellow : Style.surface
             Layout.row: 1
             Layout.column: 0
             Layout.fillWidth: true
@@ -186,8 +186,8 @@ Control {
                     Item {
                         Text {
                             anchors.centerIn: parent
-                            font: Style.sans.h2
-                            color: Style.text
+                            font: tabSelected === 1 ? Style.sans.h1 : Style.sans.h2
+                            color: Style.textInverted
                             text: modelData[0]
                         }
 
@@ -200,7 +200,7 @@ Control {
         }
 
         Rectangle {
-            color: tabSelected === 2 ? Style.red : Style.surface
+            color: tabSelected === 2 ? Style.yellow : Style.surface
             Layout.row: 0
             Layout.column: 1
             Layout.rowSpan: 2
@@ -225,8 +225,8 @@ Control {
 
                             Text {
                                 anchors.centerIn: parent
-                                font: Style.sans.h3
-                                color: Style.text
+                                font: tabSelected === 2 ? Style.sans.h1 : Style.sans.h2
+                                color: Style.textInverted
                                 text: modelData[0]
                             }
 

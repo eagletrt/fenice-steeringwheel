@@ -48,18 +48,10 @@ Rectangle {
     ]
 
     Text {
-        function chooseColor() {
-            let R = parent.color.r;
-            let G = parent.color.g;
-            let B = parent.color.b;
-            let l = Math.sqrt(0.299 * R * R + 0.587 * G * G + 0.114 * B * B);
-            return l > 0.5 ? Style.background : Style.text;
-        }
-
         anchors.centerIn: parent
         text: root.name
-        color: chooseColor()
-        font: Style.sans.p
+        color: Style.textInverted
+        font: Style.sans.h3
     }
 
 }

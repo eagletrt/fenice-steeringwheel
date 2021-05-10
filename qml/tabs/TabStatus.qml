@@ -1,36 +1,18 @@
 import Const 1.0
 import QtQuick 2.0
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
 import "components"
+import "status"
 
-Rectangle {
-    // tabView.stepIntoTab = false;
-    // btnClickable = false;
-    // isStarted = true;
-    // Step into this tab and change the behaviour of btnID
-    // if (!isStarted) {
-    // Set ok to the update!
-    // isStarted = true;
-    // console.log("Asking to go from Idle to Setup");
-    // CAN.checkCANCommunication(true);
-    // CAN.askSetupOrIdle(1);
-    //}else{
-    // CarStatus.toggleCarStatus();
-    //}
-    // Set the button again to be not clickable
-    // btnClickable = false;
-    // Restore Button 0 initial handler
-    // tabView.stepIntoTab = false;
-    // Set the button clickable
-    // btnClickable = true;
-
-    id: root
+Control {
+    id: status
 
     property var btnClickable: true
     property var isStarted: false
     property var isStopped: true
     property var canstatus: CarStatus.CANStatus
-    property var ledStates: ['OK', 'NO', 'DEFAULT']
+    property var ledStates: ['DEFAULT', 'OUTDATED']
     property var canLeds: [["InvRight", 'CAN_DEFAULT'], ["InvLeft", 'CAN_DEFAULT'], ["STMFront", 'CAN_DEFAULT'], ["STMCentral", 'CAN_DEFAULT'], ["STMPedals", 'CAN_DEFAULT'], ["STMRear", 'CAN_DEFAULT'], ["BMS HV", 'CAN_DEFAULT'], ["BMS LV", 'CAN_DEFAULT']]
 
     function connect() {
@@ -66,6 +48,8 @@ Rectangle {
         tabView.stepIntoTab = false;
     }
 
+    anchors.fill: parent
+    padding: 20
     onCanstatusChanged: {
         // console.log("Cambiato il CAN Status da Centralina");
         var newCanLeds = canLeds;
@@ -75,64 +59,64 @@ Rectangle {
         canLeds = newCanLeds;
     }
 
-    Rectangle {
-        id: status
-
-        // color: menu.color
-        color: "black"
-        anchors.fill: parent
+    contentItem: ColumnLayout {
+        spacing: 10
 
         GridLayout {
-            id: grid1
-
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            rows: 5
             columns: 2
-            rows: 4
-            anchors.fill: parent
-            columnSpacing: -15
-            rowSpacing: -20
+            rowSpacing: 10
+            columnSpacing: 10
 
             Repeater {
                 model: canLeds
 
-                delegate: CANStatusLED {
-                    text: modelData[0]
-                    state: modelData[1]
-                    Layout.preferredWidth: status.width * 0.69
-                    Layout.preferredHeight: status.height / 5
+                delegate: Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    StatusCard {
+                        name: modelData[0]
+                        state: ledStates[Math.floor(Math.random() * ledStates.length)] // modelData[1]
+                    }
+
                 }
 
             }
 
-            Rectangle {
-                Layout.preferredWidth: status.width * 0.33
-                Layout.preferredHeight: status.height / 7
-                state: root.btnClickable & !isStarted ? 'SELECTED' : 'IDLE'
-                radius: 20
-                color: "green"
+        }
 
-                Text {
-                    text: "START"
-                    color: "lightgray"
-                    anchors.centerIn: parent
-                    font: Style.sans.h3
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 5
+            color: Style.dark
+        }
+
+        RowLayout {
+            spacing: 10
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 80
+
+                StatusCard {
+                    name: "START"
+                    state: "OK"
                 }
 
             }
 
-            Rectangle {
-                id: ask
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 80
 
-                Layout.preferredWidth: status.width * 0.33
-                Layout.preferredHeight: status.height / 7
-                state: root.btnClickable ? 'SELECTED' : 'IDLE'
-                radius: 20
-                color: "red"
-
-                Text {
-                    text: "STOP"
-                    color: "lightgray"
-                    anchors.centerIn: parent
-                    font: Style.sans.h3
+                StatusCard {
+                    name: "STOP"
+                    state: "NO"
                 }
 
             }

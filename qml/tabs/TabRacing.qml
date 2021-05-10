@@ -13,14 +13,14 @@ Rectangle {
     color: Style.background
 
     Timer {
-        property var ggg: Date.now()
+        property var start: Date.now()
 
         interval: 10
         running: true
         repeat: true
         triggeredOnStart: true
         onTriggered: function update() {
-            let d = new Date(Date.now() - ggg);
+            let d = new Date(Date.now() - start);
             time.text = String(d.getUTCMinutes()).padStart(2, "0") + ":" + String(d.getUTCSeconds()).padStart(2, "0") + "." + String((Math.min(99, d.getUTCMilliseconds() / 10)).toFixed()).padStart(2, "0");
         }
     }
