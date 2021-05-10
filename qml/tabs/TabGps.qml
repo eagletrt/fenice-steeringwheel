@@ -20,36 +20,23 @@ Item {
         property int dotX: Style.width / 2
         property int dotY: Style.height / 2
         property int t: 1
-
-
-        NumberAnimation on t { 
-            from: 1;
-            to: 2 * 314;
-            duration: 1000;
-            easing.type: Easing.InOutQuad
-            loops: Animation.Infinite
-        }
-
         property int dotSize: 10
         property int dotDelta: 10
 
         anchors.fill: parent
         onPaint: {
             var ctx = canvas.getContext('2d');
-
             var x = dotX + Math.cos(t / 100) * 100;
             var y = dotY + Math.sin(t / 100) * 100;
+            if (!ctx)
+                return ;
 
-            if (!ctx) return;
-
-            ctx.clearRect(0, 0, Style.width, Style.height)
-
+            ctx.clearRect(0, 0, Style.width, Style.height);
             ctx.beginPath();
             ctx.fillStyle = Style.orange;
             ctx.ellipse(x - dotDelta / 2, y - dotDelta / 2, dotSize + dotDelta, dotSize + dotDelta);
             ctx.closePath();
             ctx.fill();
-
             ctx.beginPath();
             ctx.fillStyle = Style.yellow;
             ctx.ellipse(x, y, dotSize, dotSize);
@@ -61,11 +48,19 @@ Item {
             interval: 16
             repeat: true
             running: true
-
             onTriggered: {
-                canvas.requestPaint()
+                canvas.requestPaint();
             }
         }
+
+        NumberAnimation on t {
+            from: 1
+            to: 2 * 314
+            duration: 1000
+            easing.type: Easing.InOutQuad
+            loops: Animation.Infinite
+        }
+
     }
 
 }
