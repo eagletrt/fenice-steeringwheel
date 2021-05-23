@@ -155,7 +155,7 @@ Control {
                     Item {
                         Text {
                             anchors.centerIn: parent
-                            font: tabSelected === 0 ? Style.sans.h1 : Style.sans.h2
+                            font: Style.sans.h2
                             color: Style.textInverted
                             text: modelData[0]
                         }
@@ -186,7 +186,7 @@ Control {
                     Item {
                         Text {
                             anchors.centerIn: parent
-                            font: tabSelected === 1 ? Style.sans.h1 : Style.sans.h2
+                            font: Style.sans.h2
                             color: Style.textInverted
                             text: modelData[0]
                         }
@@ -225,7 +225,7 @@ Control {
 
                             Text {
                                 anchors.centerIn: parent
-                                font: tabSelected === 2 ? Style.sans.h1 : Style.sans.h2
+                                font: Style.sans.h2
                                 color: Style.textInverted
                                 text: modelData[0]
                             }

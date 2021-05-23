@@ -7,14 +7,16 @@
 #        \/           \/     \/              \//_____/  #
 #########################################################
 
-QT += core gui qml quick serialbus opengl
+QT += core gui qml quick serialbus
 CONFIG += qtquickcompiler
 
 TARGET = fenice-steering
 
 INCLUDEPATH += . \
                lib/ \
-               include/
+               include/ \
+               can-cicd/naked_generator/ \
+               can-cicd/includes_generator/ 
 
 # Input
 HEADERS += include/buttons_x86.h \
@@ -33,8 +35,14 @@ HEADERS += include/buttons_x86.h \
            include/telemetry.h \
            include/warning.h \
            include/detect.h \
-           include/graphics.h
-
+           include/graphics.h \
+           include/can/can.h \
+           can-cicd/naked_generator/Primary/c/Primary.h \
+           can-cicd/naked_generator/Secondary/c/Secondary.h \
+           can-cicd/includes_generator/Primary/can_config.h \
+           can-cicd/includes_generator/Primary/ids.h \
+           can-cicd/includes_generator/Secondary/can_config.h \
+           can-cicd/includes_generator/Secondary/ids.h 
 
 SOURCES += src/main_x86.cpp \
            src/buttons_x86.cpp \
@@ -53,6 +61,8 @@ SOURCES += src/main_x86.cpp \
            src/telemetry.cpp \
            src/lv.cpp \
            src/detect.cpp \
-           src/graphics.cpp
+           src/graphics.cpp \
+           can-cicd/naked_generator/Primary/c/Primary.c \
+           can-cicd/naked_generator/Secondary/c/Secondary.c
 
 RESOURCES += qml.qrc

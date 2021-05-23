@@ -1,4 +1,6 @@
 #include "canbus.h"
+#include "can/primary.h"
+
 #include <QDebug>
 #include <QFileInfo>
 #include <QThread>

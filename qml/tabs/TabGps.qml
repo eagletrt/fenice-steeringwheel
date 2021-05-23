@@ -11,7 +11,7 @@ Item {
     Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
-        source: "qrc:/qml/img/satellite/povo.png"
+        source: "qrc:/qml/img/satellite/povo-1-parking.png"
     }
 
     Canvas {

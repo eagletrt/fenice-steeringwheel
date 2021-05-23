@@ -14,16 +14,17 @@ fi
 source tools/env
 
 BUILD_DIR=./build
+IGNORE=./can-cicd
 
 QT_QML_FORMAT="$QT_PATH/qmlformat"
 CLANG_FORMAT=clang-format
 
 echo "[*] Formatting QML files"
-find . -path $BUILD_DIR -prune -false -o -type f \
+find . -path $BUILD_DIR -prune -false -o -path $IGNORE -prune -false -o -type f \
   -name "*.qml" -exec sh -c "$QT_QML_FORMAT -i \$1" _ {} \;
 echo "[*] Formatting cpp files"
-find . -path $BUILD_DIR -prune -false -o -type f \
+find . -path $BUILD_DIR -prune -false -o -path $IGNORE -prune -false -o -type f \
   -name "*.cpp" -exec sh -c "$CLANG_FORMAT -i \$1" _ {} \;
 echo "[*] Formatting h   files"
-find . -path $BUILD_DIR -prune -false -o -type f \
+find . -path $BUILD_DIR -prune -false -o -path $IGNORE -prune -false -o -type f \
   -name "*.h" -exec sh -c "$CLANG_FORMAT -i \$1" _ {} \;

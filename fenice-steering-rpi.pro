@@ -34,7 +34,12 @@ HEADERS += include/buttons.h \
            include/telemetry.h \
            include/warning.h \
            include/detect.h \
-           include/graphics.h
+           include/graphics.h \
+           include/can/can.h \
+           include/can/Primary.h \
+           include/can/Primary_config.h \
+           include/can/Secondary.h \
+           include/can/Secondary_config.h
  
 
 SOURCES += src/main.cpp \
@@ -53,7 +58,9 @@ SOURCES += src/main.cpp \
            src/telemetry.cpp \
            src/lv.cpp \
            src/detect.cpp \
-           src/graphics.cpp
+           src/graphics.cpp \
+           src/can/Primary.c \
+           src/can/Secondary.c
 
 RESOURCES += qml.qrc
 

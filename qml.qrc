@@ -50,6 +50,7 @@
         <file>qml/img/racetracks/demo_rot.png</file>
         
         <file>qml/img/satellite/moto-staza-st-raus-novi-marof.png</file>
+        <file>qml/img/satellite/povo-1-parking.png</file>
         <file>qml/img/satellite/povo.png</file>
         <file>qml/img/satellite/safety-park.png</file>
     </qresource>
