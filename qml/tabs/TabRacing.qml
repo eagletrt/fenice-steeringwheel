@@ -9,11 +9,22 @@ Rectangle {
 
     property int columnWidth: 100
 
-    anchors.fill: parent
+    function disconnect() {
+        window.mapChanged.disconnect(mapChanged);
+    }
+
+    function connect() {
+        window.mapChanged.connect(mapChanged);
+    }
+
+    function mapChanged(map) {
+        mapBar.map = Math.min(map, mapBar.maps.length - 1);
+    }
+
     color: Style.background
 
     Timer {
-        property var start: Date.now()
+        property int start: Date.now()
 
         interval: 10
         running: true
@@ -254,15 +265,12 @@ Rectangle {
 
                 }
 
-                MouseArea {
+                Item {
                     Layout.minimumHeight: 80
                     Layout.fillWidth: true
-                    onClicked: {
-                        mm.map = (mm.map + 1) % mm.maps.length;
-                    }
 
                     MapBar {
-                        id: mm
+                        id: mapBar
                     }
 
                 }

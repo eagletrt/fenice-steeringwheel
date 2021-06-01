@@ -14,21 +14,21 @@ Rectangle {
 
     function connect() {
         // console.log("Tab connessa - Inverter");
-        menu.btnClicked.connect(btnClickedHandler);
+        menu.buttonClicked.connect(buttonClickedHandler);
     }
 
     function disconnect() {
         // console.log("Tab disconnessa - Inverter");
-        menu.btnClicked.disconnect(btnClickedHandler);
+        menu.buttonClicked.disconnect(buttonClickedHandler);
     }
 
-    function btnClickedHandler(btnID) {
+    function buttonClickedHandler(btnID) {
         if (btnID === 2) {
             // Step into this tab and change the behaviour of btnID
             if (!tabView.stepIntoTab) {
                 tabView.stepIntoTab = true;
                 // Prevent the button 0 to switch to Racing Page!
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 var newHvStatus = hvStatus;
                 // Select the first element
                 currentSelected += 1;
@@ -51,7 +51,7 @@ Rectangle {
             }
         }
         if (btnID === 1) {
-            if (!mainwindow.canSwitchPage)
+            if (!window.canSwitchPage)
                 CAN.askHVUpdate(currentSelected);
 
         }
@@ -64,7 +64,7 @@ Rectangle {
                 hvStatus = newHvStatus;
                 currentSelected = -1;
                 // Restore Button 0 initial handler
-                mainwindow.canSwitchPage = true;
+                window.canSwitchPage = true;
                 tabView.stepIntoTab = false;
             }
         }

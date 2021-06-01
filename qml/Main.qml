@@ -6,8 +6,6 @@ import QtQuick.Window 2.2
 Window {
     id: main
 
-    property var currentIndex: 0
-
     width: Style.width
     maximumWidth: Style.width
     minimumWidth: Style.width
@@ -15,37 +13,40 @@ Window {
     maximumHeight: Style.height
     minimumHeight: Style.height
     visible: true
-    title: qsTr("Steering Wheel") + " #" + currentIndex
+    title: qsTr("Steering Wheel")
 
     Item {
-        id: mainwindow
+        id: window
 
-        property var itemOnTop: 1
-        property var canSwitchPage: true
+        property bool canSwitchPage: true
 
         // Buttons signals
-        signal btnPressed(int btnID)
-        signal btnReleased(int btnID)
-        signal btnClicked(int btnID)
+        signal buttonPressed(int button)
+        signal buttonReleased(int button)
+        signal buttonClicked(int button)
+        signal carStatusChanged(int status)
+        signal mapChanged(int map)
         // CAN Signals
-        signal carStatusChanged(int statusID)
-        signal mapChanged(int mapID)
         signal controlStateChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error)
         signal hvStatusChanged(int invRight, int invLeft, int preCharge)
 
         anchors.fill: parent
 
         Connections {
-            function onBtnClicked(btnID) {
-                mainwindow.btnClicked(btnID);
+            function onButtonClicked(button) {
+                window.buttonClicked(button);
             }
 
-            function onBtnPressed(btnID) {
-                mainwindow.btnPressed(btnID);
+            function onButtonPressed(button) {
+                window.buttonPressed(button);
             }
 
-            function onBtnReleased(btnID) {
-                mainwindow.btnReleased(btnID);
+            function onButtonReleased(button) {
+                window.buttonReleased(button);
+            }
+
+            function onMapChanged(map) {
+                window.mapChanged(map);
             }
 
             target: Buttons

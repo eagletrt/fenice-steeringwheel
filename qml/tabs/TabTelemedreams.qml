@@ -7,59 +7,63 @@ import "components"
 Control {
     // CarStatus.setRacetrack(tabRacetrack.currentIndex);
     // CarStatus.setRacetrack(tabRacetrack.currentIndex);
+    //    onTelemetrystatusChanged: {
+    //        tabTest.currentIndex = telemetrystatus[0];
+    //        tabDriver.currentIndex = telemetrystatus[1];
+    //    }
 
     // introdurre stato active o no per poter
     // gestire il gradient del testo, questa funzionalità va implementata
     // anche della racing page per il superamento di certe soglie da parte
     // dei valori "critici" temperatura, voltaggio e anche la velocità
-    // mainwindow.canSwitchPage = false;
-    // tabView.stepIntoTab = true;
+    // window.canSwitchPage = false;
+    // tabs.blocked = true;
     //    StatusFrame {
     //    }
     id: backgroundTelemetry
 
-    property var tabSelected: -1
-    property var stepIntoTabTest: false
-    property var stepIntoTabDriver: false
-    property var selectedIndexTest: -1
-    property var selectedIndexDriver: -1
-    property var test: 0
-    property var driver: 1
+    property int tabSelected: -1
+    property bool stepIntoTabTest: false
+    property bool stepIntoTabDriver: false
+    property int selectedIndexTest: -1
+    property int selectedIndexDriver: -1
+    property int test: 0
+    property int driver: 1
     // ATTENTION: In order to add or remove tests or drivers
     // remember to change the appropriate constant value in telemetry.h
     // because nTests and nDrivers, to maintain consistency in data,
     // acheive their value from there
     // Number of cells into test section
-    property var ntest: CarStatus.nTests
+    property var ntest: tests.length
     // Number of cells into driver section
-    property var ndriver: CarStatus.nDrivers
-    property var telemetrystatus: CarStatus.TelemetryStatus
+    property var ndriver: drivers.length
+    //    property var telemetrystatus: CarStatus.TelemetryStatus
     property var tests: [["Acceleration", '1'], ["Skippad", '0'], ["Endurance", '0'], ["Brake", '0'], ["Test", '0']]
     property var drivers: [["Pilotapazzo", '1'], ["Iron512", '0'], ["Pippogas", '0'], ["Nicolareds", '0'], ["Mirco", '0']]
     property var racetracks: [["Demo", "qrc:/qml/img/racetracks/demo.png", "1"], ["Demo Rot", "qrc:/qml/img/racetracks/demo_rot.png", "2"]]
 
     function connect() {
-        menu.btnClicked.connect(btnClickedHandler);
+        window.buttonClicked.connect(buttonClickedHandler);
     }
 
     function disconnect() {
-        menu.btnClicked.disconnect(btnClickedHandler);
+        window.buttonClicked.disconnect(buttonClickedHandler);
     }
 
-    function btnClickedHandler(btnID) {
+    function buttonClickedHandler(btnID) {
         if (btnID === 0) {
-            if (tabView.stepIntoTab) {
-                tabView.stepIntoTab = false;
-                mainwindow.canSwitchPage = true;
+            if (tabs.blocked) {
+                tabs.blocked = false;
+                window.canSwitchPage = true;
                 tabSelected = -1;
                 console.log("tab exit");
             }
         } else {
         }
         if (btnID === 2) {
-            if (!tabView.stepIntoTab) {
-                tabView.stepIntoTab = true;
-                mainwindow.canSwitchPage = false;
+            if (!tabs.blocked) {
+                tabs.blocked = true;
+                window.canSwitchPage = false;
                 console.log("entered in tab");
                 console.log("tab test selected");
                 tabSelected = 0;
@@ -72,10 +76,10 @@ Control {
             console.log("send to telemtry");
             CAN.asktelemetry();
         }
-        if (btnID === 4 && tabView.stepIntoTab) {
+        if (btnID === 4 && tabs.blocked) {
             if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 if (tabTest.currentIndex === 0)
                     tabTest.currentIndex = (ntest - 1);
                 else
@@ -84,7 +88,7 @@ Control {
             }
             if (tabSelected === 1) {
                 console.log("tabDriver index: " + tabDriver.currentIndex);
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 if (tabDriver.currentIndex === 0)
                     tabDriver.currentIndex = (ndriver - 1);
                 else
@@ -93,17 +97,17 @@ Control {
             }
             if (tabSelected === 2) {
                 console.log("tabRacetrack index: " + tabRacetracks.currentIndex);
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 if (tabRacetracks.currentIndex === 0)
                     tabRacetracks.currentIndex = (racetracks.length - 1);
                 else
                     tabRacetracks.currentIndex--;
             }
         }
-        if (btnID === 5 && tabView.stepIntoTab) {
+        if (btnID === 5 && tabs.blocked) {
             if (tabSelected === 0) {
                 console.log("tabTest index: " + tabTest.currentIndex);
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 if (tabTest.currentIndex === (ntest - 1))
                     tabTest.currentIndex = 0;
                 else
@@ -112,23 +116,18 @@ Control {
             }
             if (tabSelected === 1) {
                 console.log("tabDriver index: " + tabDriver.currentIndex);
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 tabDriver.currentIndex = (tabDriver.currentIndex + 1) % ndriver;
                 CarStatus.setDriver(tabDriver.currentIndex);
             }
             if (tabSelected === 2) {
                 console.log("tabRacetrack index: " + tabRacetracks.currentIndex);
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
                 tabRacetracks.currentIndex = (tabRacetracks.currentIndex + 1) % racetracks.length;
             }
         }
     }
 
-    anchors.fill: parent
-    onTelemetrystatusChanged: {
-        tabTest.currentIndex = telemetrystatus[0];
-        tabDriver.currentIndex = telemetrystatus[1];
-    }
     padding: 20
 
     contentItem: GridLayout {

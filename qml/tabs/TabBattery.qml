@@ -11,15 +11,15 @@ Rectangle {
 
     function connect() {
         // console.log("Tab connessa - Errors");
-        mainwindow.btnClicked.connect(btnClickedHandler);
+        window.buttonClicked.connect(buttonClickedHandler);
     }
 
     function disconnect() {
         // console.log("Tab disconnessa - Errors");
-        mainwindow.btnClicked.disconnect(btnClickedHandler);
+        window.buttonClicked.disconnect(buttonClickedHandler);
     }
 
-    function btnClickedHandler(btnID) {
+    function buttonClickedHandler(btnID) {
         if (btnID === 3)
             CAN.sendMarker();
 

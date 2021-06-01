@@ -26,12 +26,12 @@ Rectangle {
 
     function connect() {
         // console.log("Tab connessa - Sensors");
-        menu.btnClicked.connect(btnClickedHandler);
+        menu.buttonClicked.connect(buttonClickedHandler);
     }
 
     function disconnect() {
         // console.log("Tab disconnessa - Sensors");
-        menu.btnClicked.disconnect(btnClickedHandler);
+        menu.buttonClicked.disconnect(buttonClickedHandler);
     }
 
     function unSelectSensors() {
@@ -49,7 +49,7 @@ Rectangle {
         sensorSelectedIndex = index;
     }
 
-    function btnClickedHandler(btnID) {
+    function buttonClickedHandler(btnID) {
         if (btnID === 0) {
             if (tabView.stepIntoTab && !choiceButtonSelected) {
                 // We are into the tab, get out!
@@ -57,7 +57,7 @@ Rectangle {
                 isStarted = false;
                 // Remove highlight from current selected sensor item
                 unSelectSensors();
-                mainwindow.canSwitchPage = true;
+                window.canSwitchPage = true;
                 tabView.stepIntoTab = false;
             }
             // se non arriva l'ack non esce
@@ -96,7 +96,7 @@ Rectangle {
                 selectSensor(0);
                 // Prevent the button 0 to switch to Racing Page!
                 tabView.stepIntoTab = true;
-                mainwindow.canSwitchPage = false;
+                window.canSwitchPage = false;
             } else {
                 if (!choiceButtonSelected)
                     selectSensor(sensorSelectedIndex + 1);

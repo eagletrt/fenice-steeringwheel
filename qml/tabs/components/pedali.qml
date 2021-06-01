@@ -34,12 +34,12 @@ Rectangle {
 
         Connections {
             target: Buttons
-            onBtnPressed: {
+            onButtonPressed: {
                 if (btnID === 1)
                     acceleratore.width = pedali.width * 75 / 100;
 
             }
-            onBtnReleased: {
+            onButtonReleased: {
                 if (btnID === 1)
                     acceleratore.width = pedali.width * 0 / 100;
 
@@ -100,13 +100,13 @@ Rectangle {
 
             Connections {
                 target: Buttons
-                onBtnPressed: {
+                onButtonPressed: {
                     if (btnID === 2) {
                         capsula.state = "fDefault";
                         freno.width = pedali.width * 0 / 100;
                     }
                 }
-                onBtnReleased: {
+                onButtonReleased: {
                     if (btnID === 2)
                         freno.width = pedali.width * 25 / 100;
 

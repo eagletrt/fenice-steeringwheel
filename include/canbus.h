@@ -61,7 +61,7 @@ class Canbus : public QObject {
                  actuatorRangePendingFlagCleared)
 
 public:
-  Canbus(CarStatus *carStatus);
+  Canbus(CarStatus *carStatus, QObject *parent = nullptr);
   ~Canbus();
 
   int invLeftState;
@@ -113,7 +113,7 @@ signals:
   void controlStateChanged(int ctrlState, int warn, int err);
   void mapChanged(int mapID);
   void pumpChanged(int pumpID);
-  void tcChanged(int tcID);
+  void tractionControlChanged(int tcID);
   void actuatorRangePendingFlagCleared();
 
 public slots:

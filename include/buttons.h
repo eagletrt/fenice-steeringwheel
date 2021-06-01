@@ -1,62 +1,71 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
+#include <QElapsedTimer>
 #include <QGuiApplication>
+#include <QHash>
 #include <QTime>
 #include <QTimer>
 #include <QVector>
 
-#include "lib/mcp23017.h"
-#include "lib/wiringPi.h"
-
-#define BUTTON_TOP_LEFT 110
-#define BUTTON_TOP_RIGHT 108
-#define BUTTON_BOTTOM_LEFT 111
-#define BUTTON_BOTTOM_RIGHT 25
-
-#define PADDLE_LEFT 109
-#define PADDLE_RIGHT 23
-
-#define MAP_1 7
-#define MAP_2 2
-#define MAP_3 3
-#define MAP_4 4
-#define MAP_5 5
-#define MAP_6 21
-
-#define PUMP_1 106
-#define PUMP_2 107
-#define PUMP_3 115
-#define PUMP_4 113
-#define PUMP_5 114
-#define PUMP_6 112
-
-#define TC_OFF 100
-#define TC_1 101
-#define TC_2 102
-#define TC_3 103
-#define TC_4 104
-#define TC_AUTO 105
-
-// Fenice To Do:
-
-#define BUTTON_CENTER 11110029
-
-#define PADDLE_BTM_LEFT 109
-#define PADDLE_BTM_RIGHT 23
-#define PADDLE_TOP_LEFT 11110912
-#define PADDLE_TOP_RIGHT 11110090
-
 class Buttons : public QObject {
   Q_OBJECT
 public:
-  Buttons(QGuiApplication *app);
+  Buttons(QObject *parent = nullptr);
   ~Buttons();
-  QTimer *timer;
+
   enum States {
     BUTTON_NORMAL = 0,
-    BUTTON_PRESSED = 1,
+    BUTTON_PRESSED,
   };
+
+  enum Gpio {
+    BUTTON_START_STOP = 25,
+
+    MANETTINO_RIGHT_START = 100,
+    MANETTINO_RIGHT_END = 107,
+    MANETTINO_LEFT_START = 108,
+    MANETTINO_LEFT_END = 115,
+
+    PADDLE_BOTTOM_RIGHT = 116,
+    PADDLE_TOP_RIGHT,
+    PADDLE_BOTTOM_LEFT,
+    PADDLE_TOP_LEFT,
+    BUTTON_BOTTOM_LEFT,
+    BUTTON_TOP_RIGHT,
+    BUTTON_TOP_LEFT,
+    BUTTON_BOTTOM_RIGHT,
+
+    MANETTINO_CENTER_START = 124,
+    MANETTINO_CENTER_END = 131,
+  };
+  Q_ENUM(Gpio)
+
+  const QHash<int, int> buttonIds = QHash<int, int>{
+      {Gpio::BUTTON_TOP_LEFT, 0},     {Gpio::BUTTON_BOTTOM_LEFT, 1},
+      {Gpio::BUTTON_BOTTOM_RIGHT, 2}, {Gpio::BUTTON_TOP_RIGHT, 3},
+      {Gpio::PADDLE_BOTTOM_LEFT, 4},  {Gpio::PADDLE_BOTTOM_RIGHT, 5},
+      {Gpio::PADDLE_TOP_LEFT, 6},     {Gpio::PADDLE_TOP_RIGHT, 7},
+  };
+
+protected slots:
+  void readGpioState();
+  bool eventFilter(QObject *obj, QEvent *event) override;
+
+signals:
+  void buttonClicked(int button);
+  void buttonPressed(int button);
+  void buttonReleased(int button);
+
+  void mapChanged(int map);
+  void pumpChanged(int pump);
+  void tractionControlChanged(int tractionControl);
+
+private:
+  QTimer *timer;
+  QElapsedTimer switchTimer;
+
+  bool switchIsWrong;
 
   int buttonAction;
   int map;
@@ -66,32 +75,12 @@ public:
   int tc;
   int oldTc;
 
-public slots:
-  void readGPIOState();
-  void changeManettino(int gpio);
-  void changeButtonState(int index);
-  void emitButton(int gpio);
-  void emitButtonEvent(int buttonId, int buttonAction);
-
-signals:
-  void btnClicked(int btnID);
-  void btnPressed(int btnID);
-  void btnReleased(int btnID);
-  void mapChanged(int mapID);
-  void pumpChanged(int pumpID);
-  void tcChanged(int tcID);
-
-private:
-  bool switchIsWrong;
-
-  QTime switchTimer;
+  QVector<States> buttonState;
 
   QVector<int> pinMap;
   QVector<int> pinState;
-  QVector<States> buttonState;
-  QVector<int> previusPinState;
-
-  QVector<int> pinEnabled;
+  QVector<int> pinStatePrevious;
+  QVector<int> pins;
 };
 
 #endif // BUTTONS_H

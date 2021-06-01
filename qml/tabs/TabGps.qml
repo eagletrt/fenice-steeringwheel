@@ -6,8 +6,6 @@ import QtQuick.Layouts 1.15
 Item {
     id: gps
 
-    anchors.fill: parent
-
     Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit

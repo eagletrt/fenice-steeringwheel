@@ -107,22 +107,4 @@ Rectangle {
 
     }
 
-    columnGradient: Gradient {
-        GradientStop {
-            position: 1
-            color: "red"
-        }
-
-        GradientStop {
-            position: 0.5
-            color: "yellow"
-        }
-
-        GradientStop {
-            position: 0
-            color: "green"
-        }
-
-    }
-
 }

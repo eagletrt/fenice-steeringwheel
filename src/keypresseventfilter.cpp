@@ -66,7 +66,7 @@ bool KeyPressEventFilter::eventFilter(QObject *obj, QEvent *event) {
   }
 
   if (btnID != -1) {
-    emit keyboardBtnClicked(btnID);
+    emit keyboardbuttonClicked(btnID);
   }
 
   return true;

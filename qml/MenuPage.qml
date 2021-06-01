@@ -8,144 +8,68 @@ import "tabs"
 Item {
     id: menu
 
-    property var buttonsClick: true
-
-    signal btnPressed(int btnID)
-    signal btnReleased(int btnID)
-    signal btnClicked(int btnID)
-
     function connect() {
-        mainwindow.btnPressed.connect(btnPressedHandler);
-        mainwindow.btnReleased.connect(btnReleasedHandler);
-        mainwindow.btnClicked.connect(btnClickedHandler);
+        window.buttonClicked.connect(buttonClickedHandler);
+        const currentTab = tabs.children[tabs.currentIndex];
+        if (currentTab && currentTab.connect)
+            currentTab.connect();
+
     }
 
     function disconnect() {
-        mainwindow.btnPressed.disconnect(btnPressedHandler);
-        mainwindow.btnReleased.disconnect(btnReleasedHandler);
-        mainwindow.btnClicked.disconnect(btnClickedHandler);
-        // Disconnect current tab, prevent erroneous btn click handling
-        var currentTab = tabView.getTab(0);
-        if (currentTab && currentTab.children[0].disconnect)
-            currentTab.children[0].disconnect();
+        window.buttonReleased.disconnect(buttonClickedHandler);
+        const currentTab = tabs.children[tabs.currentIndex];
+        if (currentTab && currentTab.disconnect)
+            currentTab.disconnect();
 
     }
 
-    function btnPressedHandler(btnID) {
-        menu.btnPressed(btnID);
-    }
+    function buttonClickedHandler(btnID) {
+        if (btnID === ButtonIds.paddleBottomLeft || btnID === ButtonIds.paddleBottomRight) {
+            if (tabs.blocked)
+                return ;
 
-    function btnReleasedHandler(btnID) {
-        menu.btnReleased(btnID);
-    }
+            const total = tabs.children.length;
+            const factor = btnID === ButtonIds.paddleBottomLeft ? -1 : +1;
+            const next = tabs.currentIndex + factor;
+            const index = next >= 0 ? next % total : (next % total + total) % total;
+            const currentTab = tabs.children[tabs.currentIndex];
+            const nextTab = tabs.children[index];
+            if (currentTab.disconnect)
+                currentTab.disconnect();
 
-    function btnClickedHandler(btnID) {
-        menu.btnClicked(btnID);
-    }
+            if (nextTab.connect)
+                nextTab.connect();
 
-    TabView {
-        id: tabView
-
-        property var stepIntoTab: false
-
-        anchors.fill: parent
-        tabPosition: Qt.BottomEdge
-        visible: true
-
-        Connections {
-            function onBtnClicked(btnID) {
-                if (btnID === 4 && buttonsClick) {
-                    if (!tabView.stepIntoTab) {
-                        if (tabView.getTab(tabView.currentIndex).children[0].disconnect)
-                            tabView.getTab(tabView.currentIndex).children[0].disconnect();
-
-                        if (tabView.currentIndex === 0)
-                            tabView.currentIndex = tabView.count - 1;
-                        else
-                            tabView.currentIndex--;
-                        if (tabView.getTab(tabView.currentIndex).children[0].connect)
-                            tabView.getTab(tabView.currentIndex).children[0].connect();
-
-                    }
-                }
-                if (btnID === 5 && buttonsClick) {
-                    if (!tabView.stepIntoTab) {
-                        if (tabView.getTab(tabView.currentIndex).children[0].disconnect)
-                            tabView.getTab(tabView.currentIndex).children[0].disconnect();
-
-                        if (tabView.currentIndex === tabView.count - 1)
-                            tabView.currentIndex = 0;
-                        else
-                            tabView.currentIndex++;
-                        if (tabView.getTab(tabView.currentIndex).children[0].connect)
-                            tabView.getTab(tabView.currentIndex).children[0].connect();
-
-                    }
-                }
-                if (btnID === 0 && !buttonsClick) {
-                    popupStatic.stop();
-                    popup.visible = false;
-                    tabView.visible = true;
-                    buttonsClick = true;
-                }
-            }
-
-            target: menu
+            tabs.currentIndex = index;
         }
-
-        Tab {
-            TabErrors {
-            }
-
-        }
-
-        Tab {
-            TabStatus {
-            }
-
-        }
-
-        Tab {
-            TabRacing {
-            }
-
-        }
-
-        Tab {
-            TabTelemedreams {
-            }
-
-        }
-
-        Tab {
-            TabGps {
-            }
-
-        }
-
-        style: TabViewStyle {
-            frameOverlap: 0
-
-            frame: Rectangle {
-                color: Style.background
-            }
-
-            tab: Rectangle {
-            }
-
-        }
-
     }
 
     Rectangle {
-        width: animation.width
-        height: animation.height
-        visible: false
+        anchors.fill: parent
+        color: Style.background
+    }
 
-        AnimatedImage {
-            id: animation
+    StackLayout {
+        id: tabs
 
-            source: "img/loading/loading.gif"
+        property bool blocked: false
+
+        anchors.fill: parent
+
+        TabRacing {
+        }
+
+        TabErrors {
+        }
+
+        TabStatus {
+        }
+
+        TabTelemedreams {
+        }
+
+        TabGps {
         }
 
     }

@@ -1,20 +1,21 @@
 #include "canbus.h"
-#include "can/primary.h"
 
-#include <QDebug>
 #include <QFileInfo>
 #include <QThread>
 
-Canbus::Canbus(CarStatus *m_carStatus) {
+#include "can/primary.h"
+#include "steering.h"
+
+Canbus::Canbus(CarStatus *m_carStatus, QObject *parent) : QObject(parent) {
 
   QString errorString;
   device = QCanBus::instance()->createDevice(
       QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
   if (!device) {
-    qDebug() << "NO CAN!";
+    sDebug("canbus") << "couldn't connect to can!";
     m_hasCan = false;
   } else {
-    qDebug() << "YES CAN!";
+    sDebug("canbus") << "connected to can!";
     device->connectDevice();
     m_hasCan = true;
   }
@@ -67,6 +68,7 @@ Canbus::Canbus(CarStatus *m_carStatus) {
             SLOT(parseCANMessage(int, QByteArray)));
 
     threadDevice->start();
+    sDebug("canbus") << "thread started";
   }
 }
 // Send to ECU msg for presence in Can-Bus
@@ -337,6 +339,7 @@ void Canbus::setActuatorsRange(int actuatorID, int rangeSide) {
   switch (actuatorID) {
   case 0:
     if (rangeSide == 1) {
+      sDebug("canbus") << "thread started";
       m_actuatorRangePendingFlag = 2;
     } else {
       m_actuatorRangePendingFlag = 1;
@@ -682,11 +685,10 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
   };
 }
 
-// Destroy, BOOM!
 Canbus::~Canbus() {
-  qDebug() << "Canbus destructor";
+  sDebug("canbus") << "cleanup";
+
   if (m_hasCan) {
-    // gracefully stop the thread
     threadDevice->quit();
     if (!threadDevice->wait(3000)) {
       threadDevice->terminate();
@@ -694,12 +696,12 @@ Canbus::~Canbus() {
     }
     delete detect;
     delete threadDevice;
-    qDebug() << "Stop Thread";
+    sDebug("canbus") << "thread stopped";
   }
+
   delete device;
   delete timerSteeringWheel;
   delete timerStatus;
   delete timerEnc;
   delete timerTelemetry;
-  qDebug() << "Closing CAN...";
 }

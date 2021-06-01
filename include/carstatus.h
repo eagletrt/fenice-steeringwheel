@@ -13,6 +13,8 @@
 #define GRAPHICTIMER 100
 #define POPUPTIMER 6000
 
+#include <QTimer>
+
 #include "control.h"
 #include "errors.h"
 #include "hv.h"
@@ -23,8 +25,6 @@
 #include "sensors.h"
 #include "telemetry.h"
 #include "warning.h"
-#include <QDebug>
-#include <QTimer>
 
 class CarStatus : public QObject {
   Q_OBJECT
@@ -46,7 +46,7 @@ class CarStatus : public QObject {
   Q_PROPERTY(QList<int> STEERStatus READ STEERStatus NOTIFY STEERStatusChanged)
   Q_PROPERTY(int velocity READ velocity NOTIFY velocityChanged)
   Q_PROPERTY(int map READ map NOTIFY mapChanged)
-  Q_PROPERTY(int tc READ tc NOTIFY tcChanged)
+  Q_PROPERTY(int tc READ tc NOTIFY tractionControlChanged)
   Q_PROPERTY(int pump READ pump NOTIFY pumpChanged)
 
   Q_PROPERTY(int varWarning READ getWarning NOTIFY warningChanged)
@@ -67,7 +67,7 @@ class CarStatus : public QObject {
   Q_PROPERTY(int throttleVal READ throttleVal NOTIFY throttleValChanged)
 
 public:
-  CarStatus();
+  CarStatus(QObject *parent = nullptr);
   ~CarStatus();
 
   const int LOOP_THROUGH_MAPS = -1;
@@ -201,7 +201,7 @@ signals:
   void CTRLEnabledChanged();
   void velocityChanged();
   void mapChanged();
-  void tcChanged();
+  void tractionControlChanged();
   void pumpChanged();
 
   // signal per qml hv e lv temp volt

@@ -1,10 +1,10 @@
 #include "detect.h"
-#include <QDebug>
+
+#include "steering.h"
 
 Detect::Detect(QCanBusDevice *device) { this->device = device; }
 
 void Detect::startDevice() {
-  qDebug() << "Start Device Thread";
   connect(device, SIGNAL(framesReceived()), this, SLOT(getSerial()));
 }
 

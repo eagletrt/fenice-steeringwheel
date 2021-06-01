@@ -7,63 +7,70 @@
 #        \/           \/     \/              \//_____/  #
 #########################################################
 
-target.path = /root
+target.path = /home/pi
 INSTALLS   += target
 
-QT += core gui qml quick serialbus opengl
+QT += core gui qml quick serialbus
 CONFIG += qtquickcompiler
 
 TARGET = fenice-steering
 
-INCLUDEPATH += . \
-               lib/ \
-               include/
-
-HEADERS += include/buttons.h \
-           include/control.h \
-           include/errors.h \
-           include/hv.h \
-           include/inverters.h \
-           include/console.h \
-           include/canbus.h \
-           include/carstatus.h \
-           include/lv.h \
-           include/manettini.h \
-           include/race.h \
-           include/sensors.h \
-           include/telemetry.h \
-           include/warning.h \
-           include/detect.h \
-           include/graphics.h \
-           include/can/can.h \
-           include/can/Primary.h \
-           include/can/Primary_config.h \
-           include/can/Secondary.h \
-           include/can/Secondary_config.h
- 
-
-SOURCES += src/main.cpp \
-           src/buttons.cpp \
-           src/console.cpp \
-           src/canbus.cpp \
-           src/carstatus.cpp \
-           src/inverters.cpp \
-           src/control.cpp \
-           src/race.cpp \
-           src/warning.cpp \
-           src/manettini.cpp \
-           src/errors.cpp \
-           src/sensors.cpp \
-           src/hv.cpp \
-           src/telemetry.cpp \
-           src/lv.cpp \
-           src/detect.cpp \
-           src/graphics.cpp \
-           src/can/Primary.c \
-           src/can/Secondary.c
+OTHER_FILES += $$files("*.qml", true)
 
 RESOURCES += qml.qrc
 
 LIBS += -L/usr/local/lib -lwiringPi
-#LIBS += -Llib -lwiringPi
-#INCLUDEPATH += /usr/local/include
+
+INCLUDEPATH += \
+            . \
+            include/ \
+            thirdparty/can-cicd/naked_generator/ \
+            thirdparty/can-cicd/includes_generator/ \
+            thirdparty/wiringpi/wiringPi
+
+HEADERS += \
+        include/buttons.h \
+        include/control.h \
+        include/errors.h \
+        include/hv.h \
+        include/inverters.h \
+        include/canbus.h \
+        include/carstatus.h \
+        include/leds.h \
+        include/lv.h \
+        include/manettini.h \
+        include/race.h \
+        include/sensors.h \
+        include/steering.h \
+        include/telemetry.h \
+        include/warning.h \
+        include/detect.h \
+        include/can/primary.h \
+        include/can/secondary.h \
+        thirdparty/can-cicd/naked_generator/Primary/c/Primary.h \
+        thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.h \
+        thirdparty/can-cicd/includes_generator/Primary/can_config.h \
+        thirdparty/can-cicd/includes_generator/Primary/ids.h \
+        thirdparty/can-cicd/includes_generator/Secondary/can_config.h \
+        thirdparty/can-cicd/includes_generator/Secondary/ids.h
+ 
+
+SOURCES += \
+        src/main.cpp \
+        src/buttons.cpp \
+        src/canbus.cpp \
+        src/carstatus.cpp \
+        src/inverters.cpp \
+        src/control.cpp \
+        src/race.cpp \
+        src/warning.cpp \
+        src/manettini.cpp \
+        src/errors.cpp \
+        src/sensors.cpp \
+        src/hv.cpp \
+        src/telemetry.cpp \
+        src/lv.cpp \
+        src/detect.cpp \
+        src/leds.cpp \
+        thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
+        thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c

@@ -11,7 +11,7 @@ void Control::setCtrlIsEnabled(bool val) { this->ctrlIsEnabled = val; }
 void Control::setCtrlIsOn(bool val) { this->ctrlIsOn = val; }
 
 bool Control::setCarStatus(int val) {
-  if (this->carStatus = val)
+  if ((this->carStatus = val))
     return true;
   return false;
 }

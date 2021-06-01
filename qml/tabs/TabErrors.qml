@@ -9,51 +9,50 @@ Control {
     // TODO: check
     property var isStarted: false
     property var btnClickable: false
-    property var errstatus: CarStatus.ERRStatus
+    //    property var errstatus: CarStatus.ERRStatus
     property var ledStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
     property var errorsLEDS: [[["APPS", "DEFAULT"], ["BSE", "DEFAULT"], ["STEER", "DEFAULT"]], [["ENCOD L", "DEFAULT"], ["GPS", "DEFAULT"], ["ENCOD R", "DEFAULT"]], [["IMU FR", "DEFAULT"], ["IMU CN", "DEFAULT"], ["IMU RR", "DEFAULT"]]]
 
     // TODO: check
     function connect() {
-        mainwindow.btnClicked.connect(btnClickedHandler);
+        window.buttonClicked.connect(buttonClickedHandler);
     }
 
     function disconnect() {
-        mainwindow.btnClicked.disconnect(btnClickedHandler);
+        window.buttonClicked.disconnect(buttonClickedHandler);
     }
 
-    function btnClickedHandler(btnID) {
+    function buttonClickedHandler(btnID) {
         if (btnID === 3)
             CAN.sendMarker();
 
     }
 
-    anchors.fill: parent
     padding: 20
     // TODO: check protocol
     // TODO: simplify
-    onErrstatusChanged: {
-        var newErrStatus = errorsLEDS;
-        // APPS
-        newErrStatus[0][0][1] = ledStates[errstatus[0]];
-        // BSE
-        newErrStatus[0][1][1] = ledStates[errstatus[1]];
-        // STEER
-        newErrStatus[0][2][1] = ledStates[errstatus[4]];
-        // WHEEL DX
-        newErrStatus[1][2][1] = ledStates[errstatus[3]];
-        // WHEEL SX
-        newErrStatus[1][0][1] = ledStates[errstatus[2]];
-        // GPS
-        newErrStatus[1][1][1] = ledStates[errstatus[6]];
-        // IMU FRONT
-        newErrStatus[2][0][1] = ledStates[errstatus[5]];
-        // IMU CENTRAL
-        newErrStatus[2][1][1] = ledStates[errstatus[7]];
-        // IMU REAR
-        newErrStatus[2][2][1] = ledStates[errstatus[8]];
-        errorsLEDS = newErrStatus;
-    }
+    //    onErrstatusChanged: {
+    //        var newErrStatus = errorsLEDS;
+    //        // APPS
+    //        newErrStatus[0][0][1] = ledStates[errstatus[0]];
+    //        // BSE
+    //        newErrStatus[0][1][1] = ledStates[errstatus[1]];
+    //        // STEER
+    //        newErrStatus[0][2][1] = ledStates[errstatus[4]];
+    //        // WHEEL DX
+    //        newErrStatus[1][2][1] = ledStates[errstatus[3]];
+    //        // WHEEL SX
+    //        newErrStatus[1][0][1] = ledStates[errstatus[2]];
+    //        // GPS
+    //        newErrStatus[1][1][1] = ledStates[errstatus[6]];
+    //        // IMU FRONT
+    //        newErrStatus[2][0][1] = ledStates[errstatus[5]];
+    //        // IMU CENTRAL
+    //        newErrStatus[2][1][1] = ledStates[errstatus[7]];
+    //        // IMU REAR
+    //        newErrStatus[2][2][1] = ledStates[errstatus[8]];
+    //        errorsLEDS = newErrStatus;
+    //    }
     // TODO: check
     Component.onCompleted: {
         connect();

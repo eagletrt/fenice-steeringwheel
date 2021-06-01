@@ -9,16 +9,16 @@
 class Buttons : public QObject {
   Q_OBJECT
 public:
-  Buttons(QGuiApplication *app);
+  Buttons(QGuiApplication *app, QObject *parent = nullptr);
   ~Buttons();
 
 signals:
-  void btnClicked(int btnID);
-  void btnPressed(int btnID);
-  void btnReleased(int btnID);
+  void buttonClicked(int btnID);
+  void buttonPressed(int btnID);
+  void buttonReleased(int btnID);
   void mapChanged(int mapID);
   void pumpChanged(int pumpID);
-  void tcChanged(int tcID);
+  void tractionControlChanged(int tcID);
 
 public slots:
   void handleKeyboardPress(int btnID);

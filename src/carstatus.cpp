@@ -1,6 +1,8 @@
 #include "carstatus.h"
 
-CarStatus::CarStatus() {
+#include "steering.h"
+
+CarStatus::CarStatus(QObject *parent) : QObject(parent) {
 
   // m_speed = 100; moved into race
 
@@ -150,7 +152,7 @@ void CarStatus::changeTc(int tcID) {
   }
 
   setSteeringWheelPopup('0', 'Y', "TC:" + QString::number(manettini.getTc()));
-  emit tcChanged();
+  emit tractionControlChanged();
 }
 
 // Return Can-bus Status value
@@ -168,7 +170,7 @@ QString CarStatus::CANStatus() const {
 // Return Telemetry Status value
 
 QString CarStatus::TelemetryStatus() const {
-  qDebug() << "Asked Telemetry Status";
+  //  qDebug() << "Asked Telemetry Status";
   return QString::number(telemetry.getTest()) +
          QString::number(telemetry.getDriver());
 }
@@ -318,7 +320,7 @@ void CarStatus::setCANStatus(int invr, int invl, int front, int central,
   emit CANStatusChanged();
 }
 void CarStatus::setTelemetryStatus(int en, int test, int driver) {
-  qDebug() << "setTelemetryStatus";
+  //  qDebug() << "setTelemetryStatus";
   telemetry.setAsk((bool)en);
   telemetry.setTest(test);
   telemetry.setDriver(driver);
@@ -503,8 +505,7 @@ int CarStatus::getCtrlIsOn() { return this->control.getCtrlIsOn(); }
 int CarStatus::getWarning() const { return warning.getWarning(); }
 int CarStatus::error() const { return errors.getError(); }
 
-// Destroy, BOOM!
 CarStatus::~CarStatus() {
+  sDebug("carstatus") << "cleanup";
   delete graphicTimer;
-  qDebug() << "Closing CarStatus...";
 }

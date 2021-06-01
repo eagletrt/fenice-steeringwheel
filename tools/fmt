@@ -14,7 +14,7 @@ fi
 source tools/env
 
 BUILD_DIR=./build
-IGNORE=./can-cicd
+IGNORE=./thirdparty
 
 QT_QML_FORMAT="$QT_PATH/qmlformat"
 CLANG_FORMAT=clang-format

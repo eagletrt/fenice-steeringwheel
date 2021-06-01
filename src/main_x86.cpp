@@ -1,27 +1,26 @@
-#include <QDebug>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QThread>
 
-#include <QCanBus>
-
-#include "buttons_x86.h"
-
+#include "buttons.h"
 #include "canbus.h"
 #include "carstatus.h"
-#include "console.h"
-#include "graphics.h"
+#include "leds.h"
+#include "steering.h"
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-  qDebug() << "Running x86";
+  sDebug("main") << "running on x86!";
 
   QGuiApplication app(argc, argv);
 
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0,
                            "Style");
+
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1,
+                           0, "ButtonIds");
 
   QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
@@ -37,35 +36,17 @@ int main(int argc, char *argv[]) {
   engine.addImportPath(QStringLiteral("qrc:/"));
 
   Buttons buttons(&app);
-  Console logger;
-  CarStatus carStatus;
-  Canbus canInterface(&carStatus);
+  CarStatus carStatus(&app);
+  Canbus canInterface(&carStatus, &app);
 
   QObject::connect(&buttons, &Buttons::mapChanged, &carStatus,
                    &CarStatus::changeMap);
-
-  QObject::connect(&buttons, &Buttons::pumpChanged, &carStatus,
-                   &CarStatus::changePump);
-
-  QObject::connect(&buttons, &Buttons::tcChanged, &carStatus,
-                   &CarStatus::changeTc);
 
   engine.rootContext()->setContextProperty("Buttons", &buttons);
   engine.rootContext()->setContextProperty("CAN", &canInterface);
   engine.rootContext()->setContextProperty("CarStatus", &carStatus);
 
   engine.load(url);
-
-  //    QThread* threadG = new QThread();
-
-  //    Graphics *graphics = new Graphics(view);
-
-  //    graphics->moveToThread(threadG);
-  //    QObject::connect(threadG, SIGNAL(started()),
-  //                     graphics, SLOT(startGraphics()));
-  //    threadG->start();
-
-  //    graphics->startGraphics();
 
   return app.exec();
 }

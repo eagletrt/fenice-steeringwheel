@@ -14,7 +14,7 @@ protected:
   bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
-  void keyboardBtnClicked(int btnID);
+  void keyboardbuttonClicked(int btnID);
 };
 
 #endif // KEYPRESSEVENTFILTER_H
