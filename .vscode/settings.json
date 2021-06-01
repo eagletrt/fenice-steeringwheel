@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "qvector": "cpp",
+    "qbytearray": "cpp",
+    "qhash": "cpp",
+    "can_config.h": "c",
+    "primary.h": "c",
+    "qthread": "cpp"
+  }
+}

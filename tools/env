@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Usage: source tools/env
+
+# -------------
+# Configuration
+# -------------
+
+QT_VERSION="5.15.1/clang_64"
+QT_HOME="$HOME/dev/home/Qt"
+
+# -------------
+# Logic
+# -------------
+
+if ! [ -d .git ]; then
+  echo "[!] Please run this script from the root of the repository"
+  exit 1
+fi
+
+QT_MAKE="qmake"
+
+if ! command -v $QT_MAKE &> /dev/null
+then
+  # ... if qmake is not found search common Qt installation
+  QT_PATH="$QT_HOME/$QT_VERSION/bin"
+  QT_MAKE="$QT_PATH/qmake"
+else
+  QT_PATH="$(dirname "$(command -v "$QT_MAKE")")"
+fi
+
+export QT_PATH
+export QT_MAKE

@@ -1,75 +1,77 @@
-# Steering Wheel Project 
+# Steering Wheel 
 
-## Repository Description 
+<p align="center">
+   <img width="60%" src="https://i.imgur.com/DnmX57U.png">
+</p>
+<p align="center">
+   <kbd>Qt project for the steering wheel UI and backend.</kbd>
+</p>
 
-In this repository you can find the source code of our steering wheel.
+## Development
 
-The project is divided in 2 version: 
+Clone this repository & all the submodules:
 
-* **Desktop**: is compiled for Desktop (Linux x86), and is used to the development part, to test and introduce new feature. This version use different `.cpp` files that you can find in the `.pro` file. In order to work without wiringpi we mapped the input and use the keyboard also for the inteface to comunicate with the car through can-utils we virtualized the interface.
-
-* **Embedded**: is compiled for arm using this [guide](https://eagletrt.github.io/volanteCrosscompilazione.html) and is sended via SSH to the target device. 
-
-## Cross Compile for Taget Device
-
-### Stop the process
-
-```sh
-$ ssh root@eaglepi
-$ kill -9 "pid"
+```
+$ git clone --recurse-submodules https://github.com/eagletrt/fenice-steeringwheel
 ```
 
-### Compile for the Steering Wheel
+With Qt Creator open one of the project files:
 
-```sh
-$ ./fenice-deploy.sh
+- `fenice-steering-x86.pro` Desktop version of the steering wheel, useful for debugging.
+
+- `fenice-steering-rpi.pro` ARM project with full support for the Raspberry Pi 3B+ and all the peripheral attached to the production steering wheel.
+
+If you prefer to not use Qt creator you can use the scripts inside [`/tools`](./tools):
+
 ```
-Be sure that the IP address, written in fenice-deploy.sh, is the same as the SteeringWheel IP address.
-
-
-## Compile for Desktop
-
-```sh
-$ ./deploy.sh
+tools/
+├── run     run the x86 project.
+├── make    build the x86 project.
+├── fmt     run clang format.
+├── env     setup env variables needed for a Qt build
+└── vcan0   setup virtual can interface
 ```
 
-* Be sure the directory written in ```QMAKE``` is the same as the one you can find in your PC.
+### Buttons
 
-* Qt, can-utils and libgl-dev are required.
+- On the Raspberry Pi, buttons states are fetched from:
+   - GPIOs:
+      - start & stop
+   - mcp23017:
+      - ... all the other ...
 
-## Common problems
+- On x86, buttons are mapped to the keyboard, following this table:
 
-### New Files
+   Key |Control
+   ----|------------------------
+   q:  |exit,run/stop    (0)
+   a:  |send,start       (1)
+   d:  |enter, down      (2)
+   r:  |marker,telemetry (3)
+   z:  |paddle_btm_left  (4)
+   x:  |paddle_btm_right (5)
+   c:  |paddle_top_left  (6)
+   v:  |paddle_top_right (7)
+   s:  |button_start     (8)
+   1-6:|Map X            (11-16)
 
-Each time a file is added, be sure is reported both in "eagleSteeringWheel.pro" and "FeniceSteeringWheel.pro" for cpp header and source files and in qml.qrc for qml files.
 
-### Raspberry
+### Leds
 
-RaspberryPI doesn't keep the same IP each session. So check each time the correct address. In principle it would keep something like 192.168.8.100-101...
+- On the Raspberry Pi, leds are controlled by interacting with the TLC59108 
+driver through I<sup>2</sup>C.
+- On x86 leds statuses are logged in the console.
 
+## Rasberry Pi 3B+ Qt Build
 
-## General stucture of the project
+To create a Raspberry Pi build it's highly advised to use Qt Creator.
 
-Project starts from main_x86.cpp. Here 3 classes are instantiated:
-```Buttons
-   CarStatus
-   Canbus
+To get the complete Qt toolchain for the Raspberry Pi 3B+, clone the build repo:
+
 ```
-These have different tasks. **Buttons** manages the pression of the physical buttons of the Steering Wheel. **CarStatus** saves the status of each different part of the car, such as inverter temperature and HV charge. **Canbus** handle everything related to reception and sending of can messages.
-These three objects are passed as parameter to qml via ```QQuickView* view```. This operation is required to garant a communication between C++ and qml.
-The UI runs into a Thread in order to improve performances and consistency. Class ```Graphics``` manage this operation.
+$ git clone https://github.com/eagletrt/fenice-qt-build
+```
 
-### Message is sent by the car to the Steering Wheel
-
-#### BackEnd
-
-SteeringWheel works thanks to CAN messages. These are sended through CAN-Bus (which is a bus :D). Each time a message came to Steering Wheel, it is passed to a Thread, wich manages an object called **device**, and then paresed via ```parseCanMessage``` in CanBus class. This function has the task to update the different status of the car (like inverters temperature as well as speed). It works with a switch case, each case is an ID and for each IDs there a if condition to parse the payload. Once the message is parsed, some variables in CarStatus will change.
-
-#### FrontEnd
-
-The **UI** is written in **qml** and presented with a TabView. Each tab has properties connected to the backend. Everytime a variable in CarStatus, that is a property in a Tab, a ```signal``` will be sent. Here functions called *Changed (such as ```TelemetrystatusChanged```) have the task to update the tab, respecting the new values.
-
-
-### Message is sent by the Stering Wheel to the car
-
-Even the Steering Wheel send can messages. This could happen in 2 cases. A message is sent automatically or after pressing a button. But each time the message start from qml, here a ```slot``` CanBus function is called. This function could modify CarStatus values and ,after that, will invoke ```sendCanMessage``` with ID and payload.
+This repository contains prebuilt binaries for the Raspberry Pi 3B+. You only 
+need to call `qmake`, which can be found inside the 
+[`/bin`](https://github.com/eagletrt/fenice-qt-build/tree/master/bin) folder.
