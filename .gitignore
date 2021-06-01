@@ -1,2 +1,5 @@
+# qt build
 build*
+
+# qt creator local config
 *.user*
