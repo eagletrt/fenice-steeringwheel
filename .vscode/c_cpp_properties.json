@@ -5,8 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/can-cicd/includes_generator/**",
-                "${workspaceFolder}/can-cicd/naked_generator/**",
+                "${workspaceFolder}/thirdparty/can-cicd/includes_generator/**",
+                "${workspaceFolder}/thirdparty/can-cicd/naked_generator/**",
+                "${workspaceFolder}/thirdparty/wiringpi/wiringPi/**",
                 "/usr/include/qt/**",
                 "/usr/include/qt/QtCore/**"
             ],
