@@ -148,4 +148,6 @@ void Buttons::readGpioState() {
   }
 }
 
+bool Buttons::eventFilter(QObject*, QEvent*) {}
+
 Buttons::~Buttons() { delete timer; }

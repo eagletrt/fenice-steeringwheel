@@ -35,6 +35,7 @@ void quitGracefully(QVector<int> sigs) {
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  qInstallMessageHandler(Steering::messageHandler);
 
   sDebug("main") << "running on ARM!";
 
@@ -77,6 +78,7 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("CAN", &canInterface);
   engine.rootContext()->setContextProperty("CarStatus", &carStatus);
   engine.rootContext()->setContextProperty("Leds", &leds);
+  engine.rootContext()->setContextProperty("Steering", &Steering::instance());
 
   engine.load(url);
 

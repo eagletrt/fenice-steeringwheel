@@ -2,25 +2,10 @@ import Const 1.0
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
-import "components"
 
 Control {
-    // CarStatus.setRacetrack(tabRacetrack.currentIndex);
-    // CarStatus.setRacetrack(tabRacetrack.currentIndex);
-    //    onTelemetrystatusChanged: {
-    //        tabTest.currentIndex = telemetrystatus[0];
-    //        tabDriver.currentIndex = telemetrystatus[1];
-    //    }
-
-    // introdurre stato active o no per poter
-    // gestire il gradient del testo, questa funzionalità va implementata
-    // anche della racing page per il superamento di certe soglie da parte
-    // dei valori "critici" temperatura, voltaggio e anche la velocità
-    // window.canSwitchPage = false;
-    // tabs.blocked = true;
-    //    StatusFrame {
-    //    }
-    id: backgroundTelemetry
+    id: telemetry
+    padding: 20
 
     property int tabSelected: -1
     property bool stepIntoTabTest: false
@@ -127,8 +112,6 @@ Control {
             }
         }
     }
-
-    padding: 20
 
     contentItem: GridLayout {
         rows: 2

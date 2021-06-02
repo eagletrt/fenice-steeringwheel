@@ -11,6 +11,7 @@
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  qInstallMessageHandler(Steering::messageHandler);
 
   sDebug("main") << "running on x86!";
 
@@ -45,6 +46,8 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("Buttons", &buttons);
   engine.rootContext()->setContextProperty("CAN", &canInterface);
   engine.rootContext()->setContextProperty("CarStatus", &carStatus);
+
+  engine.rootContext()->setContextProperty("Steering", &Steering::instance());
 
   engine.load(url);
 

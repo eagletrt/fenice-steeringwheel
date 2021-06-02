@@ -6,36 +6,16 @@
         <file>qml/font/RobotoMono-Bold.ttf</file>
         <file>qml/Main.qml</file>
         <file>qml/MenuPage.qml</file>
-        <file>qml/tabs/components/SpeedGauge.qml</file>
-        <file>qml/tabs/components/Status.qml</file>
-        <file>qml/tabs/components/Map.qml</file>
-        <file>qml/tabs/components/Maps.qml</file>
-        <file>qml/tabs/components/StatusLED.qml</file>
-        <file>qml/tabs/components/CentralView.qml</file>
-        <file>qml/tabs/components/LabelLED.qml</file>
-        <file>qml/tabs/components/CtrlLabelLED.qml</file>
-        <file>qml/tabs/components/CANStatusLED.qml</file>
-        <file>qml/tabs/components/HVStatusLED.qml</file>
-        <file>qml/tabs/components/HVFrame.qml</file>
-        <file>qml/tabs/components/LVFrame.qml</file>
-        <file>qml/tabs/components/StatusFrame.qml</file>
-        <file>qml/tabs/components/Button.qml</file>
-        <file>qml/tabs/components/SensorStatus.qml</file>
-        <file>qml/tabs/components/ChoiceButton.qml</file>
-        <file>qml/tabs/components/LED.qml</file>
-        <file>qml/tabs/racing/BigValue.qml</file>
-        <file>qml/tabs/racing/MapBar.qml</file>
-        <file>qml/tabs/racing/ValueColumn.qml</file>
-        <file>qml/tabs/racing/ValueLabel.qml</file>
+        <file>qml/tabs/components/StatusCard.qml</file>
+        <file>qml/tabs/components/BigValue.qml</file>
+        <file>qml/tabs/components/MapBar.qml</file>
+        <file>qml/tabs/components/ValueColumn.qml</file>
+        <file>qml/tabs/components/ValueLabel.qml</file>
         <file>qml/tabs/TabRacing.qml</file>
-        <file>qml/tabs/status/StatusCard.qml</file>
+        <file>qml/tabs/TabTelemetry.qml</file>
         <file>qml/tabs/TabStatus.qml</file>
+        <file>qml/tabs/TabTerminal.qml</file>
         <file>qml/tabs/TabGps.qml</file>
-        <file>qml/tabs/TabInverter.qml</file>
-        <file>qml/tabs/TabSensors.qml</file>
-        <file>qml/tabs/TabBattery.qml</file>
-        <file>qml/tabs/TabTelemedreams.qml</file>
-        <file>qml/tabs/TabErrors.qml</file>
         <file>qml/const/Style.qml</file>
         <file>qml/const/ButtonIds.qml</file>
         <file>qml/img/loading/loading.gif</file>

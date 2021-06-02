@@ -34,7 +34,7 @@ uint8_t TLC59108::readRegisters(uint8_t *dest, const uint8_t startReg,
                                 const uint8_t num) const {
   uint8_t qint8sRead = 0;
   while ((qint8sRead < num)) {
-    (*dest) = (uint8_t)wiringPiI2CReadReg8(fd, startReg | AUTO_INCREMENT::ALL);
+    (*dest) = (uint8_t) wiringPiI2CReadReg8(fd, startReg | AUTO_INCREMENT::ALL);
     dest++;
     qint8sRead++;
   }
@@ -81,6 +81,8 @@ uint8_t TLC59108::setAllBrightness(const uint8_t dutyCycle) {
 uint8_t TLC59108::setAllBrightnessDifferent(const uint8_t dutyCycles[]) {
   return setRegisters(REGISTER::PWM0::ADDR, dutyCycles, NUM_CHANNELS);
 }
+
+///
 
 Leds::Leds(QObject *parent)
     : QObject(parent), left(new TLC59108(0x4a)), right(new TLC59108(0x45)) {

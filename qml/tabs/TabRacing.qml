@@ -2,34 +2,37 @@ import Const 1.0
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "racing"
+import "components"
 
 Rectangle {
     id: racing
 
     property int columnWidth: 100
 
-    function disconnect() {
-        window.mapChanged.disconnect(mapChanged);
-    }
 
     function connect() {
-        window.mapChanged.connect(mapChanged);
+        window.onMapChanged.connect(onMapChanged);
+        mapBar.map = Math.min(CarStatus.map, mapBar.maps.length - 1);
     }
 
-    function mapChanged(map) {
+    function disconnect() {
+        window.onMapChanged.disconnect(onMapChanged);
+    }
+
+    function onMapChanged(map) {
         mapBar.map = Math.min(map, mapBar.maps.length - 1);
     }
 
     color: Style.background
 
     Timer {
-        property int start: Date.now()
+        property real start: Date.now()
 
         interval: 10
         running: true
         repeat: true
         triggeredOnStart: true
+
         onTriggered: function update() {
             let d = new Date(Date.now() - start);
             time.text = String(d.getUTCMinutes()).padStart(2, "0") + ":" + String(d.getUTCSeconds()).padStart(2, "0") + "." + String((Math.min(99, d.getUTCMilliseconds() / 10)).toFixed()).padStart(2, "0");

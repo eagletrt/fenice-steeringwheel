@@ -63,6 +63,7 @@ SOURCES += \
         src/inverters.cpp \
         src/control.cpp \
         src/race.cpp \
+        src/steering.cpp \
         src/warning.cpp \
         src/manettini.cpp \
         src/errors.cpp \

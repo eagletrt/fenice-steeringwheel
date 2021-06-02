@@ -46,6 +46,11 @@ QtObject {
     }
 
     mono: QtObject {
+        property font xsmall: Qt.font({
+            "family": monoBold.name,
+            "styleName": "Regular",
+            "pointSize": 11 * fontScaling
+        })
         property font small: Qt.font({
             "family": monoBold.name,
             "styleName": "Regular",
@@ -84,6 +89,11 @@ QtObject {
     }
 
     sans: QtObject {
+        property font xsmall: Qt.font({
+            "family": sansRegular.name,
+            "styleName": "Regular",
+            "pointSize": 11 * fontScaling
+        })
         property font small: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",

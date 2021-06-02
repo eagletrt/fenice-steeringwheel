@@ -26,6 +26,10 @@ Window {
         signal buttonClicked(int button)
         signal carStatusChanged(int status)
         signal mapChanged(int map)
+
+        // Steering signals
+        signal logsChanged(string line)
+
         // CAN Signals
         signal controlStateChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error)
         signal hvStatusChanged(int invRight, int invLeft, int preCharge)
@@ -50,6 +54,14 @@ Window {
             }
 
             target: Buttons
+        }
+
+        Connections {
+            function onLogsChanged(line) {
+                window.logsChanged(line);
+            }
+
+            target: Steering
         }
 
         MenuPage {

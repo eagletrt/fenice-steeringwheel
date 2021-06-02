@@ -2,6 +2,8 @@
 
 #include <QKeyEvent>
 
+#include "steering.h"
+
 Buttons::Buttons(QObject *parent) : QObject(parent) {
   parent->installEventFilter(this);
 }
@@ -77,6 +79,8 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
   default:
     break;
   }
+
+  qDebug() << "got" << btnID;
 
   if (btnID != -1) {
     if (btnID < 10) {

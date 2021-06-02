@@ -25,7 +25,6 @@ INCLUDEPATH += \
 # Input
 HEADERS += \
         include/buttons.h \
-        include/keypresseventfilter.h \
         include/control.h \
         include/errors.h \
         include/hv.h \
@@ -54,12 +53,12 @@ SOURCES += \
         src/leds_x86.cpp \
         src/main_x86.cpp \
         src/buttons_x86.cpp \
-        src/keypresseventfilter.cpp \
         src/canbus.cpp \
         src/carstatus.cpp \
         src/inverters.cpp \
         src/control.cpp \
         src/race.cpp \
+        src/steering.cpp \
         src/warning.cpp \
         src/manettini.cpp \
         src/errors.cpp \
@@ -70,3 +69,6 @@ SOURCES += \
         src/detect.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c
+
+DISTFILES += \
+    qml/tabs/TabTerminal.qml

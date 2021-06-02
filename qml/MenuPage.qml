@@ -35,6 +35,7 @@ Item {
             const index = next >= 0 ? next % total : (next % total + total) % total;
             const currentTab = tabs.children[tabs.currentIndex];
             const nextTab = tabs.children[index];
+
             if (currentTab.disconnect)
                 currentTab.disconnect();
 
@@ -57,16 +58,16 @@ Item {
 
         anchors.fill: parent
 
-        TabRacing {
+        TabTerminal {
         }
 
-        TabErrors {
+        TabRacing {
         }
 
         TabStatus {
         }
 
-        TabTelemedreams {
+        TabTelemetry {
         }
 
         TabGps {
