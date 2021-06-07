@@ -1,24 +1,19 @@
 #include "leds.h"
 
-#include <QDebug>
-
 #include <math.h>
 #include <unistd.h>
 
+#include <QDebug>
+
 #include "wiringPiI2C.h"
 
-TLC59108::TLC59108(const uint8_t address) : address(address) {
-  fd = wiringPiI2CSetup(address);
-}
+TLC59108::TLC59108(const uint8_t address) : address(address) { fd = wiringPiI2CSetup(address); }
 
 TLC59108::~TLC59108() { close(fd); }
 
-uint8_t TLC59108::setRegister(const uint8_t reg, const uint8_t value) {
-  return wiringPiI2CWriteReg8(fd, reg, value);
-}
+uint8_t TLC59108::setRegister(const uint8_t reg, const uint8_t value) { return wiringPiI2CWriteReg8(fd, reg, value); }
 
-uint8_t TLC59108::setRegisters(const uint8_t startReg, const uint8_t values[],
-                               const uint8_t numValues) {
+uint8_t TLC59108::setRegisters(const uint8_t startReg, const uint8_t values[], const uint8_t numValues) {
   uint8_t buf[numValues + 1];
   buf[0] = startReg | AUTO_INCREMENT::IND;
   for (uint8_t i = 0; i < numValues; i++)
@@ -26,15 +21,12 @@ uint8_t TLC59108::setRegisters(const uint8_t startReg, const uint8_t values[],
   return write(fd, &buf, numValues + 1);
 }
 
-int TLC59108::readRegister(const uint8_t reg) const {
-  return wiringPiI2CReadReg8(fd, reg);
-}
+int TLC59108::readRegister(const uint8_t reg) const { return wiringPiI2CReadReg8(fd, reg); }
 
-uint8_t TLC59108::readRegisters(uint8_t *dest, const uint8_t startReg,
-                                const uint8_t num) const {
+uint8_t TLC59108::readRegisters(uint8_t *dest, const uint8_t startReg, const uint8_t num) const {
   uint8_t qint8sRead = 0;
   while ((qint8sRead < num)) {
-    (*dest) = (uint8_t) wiringPiI2CReadReg8(fd, startReg | AUTO_INCREMENT::ALL);
+    (*dest) = (uint8_t)wiringPiI2CReadReg8(fd, startReg | AUTO_INCREMENT::ALL);
     dest++;
     qint8sRead++;
   }
@@ -43,16 +35,12 @@ uint8_t TLC59108::readRegisters(uint8_t *dest, const uint8_t startReg,
 }
 
 bool TLC59108::getAllBrightness(uint8_t dutyCycles[]) const {
-  return (readRegisters(dutyCycles, REGISTER::PWM0::ADDR, NUM_CHANNELS) ==
-          NUM_CHANNELS);
+  return (readRegisters(dutyCycles, REGISTER::PWM0::ADDR, NUM_CHANNELS) == NUM_CHANNELS);
 }
 
-uint8_t TLC59108::init() {
-  return setRegister(REGISTER::MODE1::ADDR, REGISTER::MODE1::ALLCALL);
-}
+uint8_t TLC59108::init() { return setRegister(REGISTER::MODE1::ADDR, REGISTER::MODE1::ALLCALL); }
 
-uint8_t TLC59108::setBrightness(const uint8_t pwmChannel,
-                                const uint8_t dutyCycle) {
+uint8_t TLC59108::setBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
   if (pwmChannel > 7)
     return ERROR::ERRINVAL;
 
@@ -63,8 +51,7 @@ uint8_t TLC59108::setLedOutputMode(const uint8_t outputMode) {
   if (outputMode & 0xfc)
     return ERROR::ERRINVAL;
 
-  uint8_t regValue =
-      (outputMode << 6) | (outputMode << 4) | (outputMode << 2) | outputMode;
+  uint8_t regValue = (outputMode << 6) | (outputMode << 4) | (outputMode << 2) | outputMode;
 
   uint8_t retVal = setRegister(REGISTER::LEDOUT0::ADDR, regValue);
   retVal &= setRegister(REGISTER::LEDOUT1::ADDR, regValue);
@@ -84,8 +71,7 @@ uint8_t TLC59108::setAllBrightnessDifferent(const uint8_t dutyCycles[]) {
 
 ///
 
-Leds::Leds(QObject *parent)
-    : QObject(parent), left(new TLC59108(0x4a)), right(new TLC59108(0x45)) {
+Leds::Leds(QObject *parent) : QObject(parent), left(new TLC59108(0x4a)), right(new TLC59108(0x45)) {
   left->init();
   right->init();
   left->setLedOutputMode(TLC59108::LED_MODE::PWM_IND);

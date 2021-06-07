@@ -30,11 +30,12 @@ INCLUDEPATH += \
 
 HEADERS += \
         include/buttons.h \
+        include/can/canbus.h \
+        include/can/device.h \
         include/control.h \
         include/errors.h \
         include/hv.h \
         include/inverters.h \
-        include/canbus.h \
         include/carstatus.h \
         include/leds.h \
         include/lv.h \
@@ -45,8 +46,6 @@ HEADERS += \
         include/telemetry.h \
         include/warning.h \
         include/detect.h \
-        include/can/primary.h \
-        include/can/secondary.h \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.h \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.h \
         thirdparty/can-cicd/includes_generator/Primary/can_config.h \
@@ -57,8 +56,8 @@ HEADERS += \
 
 SOURCES += \
         src/main.cpp \
-        src/buttons.cpp \
-        src/canbus.cpp \
+        src/can/device.cpp \
+        src/can/canbus.cpp \
         src/carstatus.cpp \
         src/inverters.cpp \
         src/control.cpp \
@@ -72,6 +71,7 @@ SOURCES += \
         src/telemetry.cpp \
         src/lv.cpp \
         src/detect.cpp \
+        src/buttons.cpp \
         src/leds.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c

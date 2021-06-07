@@ -1,13 +1,13 @@
 #ifndef CANBUS_H
 #define CANBUS_H
 
-#include "carstatus.h"
-#include "detect.h"
 #include <QByteArray>
+#include <QCanBus>
 #include <QHash>
 #include <QTimer>
 
-#include <QCanBus>
+#include "carstatus.h"
+#include "detect.h"
 
 // CarStatus Constants
 #define CAR_STATUS_IDLE 0
@@ -57,8 +57,7 @@
 class Canbus : public QObject {
   Q_OBJECT
 
-  Q_PROPERTY(int actuatorRangePendingFlag READ actuatorRangePendingFlag NOTIFY
-                 actuatorRangePendingFlagCleared)
+  Q_PROPERTY(int actuatorRangePendingFlag READ actuatorRangePendingFlag NOTIFY actuatorRangePendingFlagCleared)
 
 public:
   Canbus(CarStatus *carStatus, QObject *parent = nullptr);

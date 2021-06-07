@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.3
 
 Control {
     id: telemetry
-    padding: 20
 
     property int tabSelected: -1
     property bool stepIntoTabTest: false
@@ -112,6 +111,8 @@ Control {
             }
         }
     }
+
+    padding: 20
 
     contentItem: GridLayout {
         rows: 2

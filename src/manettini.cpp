@@ -15,7 +15,5 @@ int Manettini::getTc() const { return this->tc; }
 int Manettini::getPump() const { return this->pump; }
 bool Manettini::getFirstChange() const { return firstChange; }
 void Manettini::incMap(const int MAP_NUMBER) { map = (map + 1) % MAP_NUMBER; }
-void Manettini::incPump(const int PUMP_NUMBER) {
-  pump = (pump + 1) % PUMP_NUMBER;
-}
+void Manettini::incPump(const int PUMP_NUMBER) { pump = (pump + 1) % PUMP_NUMBER; }
 void Manettini::incTc(const int TC_NUMBER) { tc = (tc + 1) % TC_NUMBER; }

@@ -12,11 +12,9 @@ void Steering::appendLine(const QString &line) {
 
 Q_GLOBAL_STATIC(Steering, steering);
 
-Steering &Steering::instance() {
-  return *steering;
-}
+Steering &Steering::instance() { return *steering; }
 
-void Steering::messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg){
+void Steering::messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
   QByteArray message = msg.toLocal8Bit();
   const char *category = context.category ? context.category : "global";
 
@@ -25,20 +23,20 @@ void Steering::messageHandler(QtMsgType type, const QMessageLogContext &context,
 
   switch (type) {
   case QtDebugMsg:
-      stream << "[dbg:" << category << "]: ";
-      break;
+    stream << "[dbg:" << category << "]: ";
+    break;
   case QtInfoMsg:
-      stream << "[inf:" << category << "]: ";
-      break;
+    stream << "[inf:" << category << "]: ";
+    break;
   case QtWarningMsg:
-      stream << "[war:" << category << "]: ";
-      break;
+    stream << "[war:" << category << "]: ";
+    break;
   case QtCriticalMsg:
-      stream << "[crt:" << category << "]: ";
-      break;
+    stream << "[crt:" << category << "]: ";
+    break;
   case QtFatalMsg:
-      stream << "[fat:" << category << "]: ";
-      break;
+    stream << "[fat:" << category << "]: ";
+    break;
   }
   stream << message;
 
@@ -53,6 +51,6 @@ void Steering::messageHandler(QtMsgType type, const QMessageLogContext &context,
   fprintf(stderr, "%s\n", resultBytes.constData());
 
   if (steering.exists()) {
-      steering->appendLine(result);
-    }
+    steering->appendLine(result);
+  }
 }

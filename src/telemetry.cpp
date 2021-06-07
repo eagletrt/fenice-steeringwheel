@@ -11,10 +11,9 @@ Telemetry::Telemetry() {
   driver[0] = 1;
 
   this->sender = false;
-  this->telemetryEnStatus = 0; // 0 off, 1 is setting up, 2 setted
-  this->popup =
-      "10steering:wheel"; //'Priority' + 'Color' + 'Message' (: = \n) [Look in
-                          // MainPage.qml for more informations]
+  this->telemetryEnStatus = 0;      // 0 off, 1 is setting up, 2 setted
+  this->popup = "10steering:wheel"; //'Priority' + 'Color' + 'Message' (: = \n) [Look in
+                                    // MainPage.qml for more informations]
   this->ask = false;
 }
 
@@ -107,7 +106,6 @@ QString Telemetry::getPopupMessage() const { return this->popup; }
 bool Telemetry::getAsk() { return !ask; }
 
 void Telemetry::getNUM(int *arr) {
-
   arr[0] = NUM_TESTS;
   arr[1] = NUM_DRIVERS;
 }

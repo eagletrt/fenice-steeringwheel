@@ -17,11 +17,9 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication app(argc, argv);
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0,
-                           "Style");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1,
-                           0, "ButtonIds");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1, 0, "ButtonIds");
 
   QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
@@ -40,8 +38,7 @@ int main(int argc, char *argv[]) {
   CarStatus carStatus(&app);
   Canbus canInterface(&carStatus, &app);
 
-  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus,
-                   &CarStatus::changeMap);
+  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus, &CarStatus::changeMap);
 
   engine.rootContext()->setContextProperty("Buttons", &buttons);
   engine.rootContext()->setContextProperty("CAN", &canInterface);

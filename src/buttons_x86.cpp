@@ -1,24 +1,21 @@
-#include "buttons.h"
-
 #include <QKeyEvent>
 
+#include "buttons.h"
 #include "steering.h"
 
-Buttons::Buttons(QObject *parent) : QObject(parent) {
-  parent->installEventFilter(this);
-}
+Buttons::Buttons(QObject *parent) : QObject(parent) { parent->installEventFilter(this); }
 
-//  KeyBoard Map
-//  q:  exit,run/stop    (0)
-//  a:  send,start       (1)
-//  d:  enter, down      (2)
-//  r:  marker,telemetry (3)
-//  z:  paddle_btm_left  (4)
-//  x:  paddle_btm_right (5)
-//  c:  paddle_top_left  (6)
-//  v:  paddle_top_right (7)
-//  s:  button_start     (8)
-//  1-6:Map X            (11-16)
+//  Keyboard Map
+//  q:   exit,run/stop    (0)
+//  a:   send,start       (1)
+//  d:   enter, down      (2)
+//  r:   marker,telemetry (3)
+//  z:   paddle_btm_left  (4)
+//  x:   paddle_btm_right (5)
+//  c:   paddle_top_left  (6)
+//  v:   paddle_top_right (7)
+//  s:   button_start     (8)
+//  1-6: map X            (11-16)
 
 void Buttons::readGpioState() {}
 
@@ -79,8 +76,6 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
   default:
     break;
   }
-
-  qDebug() << "got" << btnID;
 
   if (btnID != -1) {
     if (btnID < 10) {

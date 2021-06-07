@@ -3,14 +3,12 @@
 #include <QFileInfo>
 #include <QThread>
 
-#include "can/primary.h"
+#include "can/device.h"
 #include "steering.h"
 
 Canbus::Canbus(CarStatus *m_carStatus, QObject *parent) : QObject(parent) {
-
   QString errorString;
-  device = QCanBus::instance()->createDevice(
-      QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
+  device = QCanBus::instance()->createDevice(QStringLiteral("socketcan"), QStringLiteral("vcan0"), &errorString);
   if (!device) {
     sDebug("canbus") << "couldn't connect to can!";
     m_hasCan = false;
@@ -64,8 +62,7 @@ Canbus::Canbus(CarStatus *m_carStatus, QObject *parent) : QObject(parent) {
     detect->moveToThread(threadDevice);
 
     connect(threadDevice, SIGNAL(started()), detect, SLOT(startDevice()));
-    connect(detect, SIGNAL(result(int, QByteArray)), this,
-            SLOT(parseCANMessage(int, QByteArray)));
+    connect(detect, SIGNAL(result(int, QByteArray)), this, SLOT(parseCANMessage(int, QByteArray)));
 
     threadDevice->start();
     sDebug("canbus") << "thread started";
@@ -204,9 +201,7 @@ void Canbus::PWMCheck() {
 }
 
 // Get Actuator flag for pedals and steering calibration
-int Canbus::actuatorRangePendingFlag() const {
-  return m_actuatorRangePendingFlag;
-}
+int Canbus::actuatorRangePendingFlag() const { return m_actuatorRangePendingFlag; }
 
 // Send Message to Sensors to receive sensors errors
 void Canbus::checkSensorsError() {
@@ -229,7 +224,6 @@ void Canbus::checkCANCommunication(bool isOk = false) {
 
 // Ask if we can move to Set-Up/Idle state from Tab Status
 void Canbus::askSetupOrIdle(int whatState) {
-
   QByteArray msg;
   msg.resize(8);
 
@@ -255,7 +249,6 @@ void Canbus::askSetupOrIdle(int whatState) {
 // Run -> Setup      0x06
 
 void Canbus::toggleCar() {
-  QString popupMessage;
   ctrlIsOn = carStatus->getCtrlIsOn();
   goStatus = carStatus->carStatus();
   map = carStatus->getMap();
@@ -408,22 +401,19 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
   switch (mid) {
   case 0x181:
     if (msg.at(0) == 0x4a) {
-      carStatus->setLeftInverterTemperature((uint8_t)msg.at(1),
-                                            (uint8_t)msg.at(2));
+      carStatus->setLeftInverterTemperature((uint8_t)msg.at(1), (uint8_t)msg.at(2));
     }
     break;
 
   case 0x182:
     if (msg.at(0) == 0x4a) {
-      carStatus->setRightInverterTemperature((uint8_t)msg.at(1),
-                                             (uint8_t)msg.at(2));
+      carStatus->setRightInverterTemperature((uint8_t)msg.at(1), (uint8_t)msg.at(2));
     }
     break;
 
   case STM_PEDALS:
 
     if (msg.at(0) == 0x02) {
-
       carStatus->setBrake(msg.at(1));
       // qDebug() << "------>Brake received" << msg.at(1);
 
@@ -500,23 +490,18 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 
   case ECU_MSG:
     if (msg.at(0) == ECU_ERRORS) {
-
       // -1 = 255 e -128 = 128, ovvero se tutti i bit sono a 1. Usate il qDebug
       // sopra per scoprire il vostro valore magico
       // if((int)msg.at(1) == -1 && (int)msg.at(2) >= -128 && (int)msg.at(2) <=
       // -1) // -1 = 255 e -128 = 128, ovvero se tutti i bit sono a 1. Usate il
       // qDebug sopra per scoprire il vostro valore magico
 
-      carStatus->setCANStatus((msg.at(1) >> 7) & 1, (msg.at(1) >> 6) & 1,
-                              (msg.at(1) >> 5) & 1, (msg.at(1) >> 4) & 1,
-                              (msg.at(1) >> 3) & 1, (msg.at(1) >> 2) & 1,
-                              (msg.at(1) >> 1) & 1, (msg.at(1) >> 0) & 1);
+      carStatus->setCANStatus((msg.at(1) >> 7) & 1, (msg.at(1) >> 6) & 1, (msg.at(1) >> 5) & 1, (msg.at(1) >> 4) & 1,
+                              (msg.at(1) >> 3) & 1, (msg.at(1) >> 2) & 1, (msg.at(1) >> 1) & 1, (msg.at(1) >> 0) & 1);
 
-      carStatus->setERRStatus(
-          (msg.at(2) >> 7) & 1, (msg.at(2) >> 6) & 1, (msg.at(2) >> 5) & 1,
-          (msg.at(2) >> 4) & 1, (msg.at(2) >> 3) & 1, (msg.at(2) >> 2) & 1,
-          (msg.at(2) >> 1) & 1, (msg.at(2) >> 0) & 1,
-          0); // vanno ancora sistemati qui si aspettava un altro valore
+      carStatus->setERRStatus((msg.at(2) >> 7) & 1, (msg.at(2) >> 6) & 1, (msg.at(2) >> 5) & 1, (msg.at(2) >> 4) & 1,
+                              (msg.at(2) >> 3) & 1, (msg.at(2) >> 2) & 1, (msg.at(2) >> 1) & 1, (msg.at(2) >> 0) & 1,
+                              0); // vanno ancora sistemati qui si aspettava un altro valore
 
       if ((int)msg.at(1) <= 0) {
         // qDebug() << "Error is 0" << (int)msg.at(1);
@@ -536,20 +521,17 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 
     } else if (msg.at(0) == ECU_INV_LEFT) {
       QString oldStatus = carStatus->HVStatus();
-      carStatus->setHVStatus(oldStatus.mid(0, 1).toInt(), 1,
-                             oldStatus.mid(2, 1).toInt());
+      carStatus->setHVStatus(oldStatus.mid(0, 1).toInt(), 1, oldStatus.mid(2, 1).toInt());
       // qDebug() << "Ricevuto Stato INV LEFT" << oldStatus.mid(0,1).toInt();
       // qDebug() << oldStatus;
       carStatus->setSteeringWheelPopup('1', '0', "L INV ON");
     } else if (msg.at(0) == ECU_INV_RIGHT) {
       QString oldStatus = carStatus->HVStatus();
-      carStatus->setHVStatus(oldStatus.mid(0, 1).toInt(),
-                             oldStatus.mid(1, 1).toInt(), 1);
+      carStatus->setHVStatus(oldStatus.mid(0, 1).toInt(), oldStatus.mid(1, 1).toInt(), 1);
       // qDebug() << "Ricevuto Stato INV RIGHT" << oldStatus.mid(1,1).toInt();
       // qDebug() << oldStatus;
       carStatus->setSteeringWheelPopup('1', '0', "R INV ON");
     } else if (msg.at(0) == 0x03) {
-
       // entro in start
 
       ctrlIsEnabled = carStatus->getCtrlIsEnabled();
@@ -559,8 +541,7 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
       // Get current map
 
       // NUOVA VERSIONE, DAL 20/02
-      driveModeEnabled =
-          1; // dovrebbe voler dire msg.at(0)[0], aka il bit piu a dx
+      driveModeEnabled = 1; // dovrebbe voler dire msg.at(0)[0], aka il bit piu a dx
       // warning = msg.at(2);
       // error = msg.at(1);
       // velocity = ( (int) msg.at(1) ) / 2;
@@ -579,12 +560,10 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
       }
 
       // Set the current Car Status
-      carStatus->setCarStatus(ctrlIsEnabled, ctrlIsOn, driveModeEnabled,
-                              warning, error);
+      carStatus->setCarStatus(ctrlIsEnabled, ctrlIsOn, driveModeEnabled, warning, error);
 
       QString oldStatus = carStatus->HVStatus();
-      carStatus->setHVStatus(1, oldStatus.mid(1, 1).toInt(),
-                             oldStatus.mid(2, 1).toInt());
+      carStatus->setHVStatus(1, oldStatus.mid(1, 1).toInt(), oldStatus.mid(2, 1).toInt());
 
     } else if (msg.at(0) == 0x04) // idle
     {
@@ -629,10 +608,8 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
 
   case BMS_ID:
 
-    carStatus->setHVStatus((uint8_t)msg.at(0), (uint8_t)msg.at(1),
-                           (uint8_t)msg.at(2), (uint8_t)msg.at(3),
-                           (uint8_t)msg.at(4), (uint8_t)msg.at(5),
-                           (uint8_t)msg.at(6), (uint8_t)msg.at(7));
+    carStatus->setHVStatus((uint8_t)msg.at(0), (uint8_t)msg.at(1), (uint8_t)msg.at(2), (uint8_t)msg.at(3),
+                           (uint8_t)msg.at(4), (uint8_t)msg.at(5), (uint8_t)msg.at(6), (uint8_t)msg.at(7));
     break;
 
   case LV_ID:
@@ -645,14 +622,12 @@ void Canbus::parseCANMessage(int mid, QByteArray msg) {
   case BMS_STATUS_ID:
 
     if (msg.at(3) == 0x2A) {
-
       // carStatus->setTemperature(msg.at(4));
       qDebug() << "Actually setTemperature is not used, to enable it remove "
                   "comments";
     }
 
     if (msg.at(3) == 0xF) {
-
       // carStatus->setStateOfCharge(msg.at(4));
       qDebug() << "Actually setStateOfCharge is not used, to enable it remove "
                   "comments";

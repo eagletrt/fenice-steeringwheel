@@ -4,10 +4,11 @@
 #include <QThread>
 
 #include "buttons.h"
-#include "canbus.h"
 #include "carstatus.h"
 #include "leds.h"
 #include "steering.h"
+
+#include "can/canbus.h"
 
 #ifdef Q_OS_LINUX
 #include <signal.h>
@@ -37,15 +38,13 @@ int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
   qInstallMessageHandler(Steering::messageHandler);
 
-  sDebug("main") << "running on ARM!";
+  sDebug("main") << "running on" << QSysInfo::currentCpuArchitecture();
 
   QGuiApplication app(argc, argv);
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0,
-                           "Style");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1,
-                           0, "ButtonIds");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1, 0, "ButtonIds");
 
   QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
@@ -60,24 +59,22 @@ int main(int argc, char *argv[]) {
 
   engine.addImportPath(QStringLiteral("qrc:/"));
 
-  Leds leds(&engine);
+  Leds leds(&app);
+  Buttons buttons(&app);
+  CarStatus carStatus(&app);
+  CanBus canBus(&carStatus, &app);
 
-  Buttons buttons(&engine);
-  CarStatus carStatus(&engine);
-  Canbus canInterface(&carStatus, &engine);
+  canBus.start();
 
-  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus,
-                   &CarStatus::changeMap);
-
+  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus, &CarStatus::changeMap);
   QObject::connect(&buttons, &Buttons::pumpChanged, &leds, &Leds::pumpChanged);
+  QObject::connect(&buttons, &Buttons::tractionControlChanged, &leds, &Leds::tractionControlChanged);
 
-  QObject::connect(&buttons, &Buttons::tractionControlChanged, &leds,
-                   &Leds::tractionControlChanged);
-
-  engine.rootContext()->setContextProperty("Buttons", &buttons);
-  engine.rootContext()->setContextProperty("CAN", &canInterface);
-  engine.rootContext()->setContextProperty("CarStatus", &carStatus);
   engine.rootContext()->setContextProperty("Leds", &leds);
+  engine.rootContext()->setContextProperty("Buttons", &buttons);
+  engine.rootContext()->setContextProperty("CarStatus", &carStatus);
+  engine.rootContext()->setContextProperty("CanBus", &canBus);
+
   engine.rootContext()->setContextProperty("Steering", &Steering::instance());
 
   engine.load(url);

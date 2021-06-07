@@ -22,14 +22,10 @@ public:
   // register auto-increment modes for setting multiple registers
   // datasheet, p 13
   struct AUTO_INCREMENT {
-    static const uint8_t ALL =
-        0x80; // increment through all registers (for initial setup)
-    static const uint8_t IND =
-        0xa0; // increment through individual brightness registers
-    static const uint8_t GLOBAL =
-        0xc0; // increment through global control registers
-    static const uint8_t INDGLOBAL =
-        0xe0; // increment through individual and global registers
+    static const uint8_t ALL = 0x80;       // increment through all registers (for initial setup)
+    static const uint8_t IND = 0xa0;       // increment through individual brightness registers
+    static const uint8_t GLOBAL = 0xc0;    // increment through global control registers
+    static const uint8_t INDGLOBAL = 0xe0; // increment through individual and global registers
   };
 
   struct LED_MODE {
@@ -147,11 +143,9 @@ public:
 
   uint8_t init();
   uint8_t setRegister(const uint8_t reg, const uint8_t value);
-  uint8_t setRegisters(const uint8_t startReg, const uint8_t values[],
-                       const uint8_t numValues);
+  uint8_t setRegisters(const uint8_t startReg, const uint8_t values[], const uint8_t numValues);
   int readRegister(const uint8_t reg) const;
-  uint8_t readRegisters(uint8_t *dest, const uint8_t startReg,
-                        const uint8_t num) const;
+  uint8_t readRegisters(uint8_t *dest, const uint8_t startReg, const uint8_t num) const;
   uint8_t setBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
   uint8_t setAllBrightness(const uint8_t dutyCycle);
   uint8_t setAllBrightnessDifferent(const uint8_t dutyCycles[]);

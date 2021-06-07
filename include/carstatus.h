@@ -30,14 +30,11 @@ class CarStatus : public QObject {
   Q_OBJECT
 
   Q_PROPERTY(QString CANStatus READ CANStatus NOTIFY CANStatusChanged)
-  Q_PROPERTY(QString TelemetryStatus READ TelemetryStatus NOTIFY
-                 TelemetryStatusChanged)
+  Q_PROPERTY(QString TelemetryStatus READ TelemetryStatus NOTIFY TelemetryStatusChanged)
   Q_PROPERTY(QString nTests READ nTests NOTIFY nTestsChanged)
   Q_PROPERTY(QString nDrivers READ nDrivers NOTIFY nDriversChanged)
-  Q_PROPERTY(int TelemetryEnabledStatus READ TelemetryEnabledStatus NOTIFY
-                 TelemetryEnabledStatusChanged)
-  Q_PROPERTY(QString SteeringWheelPopup READ SteeringWheelPopup NOTIFY
-                 SteeringWheelPopupChanged)
+  Q_PROPERTY(int TelemetryEnabledStatus READ TelemetryEnabledStatus NOTIFY TelemetryEnabledStatusChanged)
+  Q_PROPERTY(QString SteeringWheelPopup READ SteeringWheelPopup NOTIFY SteeringWheelPopupChanged)
   Q_PROPERTY(QString HVStatus READ HVStatus NOTIFY HVStatusChanged)
   Q_PROPERTY(QString ERRStatus READ ERRStatus NOTIFY ERRStatusChanged)
   Q_PROPERTY(QString CTRLEnabled READ CTRLEnabled NOTIFY CTRLEnabledChanged)
@@ -150,8 +147,8 @@ public slots:
   void setThrottle(int val);
   void setBrake(int val);
   void stopMessage(int inverter);
-  void setHVStatus(uint8_t id, uint8_t val1, uint8_t val2, uint8_t val3,
-                   uint8_t val4, uint8_t val5, uint8_t val6, uint8_t val7);
+  void setHVStatus(uint8_t id, uint8_t val1, uint8_t val2, uint8_t val3, uint8_t val4, uint8_t val5, uint8_t val6,
+                   uint8_t val7);
   void setLVStatus(uint8_t val1, uint8_t val3);
 
   QByteArray getTelemetryStatus();
@@ -163,7 +160,7 @@ public slots:
   void processingTimeout();
 
 private:
-  static int getBit(unsigned char seq, int index);
+  static int getTheBit(unsigned char seq, int index);
 
   Inverters inverters;
   Control control;

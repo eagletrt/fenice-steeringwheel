@@ -1,0 +1,8 @@
+---
+BasedOnStyle: LLVM
+---
+Language: Cpp
+ColumnLimit: 120
+---
+Language: JavaScript
+ColumnLimit: 100

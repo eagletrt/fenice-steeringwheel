@@ -17,7 +17,7 @@ fenice-steering wheel v0.0.1."
     function connect() {
         textbox.text = header + "\n" + Steering.logs.join("\n");
         window.onLogsChanged.connect(onLogsChanged);
-        scroll.increase()
+        scroll.increase();
     }
 
     function disconnect() {
@@ -26,11 +26,12 @@ fenice-steering wheel v0.0.1."
 
     function onLogsChanged(line) {
         textbox.text += "\n" + line;
-        scroll.increase()
+        scroll.increase();
     }
 
     TextArea.flickable: TextArea {
         id: textbox
+
         readOnly: true
         wrapMode: Text.WordWrap
         color: Style.text
@@ -39,7 +40,9 @@ fenice-steering wheel v0.0.1."
     }
 
     ScrollBar.vertical: ScrollBar {
-        stepSize: 10
         id: scroll
+
+        stepSize: 10
     }
+
 }

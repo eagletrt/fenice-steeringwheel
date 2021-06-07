@@ -4,9 +4,7 @@
 
 Detect::Detect(QCanBusDevice *device) { this->device = device; }
 
-void Detect::startDevice() {
-  connect(device, SIGNAL(framesReceived()), this, SLOT(getSerial()));
-}
+void Detect::startDevice() { connect(device, SIGNAL(framesReceived()), this, SLOT(getSerial())); }
 
 void Detect::getSerial() {
   QByteArray canMsg;

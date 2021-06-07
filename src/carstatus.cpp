@@ -3,7 +3,6 @@
 #include "steering.h"
 
 CarStatus::CarStatus(QObject *parent) : QObject(parent) {
-
   // m_speed = 100; moved into race
 
   graphicTimer = new QTimer(this);
@@ -23,14 +22,10 @@ void CarStatus::processingTimeout() {
 }
 
 // Set Left Inverter Temperature and emit Property
-void CarStatus::setLeftInverterTemperature(int val1, int val2) {
-  inverters.setLeftInverterTemperature(val1, val2);
-}
+void CarStatus::setLeftInverterTemperature(int val1, int val2) { inverters.setLeftInverterTemperature(val1, val2); }
 
 // Set Right Inverter Temperature and emit Property
-void CarStatus::setRightInverterTemperature(int val1, int val2) {
-  inverters.setRightInverterTemperature(val1, val2);
-}
+void CarStatus::setRightInverterTemperature(int val1, int val2) { inverters.setRightInverterTemperature(val1, val2); }
 
 // Set Speed and emit Property
 void CarStatus::setSpeed(int val1, int val2) {
@@ -87,8 +82,7 @@ void CarStatus::setLVStatus(uint8_t val1, uint8_t val3) {
 }
 
 // Set HV temp,volt value
-void CarStatus::setHVStatus(uint8_t id, uint8_t val1, uint8_t val2,
-                            uint8_t val3, uint8_t val4, uint8_t val5,
+void CarStatus::setHVStatus(uint8_t id, uint8_t val1, uint8_t val2, uint8_t val3, uint8_t val4, uint8_t val5,
                             uint8_t val6, uint8_t val7) {
   if (id == 0x01) {
     hv.setHvVolt(val1, val2, val3);
@@ -109,7 +103,6 @@ void CarStatus::setHVStatus(uint8_t id, uint8_t val1, uint8_t val2,
 
 // Set the value for the Map
 void CarStatus::changeMap(int mapID) {
-
   if (mapID != LOOP_THROUGH_MAPS) {
     manettini.setMap(mapID);
   } else {
@@ -119,8 +112,7 @@ void CarStatus::changeMap(int mapID) {
 
   // This should avoid first map popup
   if (!manettini.getFirstChange()) {
-    setSteeringWheelPopup('0', 'B',
-                          "MAP:" + QString::number(manettini.getMap()));
+    setSteeringWheelPopup('0', 'B', "MAP:" + QString::number(manettini.getMap()));
   } else { // If first change set manettini.firstChange = false -> next time
            // will show the popup
     manettini.setFirstChange();
@@ -130,21 +122,18 @@ void CarStatus::changeMap(int mapID) {
 
 // Set the value for the Pump
 void CarStatus::changePump(int pumpID) {
-
   if (pumpID != LOOP_THROUGH_PUMPS) {
     manettini.setPump(pumpID);
   } else {
     manettini.incPump(PUMP_NUMBER);
   }
 
-  setSteeringWheelPopup('0', 'G',
-                        "PUMP:" + QString::number(manettini.getPump()));
+  setSteeringWheelPopup('0', 'G', "PUMP:" + QString::number(manettini.getPump()));
   // emit pumpChanged();
 }
 
 // Set the value for the Pump
 void CarStatus::changeTc(int tcID) {
-
   if (tcID != LOOP_THROUGH_TCS) {
     manettini.setTc(tcID);
   } else {
@@ -159,20 +148,16 @@ void CarStatus::changeTc(int tcID) {
 QString CarStatus::CANStatus() const {
   // qDebug() << "Asked CanStatus";
   return QString("%1%2%3%4%5%6%7%8")
-      .arg(QString::number(warning.getInvRight()),
-           QString::number(warning.getInvLeft()),
-           QString::number(warning.getFront()),
-           QString::number(warning.getCentral()),
-           QString::number(warning.getPedals()),
-           QString::number(warning.getRear()), QString::number(warning.getLv()),
+      .arg(QString::number(warning.getInvRight()), QString::number(warning.getInvLeft()),
+           QString::number(warning.getFront()), QString::number(warning.getCentral()),
+           QString::number(warning.getPedals()), QString::number(warning.getRear()), QString::number(warning.getLv()),
            QString::number(warning.getHv()));
 }
 // Return Telemetry Status value
 
 QString CarStatus::TelemetryStatus() const {
   //  qDebug() << "Asked Telemetry Status";
-  return QString::number(telemetry.getTest()) +
-         QString::number(telemetry.getDriver());
+  return QString::number(telemetry.getTest()) + QString::number(telemetry.getDriver());
 }
 
 QString CarStatus::nTests() {
@@ -188,13 +173,9 @@ QString CarStatus::nDrivers() {
   return QString::number(arr[1]);
 }
 
-int CarStatus::TelemetryEnabledStatus() const {
-  return telemetry.getTelemetryStatus();
-}
+int CarStatus::TelemetryEnabledStatus() const { return telemetry.getTelemetryStatus(); }
 
-QString CarStatus::SteeringWheelPopup() const {
-  return telemetry.getPopupMessage();
-}
+QString CarStatus::SteeringWheelPopup() const { return telemetry.getPopupMessage(); }
 
 QByteArray CarStatus::getTelemetryStatus() {
   QByteArray t;
@@ -226,8 +207,7 @@ void CarStatus::setSender() {
 // Return HV Status value
 QString CarStatus::HVStatus() const {
   // qDebug() << "Asked HVStatus";
-  return QString("%1%2%3").arg(QString::number(inverters.getPreCharge()),
-                               QString::number(inverters.getLeftInverter()),
+  return QString("%1%2%3").arg(QString::number(inverters.getPreCharge()), QString::number(inverters.getLeftInverter()),
                                QString::number(inverters.getRightInverter()));
 }
 
@@ -235,27 +215,21 @@ QString CarStatus::HVStatus() const {
 QString CarStatus::ERRStatus() const {
   // qDebug() << "Asked ERRStatus";
   return QString("%1%2%3%4%5%6%7%8%9")
-      .arg(QString::number(errors.getErrApps()),
-           QString::number(errors.getErrBse()),
-           QString::number(errors.getErrLeftWheel()),
-           QString::number(errors.getErrRightWheel()),
-           QString::number(errors.getErrSteer()),
-           QString::number(errors.getErrFrontIMU()),
-           QString::number(errors.getErrGPS()),
-           QString::number(errors.getErrCentralIMU()),
+      .arg(QString::number(errors.getErrApps()), QString::number(errors.getErrBse()),
+           QString::number(errors.getErrLeftWheel()), QString::number(errors.getErrRightWheel()),
+           QString::number(errors.getErrSteer()), QString::number(errors.getErrFrontIMU()),
+           QString::number(errors.getErrGPS()), QString::number(errors.getErrCentralIMU()),
            QString::number(errors.getErrRearIMU()));
 }
 
 // ???
-int CarStatus::getBit(unsigned char seq, int index) {
-  return (int)(seq >> index) & 1U;
-}
+int CarStatus::getTheBit(unsigned char seq, int index) { return (int)(seq >> index) & 1U; }
 
 QList<int> CarStatus::APPSStatus() const {
   QList<int> appsStatusArr;
   appsStatusArr.append((int)sensors.getApps());
   for (int var = 0; var < 5; ++var) {
-    appsStatusArr.append(CarStatus::getBit(sensors.getNumErrApps(), var));
+    appsStatusArr.append(CarStatus::getTheBit(sensors.getNumErrApps(), var));
   }
   return appsStatusArr;
 }
@@ -264,7 +238,7 @@ QList<int> CarStatus::BSEStatus() const {
   QList<int> bseStatusArr;
   bseStatusArr.append((int)sensors.getBse());
   for (int var = 0; var < 4; ++var) {
-    bseStatusArr.append(CarStatus::getBit(sensors.getNumErrBse(), var));
+    bseStatusArr.append(CarStatus::getTheBit(sensors.getNumErrBse(), var));
   }
   return bseStatusArr;
 }
@@ -272,7 +246,7 @@ QList<int> CarStatus::BSEStatus() const {
 QList<int> CarStatus::STEERStatus() const {
   QList<int> steerStatusArr;
   steerStatusArr.append((int)sensors.getNumErrSteer());
-  steerStatusArr.append(CarStatus::getBit(sensors.getNumErrSteer(), 0));
+  steerStatusArr.append(CarStatus::getTheBit(sensors.getNumErrSteer(), 0));
   return steerStatusArr;
 }
 
@@ -295,19 +269,15 @@ void CarStatus::setAPPSBSEStatus(int apps, int bse) {
   emit BSEStatusChanged();
 }
 
-void CarStatus::setERRStatus(int err_apps, int err_bse, int err_wheel_left,
-                             int err_wheel_right, int err_steer,
-                             int err_imu_front, int err_gps,
-                             int err_imu_central, int err_imu_rear) {
-
-  errors.setAll(err_apps, err_bse, err_steer, err_wheel_left, err_wheel_right,
-                err_gps, err_imu_front, err_imu_central, err_imu_rear);
+void CarStatus::setERRStatus(int err_apps, int err_bse, int err_wheel_left, int err_wheel_right, int err_steer,
+                             int err_imu_front, int err_gps, int err_imu_central, int err_imu_rear) {
+  errors.setAll(err_apps, err_bse, err_steer, err_wheel_left, err_wheel_right, err_gps, err_imu_front, err_imu_central,
+                err_imu_rear);
 
   emit ERRStatusChanged();
 }
 
-void CarStatus::setCANStatus(int invr, int invl, int front, int central,
-                             int pedals, int rear, int hv, int lv) {
+void CarStatus::setCANStatus(int invr, int invl, int front, int central, int pedals, int rear, int hv, int lv) {
   warning.setInvRight(invr);
   warning.setInvLeft(invl);
   warning.setFront(front);
@@ -355,7 +325,6 @@ void CarStatus::setSteeringWheelPopup(QChar priority, QChar color,
 }
 
 void CarStatus::stopMessage(int inverter) {
-
   if (inverter == 0) {
     inverters.setLeftInverter(0);
   }
@@ -373,7 +342,6 @@ void CarStatus::stopMessage(int inverter) {
 }
 
 void CarStatus::setHVStatus(int preCharge, int invLeft, int invRight) {
-
   inverters.setLeftInverter(invLeft);
   inverters.setRightInverter(invRight);
   inverters.setPreCharge(preCharge);
@@ -383,9 +351,7 @@ void CarStatus::setHVStatus(int preCharge, int invLeft, int invRight) {
 
 int CarStatus::getCtrlIsEnabled() { return control.getCtrlIsEnabled(); }
 
-void CarStatus::setCarStatus(int ctrlIsEnabled, int ctrlIsOn,
-                             int driveModeEnabled, int warning, int error) {
-
+void CarStatus::setCarStatus(int ctrlIsEnabled, int ctrlIsOn, int driveModeEnabled, int warning, int error) {
   control.setCtrlIsEnabled(ctrlIsEnabled);
   control.setCtrlIsOn(ctrlIsOn);
   // this->warning.setWarning(warning);
@@ -491,12 +457,8 @@ int CarStatus::brakeVal() const { return sensors.getBrakeVal(); }
 int CarStatus::throttleVal() const { return sensors.getThrottleVal(); }
 int CarStatus::speed() const { return race.getSpeed(); }
 int CarStatus::km() const { return race.getKm(); }
-int CarStatus::invSxTemp() const {
-  return inverters.getLeftInverterTemperature();
-}
-int CarStatus::invDxTemp() const {
-  return inverters.getRightInverterTemperature();
-}
+int CarStatus::invSxTemp() const { return inverters.getLeftInverterTemperature(); }
+int CarStatus::invDxTemp() const { return inverters.getRightInverterTemperature(); }
 int CarStatus::hvTemp() const { return hv.getHvTemp(); }
 int CarStatus::lvTemp() const { return lv.getLvTemp(); }
 int CarStatus::hvVolt() const { return hv.getHvVolt(); }

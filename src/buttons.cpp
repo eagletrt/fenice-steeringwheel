@@ -70,7 +70,6 @@ void Buttons::readGpioState() {
     pinState[i] = digitalRead(pins.at(i));
 
     if (pinState.at(i) != pinStatePrevious.at(i)) {
-
       buttonAction = -1;
       pump = -1;
       map = -1;
@@ -98,27 +97,21 @@ void Buttons::readGpioState() {
       QMetaEnum metaEnum = QMetaEnum::fromType<Buttons::Gpio>();
       QString name = metaEnum.valueToKey(pins[i]);
       if (name.length() > 0) {
-        sDebug("buttons") << pins[i] << name
-                          << "changed state to:" << pinState[i];
+        sDebug("buttons") << pins[i] << name << "changed state to:" << pinState[i];
       } else {
         sDebug("buttons") << pins[i] << "changed state to:" << pinState[i];
       }
 #endif
 
-      if (pins[i] >= Gpio::MANETTINO_LEFT_START &&
-          pins[i] <= Gpio::MANETTINO_LEFT_END) {
+      if (pins[i] >= Gpio::MANETTINO_LEFT_START && pins[i] <= Gpio::MANETTINO_LEFT_END) {
         this->pump = pins[i] - Gpio::MANETTINO_LEFT_START;
-      } else if (pins[i] >= Gpio::MANETTINO_CENTER_START &&
-                 pins[i] <= Gpio::MANETTINO_CENTER_END) {
+      } else if (pins[i] >= Gpio::MANETTINO_CENTER_START && pins[i] <= Gpio::MANETTINO_CENTER_END) {
         this->map = pins[i] - Gpio::MANETTINO_CENTER_START;
-      } else if (pins[i] >= Gpio::MANETTINO_RIGHT_START &&
-                 pins[i] <= Gpio::MANETTINO_RIGHT_END) {
+      } else if (pins[i] >= Gpio::MANETTINO_RIGHT_START && pins[i] <= Gpio::MANETTINO_RIGHT_END) {
         this->tc = pins[i] - Gpio::MANETTINO_RIGHT_START;
       }
 
-      if ((map != -1 && map != oldMap) || (pump != -1 && pump != oldPump) ||
-          (tc != -1 && tc != oldTc)) {
-
+      if ((map != -1 && map != oldMap) || (pump != -1 && pump != oldPump) || (tc != -1 && tc != oldTc)) {
         int timeElapsed = switchTimer.restart();
 
         if (timeElapsed < 15) {
@@ -148,6 +141,6 @@ void Buttons::readGpioState() {
   }
 }
 
-bool Buttons::eventFilter(QObject*, QEvent*) {}
+bool Buttons::eventFilter(QObject *, QEvent *) {}
 
 Buttons::~Buttons() { delete timer; }

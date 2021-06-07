@@ -9,7 +9,6 @@ Rectangle {
 
     property int columnWidth: 100
 
-
     function connect() {
         window.onMapChanged.connect(onMapChanged);
         mapBar.map = Math.min(CarStatus.map, mapBar.maps.length - 1);
@@ -32,7 +31,6 @@ Rectangle {
         running: true
         repeat: true
         triggeredOnStart: true
-
         onTriggered: function update() {
             let d = new Date(Date.now() - start);
             time.text = String(d.getUTCMinutes()).padStart(2, "0") + ":" + String(d.getUTCSeconds()).padStart(2, "0") + "." + String((Math.min(99, d.getUTCMilliseconds() / 10)).toFixed()).padStart(2, "0");

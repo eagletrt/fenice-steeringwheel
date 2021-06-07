@@ -23,10 +23,8 @@ void Errors::setErrFrontIMU(int val) { err_imu_front = val; }
 void Errors::setErrCentralIMU(int val) { err_imu_central = val; }
 void Errors::setErrRearIMU(int val) { err_imu_rear = val; }
 void Errors::setError(int val) { error = val; }
-void Errors::setAll(int err_apps, int err_bse, int err_steer,
-                    int err_wheel_left, int err_wheel_right, int err_gps,
+void Errors::setAll(int err_apps, int err_bse, int err_steer, int err_wheel_left, int err_wheel_right, int err_gps,
                     int err_imu_front, int err_imu_central, int err_imu_rear) {
-
   this->err_apps = err_apps;
   this->err_bse = err_bse;
   this->err_steer = err_steer;
