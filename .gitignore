@@ -3,3 +3,6 @@ build*
 
 # qt creator local config
 *.user*
+
+# python local version
+.python-version
