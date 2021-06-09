@@ -57,10 +57,13 @@ Item {
 
         anchors.fill: parent
 
-        TabTerminal {
+        TabCalibration {
         }
 
         TabRacing {
+        }
+
+        TabTerminal {
         }
 
         TabStatus {

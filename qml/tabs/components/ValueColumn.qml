@@ -10,7 +10,6 @@ Rectangle {
     property double value: 0
     property string label
     property int barCount: 10
-    property int direction: Qt.LeftToRight
     property Gradient columnGradient
 
     color: Style.background

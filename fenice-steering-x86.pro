@@ -25,13 +25,12 @@ INCLUDEPATH += \
 # Input
 HEADERS += \
         include/buttons.h \
-        include/can/device.h \
         include/can/canbus.h \
+        include/can/device.h \
         include/control.h \
         include/errors.h \
         include/hv.h \
         include/inverters.h \
-        include/canbus.h \
         include/carstatus.h \
         include/leds.h \
         include/lv.h \
@@ -50,10 +49,9 @@ HEADERS += \
         thirdparty/can-cicd/includes_generator/Secondary/ids.h
 
 SOURCES += \
-        src/can/canbus.cpp \
         src/main.cpp \
         src/can/device.cpp \
-        src/canbus.cpp \
+        src/can/canbus.cpp \
         src/carstatus.cpp \
         src/inverters.cpp \
         src/control.cpp \

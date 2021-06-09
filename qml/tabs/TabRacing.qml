@@ -44,7 +44,6 @@ Rectangle {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
             label: "[V] Porco"
-            direction: Qt.LeftToRight
             barCount: 8
 
             columnGradient: Gradient {
@@ -284,7 +283,6 @@ Rectangle {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
             label: "[kw] Porco"
-            direction: Qt.RightToLeft
             barCount: 8
 
             columnGradient: Gradient {

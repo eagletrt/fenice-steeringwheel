@@ -6,7 +6,7 @@ Rectangle {
 
     property string name
 
-    state: "CAN_DEFAULT"
+    state: "DEFAULT"
     anchors.fill: parent
     states: [
         State {

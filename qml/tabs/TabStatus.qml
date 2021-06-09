@@ -7,9 +7,8 @@ import "components"
 Control {
     id: status
 
-    //    property var canstatus: CarStatus.CANStatus
-    property var ledStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
-    property var canLeds: [["InvRight", 'CAN_DEFAULT'], ["InvLeft", 'CAN_DEFAULT'], ["STMFront", 'CAN_DEFAULT'], ["STMCentral", 'CAN_DEFAULT'], ["STMPedals", 'CAN_DEFAULT'], ["STMRear", 'CAN_DEFAULT'], ["BMS HV", 'CAN_DEFAULT'], ["BMS LV", 'CAN_DEFAULT']]
+    property var possibleStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
+    property var sensors: ["InvRight", "InvLeft", "STMFront", "STMCentral", "STMPedals", "STMRear", "BMS HV", "BMS LV"]
 
     padding: 20
 
@@ -20,20 +19,20 @@ Control {
             Layout.fillWidth: true
             Layout.fillHeight: true
             rows: 5
-            columns: 2
+            columns: 3
             rowSpacing: 10
             columnSpacing: 10
 
             Repeater {
-                model: canLeds
+                model: sensors
 
                 delegate: Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
                     StatusCard {
-                        name: modelData[0]
-                        state: ledStates[Math.floor(Math.random() * ledStates.length)] // modelData[1]
+                        name: modelData
+                        state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }
 
                 }
