@@ -1,6 +1,8 @@
---------------------------------
 Building Qt for the Raspberry Pi
---------------------------------
+================================
+
+This guide is an edited version of the `original <https://github.com/abhiTronix/raspberry-pi-cross-compilers/blob/master/QT_build_instructions.md>`__
+by `abhiTronix <https://github.com/abhiTronix>`__.
 
 Prerequites
 -----------
@@ -8,13 +10,13 @@ Prerequites
 A. Hardware
 ~~~~~~~~~~~
 
--  **Host [PC/Laptop]:** Any x86/x86_64 AMD/Intel machine
--  **Target [Raspberry Pi]:** Raspberry Pi any variant/module
+-  **Host:** Any x86 / x86_64 AMD / Intel machine
+-  **Target:** Raspberry Pi any variant / module
 
 B. Software
 ~~~~~~~~~~~
 
--  **Host:** Any Linux machine *(Linux Mint Tested)*
+-  **Host:** Any Linux machine *(Ubuntu 20.04 Tested)*
 -  **Target:** `Any Raspberry Pi Linux 32-bit
    OS <https://www.raspberrypi.org/software/operating-systems/>`__
    *(Raspbian Buster Tested)*
@@ -26,8 +28,8 @@ C. Others
    ~10GB space and about 2-5 hours to complete *(based on dependencies &
    Host Machine Specifications)*.
 -  **Networking:** Your Target Machine *(Raspberry Pi)* and Host Machine
-   *(where you cross-compiling)* both MUST have Internet Access, and
-   MUST be on SAME Network to follow these instructions.
+   *(where you cross-compiling)* both must have internet access, and
+   must be on same network to follow these instructions.
 
 Setup the Target Machine
 ------------------------
@@ -74,13 +76,9 @@ installing Raspbian Buster OS and a Laptop/PC for uploading it.
 Now the you have your Raspberry Pi up and Running, its time to connect
 it your network with one of following ways:
 
--  **If you have Monitor:** Connect it to your raspberry pi along with a
-   keyboard and mouse to navigate, and `follow this
-   guide <https://www.raspberrypi.org/documentation/configuration/wireless/desktop.md>`__.
--  **If you don’t have Monitor:** `Follow this
-   guide <https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md>`__
--  `Any other
-   way <https://www.raspberrypi.org/documentation/configuration/wireless/>`__
+-  `If you have Monitor <https://www.raspberrypi.org/documentation/configuration/wireless/desktop.md>`__.
+-  `If you don’t have Monitor <https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md>`__
+-  `Any other way <https://www.raspberrypi.org/documentation/configuration/wireless/>`__
 
 2. Set up SSH
 ~~~~~~~~~~~~~
@@ -552,10 +550,6 @@ same network)*:
 .. code:: sh
 
    rsync -avz --rsync-path="sudo rsync" qt5.15 pi@192.168.1.47:/usr/local
-
- 
-
- 
 
 Final Step for Target Machine
 -----------------------------
