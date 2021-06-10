@@ -3,6 +3,11 @@
 #include "buttons.h"
 #include "steering.h"
 
+QHash<int, int> buttonIds{
+    {Qt::Key_Q, 0}, {Qt::Key_A, 1}, {Qt::Key_D, 2}, {Qt::Key_R, 3},
+    {Qt::Key_Z, 4}, {Qt::Key_X, 5}, {Qt::Key_C, 6}, {Qt::Key_V, 7},
+};
+
 Buttons::Buttons(QObject *parent) : QObject(parent) { parent->installEventFilter(this); }
 
 //  Keyboard Map
@@ -25,67 +30,24 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
   }
 
   QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-  int btnID = -1;
 
-  switch (keyEvent->key()) {
-  case (Qt::Key_Q):
-    btnID = 0;
-    break;
-  case (Qt::Key_A):
-    btnID = 1;
-    break;
-  case (Qt::Key_D):
-    btnID = 2;
-    break;
-  case (Qt::Key_R):
-    btnID = 3;
-    break;
-  case (Qt::Key_Z):
-    btnID = 4;
-    break;
-  case (Qt::Key_X):
-    btnID = 5;
-    break;
-  case (Qt::Key_C):
-    btnID = 6;
-    break;
-  case (Qt::Key_V):
-    btnID = 7;
-    break;
-  case (Qt::Key_S):
-    btnID = 8;
-    break;
-  case (Qt::Key_1):
-    btnID = 11;
-    break;
-  case (Qt::Key_2):
-    btnID = 12;
-    break;
-  case (Qt::Key_3):
-    btnID = 23;
-    break;
-  case (Qt::Key_4):
-    btnID = 24;
-    break;
-  case (Qt::Key_5):
-    btnID = 35;
-    break;
-  case (Qt::Key_6):
-    btnID = 36;
-    break;
-  default:
-    break;
+  if (buttonIds.find(keyEvent->key()) == buttonIds.end()) {
+    // not included in the captuerd keys
+    return QObject::eventFilter(obj, event);
   }
 
-  if (btnID != -1) {
-    if (btnID < 10) {
-      emit buttonClicked(btnID);
-    } else if (btnID > 10 && btnID < 20) {
-      emit tractionControlChanged(btnID - 10);
-    } else if (btnID > 20 && btnID < 30) {
-      emit pumpChanged(btnID - 20);
-    } else if (btnID > 30) {
-      emit mapChanged(btnID - 30);
+  int buttonId = buttonIds[keyEvent->key()];
+  sDebug("button") << keyEvent->key() << buttonId << buttonIds;
+
+  if (buttonId != -1) {
+    if (buttonId < 10) {
+      emit buttonClicked(buttonId);
+    } else if (buttonId > 10 && buttonId < 20) {
+      emit tractionControlChanged(buttonId - 10);
+    } else if (buttonId > 20 && buttonId < 30) {
+      emit pumpChanged(buttonId - 20);
+    } else if (buttonId > 30) {
+      emit mapChanged(buttonId - 30);
     }
   }
 

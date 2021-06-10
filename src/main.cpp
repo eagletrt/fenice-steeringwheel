@@ -35,7 +35,9 @@ void quitGracefully(QVector<int> sigs) {
 #endif
 
 int main(int argc, char *argv[]) {
-  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#ifdef Q_OS_MAC
+//  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
   qInstallMessageHandler(Steering::messageHandler);
 
   sDebug("main") << "running on" << QSysInfo::currentCpuArchitecture();

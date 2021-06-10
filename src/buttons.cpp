@@ -6,6 +6,13 @@
 #include "steering.h"
 #include "wiringPi.h"
 
+QHash<int, int> buttonIds{
+    {Buttons::Gpio::BUTTON_TOP_LEFT, 0},     {Buttons::Gpio::BUTTON_BOTTOM_LEFT, 1},
+    {Buttons::Gpio::BUTTON_BOTTOM_RIGHT, 2}, {Buttons::Gpio::BUTTON_TOP_RIGHT, 3},
+    {Buttons::Gpio::PADDLE_BOTTOM_LEFT, 4},  {Buttons::Gpio::PADDLE_BOTTOM_RIGHT, 5},
+    {Buttons::Gpio::PADDLE_TOP_LEFT, 6},     {Buttons::Gpio::PADDLE_TOP_RIGHT, 7},
+};
+
 Buttons::Buttons(QObject *parent) : QObject(parent) {
   // Init GPIO access
   wiringPiSetup();
