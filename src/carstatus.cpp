@@ -102,9 +102,9 @@ void CarStatus::setHVStatus(uint8_t id, uint8_t val1, uint8_t val2, uint8_t val3
 }
 
 // Set the value for the Map
-void CarStatus::changeMap(int mapID) {
-  if (mapID != LOOP_THROUGH_MAPS) {
-    manettini.setMap(mapID);
+void CarStatus::changeMap(int map) {
+  if (map != LOOP_THROUGH_MAPS) {
+    manettini.setMap(map);
   } else {
     // m_map = m_map > MAP_NUMBER ? m_map % MAP_NUMBER : m_map;
     manettini.incMap(MAP_NUMBER);
@@ -112,7 +112,7 @@ void CarStatus::changeMap(int mapID) {
 
   // This should avoid first map popup
   if (!manettini.getFirstChange()) {
-    setSteeringWheelPopup('0', 'B', "MAP:" + QString::number(manettini.getMap()));
+    emit showPopup("MAP:" + QString::number(manettini.getMap()));
   } else { // If first change set manettini.firstChange = false -> next time
            // will show the popup
     manettini.setFirstChange();
@@ -121,26 +121,26 @@ void CarStatus::changeMap(int mapID) {
 }
 
 // Set the value for the Pump
-void CarStatus::changePump(int pumpID) {
-  if (pumpID != LOOP_THROUGH_PUMPS) {
-    manettini.setPump(pumpID);
+void CarStatus::changePump(int pump) {
+  if (pump != LOOP_THROUGH_PUMPS) {
+    manettini.setPump(pump);
   } else {
     manettini.incPump(PUMP_NUMBER);
   }
 
-  setSteeringWheelPopup('0', 'G', "PUMP:" + QString::number(manettini.getPump()));
+  emit showPopup("PUMP:" + QString::number(manettini.getPump()));
   // emit pumpChanged();
 }
 
 // Set the value for the Pump
-void CarStatus::changeTc(int tcID) {
-  if (tcID != LOOP_THROUGH_TCS) {
-    manettini.setTc(tcID);
+void CarStatus::changeTractionControl(int tractionControl) {
+  if (tractionControl != LOOP_THROUGH_TCS) {
+    manettini.setTc(tractionControl);
   } else {
     manettini.incTc(TC_NUMBER);
   }
 
-  setSteeringWheelPopup('0', 'Y', "TC:" + QString::number(manettini.getTc()));
+  emit showPopup("TC:" + QString::number(manettini.getTc()));
   emit tractionControlChanged();
 }
 
@@ -174,8 +174,6 @@ QString CarStatus::nDrivers() {
 }
 
 int CarStatus::TelemetryEnabledStatus() const { return telemetry.getTelemetryStatus(); }
-
-QString CarStatus::SteeringWheelPopup() const { return telemetry.getPopupMessage(); }
 
 QByteArray CarStatus::getTelemetryStatus() {
   QByteArray t;
@@ -317,12 +315,6 @@ QByteArray CarStatus::abort() {
 
 void CarStatus::setDriver(int val) { telemetry.setDriver(val); }
 void CarStatus::setTest(int val) { telemetry.setTest(val); }
-
-void CarStatus::setSteeringWheelPopup(QChar priority, QChar color,
-                                      QString msg) { // Value to be showned
-  telemetry.setPopupMessage(priority, color, msg);
-  emit SteeringWheelPopupChanged();
-}
 
 void CarStatus::stopMessage(int inverter) {
   if (inverter == 0) {

@@ -3,7 +3,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Flickable {
+ListView {
     id: terminal
 
     property string header: "███████╗░█████╗░░██████╗░██╗░░░░░███████╗████████╗██████╗░████████╗
@@ -15,7 +15,6 @@ Flickable {
 fenice-steering wheel v0.0.1."
 
     function connect() {
-        textbox.text = header + "\n" + Steering.logs.join("\n");
         window.onLogsChanged.connect(onLogsChanged);
         scroll.increase();
     }
@@ -25,18 +24,18 @@ fenice-steering wheel v0.0.1."
     }
 
     function onLogsChanged(line) {
-        textbox.text += "\n" + line;
         scroll.increase();
     }
 
-    TextArea.flickable: TextArea {
-        id: textbox
+    flickableDirection: Flickable.VerticalFlick
+    boundsBehavior: Flickable.StopAtBounds
+    model: 50000
+    clip: true
+    Layout.fillWidth: true
+    Layout.fillHeight: true
 
-        readOnly: true
-        wrapMode: Text.WordWrap
-        color: Style.text
-        font: Style.mono.xsmall
-        text: header
+    delegate: ItemDelegate {
+        text: modelData
     }
 
     ScrollBar.vertical: ScrollBar {

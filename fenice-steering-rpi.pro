@@ -8,7 +8,7 @@
 #########################################################
 
 target.path = /home/pi
-INSTALLS   += target
+INSTALLS += target
 
 QT += core gui qml quick serialbus
 CONFIG += qtquickcompiler

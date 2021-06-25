@@ -8,14 +8,6 @@ Rectangle {
 
     state: "DEFAULT"
     anchors.fill: parent
-
-    Text {
-        anchors.centerIn: parent
-        text: root.name
-        color: Style.textInverted
-        font: Style.sans.h3
-    }
-
     states: [
         State {
             name: "OK"
@@ -54,4 +46,12 @@ Rectangle {
 
         }
     ]
+
+    Text {
+        anchors.centerIn: parent
+        text: root.name
+        color: Style.textInverted
+        font: Style.sans.h3
+    }
+
 }

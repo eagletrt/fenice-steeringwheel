@@ -69,8 +69,8 @@ int main(int argc, char *argv[]) {
   canBus.start();
 
   QObject::connect(&buttons, &Buttons::mapChanged, &carStatus, &CarStatus::changeMap);
-  QObject::connect(&buttons, &Buttons::pumpChanged, &leds, &Leds::pumpChanged);
-  QObject::connect(&buttons, &Buttons::tractionControlChanged, &leds, &Leds::tractionControlChanged);
+  QObject::connect(&buttons, &Buttons::pumpChanged, &carStatus, &CarStatus::changePump);
+  QObject::connect(&buttons, &Buttons::tractionControlChanged, &carStatus, &CarStatus::changeTractionControl);
 
   engine.rootContext()->setContextProperty("Leds", &leds);
   engine.rootContext()->setContextProperty("Buttons", &buttons);

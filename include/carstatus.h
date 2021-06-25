@@ -34,7 +34,6 @@ class CarStatus : public QObject {
   Q_PROPERTY(QString nTests READ nTests NOTIFY nTestsChanged)
   Q_PROPERTY(QString nDrivers READ nDrivers NOTIFY nDriversChanged)
   Q_PROPERTY(int TelemetryEnabledStatus READ TelemetryEnabledStatus NOTIFY TelemetryEnabledStatusChanged)
-  Q_PROPERTY(QString SteeringWheelPopup READ SteeringWheelPopup NOTIFY SteeringWheelPopupChanged)
   Q_PROPERTY(QString HVStatus READ HVStatus NOTIFY HVStatusChanged)
   Q_PROPERTY(QString ERRStatus READ ERRStatus NOTIFY ERRStatusChanged)
   Q_PROPERTY(QString CTRLEnabled READ CTRLEnabled NOTIFY CTRLEnabledChanged)
@@ -71,12 +70,12 @@ public:
   const int LOOP_THROUGH_PUMPS = -1;
   const int LOOP_THROUGH_TCS = -1;
 
+  //
   QString CANStatus() const;
   QString TelemetryStatus() const;
   QString nTests();
   QString nDrivers();
   int TelemetryEnabledStatus() const;
-  QString SteeringWheelPopup() const;
   QString HVStatus() const;
   QString ERRStatus() const;
   QList<int> APPSStatus() const;
@@ -95,7 +94,6 @@ public:
   void setTelemetryStatus(int, int, int);
   void setTelemetryEnabledStatus(int);
   QByteArray abort();
-  void setSteeringWheelPopup(QChar, QChar, QString);
   void setERRStatus(int, int, int, int, int, int, int, int, int);
   void setAPPSBSEStatus(int, int);
   void setSTEERStatus(int);
@@ -136,9 +134,9 @@ public slots:
   int toggleCtrl();
   int toggleCarStatus();
   int stopCar();
-  void changeMap(int mapID);
-  void changePump(int pumpID);
-  void changeTc(int tcID);
+  void changeMap(int map);
+  void changePump(int pump);
+  void changeTractionControl(int tractionControl);
 
   void setLeftInverterTemperature(int val1, int val2);
   void setRightInverterTemperature(int val1, int val2);
@@ -175,6 +173,8 @@ private:
   QTimer *graphicTimer;
 
 signals:
+  void showPopup(QString title);
+
   void tempChanged(int temperature);
   void socChanged(int soc);
   void execModeChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error);
@@ -190,7 +190,6 @@ signals:
   void nTestsChanged();
   void nDriversChanged();
   void TelemetryEnabledStatusChanged();
-  void SteeringWheelPopupChanged();
   void ERRStatusChanged();
   void APPSStatusChanged();
   void BSEStatusChanged();
