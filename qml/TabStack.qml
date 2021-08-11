@@ -6,8 +6,6 @@ import QtQuick.Layouts 1.3
 import "tabs"
 
 Item {
-    id: menu
-
     function connect() {
         window.buttonClicked.connect(buttonClickedHandler);
         const currentTab = tabs.children[tabs.currentIndex];
@@ -57,13 +55,13 @@ Item {
 
         anchors.fill: parent
 
-        TabCalibration {
+        TabOverview {
         }
 
         TabRacing {
         }
 
-        TabTerminal {
+        TabCalibration {
         }
 
         TabStatus {
@@ -73,6 +71,9 @@ Item {
         }
 
         TabGps {
+        }
+
+        TabTerminal {
         }
 
     }

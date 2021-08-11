@@ -26,8 +26,10 @@ Window {
         signal buttonClicked(int button)
         signal carStatusChanged(int status)
         signal mapChanged(int map)
+
         // Steering signals
         signal logsChanged(string line)
+
         // CAN Signals
         signal controlStateChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error)
         signal hvStatusChanged(int invRight, int invLeft, int preCharge)
@@ -104,7 +106,7 @@ Window {
 
         }
 
-        MenuPage {
+        TabStack {
             anchors.fill: parent
             Component.onCompleted: {
                 connect();

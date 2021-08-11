@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 ListView {
     id: terminal
 
+    property real history: 100
     property string header: "███████╗░█████╗░░██████╗░██╗░░░░░███████╗████████╗██████╗░████████╗
 ██╔════╝██╔══██╗██╔════╝░██║░░░░░██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝
 █████╗░░███████║██║░░██╗░██║░░░░░█████╗░░░░░██║░░░██████╔╝░░░██║░░░
@@ -14,33 +15,34 @@ ListView {
 ╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░
 fenice-steering wheel v0.0.1."
 
-    function connect() {
+    Component.onCompleted: {
         window.onLogsChanged.connect(onLogsChanged);
-        scroll.increase();
-    }
-
-    function disconnect() {
-        window.onLogsChanged.disconnect(onLogsChanged);
     }
 
     function onLogsChanged(line) {
+        let logs = terminal.model;
+        logs.push(line);
+        if (logs.length > history) logs.shift();
+        terminal.model = logs;
         scroll.increase();
     }
 
     flickableDirection: Flickable.VerticalFlick
     boundsBehavior: Flickable.StopAtBounds
-    model: 50000
+    model: header.split("\n")
     clip: true
+    spacing: -4 // avoid high padding values for text delegates
     Layout.fillWidth: true
     Layout.fillHeight: true
 
-    delegate: ItemDelegate {
+    delegate: Text {
+        color: Style.text
+        font: Style.mono.xsmall
         text: modelData
     }
 
     ScrollBar.vertical: ScrollBar {
         id: scroll
-
         stepSize: 10
     }
 

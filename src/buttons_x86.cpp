@@ -37,7 +37,6 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
   }
 
   int buttonId = buttonIds[keyEvent->key()];
-  sDebug("button") << keyEvent->key() << buttonId << buttonIds;
 
   if (buttonId != -1) {
     if (buttonId < 10) {
