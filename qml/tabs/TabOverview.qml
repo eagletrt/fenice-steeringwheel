@@ -11,4 +11,5 @@ Control {
     contentItem: Image {
         source: "qrc:/qml/img/fenice.png"
     }
+
 }

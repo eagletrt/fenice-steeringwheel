@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.15
 ListView {
     id: terminal
 
-    property real history: 100
+    property int history: 100
     property string header: "███████╗░█████╗░░██████╗░██╗░░░░░███████╗████████╗██████╗░████████╗
 ██╔════╝██╔══██╗██╔════╝░██║░░░░░██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝
 █████╗░░███████║██║░░██╗░██║░░░░░█████╗░░░░░██║░░░██████╔╝░░░██║░░░
@@ -15,18 +15,19 @@ ListView {
 ╚══════╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░
 fenice-steering wheel v0.0.1."
 
-    Component.onCompleted: {
-        window.onLogsChanged.connect(onLogsChanged);
-    }
-
     function onLogsChanged(line) {
         let logs = terminal.model;
         logs.push(line);
-        if (logs.length > history) logs.shift();
+        if (logs.length > history)
+            logs.shift();
+
         terminal.model = logs;
         scroll.increase();
     }
 
+    Component.onCompleted: {
+        window.onLogsChanged.connect(onLogsChanged);
+    }
     flickableDirection: Flickable.VerticalFlick
     boundsBehavior: Flickable.StopAtBounds
     model: header.split("\n")
@@ -43,6 +44,7 @@ fenice-steering wheel v0.0.1."
 
     ScrollBar.vertical: ScrollBar {
         id: scroll
+
         stepSize: 10
     }
 

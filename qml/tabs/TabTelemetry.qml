@@ -6,109 +6,59 @@ import QtQuick.Layouts 1.3
 Control {
     id: telemetry
 
-    property int tabSelected: -1
-    property bool stepIntoTabTest: false
-    property bool stepIntoTabDriver: false
-    property int selectedIndexTest: -1
-    property int selectedIndexDriver: -1
-    property int test: 0
-    property int driver: 1
-    // ATTENTION: In order to add or remove tests or drivers
-    // remember to change the appropriate constant value in telemetry.h
-    // because nTests and nDrivers, to maintain consistency in data,
-    // acheive their value from there
-    // Number of cells into test section
-    property var ntest: tests.length
-    // Number of cells into driver section
-    property var ndriver: drivers.length
-    //    property var telemetrystatus: CarStatus.TelemetryStatus
+    property int selected: -1
     property var tests: [["Acceleration", '1'], ["Skippad", '0'], ["Endurance", '0'], ["Brake", '0'], ["Test", '0']]
     property var drivers: [["Pilotapazzo", '1'], ["Iron512", '0'], ["Pippogas", '0'], ["Nicolareds", '0'], ["Mirco", '0']]
     property var racetracks: [["Demo", "qrc:/qml/img/racetracks/demo.png", "1"], ["Demo Rot", "qrc:/qml/img/racetracks/demo_rot.png", "2"]]
+    readonly property int testsId: 0
+    readonly property int driversId: 1
+    readonly property int racetracksId: 2
 
     function connect() {
-        window.buttonClicked.connect(buttonClickedHandler);
+        window.buttonClicked.connect(buttonClicked);
     }
 
     function disconnect() {
-        window.buttonClicked.disconnect(buttonClickedHandler);
+        window.buttonClicked.disconnect(buttonClicked);
     }
 
-    function buttonClickedHandler(btnID) {
-        if (btnID === 0) {
+    function buttonClicked(button) {
+        if (button === ButtonIds.buttonTopLeft) {
             if (tabs.blocked) {
                 tabs.blocked = false;
-                window.canSwitchPage = true;
-                tabSelected = -1;
-                console.log("tab exit");
+                selected = -1;
             }
-        } else {
         }
-        if (btnID === 2) {
-            if (!tabs.blocked) {
+        if (button === ButtonIds.buttonTopRight) {
+            if (!tabs.blocked)
                 tabs.blocked = true;
-                window.canSwitchPage = false;
-                console.log("entered in tab");
-                console.log("tab test selected");
-                tabSelected = 0;
-            } else {
-                tabSelected = (tabSelected + 1) % 3;
-                console.log(tabSelected);
-            }
+
+            selected = (selected + 1) % 3;
         }
-        if (btnID === 3) {
-            console.log("send to telemtry");
+        if (button === ButtonIds.buttonBottomRight)
             CAN.asktelemetry();
-        }
-        if (btnID === 4 && tabs.blocked) {
-            if (tabSelected === 0) {
-                console.log("tabTest index: " + tabTest.currentIndex);
-                window.canSwitchPage = false;
-                if (tabTest.currentIndex === 0)
-                    tabTest.currentIndex = (ntest - 1);
-                else
-                    tabTest.currentIndex--;
-                CarStatus.setTest(tabTest.currentIndex);
+
+        if ((button === ButtonIds.paddleBottomLeft || button === ButtonIds.paddleBottomRight) && tabs.blocked) {
+            const step = button === ButtonIds.paddleBottomRight ? 1 : -1;
+            let component, model;
+            if (selected === testsId) {
+                component = boxTest;
+                model = tests;
+            } else if (selected === driversId) {
+                component = boxDriver;
+                model = drivers;
+            } else if (selected === racetracksId) {
+                component = boxRacetrack;
+                model = racetracks;
             }
-            if (tabSelected === 1) {
-                console.log("tabDriver index: " + tabDriver.currentIndex);
-                window.canSwitchPage = false;
-                if (tabDriver.currentIndex === 0)
-                    tabDriver.currentIndex = (ndriver - 1);
-                else
-                    tabDriver.currentIndex--;
-                CarStatus.setDriver(tabDriver.currentIndex);
-            }
-            if (tabSelected === 2) {
-                console.log("tabRacetrack index: " + tabRacetracks.currentIndex);
-                window.canSwitchPage = false;
-                if (tabRacetracks.currentIndex === 0)
-                    tabRacetracks.currentIndex = (racetracks.length - 1);
-                else
-                    tabRacetracks.currentIndex--;
-            }
-        }
-        if (btnID === 5 && tabs.blocked) {
-            if (tabSelected === 0) {
-                console.log("tabTest index: " + tabTest.currentIndex);
-                window.canSwitchPage = false;
-                if (tabTest.currentIndex === (ntest - 1))
-                    tabTest.currentIndex = 0;
-                else
-                    tabTest.currentIndex++;
-                CarStatus.setTest(tabTest.currentIndex);
-            }
-            if (tabSelected === 1) {
-                console.log("tabDriver index: " + tabDriver.currentIndex);
-                window.canSwitchPage = false;
-                tabDriver.currentIndex = (tabDriver.currentIndex + 1) % ndriver;
-                CarStatus.setDriver(tabDriver.currentIndex);
-            }
-            if (tabSelected === 2) {
-                console.log("tabRacetrack index: " + tabRacetracks.currentIndex);
-                window.canSwitchPage = false;
-                tabRacetracks.currentIndex = (tabRacetracks.currentIndex + 1) % racetracks.length;
-            }
+            let value = Utils.mod(component.currentIndex + step, model.length);
+            component.currentIndex = value;
+            if (selected === testsId)
+                CarStatus.setTest(value);
+            else if (selected === driversId)
+                CarStatus.setDriver(value);
+            else if (selected === racetracksId)
+                CarStatus.setDriver(value); // TODO: create Carstatus.setRacetrack method
         }
     }
 
@@ -121,14 +71,14 @@ Control {
         columnSpacing: 10
 
         Rectangle {
-            color: tabSelected === 0 ? Style.yellow : Style.surface
+            color: selected === 0 ? Style.yellow : Style.surface
             Layout.row: 0
             Layout.column: 0
             Layout.fillHeight: true
             Layout.fillWidth: true
 
             StackLayout {
-                id: tabTest
+                id: boxTest
 
                 anchors.fill: parent
 
@@ -152,14 +102,14 @@ Control {
         }
 
         Rectangle {
-            color: tabSelected === 1 ? Style.yellow : Style.surface
+            color: selected === 1 ? Style.yellow : Style.surface
             Layout.row: 1
             Layout.column: 0
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             StackLayout {
-                id: tabDriver
+                id: boxDriver
 
                 anchors.fill: parent
 
@@ -183,7 +133,7 @@ Control {
         }
 
         Rectangle {
-            color: tabSelected === 2 ? Style.yellow : Style.surface
+            color: selected === 2 ? Style.yellow : Style.surface
             Layout.row: 0
             Layout.column: 1
             Layout.rowSpan: 2
@@ -191,7 +141,7 @@ Control {
             Layout.fillHeight: true
 
             StackLayout {
-                id: tabRacetracks
+                id: boxRacetrack
 
                 anchors.fill: parent
 

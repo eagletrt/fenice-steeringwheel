@@ -5,8 +5,6 @@
 
 class Steering : public QObject {
   Q_OBJECT
-  Q_PROPERTY(QList<QString> logs MEMBER m_logs NOTIFY logsChanged)
-
 public:
   Steering(QObject *parent = nullptr);
   ~Steering();
@@ -18,9 +16,6 @@ public:
 
 signals:
   void logsChanged(const QString &line);
-
-private:
-  QList<QString> m_logs;
 };
 
 #define sDebug(SCOPE) (QMessageLogger(QT_MESSAGELOG_FILE, QT_MESSAGELOG_LINE, QT_MESSAGELOG_FUNC, SCOPE).debug)()

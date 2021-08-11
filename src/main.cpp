@@ -48,6 +48,8 @@ int main(int argc, char *argv[]) {
 
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1, 0, "ButtonIds");
 
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
+
   QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 

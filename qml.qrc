@@ -24,6 +24,7 @@
 
         <file>qml/const/Style.qml</file>
         <file>qml/const/ButtonIds.qml</file>
+        <file>qml/const/Utils.qml</file>
 
         <file>qml/img/loading.gif</file>
         <file>qml/img/warning.gif</file>

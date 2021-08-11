@@ -22,15 +22,14 @@ Item {
 
     }
 
-    function buttonClickedHandler(btnID) {
-        if (btnID === ButtonIds.paddleBottomLeft || btnID === ButtonIds.paddleBottomRight) {
+    function buttonClickedHandler(button) {
+        if (button === ButtonIds.paddleBottomLeft || button === ButtonIds.paddleBottomRight) {
             if (tabs.blocked)
                 return ;
 
             const total = tabs.children.length;
-            const factor = btnID === ButtonIds.paddleBottomLeft ? -1 : +1;
-            const next = tabs.currentIndex + factor;
-            const index = next >= 0 ? next % total : (next % total + total) % total;
+            const step = button === ButtonIds.paddleBottomLeft ? -1 : +1;
+            const index = Utils.mod(tabs.currentIndex + step, total);
             const currentTab = tabs.children[tabs.currentIndex];
             const nextTab = tabs.children[index];
             if (currentTab.disconnect)
@@ -55,7 +54,7 @@ Item {
 
         anchors.fill: parent
 
-        TabOverview {
+        TabTelemetry {
         }
 
         TabRacing {
@@ -67,7 +66,7 @@ Item {
         TabStatus {
         }
 
-        TabTelemetry {
+        TabOverview {
         }
 
         TabGps {

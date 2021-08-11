@@ -69,3 +69,6 @@ SOURCES += \
         src/leds_x86.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c
+
+DISTFILES += \
+    qml/const/Utils.qml

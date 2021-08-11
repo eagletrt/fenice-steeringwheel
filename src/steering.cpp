@@ -5,10 +5,7 @@
 Steering::Steering(QObject *parent) : QObject(parent) {}
 Steering::~Steering() {}
 
-void Steering::appendLine(const QString &line) {
-  m_logs.append(line);
-  emit logsChanged(line);
-}
+void Steering::appendLine(const QString &line) { emit logsChanged(line); }
 
 Q_GLOBAL_STATIC(Steering, steering);
 

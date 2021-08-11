@@ -18,18 +18,14 @@ Window {
     Item {
         id: window
 
-        property bool canSwitchPage: true
-
         // Buttons signals
         signal buttonPressed(int button)
         signal buttonReleased(int button)
         signal buttonClicked(int button)
         signal carStatusChanged(int status)
         signal mapChanged(int map)
-
         // Steering signals
         signal logsChanged(string line)
-
         // CAN Signals
         signal controlStateChanged(int ctrlIsEnabled, int ctrlIsOn, int warning, int error)
         signal hvStatusChanged(int invRight, int invLeft, int preCharge)
