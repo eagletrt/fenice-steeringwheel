@@ -1,13 +1,13 @@
 #include <QKeyEvent>
 
-#include "buttons.h"
+#include "io/buttons.h"
 #include "steering.h"
 
 QHash<int, int> buttonIds{
-    {Qt::Key_Q, Buttons::ButtonIds::BUTTON_TOP_LEFT},    {Qt::Key_A, Buttons::ButtonIds::BUTTON_BOTTOM_LEFT},
-    {Qt::Key_D, Buttons::ButtonIds::BUTTON_TOP_RIGHT},   {Qt::Key_R, Buttons::ButtonIds::BUTTON_BOTTOM_RIGHT},
-    {Qt::Key_Z, Buttons::ButtonIds::PADDLE_BOTTOM_LEFT}, {Qt::Key_X, Buttons::ButtonIds::PADDLE_BOTTOM_RIGHT},
-    {Qt::Key_C, Buttons::ButtonIds::PADDLE_TOP_LEFT},    {Qt::Key_V, Buttons::ButtonIds::PADDLE_TOP_RIGHT},
+    {Qt::Key_Q, Buttons::Input::BUTTON_TOP_LEFT},  {Qt::Key_A, Buttons::Input::BUTTON_BOTTOM_LEFT},
+    {Qt::Key_D, Buttons::Input::BUTTON_TOP_RIGHT}, {Qt::Key_R, Buttons::Input::BUTTON_BOTTOM_RIGHT},
+    {Qt::Key_C, Buttons::Input::PADDLE_TOP_LEFT},  {Qt::Key_Z, Buttons::Input::PADDLE_BOTTOM_LEFT},
+    {Qt::Key_V, Buttons::Input::PADDLE_TOP_RIGHT}, {Qt::Key_X, Buttons::Input::PADDLE_BOTTOM_RIGHT},
 };
 
 Buttons::Buttons(QObject *parent) : QObject(parent) { parent->installEventFilter(this); }

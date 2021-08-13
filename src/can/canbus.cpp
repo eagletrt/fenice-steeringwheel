@@ -4,7 +4,7 @@
 
 #include "steering.h"
 
-CanBus::CanBus(const CarStatus &status, QObject *parent) : QObject(parent), status(status) {}
+CanBus::CanBus(QObject *parent) : QObject(parent) {}
 
 CanBus::~CanBus() {
   sDebug("canbus") << "cleanup";

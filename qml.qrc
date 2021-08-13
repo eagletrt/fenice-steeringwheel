@@ -6,6 +6,7 @@
         <file>qml/font/RobotoMono-Bold.ttf</file>
         <file>qml/Main.qml</file>
         <file>qml/TabStack.qml</file>
+        <file>qml/Popup.qml</file>
         <file>qml/tabs/components/StatusCard.qml</file>
         <file>qml/tabs/components/BigValue.qml</file>
         <file>qml/tabs/components/MapBar.qml</file>
@@ -19,7 +20,7 @@
         <file>qml/tabs/TabTelemetry.qml</file>
         <file>qml/tabs/TabTerminal.qml</file>
         <file>qml/const/Style.qml</file>
-        <file>qml/const/ButtonIds.qml</file>
+        <file>qml/const/Input.qml</file>
         <file>qml/const/Utils.qml</file>
         <file>qml/img/loading.gif</file>
         <file>qml/img/warning.gif</file>
@@ -30,6 +31,5 @@
         <file>qml/img/satellite/povo-1-parking.png</file>
         <file>qml/img/satellite/povo.png</file>
         <file>qml/img/satellite/safety-park.png</file>
-        <file>qml/Popup.qml</file>
     </qresource>
 </RCC>

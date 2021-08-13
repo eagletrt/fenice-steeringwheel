@@ -23,23 +23,23 @@ Control {
     }
 
     function buttonClicked(button) {
-        if (button === ButtonIds.buttonTopLeft) {
+        if (button === Input.buttonTopLeft) {
             if (tabs.blocked) {
                 tabs.blocked = false;
                 selected = -1;
             }
         }
-        if (button === ButtonIds.buttonTopRight) {
+        if (button === Input.buttonTopRight) {
             if (!tabs.blocked)
                 tabs.blocked = true;
 
             selected = (selected + 1) % 3;
         }
-        if (button === ButtonIds.buttonBottomRight)
+        if (button === Input.buttonBottomRight)
             CAN.asktelemetry();
 
-        if ((button === ButtonIds.paddleBottomLeft || button === ButtonIds.paddleBottomRight) && tabs.blocked) {
-            const step = button === ButtonIds.paddleBottomRight ? 1 : -1;
+        if ((button === Input.paddleBottomLeft || button === Input.paddleBottomRight) && tabs.blocked) {
+            const step = button === Input.paddleBottomRight ? 1 : -1;
             let component, model;
             if (selected === testsId) {
                 component = boxTest;
@@ -53,12 +53,6 @@ Control {
             }
             let value = Utils.mod(component.currentIndex + step, model.length);
             component.currentIndex = value;
-            if (selected === testsId)
-                CarStatus.setTest(value);
-            else if (selected === driversId)
-                CarStatus.setDriver(value);
-            else if (selected === racetracksId)
-                CarStatus.setDriver(value); // TODO: create Carstatus.setRacetrack method
         }
     }
 

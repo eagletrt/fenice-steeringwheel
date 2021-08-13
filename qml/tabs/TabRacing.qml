@@ -11,7 +11,6 @@ Rectangle {
 
     function connect() {
         window.onMapChanged.connect(onMapChanged);
-        mapBar.map = Math.min(CarStatus.map, mapBar.maps.length - 1);
     }
 
     function disconnect() {

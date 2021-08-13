@@ -1,4 +1,4 @@
-#include "buttons.h"
+#include "io/buttons.h"
 
 #include <QMetaEnum>
 
@@ -7,14 +7,14 @@
 #include "wiringPi.h"
 
 QHash<int, int> buttonIds{
-    {Buttons::Gpio::GPIO_BUTTON_TOP_LEFT, Buttons::ButtonIds::BUTTON_TOP_LEFT},
-    {Buttons::Gpio::GPIO_BUTTON_BOTTOM_LEFT, Buttons::ButtonIds::BUTTON_BOTTOM_LEFT},
-    {Buttons::Gpio::GPIO_BUTTON_TOP_RIGHT, Buttons::ButtonIds::BUTTON_TOP_RIGHT},
-    {Buttons::Gpio::GPIO_BUTTON_BOTTOM_RIGHT, Buttons::ButtonIds::BUTTON_BOTTOM_RIGHT},
-    {Buttons::Gpio::GPIO_PADDLE_BOTTOM_LEFT, Buttons::ButtonIds::PADDLE_BOTTOM_LEFT},
-    {Buttons::Gpio::GPIO_PADDLE_BOTTOM_RIGHT, Buttons::ButtonIds::PADDLE_BOTTOM_RIGHT},
-    {Buttons::Gpio::GPIO_PADDLE_TOP_LEFT, Buttons::ButtonIds::PADDLE_TOP_LEFT},
-    {Buttons::Gpio::GPIO_PADDLE_TOP_RIGHT, Buttons::ButtonIds::PADDLE_TOP_RIGHT},
+    {Buttons::Gpio::GPIO_BUTTON_TOP_LEFT, Buttons::Input::BUTTON_TOP_LEFT},
+    {Buttons::Gpio::GPIO_BUTTON_BOTTOM_LEFT, Buttons::Input::BUTTON_BOTTOM_LEFT},
+    {Buttons::Gpio::GPIO_BUTTON_TOP_RIGHT, Buttons::Input::BUTTON_TOP_RIGHT},
+    {Buttons::Gpio::GPIO_BUTTON_BOTTOM_RIGHT, Buttons::Input::BUTTON_BOTTOM_RIGHT},
+    {Buttons::Gpio::GPIO_PADDLE_TOP_LEFT, Buttons::Input::PADDLE_TOP_LEFT},
+    {Buttons::Gpio::GPIO_PADDLE_BOTTOM_LEFT, Buttons::Input::PADDLE_BOTTOM_LEFT},
+    {Buttons::Gpio::GPIO_PADDLE_TOP_RIGHT, Buttons::Input::PADDLE_TOP_RIGHT},
+    {Buttons::Gpio::GPIO_PADDLE_BOTTOM_RIGHT, Buttons::Input::PADDLE_BOTTOM_RIGHT},
 };
 
 Buttons::Buttons(QObject *parent) : QObject(parent) {

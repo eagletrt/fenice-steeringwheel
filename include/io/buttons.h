@@ -41,7 +41,7 @@ public:
   };
   Q_ENUM(Gpio)
 
-  enum ButtonIds {
+  enum Input {
     BUTTON_TOP_LEFT = 0,
     BUTTON_BOTTOM_LEFT,
     BUTTON_TOP_RIGHT,
@@ -51,7 +51,7 @@ public:
     PADDLE_TOP_RIGHT,
     PADDLE_BOTTOM_RIGHT,
   };
-  Q_ENUM(ButtonIds)
+  Q_ENUM(Input)
 
 protected slots:
   void readGpioState();

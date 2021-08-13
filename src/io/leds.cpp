@@ -1,4 +1,4 @@
-#include "leds.h"
+#include "io/leds.h"
 
 #include <math.h>
 #include <unistd.h>
@@ -68,8 +68,6 @@ uint8_t TLC59108::setAllBrightness(const uint8_t dutyCycle) {
 uint8_t TLC59108::setAllBrightnessDifferent(const uint8_t dutyCycles[]) {
   return setRegisters(REGISTER::PWM0::ADDR, dutyCycles, NUM_CHANNELS);
 }
-
-///
 
 Leds::Leds(QObject *parent) : QObject(parent), left(new TLC59108(0x4a)), right(new TLC59108(0x45)) {
   left->init();

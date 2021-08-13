@@ -3,9 +3,8 @@
 #include <QQmlContext>
 #include <QThread>
 
-#include "buttons.h"
-#include "carstatus.h"
-#include "leds.h"
+#include "io/buttons.h"
+#include "io/leds.h"
 #include "steering.h"
 
 #include "can/canbus.h"
@@ -49,9 +48,7 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
-
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/ButtonIds.qml"), "Const", 1, 0, "ButtonIds");
-
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
 
   QQmlApplicationEngine engine;
@@ -69,18 +66,18 @@ int main(int argc, char *argv[]) {
 
   Leds leds(&app);
   Buttons buttons(&app);
-  CarStatus carStatus(&app);
-  CanBus canBus(&carStatus, &app);
+  //  CarStatus carStatus(&app);
+  CanBus canBus(&app);
 
   canBus.start();
 
-  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus, &CarStatus::changeMap);
-  QObject::connect(&buttons, &Buttons::pumpChanged, &carStatus, &CarStatus::changePump);
-  QObject::connect(&buttons, &Buttons::tractionControlChanged, &carStatus, &CarStatus::changeTractionControl);
+  //  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus, &CarStatus::changeMap);
+  //  QObject::connect(&buttons, &Buttons::pumpChanged, &carStatus, &CarStatus::changePump);
+  //  QObject::connect(&buttons, &Buttons::tractionControlChanged, &carStatus, &CarStatus::changeTractionControl);
 
   engine.rootContext()->setContextProperty("Leds", &leds);
   engine.rootContext()->setContextProperty("Buttons", &buttons);
-  engine.rootContext()->setContextProperty("CarStatus", &carStatus);
+  //  engine.rootContext()->setContextProperty("CarStatus", &carStatus);
   engine.rootContext()->setContextProperty("CanBus", &canBus);
 
   engine.rootContext()->setContextProperty("Steering", &Steering::instance());

@@ -11,13 +11,12 @@
 #include "Secondary/can_config.h"
 
 #include "can/device.h"
-#include "carstatus.h"
 
 class CanBus : public QObject {
   Q_OBJECT
 
 public:
-  CanBus(const CarStatus &status, QObject *parent);
+  CanBus(QObject *parent);
   ~CanBus();
 
   const QHash<QString, CanDevice::Network> networkMap =
@@ -32,7 +31,6 @@ protected slots:
   void handleMessage(const CanDevice *device, int id, const QByteArray &message);
 
 private:
-  const CarStatus &status;
   QHash<CanDevice::Network, QPair<CanDevice *, QThread *>> devices;
 };
 
