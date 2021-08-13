@@ -36,7 +36,11 @@ void quitGracefully(QVector<int> sigs) {
 
 int main(int argc, char *argv[]) {
 #ifdef Q_OS_MAC
-//  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  // Forcibly disable any DPI scaling on macOS
+  QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+  if (qEnvironmentVariableIsEmpty("QT_FONT_DPI")) {
+    qputenv("QT_FONT_DPI", "84");
+  }
 #endif
   qInstallMessageHandler(Steering::messageHandler);
 

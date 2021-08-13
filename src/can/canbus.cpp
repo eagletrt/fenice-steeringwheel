@@ -27,41 +27,51 @@ CanBus::~CanBus() {
 
 void CanBus::start() {
   QString errorString;
+
+#ifndef Q_OS_DARWIN
   const QList<QCanBusDeviceInfo> interfaces =
       QCanBus::instance()->availableDevices(QStringLiteral("socketcan"), &errorString);
+#else
+  const QList<QCanBusDeviceInfo> interfaces;
+#endif
 
   if (!errorString.isEmpty()) {
     sWarning("canbus") << errorString;
     sCritical("canbus") << "no can interfaces available!";
   }
 
-  sDebug("canbus") << "available can interfaces:" << interfaces.length();
+  if (interfaces.length() == 0) {
+    sCritical("canbus") << "no can interfaces available!";
+  } else {
+    sDebug("canbus") << "available can interfaces:" << interfaces.length();
 
-  QList<QCanBusDeviceInfo>::const_iterator iterator;
-  for (iterator = interfaces.begin(); iterator != interfaces.end(); iterator++) {
-    QString interfaceName = iterator->name();
-    if (networkMap.find(interfaceName) != networkMap.end()) {
-      QString errorString;
-      QCanBusDevice *can = QCanBus::instance()->createDevice(QStringLiteral("socketcan"), interfaceName, &errorString);
-      if (can) {
-        CanDevice::Network network = networkMap[interfaceName];
-        sDebug("canbus") << interfaceName << "assigned to" << network;
+    QList<QCanBusDeviceInfo>::const_iterator iterator;
+    for (iterator = interfaces.begin(); iterator != interfaces.end(); iterator++) {
+      QString interfaceName = iterator->name();
+      if (networkMap.find(interfaceName) != networkMap.end()) {
+        QString errorString;
+        QCanBusDevice *can =
+            QCanBus::instance()->createDevice(QStringLiteral("socketcan"), interfaceName, &errorString);
+        if (can) {
+          CanDevice::Network network = networkMap[interfaceName];
+          sDebug("canbus") << interfaceName << "assigned to" << network;
 
-        can->connectDevice();
-        CanDevice *device = new CanDevice(network, can);
-        QThread *thread = new QThread(this);
+          can->connectDevice();
+          CanDevice *device = new CanDevice(network, can);
+          QThread *thread = new QThread(this);
 
-        connect(device, &CanDevice::messageReceived, this, &CanBus::handleMessage);
-        connect(thread, &QThread::started, device, &CanDevice::start);
+          connect(device, &CanDevice::messageReceived, this, &CanBus::handleMessage);
+          connect(thread, &QThread::started, device, &CanDevice::start);
 
-        device->moveToThread(thread);
-        thread->start();
-        devices[network] = QPair<CanDevice *, QThread *>(device, thread);
+          device->moveToThread(thread);
+          thread->start();
+          devices[network] = QPair<CanDevice *, QThread *>(device, thread);
+        } else {
+          sCritical("canbus") << errorString;
+        }
       } else {
-        sCritical("canbus") << errorString;
+        sDebug("canbus") << "unrecognized interface:" << interfaceName;
       }
-    } else {
-      sDebug("canbus") << "unrecognized interface:" << interfaceName;
     }
   }
 }
