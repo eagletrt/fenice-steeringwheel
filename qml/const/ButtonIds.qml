@@ -6,8 +6,8 @@ QtObject {
     property int buttonBottomLeft: 1
     property int buttonTopRight: 2
     property int buttonBottomRight: 3
-    property int paddleBottomLeft: 4
-    property int paddleBottomRight: 5
-    property int paddleTopLeft: 6
-    property int paddleTopRight: 7
+    property int paddleTopLeft: 4
+    property int paddleBottomLeft: 5
+    property int paddleTopRight: 6
+    property int paddleBottomRight: 7
 }

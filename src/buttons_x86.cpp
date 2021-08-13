@@ -4,8 +4,10 @@
 #include "steering.h"
 
 QHash<int, int> buttonIds{
-    {Qt::Key_Q, 0}, {Qt::Key_A, 1}, {Qt::Key_D, 2}, {Qt::Key_R, 3},
-    {Qt::Key_Z, 4}, {Qt::Key_X, 5}, {Qt::Key_C, 6}, {Qt::Key_V, 7},
+    {Qt::Key_Q, Buttons::ButtonIds::BUTTON_TOP_LEFT},    {Qt::Key_A, Buttons::ButtonIds::BUTTON_BOTTOM_LEFT},
+    {Qt::Key_D, Buttons::ButtonIds::BUTTON_TOP_RIGHT},   {Qt::Key_R, Buttons::ButtonIds::BUTTON_BOTTOM_RIGHT},
+    {Qt::Key_Z, Buttons::ButtonIds::PADDLE_BOTTOM_LEFT}, {Qt::Key_X, Buttons::ButtonIds::PADDLE_BOTTOM_RIGHT},
+    {Qt::Key_C, Buttons::ButtonIds::PADDLE_TOP_LEFT},    {Qt::Key_V, Buttons::ButtonIds::PADDLE_TOP_RIGHT},
 };
 
 Buttons::Buttons(QObject *parent) : QObject(parent) { parent->installEventFilter(this); }

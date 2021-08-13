@@ -60,48 +60,6 @@ Window {
             target: Steering
         }
 
-        Connections {
-            function onShowPopup(line) {
-                popupText.text = line;
-                popupAnimation.start();
-            }
-
-            target: CarStatus
-        }
-
-        SequentialAnimation {
-            id: popupAnimation
-
-            running: false
-            onStarted: {
-            }
-            onStopped: {
-            }
-
-            ParallelAnimation {
-                PropertyAnimation {
-                    target: popup
-                    properties: "visible"
-                    from: false
-                    to: true
-                    duration: 0
-                }
-
-            }
-
-            ParallelAnimation {
-                PropertyAnimation {
-                    target: popup
-                    properties: "visible"
-                    from: true
-                    to: false
-                    duration: 550
-                }
-
-            }
-
-        }
-
         TabStack {
             anchors.fill: parent
             Component.onCompleted: {
@@ -109,24 +67,7 @@ Window {
             }
         }
 
-        Rectangle {
-            id: popup
-
-            anchors.centerIn: parent
-            color: Style.foreground
-            radius: 10
-            visible: false
-            width: 500
-            height: 240
-
-            Text {
-                id: popupText
-
-                anchors.centerIn: parent
-                color: Style.textInverted
-                font: Style.mono.verybig
-            }
-
+        Popup {
         }
 
     }

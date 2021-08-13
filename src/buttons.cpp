@@ -7,10 +7,14 @@
 #include "wiringPi.h"
 
 QHash<int, int> buttonIds{
-    {Buttons::Gpio::BUTTON_TOP_LEFT, 0},     {Buttons::Gpio::BUTTON_BOTTOM_LEFT, 1},
-    {Buttons::Gpio::BUTTON_BOTTOM_RIGHT, 2}, {Buttons::Gpio::BUTTON_TOP_RIGHT, 3},
-    {Buttons::Gpio::PADDLE_BOTTOM_LEFT, 4},  {Buttons::Gpio::PADDLE_BOTTOM_RIGHT, 5},
-    {Buttons::Gpio::PADDLE_TOP_LEFT, 6},     {Buttons::Gpio::PADDLE_TOP_RIGHT, 7},
+    {Buttons::Gpio::GPIO_BUTTON_TOP_LEFT, Buttons::ButtonIds::BUTTON_TOP_LEFT},
+    {Buttons::Gpio::GPIO_BUTTON_BOTTOM_LEFT, Buttons::ButtonIds::BUTTON_BOTTOM_LEFT},
+    {Buttons::Gpio::GPIO_BUTTON_TOP_RIGHT, Buttons::ButtonIds::BUTTON_TOP_RIGHT},
+    {Buttons::Gpio::GPIO_BUTTON_BOTTOM_RIGHT, Buttons::ButtonIds::BUTTON_BOTTOM_RIGHT},
+    {Buttons::Gpio::GPIO_PADDLE_BOTTOM_LEFT, Buttons::ButtonIds::PADDLE_BOTTOM_LEFT},
+    {Buttons::Gpio::GPIO_PADDLE_BOTTOM_RIGHT, Buttons::ButtonIds::PADDLE_BOTTOM_RIGHT},
+    {Buttons::Gpio::GPIO_PADDLE_TOP_LEFT, Buttons::ButtonIds::PADDLE_TOP_LEFT},
+    {Buttons::Gpio::GPIO_PADDLE_TOP_RIGHT, Buttons::ButtonIds::PADDLE_TOP_RIGHT},
 };
 
 Buttons::Buttons(QObject *parent) : QObject(parent) {
@@ -110,12 +114,12 @@ void Buttons::readGpioState() {
       }
 #endif
 
-      if (pins[i] >= Gpio::MANETTINO_LEFT_START && pins[i] <= Gpio::MANETTINO_LEFT_END) {
-        this->pump = pins[i] - Gpio::MANETTINO_LEFT_START;
-      } else if (pins[i] >= Gpio::MANETTINO_CENTER_START && pins[i] <= Gpio::MANETTINO_CENTER_END) {
-        this->map = pins[i] - Gpio::MANETTINO_CENTER_START;
-      } else if (pins[i] >= Gpio::MANETTINO_RIGHT_START && pins[i] <= Gpio::MANETTINO_RIGHT_END) {
-        this->tc = pins[i] - Gpio::MANETTINO_RIGHT_START;
+      if (pins[i] >= Gpio::GPIO_MANETTINO_LEFT_START && pins[i] <= Gpio::GPIO_MANETTINO_LEFT_END) {
+        this->pump = pins[i] - Gpio::GPIO_MANETTINO_LEFT_START;
+      } else if (pins[i] >= Gpio::GPIO_MANETTINO_CENTER_START && pins[i] <= Gpio::GPIO_MANETTINO_CENTER_END) {
+        this->map = pins[i] - Gpio::GPIO_MANETTINO_CENTER_START;
+      } else if (pins[i] >= Gpio::GPIO_MANETTINO_RIGHT_START && pins[i] <= Gpio::GPIO_MANETTINO_RIGHT_END) {
+        this->tc = pins[i] - Gpio::GPIO_MANETTINO_RIGHT_START;
       }
 
       if ((map != -1 && map != oldMap) || (pump != -1 && pump != oldPump) || (tc != -1 && tc != oldTc)) {
