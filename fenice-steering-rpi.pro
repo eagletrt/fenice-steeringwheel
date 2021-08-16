@@ -30,11 +30,16 @@ INCLUDEPATH += \
 
 HEADERS += \
         include/steering.h \
-        include/can/canbus.h \
+        include/can/bus.h \
         include/can/device.h \
+        include/car/ecu.h \
+        include/car/hv.h \
+        include/car/lv.h \
+        include/car/pedals.h \
+        include/car/state.h \
+        include/car/telemetry.h \
         include/io/buttons.h \
         include/io/leds.h \
-        include/steering.h \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.h \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.h \
         thirdparty/can-cicd/includes_generator/Primary/can_config.h \
@@ -47,7 +52,13 @@ SOURCES += \
         src/main.cpp \
         src/steering.cpp \
         src/can/device.cpp \
-        src/can/canbus.cpp \
+        src/can/bus.cpp \
+        src/car/ecu.cpp \
+        src/car/hv.cpp \
+        src/car/lv.cpp \
+        src/car/pedals.cpp \
+        src/car/state.cpp \
+        src/car/telemetry.cpp \
         src/io/buttons.cpp \
         src/io/leds.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \

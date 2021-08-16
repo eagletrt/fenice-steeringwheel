@@ -1,4 +1,4 @@
-#include "can/canbus.h"
+#include "can/bus.h"
 
 #include <QPair>
 
@@ -16,6 +16,7 @@ CanBus::~CanBus() {
 
     thread->quit();
     if (!thread->wait(2000)) {
+      sDebug("canbus") << "thread timeout for network" << device->network;
       thread->terminate();
       thread->wait();
     }
@@ -23,6 +24,19 @@ CanBus::~CanBus() {
     delete device;
     delete thread;
   }
+}
+
+void CanBus::handleMessage(const CanDevice *device, int id, const QByteArray &message) {
+  emit messageReceived(device, id, message);
+}
+
+bool CanBus::sendMessage(const CanDevice::Network network, int id, const QByteArray &message) {
+  if (devices.find(network) != devices.end()) {
+    auto pair = devices[network];
+    return pair.first->sendMessage(id, message);
+  }
+  sWarning("canbus") << "tried to send a message on offline network" << network;
+  return false;
 }
 
 void CanBus::start() {
@@ -36,12 +50,11 @@ void CanBus::start() {
 #endif
 
   if (!errorString.isEmpty()) {
-    sWarning("canbus") << errorString;
-    sCritical("canbus") << "no can interfaces available!";
+    sCritical("canbus") << "error:" << errorString;
   }
 
-  if (interfaces.length() == 0) {
-    sCritical("canbus") << "no can interfaces available!";
+  if (interfaces.isEmpty()) {
+    sCritical("canbus") << "no can interfaces available";
   } else {
     sDebug("canbus") << "available can interfaces:" << interfaces.length();
 
@@ -67,15 +80,11 @@ void CanBus::start() {
           thread->start();
           devices[network] = QPair<CanDevice *, QThread *>(device, thread);
         } else {
-          sCritical("canbus") << errorString;
+          sCritical("canbus") << "error connecting to" << interfaceName << ":" << errorString;
         }
       } else {
         sDebug("canbus") << "unrecognized interface:" << interfaceName;
       }
     }
   }
-}
-
-void CanBus::handleMessage(const CanDevice *device, int id, const QByteArray &message) {
-  sDebug("canbus") << device->network << id << message;
 }

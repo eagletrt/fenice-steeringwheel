@@ -162,10 +162,6 @@ class Leds : public QObject {
 public:
   explicit Leds(QObject *parent = nullptr);
   ~Leds();
-public slots:
-  void animate();
-  void pumpChanged(int value);
-  void tractionControlChanged(int value);
 
 private:
   QTimer *timer;

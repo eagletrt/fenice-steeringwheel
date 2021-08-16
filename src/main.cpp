@@ -7,14 +7,15 @@
 #include "io/leds.h"
 #include "steering.h"
 
-#include "can/canbus.h"
+#include "can/bus.h"
+#include "car/state.h"
 
 #ifdef Q_OS_LINUX
 #include <signal.h>
 
 void quitGracefully(QVector<int> sigs) {
   auto handler = [](int sig) -> void {
-    sDebug("main") << "quit the application by signal" << sig;
+    sDebug("main") << "quitting the application with signal" << sig;
     QCoreApplication::quit();
   };
 
@@ -66,19 +67,14 @@ int main(int argc, char *argv[]) {
 
   Leds leds(&app);
   Buttons buttons(&app);
-  //  CarStatus carStatus(&app);
-  CanBus canBus(&app);
+  CanBus bus(&app);
+  State state(&app);
 
-  canBus.start();
-
-  //  QObject::connect(&buttons, &Buttons::mapChanged, &carStatus, &CarStatus::changeMap);
-  //  QObject::connect(&buttons, &Buttons::pumpChanged, &carStatus, &CarStatus::changePump);
-  //  QObject::connect(&buttons, &Buttons::tractionControlChanged, &carStatus, &CarStatus::changeTractionControl);
+  bus.start();
 
   engine.rootContext()->setContextProperty("Leds", &leds);
   engine.rootContext()->setContextProperty("Buttons", &buttons);
-  //  engine.rootContext()->setContextProperty("CarStatus", &carStatus);
-  engine.rootContext()->setContextProperty("CanBus", &canBus);
+  engine.rootContext()->setContextProperty("CanBus", &bus);
 
   engine.rootContext()->setContextProperty("Steering", &Steering::instance());
 

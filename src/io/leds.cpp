@@ -74,34 +74,9 @@ Leds::Leds(QObject *parent) : QObject(parent), left(new TLC59108(0x4a)), right(n
   right->init();
   left->setLedOutputMode(TLC59108::LED_MODE::PWM_IND);
   right->setLedOutputMode(TLC59108::LED_MODE::PWM_IND);
-
-  timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(animate()));
-  timer->start(30);
-  //  left->setBrightness(6, 0x0);
-  //  left->setBrightness(7, 0x0);
-  //  right->setBrightness(7, 0xf);
-}
-
-void Leds::pumpChanged(int value) {
-  left->setAllBrightness(0x0);
-  left->setBrightness(value, 0xf);
-}
-
-void Leds::tractionControlChanged(int value) {
-  right->setAllBrightness(0x0);
-  right->setBrightness(value, 0xf);
-}
-
-void Leds::animate() {
-  //  left->setAllBrightness(0x0);
-  //  left->setAllBrightness(0x0);
-  //  right->setAllBrightness(0xf - v);
-  //  t += 0.1;
 }
 
 Leds::~Leds() {
-  delete timer;
   left->setAllBrightness(0x0);
   right->setAllBrightness(0x0);
   delete left;

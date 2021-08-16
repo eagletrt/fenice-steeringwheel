@@ -14,6 +14,8 @@ void CanDevice::start() { connect(can, &QCanBusDevice::framesReceived, this, &Ca
 
 void CanDevice::stop() { disconnect(can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
 
+bool CanDevice::sendMessage(qint32 id, const QByteArray &message) { return can->writeFrame(QCanBusFrame(id, message)); }
+
 void CanDevice::parse() {
   while (can->framesAvailable()) {
     QCanBusFrame frame = can->readFrame();

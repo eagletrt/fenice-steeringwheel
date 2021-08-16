@@ -18,6 +18,7 @@ public:
 public slots:
   void start();
   void stop();
+  bool sendMessage(int id, const QByteArray &message);
 
 protected slots:
   void parse();

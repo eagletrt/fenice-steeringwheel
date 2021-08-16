@@ -34,7 +34,7 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
   QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 
   if (buttonIds.find(keyEvent->key()) == buttonIds.end()) {
-    // not included in the captuerd keys
+    // not included in the captured keys
     return QObject::eventFilter(obj, event);
   }
 

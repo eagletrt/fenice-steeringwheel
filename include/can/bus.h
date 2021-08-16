@@ -4,12 +4,6 @@
 #include <QObject>
 #include <QThread>
 
-#define __STDC_VERSION__ 201112
-#include "Primary/c/Primary.h"
-#include "Primary/can_config.h"
-#include "Secondary/c/Secondary.h"
-#include "Secondary/can_config.h"
-
 #include "can/device.h"
 
 class CanBus : public QObject {
@@ -25,10 +19,15 @@ public:
                                          {"can0", CanDevice::Network::PRIMARY},
                                          {"can1", CanDevice::Network::SECONDARY}};
 
+public slots:
   void start();
+  bool sendMessage(const CanDevice::Network network, int id, const QByteArray &message);
 
 protected slots:
   void handleMessage(const CanDevice *device, int id, const QByteArray &message);
+
+signals:
+  void messageReceived(const CanDevice *device, int id, const QByteArray &message);
 
 private:
   QHash<CanDevice::Network, QPair<CanDevice *, QThread *>> devices;
