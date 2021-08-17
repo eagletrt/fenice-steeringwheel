@@ -29,7 +29,7 @@ INCLUDEPATH += \
             thirdparty/wiringpi/wiringPi
 
 HEADERS += \
-        include/steering.h \
+        include/global.h \
         include/can/bus.h \
         include/can/device.h \
         include/car/ecu.h \
@@ -37,6 +37,7 @@ HEADERS += \
         include/car/lv.h \
         include/car/pedals.h \
         include/car/state.h \
+        include/car/steering.h \
         include/car/telemetry.h \
         include/io/buttons.h \
         include/io/leds.h \
@@ -50,7 +51,7 @@ HEADERS += \
 
 SOURCES += \
         src/main.cpp \
-        src/steering.cpp \
+        src/global.cpp \
         src/can/device.cpp \
         src/can/bus.cpp \
         src/car/ecu.cpp \
@@ -58,6 +59,7 @@ SOURCES += \
         src/car/lv.cpp \
         src/car/pedals.cpp \
         src/car/state.cpp \
+        src/car/steering.cpp \
         src/car/telemetry.cpp \
         src/io/buttons.cpp \
         src/io/leds.cpp \

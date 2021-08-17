@@ -1,19 +1,19 @@
-#include "steering.h"
+#include "global.h"
 
 #include <QVector>
 
-Steering::Steering(QObject *parent) : QObject(parent) {}
-Steering::~Steering() {}
+Global::Global(QObject *parent) : QObject(parent) {}
+Global::~Global() {}
 
-void Steering::appendLine(const QString &line) { emit logsChanged(line); }
+void Global::appendLine(const QString &line) { emit logsChanged(line); }
 
-Q_GLOBAL_STATIC(Steering, steering);
+Q_GLOBAL_STATIC(Global, global);
 
-Steering &Steering::instance() { return *steering; }
+Global &Global::instance() { return *global; }
 
-void Steering::messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+void Global::messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
   QByteArray message = msg.toLocal8Bit();
-  const char *category = context.category ? context.category : "global";
+  const char *category = context.category ? context.category : "steering";
 
   QString result;
   QTextStream stream(&result);
@@ -47,7 +47,7 @@ void Steering::messageHandler(QtMsgType type, const QMessageLogContext &context,
   QByteArray resultBytes = result.toLocal8Bit();
   fprintf(stderr, "%s\n", resultBytes.constData());
 
-  if (steering.exists()) {
-    steering->appendLine(result);
+  if (global.exists()) {
+    global->appendLine(result);
   }
 }

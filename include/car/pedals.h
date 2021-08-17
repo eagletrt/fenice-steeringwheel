@@ -3,13 +3,16 @@
 
 #include <QObject>
 
+class State;
+
 class Pedals : public QObject {
   Q_OBJECT
 public:
-  Pedals(QObject *parent = nullptr);
+  Pedals(State *parent = nullptr);
   ~Pedals();
 
 private:
+  State* m_state;
 };
 
 #endif // PEDALS_H

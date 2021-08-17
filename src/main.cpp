@@ -5,7 +5,7 @@
 
 #include "io/buttons.h"
 #include "io/leds.h"
-#include "steering.h"
+#include "global.h"
 
 #include "can/bus.h"
 #include "car/state.h"
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     qputenv("QT_FONT_DPI", "84");
   }
 #endif
-  qInstallMessageHandler(Steering::messageHandler);
+  qInstallMessageHandler(Global::messageHandler);
 
   sDebug("main") << "running on" << QSysInfo::currentCpuArchitecture();
 
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("Buttons", &buttons);
   engine.rootContext()->setContextProperty("CanBus", &bus);
 
-  engine.rootContext()->setContextProperty("Steering", &Steering::instance());
+  engine.rootContext()->setContextProperty("Global", &Global::instance());
 
   engine.load(url);
 

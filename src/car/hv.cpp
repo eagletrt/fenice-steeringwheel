@@ -1,8 +1,9 @@
 #include "car/hv.h"
 
-#include "steering.h"
+#include "global.h"
+#include "car/state.h"
 
-HV::HV(QObject* parent) : QObject(parent) {}
+HV::HV(State* parent) : QObject(parent), m_state(parent) {}
 
 HV::~HV() {
   sDebug("hv") << "cleanup";

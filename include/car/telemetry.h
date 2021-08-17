@@ -3,13 +3,16 @@
 
 #include <QObject>
 
+class State;
+
 class Telemetry : public QObject {
   Q_OBJECT
 public:
-  Telemetry(QObject *parent = nullptr);
+  Telemetry(State *parent = nullptr);
   ~Telemetry();
 
 private:
+  State* m_state;
 };
 
 #endif // TELEMETRY_H

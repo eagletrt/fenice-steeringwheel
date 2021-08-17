@@ -1,6 +1,6 @@
 #include "can/device.h"
 
-#include "steering.h"
+#include "global.h"
 
 CanDevice::CanDevice(const Network network, QCanBusDevice *can, QObject *parent)
     : QObject(parent), network(network), can(can) {}
@@ -14,13 +14,13 @@ void CanDevice::start() { connect(can, &QCanBusDevice::framesReceived, this, &Ca
 
 void CanDevice::stop() { disconnect(can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
 
-bool CanDevice::sendMessage(qint32 id, const QByteArray &message) { return can->writeFrame(QCanBusFrame(id, message)); }
+bool CanDevice::sendMessage(quint32 id, const QByteArray &message) { return can->writeFrame(QCanBusFrame(id, message)); }
 
 void CanDevice::parse() {
   while (can->framesAvailable()) {
     QCanBusFrame frame = can->readFrame();
     QByteArray message = frame.payload();
-    int id = frame.frameId();
+    quint32 id = frame.frameId();
     if (id != 0) {
       emit messageReceived(this, id, message);
     }

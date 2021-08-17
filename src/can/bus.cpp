@@ -2,7 +2,7 @@
 
 #include <QPair>
 
-#include "steering.h"
+#include "global.h"
 
 CanBus::CanBus(QObject *parent) : QObject(parent) {}
 
@@ -26,11 +26,11 @@ CanBus::~CanBus() {
   }
 }
 
-void CanBus::handleMessage(const CanDevice *device, int id, const QByteArray &message) {
+void CanBus::handleMessage(const CanDevice *device, quint32 id, const QByteArray &message) {
   emit messageReceived(device, id, message);
 }
 
-bool CanBus::sendMessage(const CanDevice::Network network, int id, const QByteArray &message) {
+bool CanBus::sendMessage(const CanDevice::Network network, quint32 id, const QByteArray &message) {
   if (devices.find(network) != devices.end()) {
     auto pair = devices[network];
     return pair.first->sendMessage(id, message);

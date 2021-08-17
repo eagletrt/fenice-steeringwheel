@@ -1,17 +1,17 @@
-#ifndef STEERING_H
-#define STEERING_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
 #include <QDebug>
 
-class Steering : public QObject {
+class Global : public QObject {
   Q_OBJECT
 public:
-  Steering(QObject *parent = nullptr);
-  ~Steering();
+  Global(QObject *parent = nullptr);
+  ~Global();
 
   void appendLine(const QString &line);
 
-  static Steering &instance();
+  static Global &instance();
   static void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
 signals:
@@ -24,4 +24,4 @@ signals:
 #define sCritical(SCOPE) (QMessageLogger(QT_MESSAGELOG_FILE, QT_MESSAGELOG_LINE, QT_MESSAGELOG_FUNC, SCOPE).critical)()
 #define sFatal(SCOPE) (QMessageLogger(QT_MESSAGELOG_FILE, QT_MESSAGELOG_LINE, QT_MESSAGELOG_FUNC, SCOPE).fatal)()
 
-#endif // STEERING_H
+#endif // GLOBAL_H

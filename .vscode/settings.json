@@ -8,5 +8,9 @@
     "Leds",
     "maxdepth",
     "toctree"
-  ]
+  ],
+  "files.associations": {
+    "__threading_support": "cpp",
+    "atomic": "cpp"
+  }
 }

@@ -54,7 +54,7 @@ Window {
                 window.logsChanged(line);
             }
 
-            target: Steering
+            target: Global
         }
 
         TabStack {

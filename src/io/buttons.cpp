@@ -3,7 +3,7 @@
 #include <QMetaEnum>
 
 #include "mcp23017.h"
-#include "steering.h"
+#include "global.h"
 #include "wiringPi.h"
 
 QHash<int, int> buttonIds{
