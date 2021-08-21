@@ -22,8 +22,8 @@ protected slots:
   void poll();
 
 private:
-  QTimer* m_poll_timer;
-  State* m_state;
+  QTimer *m_poll_timer;
+  State *m_state;
 
 private:
   float m_temperature;

@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "global.h"
 #include "can/primary.h"
+#include "global.h"
 
 class State;
 
@@ -50,7 +50,7 @@ public:
   Q_ENUM(Error);
 
 private:
-  State* m_state;
+  State *m_state;
 };
 
 #endif // HV_H

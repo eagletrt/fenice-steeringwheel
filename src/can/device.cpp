@@ -3,22 +3,24 @@
 #include "global.h"
 
 CanDevice::CanDevice(const Network network, QCanBusDevice *can, QObject *parent)
-    : QObject(parent), network(network), can(can) {}
+    : QObject(parent), network(network), m_can(can) {}
 
 CanDevice::~CanDevice() {
   sDebug("candevice") << "cleanup";
-  delete can;
+  delete m_can;
 }
 
-void CanDevice::start() { connect(can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
+void CanDevice::start() { connect(m_can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
 
-void CanDevice::stop() { disconnect(can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
+void CanDevice::stop() { disconnect(m_can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
 
-bool CanDevice::sendMessage(quint32 id, const QByteArray &message) { return can->writeFrame(QCanBusFrame(id, message)); }
+bool CanDevice::sendMessage(quint32 id, const QByteArray &message) {
+  return m_can->writeFrame(QCanBusFrame(id, message));
+}
 
 void CanDevice::parse() {
-  while (can->framesAvailable()) {
-    QCanBusFrame frame = can->readFrame();
+  while (m_can->framesAvailable()) {
+    QCanBusFrame frame = m_can->readFrame();
     QByteArray message = frame.payload();
     quint32 id = frame.frameId();
     if (id != 0) {

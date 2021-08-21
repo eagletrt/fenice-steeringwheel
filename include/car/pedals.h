@@ -12,7 +12,7 @@ public:
   ~Pedals();
 
 private:
-  State* m_state;
+  State *m_state;
 };
 
 #endif // PEDALS_H

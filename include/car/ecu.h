@@ -3,18 +3,15 @@
 
 #include <QObject>
 
-#include "global.h"
 #include "can/primary.h"
+#include "global.h"
 
 class State;
 
 class ECU : public QObject {
   Q_OBJECT
 public:
-  enum TlmStatus {
-    TLM_STATUS_ON = Primary_Tlm_Status_ON,
-    TLM_STATUS_OFF = Primary_Tlm_Status_OFF
-  };
+  enum TlmStatus { TLM_STATUS_ON = Primary_Tlm_Status_ON, TLM_STATUS_OFF = Primary_Tlm_Status_OFF };
   Q_ENUM(TlmStatus);
 
   enum RaceType {
@@ -51,7 +48,7 @@ public:
   ~ECU();
 
 private:
-  State* m_state;
+  State *m_state;
 };
 
 #endif // ECU_H

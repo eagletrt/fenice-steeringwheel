@@ -10,7 +10,7 @@ CanBus::~CanBus() {
   sDebug("canbus") << "cleanup";
 
   QHash<CanDevice::Network, QPair<CanDevice *, QThread *>>::iterator iterator;
-  for (iterator = devices.begin(); iterator != devices.end(); iterator++) {
+  for (iterator = m_devices.begin(); iterator != m_devices.end(); iterator++) {
     CanDevice *device = iterator->first;
     QThread *thread = iterator->second;
 
@@ -31,8 +31,8 @@ void CanBus::handleMessage(const CanDevice *device, quint32 id, const QByteArray
 }
 
 bool CanBus::sendMessage(const CanDevice::Network network, quint32 id, const QByteArray &message) {
-  if (devices.find(network) != devices.end()) {
-    auto pair = devices[network];
+  if (m_devices.find(network) != m_devices.end()) {
+    auto pair = m_devices[network];
     return pair.first->sendMessage(id, message);
   }
   sWarning("canbus") << "tried to send a message on offline network" << network;
@@ -78,7 +78,7 @@ void CanBus::start() {
 
           device->moveToThread(thread);
           thread->start();
-          devices[network] = QPair<CanDevice *, QThread *>(device, thread);
+          m_devices[network] = QPair<CanDevice *, QThread *>(device, thread);
         } else {
           sCritical("canbus") << "error connecting to" << interfaceName << ":" << errorString;
         }

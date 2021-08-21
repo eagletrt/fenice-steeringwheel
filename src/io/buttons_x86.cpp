@@ -1,7 +1,7 @@
 #include <QKeyEvent>
 
-#include "io/buttons.h"
 #include "global.h"
+#include "io/buttons.h"
 
 QHash<int, int> buttonIds{
     {Qt::Key_Q, Buttons::Input::BUTTON_TOP_LEFT},  {Qt::Key_A, Buttons::Input::BUTTON_BOTTOM_LEFT},

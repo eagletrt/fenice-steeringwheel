@@ -25,7 +25,7 @@ public:
   ~LV();
 
 private:
-  State* m_state;
+  State *m_state;
 };
 
 #endif // LV_H

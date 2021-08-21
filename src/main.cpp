@@ -1,12 +1,12 @@
-#include <QQmlApplicationEngine>
 #include <QGuiApplication>
+#include <QObject>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QThread>
-#include <QObject>
 
+#include "global.h"
 #include "io/buttons.h"
 #include "io/leds.h"
-#include "global.h"
 
 #include "can/bus.h"
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("Leds", &leds);
   engine.rootContext()->setContextProperty("Buttons", &buttons);
   engine.rootContext()->setContextProperty("CanBus", &canBus);
-  engine.rootContext()->setContextProperty("State", &state);
+  engine.rootContext()->setContextProperty("Car", &state);
 
   engine.rootContext()->setContextProperty("Global", &Global::instance());
 

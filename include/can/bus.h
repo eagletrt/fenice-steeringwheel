@@ -30,7 +30,7 @@ signals:
   void messageReceived(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:
-  QHash<CanDevice::Network, QPair<CanDevice *, QThread *>> devices;
+  QHash<CanDevice::Network, QPair<CanDevice *, QThread *>> m_devices;
 };
 
 #endif // CANBUS_H

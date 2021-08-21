@@ -30,7 +30,7 @@ public:
   const Network network;
 
 private:
-  QCanBusDevice *can;
+  QCanBusDevice *m_can;
 };
 
 #endif // DEVICE_H

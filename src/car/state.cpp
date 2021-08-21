@@ -39,11 +39,11 @@ void State::handleMessage(const CanDevice *, quint32 id, const QByteArray &messa
   case TOPIC_STEER_FILTER:
     handleTopicSteer(id, raw);
     break;
-  case TOPIC_ACUnSTEER_FILTER:
-    handleTopicAcuSteer(id, raw);
+  case TOPIC_ECUnSTEER_FILTER:
+    handleTopicEcuSteer(id, raw);
     break;
-  case TOPIC_ACUnSTEERnCART_FILTER:
-    handleTopicAcuSteerCart(id, raw);
+  case TOPIC_ECUnSTEERnCART_FILTER:
+    handleTopicEcuSteerCart(id, raw);
     break;
   }
 
@@ -69,8 +69,8 @@ void State::handleTopicSteer(quint32 id, uint8_t *raw) {
   case ID_TLM_STATUS: {
     Primary_TLM_STATUS data;
     deserialize_Primary_TLM_STATUS(raw, &data);
-    m_ecu->setTlmStatus((ECU::TlmStatus) data.tlm_status);
-    m_ecu->setRaceType((ECU::RaceType) data.race_type);
+    m_ecu->setTlmStatus((ECU::TlmStatus)data.tlm_status);
+    m_ecu->setRaceType((ECU::RaceType)data.race_type);
     m_ecu->setDriver(data.driver);
     m_ecu->setCircuit(data.circuit);
     emit ecuChanged();
@@ -79,16 +79,16 @@ void State::handleTopicSteer(quint32 id, uint8_t *raw) {
   case ID_CAR_STATUS: {
     Primary_CAR_STATUS data;
     deserialize_Primary_CAR_STATUS(raw, &data);
-    m_ecu->setCarStatus((ECU::CarStatus) data.car_status);
-    m_ecu->setInverterStatusLeft((ECU::InverterStatus) data.inverter_l);
-    m_ecu->setInverterStatusRight((ECU::InverterStatus) data.inverter_r);
+    m_ecu->setCarStatus((ECU::CarStatus)data.car_status);
+    m_ecu->setInverterStatusLeft((ECU::InverterStatus)data.inverter_l);
+    m_ecu->setInverterStatusRight((ECU::InverterStatus)data.inverter_r);
     emit ecuChanged();
     break;
   }
   }
 }
 
-void State::handleTopicAcuSteer(quint32 id, uint8_t *raw) {
+void State::handleTopicEcuSteer(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_LV_CURRENT: {
     Primary_LV_CURRENT data;
@@ -128,7 +128,7 @@ void State::handleTopicAcuSteer(quint32 id, uint8_t *raw) {
   }
 }
 
-void State::handleTopicAcuSteerCart(quint32 id, uint8_t *raw) {
+void State::handleTopicEcuSteerCart(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_HV_CURRENT: {
     Primary_HV_CURRENT data;
@@ -160,9 +160,9 @@ void State::handleTopicAcuSteerCart(quint32 id, uint8_t *raw) {
   case ID_HV_ERRORS: {
     Primary_HV_ERRORS data;
     deserialize_Primary_HV_ERRORS(raw, &data);
-    quint16 errors = ((quint16) data.errors[1] << 8) | data.errors[0];
+    quint16 errors = ((quint16)data.errors[1] << 8) | data.errors[0];
     m_hv->setErrors(errors);
-    quint16 warnings = ((quint16) data.warnings[1] << 8) | data.warnings[0];
+    quint16 warnings = ((quint16)data.warnings[1] << 8) | data.warnings[0];
     m_hv->setWarnings(warnings);
     emit hvChanged();
     break;
@@ -170,7 +170,7 @@ void State::handleTopicAcuSteerCart(quint32 id, uint8_t *raw) {
   case ID_TS_STATUS: {
     Primary_TS_STATUS data;
     deserialize_Primary_TS_STATUS(raw, &data);
-    m_hv->setTsStatus((HV::TsStatus) data.ts_status);
+    m_hv->setTsStatus((HV::TsStatus)data.ts_status);
     emit hvChanged();
     break;
   }

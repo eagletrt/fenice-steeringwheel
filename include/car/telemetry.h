@@ -12,7 +12,7 @@ public:
   ~Telemetry();
 
 private:
-  State* m_state;
+  State *m_state;
 };
 
 #endif // TELEMETRY_H

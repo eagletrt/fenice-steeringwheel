@@ -2,8 +2,8 @@
 
 #include <QMetaEnum>
 
-#include "mcp23017.h"
 #include "global.h"
+#include "mcp23017.h"
 #include "wiringPi.h"
 
 QHash<int, int> buttonIds{
@@ -121,7 +121,8 @@ void Buttons::readGpioState() {
         this->m_tc = m_pins[i] - Gpio::GPIO_MANETTINO_RIGHT_START;
       }
 
-      if ((m_map != -1 && m_map != m_map_old) || (m_pump != -1 && m_pump != m_pump_old) || (m_tc != -1 && m_tc != m_tc_old)) {
+      if ((m_map != -1 && m_map != m_map_old) || (m_pump != -1 && m_pump != m_pump_old) ||
+          (m_tc != -1 && m_tc != m_tc_old)) {
         int timeElapsed = m_switch_timer.restart();
 
         if (timeElapsed < 15) {

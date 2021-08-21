@@ -19,7 +19,7 @@ IGNORE=./thirdparty
 QT_QML_FORMAT="$QT_PATH/qmlformat"
 CLANG_FORMAT=clang-format
 
-echo "[*] Formatting QML files"
+echo "[*] Formatting qml files"
 find . -path $BUILD_DIR -prune -false -o -path $IGNORE -prune -false -o -type f \
   -name "*.qml" -exec sh -c "$QT_QML_FORMAT -i \$1" _ {} \;
 echo "[*] Formatting cpp files"

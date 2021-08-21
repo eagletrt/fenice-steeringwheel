@@ -1,7 +1,7 @@
 #include "car/steering.h"
 
-#include "global.h"
 #include "car/state.h"
+#include "global.h"
 
 #include <QFile>
 
