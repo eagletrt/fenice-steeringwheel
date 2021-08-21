@@ -21,7 +21,6 @@ Control {
         "color": Style.yellow,
         "zero": 0.5
     }]
-    property var values: [0.2, 0.5, 0.2]
     property int nameWidth: 130
     property int valueWidth: 100
 
@@ -32,115 +31,34 @@ Control {
         columnSpacing: 10
         rowSpacing: 10
 
-        Repeater {
-            model: sensors
+        CalibrationBar {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.columnSpan: 2
+            name: "APPS"
+            color: Style.green
+            zero: 0
+            value: 0.5
+        }
 
-            delegate: Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.columnSpan: 2
-                color: Style.surface
+        CalibrationBar {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.columnSpan: 2
+            name: "STEER"
+            color: Style.red
+            zero: 0
+            value: 0.3
+        }
 
-                Control {
-                    anchors.fill: parent
-                    padding: 20
-
-                    contentItem: RowLayout {
-                        Item {
-                            Layout.preferredWidth: nameWidth
-                            Layout.fillHeight: true
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                text: modelData.name
-                                color: Style.textInverted
-                                font: Style.sans.h3
-                            }
-
-                        }
-
-                        Item {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-
-                            ProgressBar {
-                                id: sensorValue
-
-                                anchors.fill: parent
-
-                                SequentialAnimation on value {
-                                    loops: Animation.Infinite
-
-                                    NumberAnimation {
-                                        from: 0
-                                        to: 1
-                                        duration: 2500
-                                    }
-
-                                    NumberAnimation {
-                                        from: 1
-                                        to: 0
-                                        duration: 2500
-                                    }
-
-                                }
-
-                                background: Rectangle {
-                                    color: Style.dark
-                                }
-
-                                contentItem: Item {
-                                    rotation: sensorValue.visualPosition > modelData.zero ? 0 : 180
-
-                                    Rectangle {
-                                        x: sensorValue.width * modelData.zero
-                                        width: sensorValue.width * Math.abs(modelData.zero - sensorValue.visualPosition)
-                                        height: parent.height
-                                        color: modelData.color
-                                    }
-
-                                    Row {
-                                        Repeater {
-                                            model: 10
-
-                                            Rectangle {
-                                                width: sensorValue.width / 10
-                                                height: sensorValue.height
-                                                color: "transparent"
-                                                border.width: 1
-                                            }
-
-                                        }
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                        Item {
-                            Layout.preferredWidth: valueWidth
-                            Layout.fillHeight: true
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.right: parent.right
-                                text: ((sensorValue.visualPosition - modelData.zero) * 100).toFixed(0) + "%"
-                                color: Style.textInverted
-                                font: Style.mono.h3
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
+        CalibrationBar {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.columnSpan: 2
+            name: "BSE"
+            color: Style.yellow
+            zero: 0.5
+            value: 0.8
         }
 
         Rectangle {

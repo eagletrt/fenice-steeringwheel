@@ -10,7 +10,7 @@ class CanBus : public QObject {
   Q_OBJECT
 
 public:
-  CanBus(QObject *parent);
+  CanBus(QObject *parent = nullptr);
   ~CanBus();
 
   const QHash<QString, CanDevice::Network> networkMap =

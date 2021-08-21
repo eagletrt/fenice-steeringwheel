@@ -29,7 +29,7 @@ State::~State() {
 void State::handleMessage(const CanDevice *, quint32 id, const QByteArray &message) {
   int length = message.length();
   uint8_t *raw = new uint8_t[length];
-  memcpy(raw, message.data(), (length - 1) * sizeof(uint8_t));
+  memcpy(raw, message.data(), length * sizeof(uint8_t));
 
   quint32 topic = id & STATE_TOPIC_MASK;
   switch (topic) {
@@ -46,8 +46,6 @@ void State::handleMessage(const CanDevice *, quint32 id, const QByteArray &messa
     handleTopicEcuSteerCart(id, raw);
     break;
   }
-
-  sDebug("state") << id << ":" << message;
 
   delete[] raw;
 }

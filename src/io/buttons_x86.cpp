@@ -10,7 +10,7 @@ QHash<int, int> buttonIds{
     {Qt::Key_V, Buttons::Input::PADDLE_TOP_RIGHT}, {Qt::Key_X, Buttons::Input::PADDLE_BOTTOM_RIGHT},
 };
 
-Buttons::Buttons(QObject *parent) : QObject(parent) { parent->installEventFilter(this); }
+Buttons::Buttons(QObject *parent) : QObject(parent) {}
 
 //  Keyboard Map
 //  q:   exit,run/stop    (0)

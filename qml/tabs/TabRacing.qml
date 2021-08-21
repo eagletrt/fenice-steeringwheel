@@ -1,3 +1,4 @@
+import Car 1.0
 import Const 1.0
 import QtQuick 2.15
 import QtQuick.Controls 2.15
@@ -58,23 +59,6 @@ Rectangle {
 
             }
 
-            SequentialAnimation on value {
-                loops: Animation.Infinite
-
-                NumberAnimation {
-                    from: 0
-                    to: 1
-                    duration: 2500
-                }
-
-                NumberAnimation {
-                    from: 1
-                    to: 0
-                    duration: 2500
-                }
-
-            }
-
         }
 
         Rectangle {
@@ -112,25 +96,8 @@ Rectangle {
 
                             ValueLabel {
                                 unit: "°C"
-                                label: "L. INVERTER"
-
-                                SequentialAnimation on value {
-                                    loops: Animation.Infinite
-
-                                    NumberAnimation {
-                                        from: 45
-                                        to: 35
-                                        duration: 500
-                                    }
-
-                                    NumberAnimation {
-                                        from: 35
-                                        to: 45
-                                        duration: 500
-                                    }
-
-                                }
-
+                                label: "DCDC"
+                                value: Car.lv.dcdcTemperature
                             }
 
                         }
@@ -141,25 +108,8 @@ Rectangle {
 
                             ValueLabel {
                                 unit: "°C"
-                                label: "T. PORCO"
-
-                                SequentialAnimation on value {
-                                    loops: Animation.Infinite
-
-                                    NumberAnimation {
-                                        from: 25
-                                        to: 35
-                                        duration: 800
-                                    }
-
-                                    NumberAnimation {
-                                        from: 35
-                                        to: 25
-                                        duration: 800
-                                    }
-
-                                }
-
+                                label: "Battery"
+                                value: Car.lv.batteryTemperature
                             }
 
                         }
@@ -170,25 +120,8 @@ Rectangle {
 
                             ValueLabel {
                                 unit: "°C"
-                                label: "R. INVERTER"
-
-                                SequentialAnimation on value {
-                                    loops: Animation.Infinite
-
-                                    NumberAnimation {
-                                        from: 35
-                                        to: 45
-                                        duration: 500
-                                    }
-
-                                    NumberAnimation {
-                                        from: 45
-                                        to: 35
-                                        duration: 500
-                                    }
-
-                                }
-
+                                label: "HV"
+                                value: Car.hv.averageTemperature
                             }
 
                         }
@@ -210,24 +143,7 @@ Rectangle {
 
                             BigValue {
                                 unit: "wh\nkm"
-
-                                SequentialAnimation on value {
-                                    loops: Animation.Infinite
-
-                                    NumberAnimation {
-                                        from: 150
-                                        to: 50
-                                        duration: 1500
-                                    }
-
-                                    NumberAnimation {
-                                        from: 50
-                                        to: 150
-                                        duration: 1500
-                                    }
-
-                                }
-
+                                value: 100
                             }
 
                         }
@@ -238,24 +154,6 @@ Rectangle {
 
                             BigValue {
                                 unit: "km\nh"
-
-                                SequentialAnimation on value {
-                                    loops: Animation.Infinite
-
-                                    NumberAnimation {
-                                        from: 50
-                                        to: 150
-                                        duration: 1500
-                                    }
-
-                                    NumberAnimation {
-                                        from: 150
-                                        to: 50
-                                        duration: 1500
-                                    }
-
-                                }
-
                             }
 
                         }
@@ -293,23 +191,6 @@ Rectangle {
                 GradientStop {
                     position: 0
                     color: Style.aqua
-                }
-
-            }
-
-            SequentialAnimation on value {
-                loops: Animation.Infinite
-
-                NumberAnimation {
-                    from: 1
-                    to: 0
-                    duration: 2500
-                }
-
-                NumberAnimation {
-                    from: 0
-                    to: 1
-                    duration: 2500
                 }
 
             }

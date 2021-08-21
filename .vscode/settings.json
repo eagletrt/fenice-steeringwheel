@@ -6,7 +6,13 @@
     "Fenice",
     "Gpio",
     "Leds",
+    "STEE",
+    "Uncreatable",
     "maxdepth",
+    "qputenv",
     "toctree"
   ],
+  "files.associations": {
+    "system_error": "cpp"
+  },
 }

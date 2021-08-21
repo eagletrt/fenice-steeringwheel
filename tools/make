@@ -6,7 +6,7 @@
 # Configuration
 # -------------
 
-QT_PROJECT=fenice-steering-x86.pro
+QT_PROJECT=fenice-steering.pro
 QT_BUILD_DIR=build
 
 # -------------

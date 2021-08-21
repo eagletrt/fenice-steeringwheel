@@ -20,8 +20,7 @@ void Steering::poll() {
   QFile file(STEERING_TEMP_FILE);
   if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
     QByteArray line = file.readLine();
-    m_temperature = line.toFloat() / STEERING_TEMP_SCALE;
-    emit temperatureChanged();
+    setTemperature(line.toFloat() / STEERING_TEMP_SCALE);
     emit m_state->steeringChanged();
     file.close();
   } else {

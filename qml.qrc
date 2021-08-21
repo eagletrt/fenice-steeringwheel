@@ -7,9 +7,10 @@
         <file>qml/Main.qml</file>
         <file>qml/TabStack.qml</file>
         <file>qml/Popup.qml</file>
-        <file>qml/tabs/components/StatusCard.qml</file>
         <file>qml/tabs/components/BigValue.qml</file>
+        <file>qml/tabs/components/CalibrationBar.qml</file>
         <file>qml/tabs/components/MapBar.qml</file>
+        <file>qml/tabs/components/StatusCard.qml</file>
         <file>qml/tabs/components/ValueColumn.qml</file>
         <file>qml/tabs/components/ValueLabel.qml</file>
         <file>qml/tabs/TabCalibration.qml</file>

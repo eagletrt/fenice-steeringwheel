@@ -56,7 +56,18 @@ SOURCES += \
         src/car/state.cpp \
         src/car/steering.cpp \
         src/car/telemetry.cpp \
-        src/io/buttons_x86.cpp \
-        src/io/leds_x86.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c
+
+
+CONFIG(raspberry) {
+SOURCES += \
+        src/io/buttons.cpp \
+        src/io/leds.cpp 
+DEFINES += S_OS_RASPBERRY
+} else {
+SOURCES += \
+        src/io/buttons_x86.cpp \
+        src/io/leds_x86.cpp 
+DEFINES += S_OS_X86
+}

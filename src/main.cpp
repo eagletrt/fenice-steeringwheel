@@ -61,32 +61,36 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
 
-  QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 
+  QQmlApplicationEngine engine(&app);
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,
       [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
-          QCoreApplication::exit(1);
+          QGuiApplication::exit(1);
       },
       Qt::QueuedConnection);
 
   engine.addImportPath(QStringLiteral("qrc:/"));
 
-  Leds leds(&app);
-  Buttons buttons(&app);
-  CanBus canBus(&app);
-  State state(&app);
+  Leds *leds = new Leds(&engine);
+  Buttons *buttons = new Buttons(&engine);
+  CanBus *canBus = new CanBus(&engine);
+  State *state = new State(&engine);
 
-  canBus.start();
+#ifdef S_OS_X86
+  app.installEventFilter(buttons);
+#endif
 
-  QObject::connect(&canBus, &CanBus::messageReceived, &state, &State::handleMessage);
+  canBus->start();
 
-  engine.rootContext()->setContextProperty("Leds", &leds);
-  engine.rootContext()->setContextProperty("Buttons", &buttons);
-  engine.rootContext()->setContextProperty("CanBus", &canBus);
-  engine.rootContext()->setContextProperty("Car", &state);
+  QObject::connect(canBus, &CanBus::messageReceived, state, &State::handleMessage);
+
+  engine.rootContext()->setContextProperty("Leds", leds);
+  engine.rootContext()->setContextProperty("Buttons", buttons);
+  engine.rootContext()->setContextProperty("CanBus", canBus);
+  engine.rootContext()->setContextProperty("Car", state);
 
   engine.rootContext()->setContextProperty("Global", &Global::instance());
 

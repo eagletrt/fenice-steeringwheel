@@ -4,19 +4,18 @@
 #include <QObject>
 #include <QTimer>
 
+#include "global.h"
+
 class State;
 
 #define STEERING_POLL_TIMER 5000
 
 class Steering : public QObject {
   Q_OBJECT
-  Q_PROPERTY(float temperature MEMBER m_temperature NOTIFY temperatureChanged)
+  S_PROPERTY(float, temperature, m_temperature, Temperature)
 public:
   Steering(State *parent = nullptr);
   ~Steering();
-
-signals:
-  void temperatureChanged();
 
 protected slots:
   void poll();
@@ -24,9 +23,6 @@ protected slots:
 private:
   QTimer *m_poll_timer;
   State *m_state;
-
-private:
-  float m_temperature;
 };
 
 #endif // STEERING_H

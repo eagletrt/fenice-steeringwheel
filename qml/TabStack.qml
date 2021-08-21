@@ -54,10 +54,10 @@ Item {
 
         anchors.fill: parent
 
-        TabTelemetry {
+        TabRacing {
         }
 
-        TabRacing {
+        TabTelemetry {
         }
 
         TabCalibration {
