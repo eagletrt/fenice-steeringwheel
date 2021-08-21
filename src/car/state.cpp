@@ -2,15 +2,8 @@
 
 #include "global.h"
 
-#define __STDC_VERSION__ 201112
-
-#include "Primary/c/Primary.h"
-#include "Primary/can_config.h"
-#include "Primary/ids.h"
-
-#include "Secondary/c/Secondary.h"
-#include "Secondary/can_config.h"
-#include "Secondary/ids.h"
+#include "can/primary.h"
+#include "can/secondary.h"
 
 State::State(QObject *parent) : QObject(parent) {
   m_ecu = new ECU(this);
@@ -54,6 +47,8 @@ void State::handleMessage(const CanDevice *, quint32 id, const QByteArray &messa
     break;
   }
 
+  sDebug("state") << id << ":" << message;
+
   delete[] raw;
 }
 
@@ -74,12 +69,19 @@ void State::handleTopicSteer(quint32 id, uint8_t *raw) {
   case ID_TLM_STATUS: {
     Primary_TLM_STATUS data;
     deserialize_Primary_TLM_STATUS(raw, &data);
+    m_ecu->setTlmStatus((ECU::TlmStatus) data.tlm_status);
+    m_ecu->setRaceType((ECU::RaceType) data.race_type);
+    m_ecu->setDriver(data.driver);
+    m_ecu->setCircuit(data.circuit);
     emit ecuChanged();
     break;
   }
   case ID_CAR_STATUS: {
     Primary_CAR_STATUS data;
     deserialize_Primary_CAR_STATUS(raw, &data);
+    m_ecu->setCarStatus((ECU::CarStatus) data.car_status);
+    m_ecu->setInverterStatusLeft((ECU::InverterStatus) data.inverter_l);
+    m_ecu->setInverterStatusRight((ECU::InverterStatus) data.inverter_r);
     emit ecuChanged();
     break;
   }
@@ -91,24 +93,35 @@ void State::handleTopicAcuSteer(quint32 id, uint8_t *raw) {
   case ID_LV_CURRENT: {
     Primary_LV_CURRENT data;
     deserialize_Primary_LV_CURRENT(raw, &data);
+    m_lv->setCurrent(data.current);
     emit lvChanged();
     break;
   }
   case ID_LV_VOLTAGE: {
     Primary_LV_VOLTAGE data;
     deserialize_Primary_LV_VOLTAGE(raw, &data);
+    m_lv->setVoltage1(data.voltage_1);
+    m_lv->setVoltage2(data.voltage_2);
+    m_lv->setVoltage3(data.voltage_3);
+    m_lv->setVoltage4(data.voltage_4);
+    m_lv->setTotalVoltage(data.total_voltage);
     emit lvChanged();
     break;
   }
   case ID_LV_TEMPERATURE: {
     Primary_LV_TEMPERATURE data;
     deserialize_Primary_LV_TEMPERATURE(raw, &data);
+    m_lv->setDcdcTemperature(data.dcdc_temperature);
+    m_lv->setBatteryTemperature(data.battery_temperature);
     emit lvChanged();
     break;
   }
   case ID_COOLING_STATUS: {
     Primary_COOLING_STATUS data;
     deserialize_Primary_COOLING_STATUS(raw, &data);
+    m_lv->setHvFanSpeed(data.hv_fan_speed);
+    m_lv->setLvFanSpeed(data.lv_fan_speed);
+    m_lv->setPumpSpeed(data.pump_speed);
     emit lvChanged();
     break;
   }
@@ -117,33 +130,47 @@ void State::handleTopicAcuSteer(quint32 id, uint8_t *raw) {
 
 void State::handleTopicAcuSteerCart(quint32 id, uint8_t *raw) {
   switch (id) {
-  case ID_HV_VOLTAGE: {
-    Primary_HV_VOLTAGE data;
-    deserialize_Primary_HV_VOLTAGE(raw, &data);
-    emit hvChanged();
-    break;
-  }
   case ID_HV_CURRENT: {
     Primary_HV_CURRENT data;
     deserialize_Primary_HV_CURRENT(raw, &data);
+    m_hv->setCurrent(data.current);
+    m_hv->setPower(data.power);
+    emit hvChanged();
+    break;
+  }
+  case ID_HV_VOLTAGE: {
+    Primary_HV_VOLTAGE data;
+    deserialize_Primary_HV_VOLTAGE(raw, &data);
+    m_hv->setPackVoltage(data.pack_voltage);
+    m_hv->setBusVoltage(data.bus_voltage);
+    m_hv->setMaxCellVoltage(data.max_cell_voltage);
+    m_hv->setMinCellVoltage(data.min_cell_voltage);
     emit hvChanged();
     break;
   }
   case ID_HV_TEMP: {
     Primary_HV_TEMP data;
     deserialize_Primary_HV_TEMP(raw, &data);
+    m_hv->setAverageTemperature(data.average_temp);
+    m_hv->setMaxTemperature(data.max_temp);
+    m_hv->setMinTemperature(data.min_temp);
     emit hvChanged();
     break;
   }
   case ID_HV_ERRORS: {
     Primary_HV_ERRORS data;
     deserialize_Primary_HV_ERRORS(raw, &data);
+    quint16 errors = ((quint16) data.errors[1] << 8) | data.errors[0];
+    m_hv->setErrors(errors);
+    quint16 warnings = ((quint16) data.warnings[1] << 8) | data.warnings[0];
+    m_hv->setWarnings(warnings);
     emit hvChanged();
     break;
   }
   case ID_TS_STATUS: {
     Primary_TS_STATUS data;
     deserialize_Primary_TS_STATUS(raw, &data);
+    m_hv->setTsStatus((HV::TsStatus) data.ts_status);
     emit hvChanged();
     break;
   }

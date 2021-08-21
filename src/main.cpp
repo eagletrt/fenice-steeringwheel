@@ -1,13 +1,18 @@
-#include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QGuiApplication>
 #include <QQmlContext>
 #include <QThread>
+#include <QObject>
 
 #include "io/buttons.h"
 #include "io/leds.h"
 #include "global.h"
 
 #include "can/bus.h"
+
+#include "car/ecu.h"
+#include "car/hv.h"
+#include "car/lv.h"
 #include "car/state.h"
 
 #ifdef Q_OS_LINUX
@@ -52,6 +57,10 @@ int main(int argc, char *argv[]) {
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
 
+  qmlRegisterUncreatableType<ECU>("Car", 1, 0, "ECU", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
+
   QQmlApplicationEngine engine;
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 
@@ -67,14 +76,17 @@ int main(int argc, char *argv[]) {
 
   Leds leds(&app);
   Buttons buttons(&app);
-  CanBus bus(&app);
+  CanBus canBus(&app);
   State state(&app);
 
-  bus.start();
+  canBus.start();
+
+  QObject::connect(&canBus, &CanBus::messageReceived, &state, &State::handleMessage);
 
   engine.rootContext()->setContextProperty("Leds", &leds);
   engine.rootContext()->setContextProperty("Buttons", &buttons);
-  engine.rootContext()->setContextProperty("CanBus", &bus);
+  engine.rootContext()->setContextProperty("CanBus", &canBus);
+  engine.rootContext()->setContextProperty("State", &state);
 
   engine.rootContext()->setContextProperty("Global", &Global::instance());
 

@@ -25,7 +25,7 @@ public:
   State(QObject *parent = nullptr);
   ~State();
 
-protected slots:
+public slots:
   void handleMessage(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:

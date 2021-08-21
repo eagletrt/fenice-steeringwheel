@@ -153,8 +153,8 @@ public:
   uint8_t setLedOutputMode(const uint8_t outputMode);
 
 private:
-  uint8_t address;
-  int fd;
+  uint8_t m_address;
+  int m_fd;
 };
 
 class Leds : public QObject {
@@ -164,9 +164,9 @@ public:
   ~Leds();
 
 private:
-  QTimer *timer;
-  TLC59108 *left;
-  TLC59108 *right;
+  QTimer *m_timer;
+  TLC59108 *m_left;
+  TLC59108 *m_right;
 };
 
 #endif // LEDS_H

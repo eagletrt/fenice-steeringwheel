@@ -25,4 +25,4 @@ mkdir -p $QT_BUILD_DIR
 cd $QT_BUILD_DIR || exit 1
 
 $QT_MAKE -o Makefile ../$QT_PROJECT || exit 1
-make || exit 1
+make -j"$(nproc)" || exit 1

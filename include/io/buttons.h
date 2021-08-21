@@ -67,25 +67,24 @@ signals:
   void tractionControlChanged(int tractionControl);
 
 private:
-  QTimer *timer;
-  QElapsedTimer switchTimer;
+  QTimer *m_timer;
+  QElapsedTimer m_switch_timer;
 
-  bool switchIsWrong;
+  bool m_switch_is_wrong;
 
-  int buttonAction;
-  int map;
-  int oldMap;
-  int pump;
-  int oldPump;
-  int tc;
-  int oldTc;
+  int m_button_action;
+  int m_map;
+  int m_map_old;
+  int m_pump;
+  int m_pump_old;
+  int m_tc;
+  int m_tc_old;
 
-  QVector<States> buttonState;
+  QVector<States> m_button_state;
 
-  QVector<int> pinMap;
-  QVector<int> pinState;
-  QVector<int> pinStatePrevious;
-  QVector<int> pins;
+  QVector<int> m_pin_state;
+  QVector<int> m_pin_state_old;
+  QVector<int> m_pins;
 };
 
 #endif // BUTTONS_H

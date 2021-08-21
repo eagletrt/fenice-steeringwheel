@@ -24,25 +24,24 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
   mcp23017Setup(116, 0x27); // manettino center + paddles top + paddles bottom +
                             // buttons top + buttons bottom
 
-  pinMap = QVector<int>();
-  pinState = QVector<int>();
-  pinStatePrevious = QVector<int>();
-  buttonState = QVector<States>();
+  m_pin_state = QVector<int>();
+  m_pin_state_old = QVector<int>();
+  m_button_state = QVector<States>();
 
-  buttonAction = -1;
-  oldTc = -1;
-  oldPump = -1;
-  oldMap = -1;
-  tc = -1;
-  pump = -1;
-  map = -1;
+  m_button_action = -1;
+  m_tc_old = -1;
+  m_pump_old = -1;
+  m_map_old = -1;
+  m_tc = -1;
+  m_pump = -1;
+  m_map = -1;
 
-  switchTimer = QElapsedTimer();
-  switchTimer.start();
+  m_switch_timer = QElapsedTimer();
+  m_switch_timer.start();
 
-  switchIsWrong = false;
+  m_switch_is_wrong = false;
 
-  pins = {
+  m_pins = {
       25, // button center
 
       100, 101, 102, 103, 104, 105, 106, 107, // manettino right
@@ -61,97 +60,97 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
       124, 125, 126, 127, 128, 129, 130, 131, // manettino center
   };
 
-  for (int i = 0; i < pins.size(); i++) {
-    pinMode(pins[i], INPUT);
-    pullUpDnControl(pins[i], PUD_UP);
+  for (int i = 0; i < m_pins.size(); i++) {
+    pinMode(m_pins[i], INPUT);
+    pullUpDnControl(m_pins[i], PUD_UP);
 
-    pinState.append(1);
-    pinStatePrevious.append(1);
-    buttonState.append(BUTTON_NORMAL);
+    m_pin_state.append(1);
+    m_pin_state_old.append(1);
+    m_button_state.append(BUTTON_NORMAL);
   }
 
   // Setup signal/slot mechanism
-  timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(readGpioState()));
-  timer->start(30);
+  m_timer = new QTimer(this);
+  connect(m_timer, SIGNAL(timeout()), this, SLOT(readGpioState()));
+  m_timer->start(30);
 }
 
 void Buttons::readGpioState() {
-  for (int i = 0; i < pins.size(); i++) {
-    pinState[i] = digitalRead(pins.at(i));
+  for (int i = 0; i < m_pins.size(); i++) {
+    m_pin_state[i] = digitalRead(m_pins.at(i));
 
-    if (pinState.at(i) != pinStatePrevious.at(i)) {
-      buttonAction = -1;
-      pump = -1;
-      map = -1;
-      tc = -1;
+    if (m_pin_state.at(i) != m_pin_state_old.at(i)) {
+      m_button_action = -1;
+      m_pump = -1;
+      m_map = -1;
+      m_tc = -1;
 
-      switch (buttonState.at(i)) {
+      switch (m_button_state.at(i)) {
       case BUTTON_NORMAL:
-        this->buttonState[i] = BUTTON_PRESSED;
-        this->buttonAction = BUTTON_PRESSED;
+        this->m_button_state[i] = BUTTON_PRESSED;
+        this->m_button_action = BUTTON_PRESSED;
         break;
       case BUTTON_PRESSED:
-        this->buttonState[i] = BUTTON_NORMAL;
-        this->buttonAction = BUTTON_NORMAL;
+        this->m_button_state[i] = BUTTON_NORMAL;
+        this->m_button_action = BUTTON_NORMAL;
         break;
       }
 
-      if (buttonAction == BUTTON_PRESSED) {
-        emit buttonPressed(buttonIds[pins[i]]);
+      if (m_button_action == BUTTON_PRESSED) {
+        emit buttonPressed(buttonIds[m_pins[i]]);
       } else {
-        emit buttonReleased(buttonIds[pins[i]]);
-        emit buttonClicked(buttonIds[pins[i]]);
+        emit buttonReleased(buttonIds[m_pins[i]]);
+        emit buttonClicked(buttonIds[m_pins[i]]);
       }
 
 #ifdef QT_DEBUG
       QMetaEnum metaEnum = QMetaEnum::fromType<Buttons::Gpio>();
-      QString name = metaEnum.valueToKey(pins[i]);
+      QString name = metaEnum.valueToKey(m_pins[i]);
       if (name.length() > 0) {
-        sDebug("buttons") << pins[i] << name << "changed state to:" << pinState[i];
+        sDebug("buttons") << m_pins[i] << name << "changed state to:" << m_pin_state[i];
       } else {
-        sDebug("buttons") << pins[i] << "changed state to:" << pinState[i];
+        sDebug("buttons") << m_pins[i] << "changed state to:" << m_pin_state[i];
       }
 #endif
 
-      if (pins[i] >= Gpio::GPIO_MANETTINO_LEFT_START && pins[i] <= Gpio::GPIO_MANETTINO_LEFT_END) {
-        this->pump = pins[i] - Gpio::GPIO_MANETTINO_LEFT_START;
-      } else if (pins[i] >= Gpio::GPIO_MANETTINO_CENTER_START && pins[i] <= Gpio::GPIO_MANETTINO_CENTER_END) {
-        this->map = pins[i] - Gpio::GPIO_MANETTINO_CENTER_START;
-      } else if (pins[i] >= Gpio::GPIO_MANETTINO_RIGHT_START && pins[i] <= Gpio::GPIO_MANETTINO_RIGHT_END) {
-        this->tc = pins[i] - Gpio::GPIO_MANETTINO_RIGHT_START;
+      if (m_pins[i] >= Gpio::GPIO_MANETTINO_LEFT_START && m_pins[i] <= Gpio::GPIO_MANETTINO_LEFT_END) {
+        this->m_pump = m_pins[i] - Gpio::GPIO_MANETTINO_LEFT_START;
+      } else if (m_pins[i] >= Gpio::GPIO_MANETTINO_CENTER_START && m_pins[i] <= Gpio::GPIO_MANETTINO_CENTER_END) {
+        this->m_map = m_pins[i] - Gpio::GPIO_MANETTINO_CENTER_START;
+      } else if (m_pins[i] >= Gpio::GPIO_MANETTINO_RIGHT_START && m_pins[i] <= Gpio::GPIO_MANETTINO_RIGHT_END) {
+        this->m_tc = m_pins[i] - Gpio::GPIO_MANETTINO_RIGHT_START;
       }
 
-      if ((map != -1 && map != oldMap) || (pump != -1 && pump != oldPump) || (tc != -1 && tc != oldTc)) {
-        int timeElapsed = switchTimer.restart();
+      if ((m_map != -1 && m_map != m_map_old) || (m_pump != -1 && m_pump != m_pump_old) || (m_tc != -1 && m_tc != m_tc_old)) {
+        int timeElapsed = m_switch_timer.restart();
 
         if (timeElapsed < 15) {
-          switchIsWrong = true;
+          m_switch_is_wrong = true;
         }
 
-        if (!switchIsWrong) {
-          if (map != -1 && map != oldMap) {
-            emit mapChanged(map);
-            oldMap = map;
+        if (!m_switch_is_wrong) {
+          if (m_map != -1 && m_map != m_map_old) {
+            emit mapChanged(m_map);
+            m_map_old = m_map;
           }
-          if (pump != -1 && pump != oldPump) {
-            emit pumpChanged(pump);
-            oldPump = pump;
+          if (m_pump != -1 && m_pump != m_pump_old) {
+            emit pumpChanged(m_pump);
+            m_pump_old = m_pump;
           }
-          if (tc != -1 && tc != oldTc) {
-            emit tractionControlChanged(tc);
-            oldTc = tc;
+          if (m_tc != -1 && m_tc != m_tc_old) {
+            emit tractionControlChanged(m_tc);
+            m_tc_old = m_tc;
           }
         }
 
-        switchIsWrong = false;
+        m_switch_is_wrong = false;
       }
     }
 
-    pinStatePrevious[i] = pinState.at(i);
+    m_pin_state_old[i] = m_pin_state.at(i);
   }
 }
 
 bool Buttons::eventFilter(QObject *, QEvent *) {}
 
-Buttons::~Buttons() { delete timer; }
+Buttons::~Buttons() { delete m_timer; }

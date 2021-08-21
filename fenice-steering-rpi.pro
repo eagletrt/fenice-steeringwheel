@@ -32,6 +32,8 @@ HEADERS += \
         include/global.h \
         include/can/bus.h \
         include/can/device.h \
+        include/can/primary.h \
+        include/can/secondary.h \
         include/car/ecu.h \
         include/car/hv.h \
         include/car/lv.h \

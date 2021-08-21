@@ -1,5 +1,5 @@
 #include "io/leds.h"
 
-Leds::Leds(QObject *parent) : QObject(parent), left(nullptr), right(nullptr) {}
+Leds::Leds(QObject *parent) : QObject(parent), m_left(nullptr), m_right(nullptr) {}
 
 Leds::~Leds() {}
