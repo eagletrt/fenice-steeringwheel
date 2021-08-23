@@ -22,7 +22,6 @@ Window {
         // Buttons signals
         signal buttonPressed(int button)
         signal buttonReleased(int button)
-        signal buttonClicked(int button)
         // Manettini signals
         signal mapChanged(int map)
         // Steering signals
@@ -31,10 +30,6 @@ Window {
         anchors.fill: parent
 
         Connections {
-            function onButtonClicked(button) {
-                window.buttonClicked(button);
-            }
-
             function onButtonPressed(button) {
                 window.buttonPressed(button);
             }
@@ -65,7 +60,9 @@ Window {
             }
         }
 
-        Popup {
+        Popper {
+            id: popper
+            anchors.centerIn: parent
         }
 
     }

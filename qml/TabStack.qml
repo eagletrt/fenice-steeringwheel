@@ -7,7 +7,7 @@ import "tabs"
 
 Item {
     function connect() {
-        window.buttonClicked.connect(buttonClickedHandler);
+        window.buttonReleased.connect(buttonReleasedHandler);
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.connect)
             currentTab.connect();
@@ -15,14 +15,14 @@ Item {
     }
 
     function disconnect() {
-        window.buttonReleased.disconnect(buttonClickedHandler);
+        window.buttonReleased.disconnect(buttonReleasedHandler);
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.disconnect)
             currentTab.disconnect();
 
     }
 
-    function buttonClickedHandler(button) {
+    function buttonReleasedHandler(button) {
         if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
             if (tabs.blocked)
                 return ;

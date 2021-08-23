@@ -9,7 +9,7 @@ Item {
     Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
-        source: "qrc:/qml/img/satellite/povo-1-parking.png"
+        source: "qrc:/qml/img/satellite/moto-staza-st-raus-novi-marof.png"
     }
 
     Canvas {

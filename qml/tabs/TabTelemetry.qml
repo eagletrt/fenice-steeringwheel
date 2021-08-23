@@ -15,14 +15,14 @@ Control {
     readonly property int racetracksId: 2
 
     function connect() {
-        window.buttonClicked.connect(buttonClicked);
+        window.buttonReleased.connect(onButtonReleased);
     }
 
     function disconnect() {
-        window.buttonClicked.disconnect(buttonClicked);
+        window.buttonReleased.disconnect(onButtonReleased);
     }
 
-    function buttonClicked(button) {
+    function onButtonReleased(button) {
         if (button === Input.buttonTopLeft) {
             if (tabs.blocked) {
                 tabs.blocked = false;
@@ -35,8 +35,6 @@ Control {
 
             selected = (selected + 1) % 3;
         }
-        if (button === Input.buttonBottomRight)
-            CAN.asktelemetry();
 
         if ((button === Input.paddleBottomLeft || button === Input.paddleBottomRight) && tabs.blocked) {
             const step = button === Input.paddleBottomRight ? 1 : -1;

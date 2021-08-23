@@ -1,32 +1,39 @@
-import QtQuick 2.0
+import Const 1.0
+import QtQuick 2.15
 
 Rectangle {
-    id: popup
+    id: root
 
-    anchors.centerIn: parent
+    property int defaultPadding: 30
+    property int totalDuration: 550
+
     color: Style.foreground
     radius: 10
     visible: false
-    width: 500
-    height: 240
 
-    Connections {
-        function onShowPopup(line) {
-            popupText.text = line;
-            popupAnimation.start();
-        }
+    signal show(string line)
 
-        target: CarStatus
+    onShow: {
+        metrics.text = line;
+        root.width = metrics.boundingRect.width + defaultPadding;
+        root.height = metrics.boundingRect.height;
+        message.text = line;
+        animation.start();
+    }
+
+    TextMetrics {
+        id: metrics
+        font: Style.mono.verybig
     }
 
     SequentialAnimation {
-        id: popupAnimation
+        id: animation
 
         running: false
 
         ParallelAnimation {
             PropertyAnimation {
-                target: popup
+                target: root
                 properties: "visible"
                 from: false
                 to: true
@@ -37,11 +44,11 @@ Rectangle {
 
         ParallelAnimation {
             PropertyAnimation {
-                target: popup
+                target: root
                 properties: "visible"
                 from: true
                 to: false
-                duration: 550
+                duration: totalDuration
             }
 
         }
@@ -49,8 +56,7 @@ Rectangle {
     }
 
     Text {
-        id: popupText
-
+        id: message
         anchors.centerIn: parent
         color: Style.textInverted
         font: Style.mono.verybig

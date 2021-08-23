@@ -58,7 +58,6 @@ protected slots:
   bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
-  void buttonClicked(int button);
   void buttonPressed(int button);
   void buttonReleased(int button);
 

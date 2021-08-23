@@ -5,8 +5,8 @@
         <file>qml/font/RobotoMono-Regular.ttf</file>
         <file>qml/font/RobotoMono-Bold.ttf</file>
         <file>qml/Main.qml</file>
+        <file>qml/Popper.qml</file>
         <file>qml/TabStack.qml</file>
-        <file>qml/Popup.qml</file>
         <file>qml/tabs/components/BigValue.qml</file>
         <file>qml/tabs/components/CalibrationBar.qml</file>
         <file>qml/tabs/components/MapBar.qml</file>

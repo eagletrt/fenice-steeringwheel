@@ -100,7 +100,6 @@ void Buttons::readGpioState() {
         emit buttonPressed(buttonIds[m_pins[i]]);
       } else {
         emit buttonReleased(buttonIds[m_pins[i]]);
-        emit buttonClicked(buttonIds[m_pins[i]]);
       }
 
 #ifdef QT_DEBUG

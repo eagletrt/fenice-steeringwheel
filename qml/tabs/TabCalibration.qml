@@ -24,6 +24,34 @@ Control {
     property int nameWidth: 130
     property int valueWidth: 100
 
+    function connect() {
+        window.buttonPressed.connect(onButtonPressed);
+        window.buttonReleased.connect(onButtonReleased);
+    }
+
+    function disconnect() {
+        window.buttonPressed.disconnect(onButtonPressed);
+        window.buttonReleased.disconnect(onButtonReleased);
+    }
+
+    function onButtonPressed(button) {
+        if (button === Input.buttonBottomLeft) {
+            setmin.color = Qt.darker(setmin.defaultColor, 1.5)
+        } else if (button === Input.buttonBottomRight) {
+            setmax.color = Qt.darker(setmax.defaultColor, 1.5)
+        }
+    }
+
+    function onButtonReleased(button) {
+        if (button === Input.buttonBottomLeft) {
+            popper.show("MIN SET")
+            setmin.color = setmin.defaultColor
+        } else if (button === Input.buttonBottomRight) {
+            popper.show("MAX SET")
+            setmax.color = setmax.defaultColor
+        }
+    }
+
     padding: 20
 
     contentItem: GridLayout {
@@ -62,6 +90,8 @@ Control {
         }
 
         Rectangle {
+            id: setmin
+            property var defaultColor: Style.blue
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Style.blue
@@ -76,6 +106,8 @@ Control {
         }
 
         Rectangle {
+            id: setmax
+            property var defaultColor: Style.orange
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Style.orange

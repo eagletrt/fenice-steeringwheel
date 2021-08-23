@@ -1,11 +1,12 @@
+#include "io/buttons.h"
+
 #include <QKeyEvent>
 
 #include "global.h"
-#include "io/buttons.h"
 
 QHash<int, int> buttonIds{
-    {Qt::Key_Q, Buttons::Input::BUTTON_TOP_LEFT},  {Qt::Key_A, Buttons::Input::BUTTON_BOTTOM_LEFT},
-    {Qt::Key_D, Buttons::Input::BUTTON_TOP_RIGHT}, {Qt::Key_R, Buttons::Input::BUTTON_BOTTOM_RIGHT},
+    {Qt::Key_D, Buttons::Input::BUTTON_TOP_LEFT},  {Qt::Key_A, Buttons::Input::BUTTON_BOTTOM_LEFT},
+    {Qt::Key_F, Buttons::Input::BUTTON_TOP_RIGHT}, {Qt::Key_S, Buttons::Input::BUTTON_BOTTOM_RIGHT},
     {Qt::Key_C, Buttons::Input::PADDLE_TOP_LEFT},  {Qt::Key_Z, Buttons::Input::PADDLE_BOTTOM_LEFT},
     {Qt::Key_V, Buttons::Input::PADDLE_TOP_RIGHT}, {Qt::Key_X, Buttons::Input::PADDLE_BOTTOM_RIGHT},
 };
@@ -27,7 +28,7 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {}
 void Buttons::readGpioState() {}
 
 bool Buttons::eventFilter(QObject *obj, QEvent *event) {
-  if (event->type() != QEvent::KeyPress) {
+  if (event->type() != QEvent::KeyPress && event->type() != QEvent::KeyRelease) {
     return QObject::eventFilter(obj, event);
   }
 
@@ -42,13 +43,19 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
 
   if (buttonId != -1) {
     if (buttonId < 10) {
-      emit buttonClicked(buttonId);
-    } else if (buttonId > 10 && buttonId < 20) {
-      emit tractionControlChanged(buttonId - 10);
-    } else if (buttonId > 20 && buttonId < 30) {
-      emit pumpChanged(buttonId - 20);
-    } else if (buttonId > 30) {
-      emit mapChanged(buttonId - 30);
+      if (event->type() == QEvent::KeyPress && !keyEvent->isAutoRepeat()) {
+        emit buttonPressed(buttonId);
+      } else if (event->type() == QEvent::KeyRelease && !keyEvent->isAutoRepeat()) {
+        emit buttonReleased(buttonId);
+      }
+    } else if (event->type() == QEvent::KeyPress) {
+      if (buttonId > 10 && buttonId < 20) {
+        emit tractionControlChanged(buttonId - 10);
+      } else if (buttonId > 20 && buttonId < 30) {
+        emit pumpChanged(buttonId - 20);
+      } else if (buttonId > 30) {
+        emit mapChanged(buttonId - 30);
+      }
     }
   }
 
