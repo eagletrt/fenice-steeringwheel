@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    id: gps
+    id: root
 
     Image {
         anchors.fill: parent
@@ -13,19 +13,34 @@ Item {
     }
 
     Canvas {
+        // Timer {
+        //     interval: 16
+        //     repeat: true
+        //     running: true
+        //     onTriggered: {
+        //         canvas.requestPaint();
+        //     }
+        // }
+        // NumberAnimation on t {
+        //     from: 1
+        //     to: 2 * 314
+        //     duration: 1000
+        //     easing.type: Easing.InOutQuad
+        //     loops: Animation.Infinite
+        // }
+
         id: canvas
 
-        property int dotX: Style.width / 2
-        property int dotY: Style.height / 2
-        property int t: 1
+        property int dotX: 310
+        property int dotY: 385
         property int dotSize: 10
         property int dotDelta: 10
 
         anchors.fill: parent
         onPaint: {
             var ctx = canvas.getContext('2d');
-            var x = dotX + Math.cos(t / 100) * 100;
-            var y = dotY + Math.sin(t / 100) * 100;
+            var x = dotX;
+            var y = dotY;
             if (!ctx)
                 return ;
 
@@ -36,29 +51,19 @@ Item {
             ctx.closePath();
             ctx.fill();
             ctx.beginPath();
-            ctx.fillStyle = Style.yellow;
+            ctx.fillStyle = Style.red;
             ctx.ellipse(x, y, dotSize, dotSize);
             ctx.closePath();
             ctx.fill();
         }
+    }
 
-        Timer {
-            interval: 16
-            repeat: true
-            running: true
-            onTriggered: {
-                canvas.requestPaint();
-            }
-        }
-
-        NumberAnimation on t {
-            from: 1
-            to: 2 * 314
-            duration: 1000
-            easing.type: Easing.InOutQuad
-            loops: Animation.Infinite
-        }
-
+    Text {
+        anchors.fill: parent
+        text: "<b>LAT</b>: 46.155073<br><b>LNG</b>: 16.348283"
+        font.family: Style.mono.family
+        font.pointSize: Style.sizes.small
+        color: Style.text
     }
 
 }

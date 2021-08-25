@@ -6,13 +6,13 @@ import QtQuick.Layouts 1.3
 Control {
     id: telemetry
 
+    property var races: Car.telemetry.races
+    property var pilots: Car.telemetry.pilots
+    property var circuits: Car.telemetry.circuits
     property int selected: -1
-    property var tests: [["Acceleration", '1'], ["Skippad", '0'], ["Endurance", '0'], ["Brake", '0'], ["Test", '0']]
-    property var drivers: [["Pilotapazzo", '1'], ["Iron512", '0'], ["Pippogas", '0'], ["Nicolareds", '0'], ["Mirco", '0']]
-    property var racetracks: [["Demo", "qrc:/qml/img/racetracks/demo.png", "1"], ["Demo Rot", "qrc:/qml/img/racetracks/demo_rot.png", "2"]]
-    readonly property int testsId: 0
-    readonly property int driversId: 1
-    readonly property int racetracksId: 2
+    readonly property int raceId: 0
+    readonly property int pilotId: 1
+    readonly property int circuitId: 2
 
     function connect() {
         window.buttonReleased.connect(onButtonReleased);
@@ -35,22 +35,27 @@ Control {
 
             selected = (selected + 1) % 3;
         }
-
         if ((button === Input.paddleBottomLeft || button === Input.paddleBottomRight) && tabs.blocked) {
             const step = button === Input.paddleBottomRight ? 1 : -1;
             let component, model;
-            if (selected === testsId) {
-                component = boxTest;
-                model = tests;
-            } else if (selected === driversId) {
-                component = boxDriver;
-                model = drivers;
-            } else if (selected === racetracksId) {
-                component = boxRacetrack;
-                model = racetracks;
+            if (selected === raceId) {
+                component = boxRace;
+                model = races;
+            } else if (selected === pilotId) {
+                component = boxPilot;
+                model = pilots;
+            } else if (selected === circuitId) {
+                component = boxCircuit;
+                model = circuits;
             }
-            let value = Utils.mod(component.currentIndex + step, model.length);
+            const value = Utils.mod(component.currentIndex + step, model.length);
             component.currentIndex = value;
+            if (selected === raceId)
+                Car.telemetry.race = value;
+            else if (selected === pilotId)
+                Car.telemetry.pilot = value;
+            else if (selected === circuitId)
+                Car.telemetry.circuit = value;
         }
     }
 
@@ -63,26 +68,26 @@ Control {
         columnSpacing: 10
 
         Rectangle {
-            color: selected === 0 ? Style.yellow : Style.surface
+            color: selected === raceId ? Style.red : Style.surface
             Layout.row: 0
             Layout.column: 0
             Layout.fillHeight: true
             Layout.fillWidth: true
 
             StackLayout {
-                id: boxTest
+                id: boxRace
 
                 anchors.fill: parent
 
                 Repeater {
-                    model: tests
+                    model: races
 
                     Item {
                         Text {
                             anchors.centerIn: parent
                             font: Style.sans.h2
                             color: Style.textInverted
-                            text: modelData[0]
+                            text: modelData.name
                         }
 
                     }
@@ -94,26 +99,26 @@ Control {
         }
 
         Rectangle {
-            color: selected === 1 ? Style.yellow : Style.surface
+            color: selected === pilotId ? Style.red : Style.surface
             Layout.row: 1
             Layout.column: 0
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             StackLayout {
-                id: boxDriver
+                id: boxPilot
 
                 anchors.fill: parent
 
                 Repeater {
-                    model: drivers
+                    model: pilots
 
                     Item {
                         Text {
                             anchors.centerIn: parent
                             font: Style.sans.h2
                             color: Style.textInverted
-                            text: modelData[0]
+                            text: modelData.name
                         }
 
                     }
@@ -125,7 +130,7 @@ Control {
         }
 
         Rectangle {
-            color: selected === 2 ? Style.yellow : Style.surface
+            color: selected === circuitId ? Style.red : Style.surface
             Layout.row: 0
             Layout.column: 1
             Layout.rowSpan: 2
@@ -133,12 +138,12 @@ Control {
             Layout.fillHeight: true
 
             StackLayout {
-                id: boxRacetrack
+                id: boxCircuit
 
                 anchors.fill: parent
 
                 Repeater {
-                    model: racetracks
+                    model: circuits
 
                     ColumnLayout {
                         Layout.fillHeight: true
@@ -152,7 +157,7 @@ Control {
                                 anchors.centerIn: parent
                                 font: Style.sans.h2
                                 color: Style.textInverted
-                                text: modelData[0]
+                                text: modelData.name
                             }
 
                         }
@@ -165,7 +170,7 @@ Control {
                                 anchors.margins: 20
                                 anchors.fill: parent
                                 fillMode: Image.PreserveAspectFit
-                                source: modelData[1]
+                                source: modelData.image
                             }
 
                         }

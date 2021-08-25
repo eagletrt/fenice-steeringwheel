@@ -42,18 +42,20 @@ tools/
 
 - On x86, buttons are mapped to the keyboard, following this table:
 
-   Key |Control
-   ----|------------------------
-   q:  |exit,run/stop    (0)
-   a:  |send,start       (1)
-   d:  |enter, down      (2)
-   r:  |marker,telemetry (3)
-   z:  |paddle_btm_left  (4)
-   x:  |paddle_btm_right (5)
-   c:  |paddle_top_left  (6)
-   v:  |paddle_top_right (7)
-   s:  |button_start     (8)
-   1-6:|Map X            (11-16)
+   Key           |Control
+   --------------|------------------------
+   q:            |exit, run / stop (0)
+   a:            |send , start     (1)
+   d:            |enter, down      (2)
+   r:            |marker, telemetry(3)
+   z:            |paddle_btm_left  (4)
+   x:            |paddle_btm_right (5)
+   c:            |paddle_top_left  (6)
+   v:            |paddle_top_right (7)
+   s:            |button_start     (8)
+   1-6:          |map              (11-20)
+   1-6 + ctrl:   |pump             (21-30)
+   1-6 + alt:    |traction_control (31-40)
 
 
 ### Leds

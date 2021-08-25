@@ -8,19 +8,6 @@ import "components"
 Control {
     id: calibration
 
-    property var sensors: [{
-        "name": "APPS",
-        "color": Style.green,
-        "zero": 0
-    }, {
-        "name": "BSE",
-        "color": Style.red,
-        "zero": 0
-    }, {
-        "name": "STEER",
-        "color": Style.yellow,
-        "zero": 0.5
-    }]
     property int nameWidth: 130
     property int valueWidth: 100
 
@@ -35,20 +22,19 @@ Control {
     }
 
     function onButtonPressed(button) {
-        if (button === Input.buttonBottomLeft) {
-            setmin.color = Qt.darker(setmin.defaultColor, 1.5)
-        } else if (button === Input.buttonBottomRight) {
-            setmax.color = Qt.darker(setmax.defaultColor, 1.5)
-        }
+        if (button === Input.buttonBottomLeft)
+            setmin.color = Qt.darker(setmin.defaultColor, 1.5);
+        else if (button === Input.buttonBottomRight)
+            setmax.color = Qt.darker(setmax.defaultColor, 1.5);
     }
 
     function onButtonReleased(button) {
         if (button === Input.buttonBottomLeft) {
-            popper.show("MIN SET")
-            setmin.color = setmin.defaultColor
+            popper.show("MIN SET");
+            setmin.color = setmin.defaultColor;
         } else if (button === Input.buttonBottomRight) {
-            popper.show("MAX SET")
-            setmax.color = setmax.defaultColor
+            popper.show("MAX SET");
+            setmax.color = setmax.defaultColor;
         }
     }
 
@@ -66,7 +52,7 @@ Control {
             name: "APPS"
             color: Style.green
             zero: 0
-            value: 0.5
+            value: Car.pedals.apps
         }
 
         CalibrationBar {
@@ -75,8 +61,8 @@ Control {
             Layout.columnSpan: 2
             name: "STEER"
             color: Style.red
-            zero: 0
-            value: 0.3
+            zero: 0.5
+            value: Car.pedals.steer
         }
 
         CalibrationBar {
@@ -85,13 +71,15 @@ Control {
             Layout.columnSpan: 2
             name: "BSE"
             color: Style.yellow
-            zero: 0.5
-            value: 0.8
+            zero: 0
+            value: Car.pedals.bse
         }
 
         Rectangle {
             id: setmin
+
             property var defaultColor: Style.blue
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Style.blue
@@ -107,7 +95,9 @@ Control {
 
         Rectangle {
             id: setmax
+
             property var defaultColor: Style.orange
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             color: Style.orange

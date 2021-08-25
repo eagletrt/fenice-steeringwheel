@@ -5,6 +5,7 @@ Rectangle {
     id: root
 
     property string name
+    property string version: "v1.0.0"
 
     state: "DEFAULT"
     anchors.fill: parent
@@ -47,11 +48,23 @@ Rectangle {
         }
     ]
 
-    Text {
+    Column {
         anchors.centerIn: parent
-        text: root.name
-        color: Style.textInverted
-        font: Style.sans.h3
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: root.name
+            color: Style.textInverted
+            font: Style.sans.h3
+        }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: root.version
+            color: Style.darker
+            font: Style.mono.small
+        }
+
     }
 
 }

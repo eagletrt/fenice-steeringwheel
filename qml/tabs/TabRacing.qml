@@ -10,18 +10,6 @@ Rectangle {
 
     property int columnWidth: 100
 
-    function connect() {
-        window.onMapChanged.connect(onMapChanged);
-    }
-
-    function disconnect() {
-        window.onMapChanged.disconnect(onMapChanged);
-    }
-
-    function onMapChanged(map) {
-        mapBar.map = Math.min(map, mapBar.maps.length - 1);
-    }
-
     color: Style.background
 
     Timer {
@@ -43,7 +31,7 @@ Rectangle {
         ValueColumn {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
-            label: "[V] Porco"
+            label: "[V] Battery"
             barCount: 8
 
             columnGradient: Gradient {
@@ -96,7 +84,7 @@ Rectangle {
 
                             ValueLabel {
                                 unit: "°C"
-                                label: "DCDC"
+                                label: "INVERTER L"
                                 value: Car.lv.dcdcTemperature
                             }
 
@@ -107,9 +95,9 @@ Rectangle {
                             Layout.fillWidth: true
 
                             ValueLabel {
-                                unit: "°C"
-                                label: "Battery"
-                                value: Car.lv.batteryTemperature
+                                unit: "%"
+                                label: "MAX POWER"
+                                value: Car.steering.map * 20
                             }
 
                         }
@@ -120,7 +108,7 @@ Rectangle {
 
                             ValueLabel {
                                 unit: "°C"
-                                label: "HV"
+                                label: "INVERTER R"
                                 value: Car.hv.averageTemperature
                             }
 
@@ -134,30 +122,9 @@ Rectangle {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                    RowLayout {
-                        anchors.fill: parent
-
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-
-                            BigValue {
-                                unit: "wh\nkm"
-                                value: 100
-                            }
-
-                        }
-
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-
-                            BigValue {
-                                unit: "km\nh"
-                            }
-
-                        }
-
+                    BigValue {
+                        unit: "wh\nkm"
+                        value: 100
                     }
 
                 }
@@ -167,7 +134,7 @@ Rectangle {
                     Layout.fillWidth: true
 
                     MapBar {
-                        id: mapBar
+                        map: Car.steering.map
                     }
 
                 }
@@ -179,7 +146,7 @@ Rectangle {
         ValueColumn {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
-            label: "[kw] Porco"
+            label: "[kw] Battery"
             barCount: 8
 
             columnGradient: Gradient {

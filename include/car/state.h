@@ -25,6 +25,18 @@ public:
   State(QObject *parent = nullptr);
   ~State();
 
+public:
+  quint32 timestamp() { return m_timestamp; }
+  const ECU *ecu() { return m_ecu; }
+  const HV *hv() { return m_hv; }
+  const LV *lv() { return m_lv; }
+  const Pedals *pedals() { return m_pedals; }
+  const Steering *steering() { return m_steering; }
+  const Telemetry *telemetry() { return m_telemetry; }
+
+signals:
+  void sendMessage(const CanDevice::Network network, quint32 id, const QByteArray &message);
+
 public slots:
   void handleMessage(const CanDevice *device, quint32 id, const QByteArray &message);
 

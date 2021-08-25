@@ -67,10 +67,10 @@ void State::handleTopicSteer(quint32 id, uint8_t *raw) {
   case ID_TLM_STATUS: {
     Primary_TLM_STATUS data;
     deserialize_Primary_TLM_STATUS(raw, &data);
-    m_ecu->setTlmStatus((ECU::TlmStatus)data.tlm_status);
-    m_ecu->setRaceType((ECU::RaceType)data.race_type);
-    m_ecu->setDriver(data.driver);
-    m_ecu->setCircuit(data.circuit);
+    m_telemetry->setStatus((Telemetry::TlmStatus)data.tlm_status);
+    m_telemetry->setRace(data.race_type);
+    m_telemetry->setPilot(data.driver);
+    m_telemetry->setCircuit(data.circuit);
     emit ecuChanged();
     break;
   }

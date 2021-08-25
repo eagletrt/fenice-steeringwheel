@@ -7,12 +7,11 @@ Rectangle {
     property int defaultPadding: 30
     property int totalDuration: 550
 
+    signal show(string line)
+
     color: Style.foreground
     radius: 10
     visible: false
-
-    signal show(string line)
-
     onShow: {
         metrics.text = line;
         root.width = metrics.boundingRect.width + defaultPadding;
@@ -23,6 +22,7 @@ Rectangle {
 
     TextMetrics {
         id: metrics
+
         font: Style.mono.verybig
     }
 
@@ -57,6 +57,7 @@ Rectangle {
 
     Text {
         id: message
+
         anchors.centerIn: parent
         color: Style.textInverted
         font: Style.mono.verybig

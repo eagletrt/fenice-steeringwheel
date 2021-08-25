@@ -9,6 +9,7 @@ QtObject {
     property color transparent: "transparent"
     property color surface: "#828282"
     property color dark: "#4F4F4F"
+    property color darker: "#323232"
     property color light: "#C4C4C4"
     property color text: "#E0E0E0"
     property color textInverted: "#000000"
@@ -23,6 +24,7 @@ QtObject {
     property FontLoader monoBold
     property FontLoader sansRegular
     property FontLoader sansBold
+    property QtObject sizes
     property QtObject mono
     property QtObject sans
     property QtObject status
@@ -43,50 +45,64 @@ QtObject {
         source: "qrc:/qml/font/Inter-SemiBold.ttf"
     }
 
+    sizes: QtObject {
+        property string family: monoBold.name
+        property int xsmall: 11
+        property int small: 12
+        property int p: 20
+        property int h3: 26
+        property int h2: 32
+        property int h1: 40
+        property int big: 52
+        property int verybig: 96
+    }
+
     mono: QtObject {
+        property string family: monoBold.name
         property font xsmall: Qt.font({
             "family": monoBold.name,
             "styleName": "Regular",
-            "pointSize": 11
+            "pointSize": sizes.xsmall
         })
         property font small: Qt.font({
             "family": monoBold.name,
             "styleName": "Regular",
-            "pointSize": 14
+            "pointSize": sizes.small
         })
         property font p: Qt.font({
             "family": monoRegular.name,
             "styleName": "Regular",
-            "pointSize": 20
+            "pointSize": sizes.p
         })
         property font h3: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 26
+            "pointSize": sizes.h3
         })
         property font h2: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 32
+            "pointSize": sizes.h2
         })
         property font h1: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 40
+            "pointSize": sizes.h1
         })
         property font big: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 52
+            "pointSize": sizes.big
         })
         property font verybig: Qt.font({
             "family": monoBold.name,
             "styleName": "Bold",
-            "pointSize": 80
+            "pointSize": sizes.verybig
         })
     }
 
     sans: QtObject {
+        property string family: sansRegular.name
         property font xsmall: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
@@ -95,37 +111,37 @@ QtObject {
         property font small: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 14
+            "pointSize": sizes.small
         })
         property font p: Qt.font({
             "family": sansRegular.name,
             "styleName": "Regular",
-            "pointSize": 20
+            "pointSize": sizes.p
         })
         property font h3: Qt.font({
             "family": sansBold.name,
             "styleName": "SemiBold",
-            "pointSize": 26
+            "pointSize": sizes.h3
         })
         property font h2: Qt.font({
             "family": sansBold.name,
             "styleName": "SemiBold",
-            "pointSize": 32
+            "pointSize": sizes.h2
         })
         property font h1: Qt.font({
             "family": sansBold.name,
             "styleName": "SemiBold",
-            "pointSize": 40
+            "pointSize": sizes.h1
         })
         property font big: Qt.font({
             "family": sansBold.name,
             "styleName": "SemiBold",
-            "pointSize": 52
+            "pointSize": sizes.big
         })
         property font verybig: Qt.font({
             "family": sansBold.name,
             "styleName": "SemiBold",
-            "pointSize": 80
+            "pointSize": sizes.verybig
         })
     }
 

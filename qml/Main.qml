@@ -22,8 +22,6 @@ Window {
         // Buttons signals
         signal buttonPressed(int button)
         signal buttonReleased(int button)
-        // Manettini signals
-        signal mapChanged(int map)
         // Steering signals
         signal logsChanged(string line)
 
@@ -38,11 +36,23 @@ Window {
                 window.buttonReleased(button);
             }
 
-            function onMapChanged(map) {
-                window.mapChanged(map);
+            target: Buttons
+        }
+
+        Connections {
+            function onMapChanged(button) {
+                window.buttonPressed(button);
             }
 
-            target: Buttons
+            function onPumpChanged(button) {
+                window.buttonReleased(button);
+            }
+
+            function onTractionControlChanged(map) {
+                popper.show();
+            }
+
+            target: Car.steering
         }
 
         Connections {
@@ -62,6 +72,7 @@ Window {
 
         Popper {
             id: popper
+
             anchors.centerIn: parent
         }
 

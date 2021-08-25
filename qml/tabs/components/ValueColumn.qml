@@ -5,11 +5,13 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Rectangle {
-    id: valueColumn
+    id: root
 
     property double value: 0
-    property string label
+    property double max: 1.0
+    property int maxDigits: 3
     property int barCount: 10
+    property string label
     property Gradient columnGradient
 
     color: Style.background
@@ -30,12 +32,12 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     font: Style.mono.h3
                     color: Style.text
-                    text: (valueColumn.value * 400).toFixed().padStart(3, " ")
+                    text: root.value.toFixed().padStart(root.maxDigits, " ")
                 }
 
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: valueColumn.label
+                    text: root.label
                     color: Style.text
                     font: Style.sans.small
                 }
@@ -47,7 +49,8 @@ Rectangle {
         ProgressBar {
             id: valueBar
 
-            value: valueColumn.value
+            value: root.value
+            to: root.max
             Layout.fillWidth: true
             Layout.fillHeight: true
             rotation: 180
@@ -87,11 +90,11 @@ Rectangle {
 
                 Column {
                     Repeater {
-                        model: valueColumn.barCount
+                        model: root.barCount
 
                         Rectangle {
                             width: valueBar.width
-                            height: valueBar.height / valueColumn.barCount
+                            height: valueBar.height / root.barCount
                             color: "transparent"
                             border.width: 1
                         }

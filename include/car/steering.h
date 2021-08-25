@@ -12,7 +12,10 @@ class State;
 
 class Steering : public QObject {
   Q_OBJECT
-  S_PROPERTY(float, temperature, m_temperature, Temperature)
+  S_PROPERTY(float, temperature, m_temperature, Temperature, 0)
+  S_PROPERTY(quint8, map, m_map, Map, 0)
+  S_PROPERTY(quint8, pump, m_pump, Pump, 0)
+  S_PROPERTY(quint8, tractionControl, m_traction_control, TractionControl, 0)
 public:
   Steering(State *parent = nullptr);
   ~Steering();

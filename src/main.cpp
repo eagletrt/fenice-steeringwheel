@@ -79,13 +79,18 @@ int main(int argc, char *argv[]) {
   CanBus *canBus = new CanBus(&engine);
   State *state = new State(&engine);
 
+  QObject::connect(buttons, &Buttons::mapChanged, state->steering(), &Steering::setMap);
+  QObject::connect(buttons, &Buttons::pumpChanged, state->steering(), &Steering::setPump);
+  QObject::connect(buttons, &Buttons::tractionControlChanged, state->steering(), &Steering::setTractionControl);
+
+  QObject::connect(canBus, &CanBus::messageReceived, state, &State::handleMessage);
+  QObject::connect(state, &State::sendMessage, canBus, &CanBus::sendMessage);
+
 #ifdef S_OS_X86
   app.installEventFilter(buttons);
 #endif
 
   canBus->start();
-
-  QObject::connect(canBus, &CanBus::messageReceived, state, &State::handleMessage);
 
   engine.rootContext()->setContextProperty("Leds", leds);
   engine.rootContext()->setContextProperty("Buttons", buttons);
