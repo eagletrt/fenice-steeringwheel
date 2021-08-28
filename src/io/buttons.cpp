@@ -15,6 +15,7 @@ QHash<int, int> buttonIds{
     {Buttons::Gpio::GPIO_PADDLE_BOTTOM_LEFT, Buttons::Input::PADDLE_BOTTOM_LEFT},
     {Buttons::Gpio::GPIO_PADDLE_TOP_RIGHT, Buttons::Input::PADDLE_TOP_RIGHT},
     {Buttons::Gpio::GPIO_PADDLE_BOTTOM_RIGHT, Buttons::Input::PADDLE_BOTTOM_RIGHT},
+    {Buttons::Gpio::GPIO_BUTTON_START_STOP, Buttons::Input::BUTTON_START_STOP},
 };
 
 Buttons::Buttons(QObject *parent) : QObject(parent) {

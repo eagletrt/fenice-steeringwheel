@@ -50,6 +50,7 @@ public:
     PADDLE_BOTTOM_LEFT,
     PADDLE_TOP_RIGHT,
     PADDLE_BOTTOM_RIGHT,
+    BUTTON_START_STOP
   };
   Q_ENUM(Input)
 

@@ -10,6 +10,10 @@
 #include <QOpenGLVertexArrayObject>
 #include <QQuickFramebufferObject>
 #include <QTimer>
+#include <QThread>
+#include <QMutex>
+
+#include "game/gb.h"
 
 class FramebufferItem;
 
@@ -22,6 +26,8 @@ private:
   QOpenGLBuffer *m_vbo, *m_ebo;
   QOpenGLTexture *m_texture;
   QTimer *m_render_timer;
+  QThread *m_gb_thread;
+  GB *m_gb;
 
 public:
   FramebufferRenderer(const FramebufferItem *item);

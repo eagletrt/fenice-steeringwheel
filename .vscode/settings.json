@@ -43,6 +43,7 @@
     "stop_token": "cpp",
     "qsgrendererinterface": "cpp",
     "qtimer": "cpp",
-    "qquickframebufferobject": "cpp"
+    "qquickframebufferobject": "cpp",
+    "cstdint": "cpp"
   },
 }
