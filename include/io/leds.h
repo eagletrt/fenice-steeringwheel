@@ -163,6 +163,10 @@ public:
   explicit Leds(QObject *parent = nullptr);
   ~Leds();
 
+public:
+  uint8_t setLeftBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
+  uint8_t setRightBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
+
 private:
   QTimer *m_timer;
   TLC59108 *m_left;

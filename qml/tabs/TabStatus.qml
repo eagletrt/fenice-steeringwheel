@@ -8,7 +8,7 @@ Control {
     id: status
 
     property var possibleStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
-    property var sensors: ["InvRight", "STMFront", "InvLeft", "STMCentral", "Steering", "STMPedals", "BMS HV", "STMRear", "BMS LV"]
+    property var sensors: ["Inv Right", "Telemetry", "Inv Left", "ECU", "PCU", "BMS HV", "Steering", "BMS LV"]
 
     padding: 20
 
@@ -24,7 +24,35 @@ Control {
             columnSpacing: 10
 
             Repeater {
-                model: sensors
+                model: sensors.slice(0, 4)
+
+                delegate: Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    StatusCard {
+                        name: modelData
+                        state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
+                    }
+
+                }
+
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                Image {
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:///qml/img/eagle.png"
+                }
+
+            }
+
+            Repeater {
+                model: sensors.slice(4, 8)
 
                 delegate: Item {
                     Layout.fillWidth: true

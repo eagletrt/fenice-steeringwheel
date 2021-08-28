@@ -4,7 +4,7 @@ import QtQuick 2.15
 Rectangle {
     id: root
 
-    property int defaultPadding: 30
+    property int defaultPadding: 40
     property int totalDuration: 550
 
     signal show(string line)

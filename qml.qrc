@@ -14,6 +14,7 @@
         <file>qml/tabs/components/ValueColumn.qml</file>
         <file>qml/tabs/components/ValueLabel.qml</file>
         <file>qml/tabs/TabCalibration.qml</file>
+        <file>qml/tabs/TabGame.qml</file>
         <file>qml/tabs/TabGps.qml</file>
         <file>qml/tabs/TabOverview.qml</file>
         <file>qml/tabs/TabRacing.qml</file>
@@ -24,8 +25,9 @@
         <file>qml/const/Input.qml</file>
         <file>qml/const/Utils.qml</file>
         <file>qml/img/loading.gif</file>
-        <file>qml/img/warning.gif</file>
+        <file>qml/img/gandalf.gif</file>
         <file>qml/img/fenice.png</file>
+        <file>qml/img/eagle.png</file>
         <file>qml/img/racetracks/demo.png</file>
         <file>qml/img/racetracks/demo_rot.png</file>
         <file>qml/img/satellite/moto-staza-st-raus-novi-marof.png</file>

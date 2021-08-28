@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.3
 import "tabs"
 
 Item {
+    property var currentTab: tabs.children[tabs.currentIndex]
+
     function connect() {
         window.buttonReleased.connect(buttonReleasedHandler);
         const currentTab = tabs.children[tabs.currentIndex];
@@ -54,25 +56,36 @@ Item {
 
         anchors.fill: parent
 
+        TabGame {
+            property string name: "game"
+        }
+
         TabRacing {
+            property string name: "racing"
         }
 
         TabTelemetry {
+            property string name: "telemetry"
         }
 
         TabCalibration {
+            property string name: "calibration"
         }
 
         TabStatus {
+            property string name: "status"
         }
 
         TabOverview {
+            property string name: "overview"
         }
 
         TabGps {
+            property string name: "gps"
         }
 
         TabTerminal {
+            property string name: "terminal"
         }
 
     }

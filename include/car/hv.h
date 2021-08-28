@@ -12,25 +12,25 @@ class HV : public QObject {
   Q_OBJECT
 public:
   enum TsStatus {
-    TS_STATUS_OFF = Primary_Ts_Status_OFF,
-    TS_STATUS_PRECHARGE = Primary_Ts_Status_PRECHARGE,
-    TS_STATUS_ON = Primary_Ts_Status_ON,
-    TS_STATUS_FATAL = Primary_Ts_Status_FATAL,
+    TS_STATUS_OFF /*= Primary_Ts_Status_OFF*/,
+    TS_STATUS_PRECHARGE /*= Primary_Ts_Status_PRECHARGE*/,
+    TS_STATUS_ON /*= Primary_Ts_Status_ON*/,
+    TS_STATUS_FATAL /*= Primary_Ts_Status_FATAL*/,
   };
   Q_ENUM(TsStatus)
 
-  S_PROPERTY(quint16, packVoltage, m_pack_voltage, PackVoltage)
-  S_PROPERTY(quint16, busVoltage, m_bus_voltage, BusVoltage)
-  S_PROPERTY(quint16, maxCellVoltage, m_max_cell_voltage, MaxCellVoltage)
-  S_PROPERTY(quint16, minCellVoltage, m_min_cell_voltage, MinCellVoltage)
-  S_PROPERTY(quint16, current, m_current, Current)
-  S_PROPERTY(qint16, power, m_power, Power)
-  S_PROPERTY(quint16, averageTemperature, m_average_temperature, AverageTemperature)
-  S_PROPERTY(quint16, maxTemperature, m_max_temperature, MaxTemperature)
-  S_PROPERTY(quint16, minTemperature, m_min_temperature, MinTemperature)
-  S_PROPERTY(quint16, errors, m_errors, Errors)
-  S_PROPERTY(quint16, warnings, m_warnings, Warnings)
-  S_PROPERTY(TsStatus, tsStatus, m_ts_status, TsStatus)
+  S_PROPERTY(float, packVoltage, m_pack_voltage, PackVoltage, 0)
+  S_PROPERTY(quint16, busVoltage, m_bus_voltage, BusVoltage, 0)
+  S_PROPERTY(quint16, maxCellVoltage, m_max_cell_voltage, MaxCellVoltage, 0)
+  S_PROPERTY(quint16, minCellVoltage, m_min_cell_voltage, MinCellVoltage, 0)
+  S_PROPERTY(quint16, current, m_current, Current, 0)
+  S_PROPERTY(qint16, power, m_power, Power, 0)
+  S_PROPERTY(quint16, averageTemperature, m_average_temperature, AverageTemperature, 0)
+  S_PROPERTY(quint16, maxTemperature, m_max_temperature, MaxTemperature, 0)
+  S_PROPERTY(quint16, minTemperature, m_min_temperature, MinTemperature, 0)
+  S_PROPERTY(quint16, errors, m_errors, Errors, 0)
+  S_PROPERTY(quint16, warnings, m_warnings, Warnings, 0)
+  S_PROPERTY(TsStatus, tsStatus, m_ts_status, TsStatus, TsStatus::TS_STATUS_OFF)
 public:
   HV(State *parent = nullptr);
   ~HV();

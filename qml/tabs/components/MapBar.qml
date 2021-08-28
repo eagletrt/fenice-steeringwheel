@@ -4,11 +4,13 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 Item {
+    id: root
+
     property int map: 1
     property int barHeight: 6
     property int markerSize: 20
     property var maps: [{
-        "name": "R"
+        "name": "0"
     }, {
         "name": "20"
     }, {
@@ -30,7 +32,7 @@ Item {
 
         anchors.fill: parent
         anchors.centerIn: parent
-        value: map / (maps.length - 1)
+        value: map / 20 / (maps.length - 1)
 
         background: Item {
         }
@@ -110,7 +112,7 @@ Item {
                                     x: -(width / 2)
                                     y: bar.y + bar.height / 2 - markerSize / 2
                                     radius: width * 0.5
-                                    color: index === map ? index === 0 ? Style.green : Style.yellow : Style.light
+                                    color: modelData.name === String(root.map) ? (modelData.name === "0" ? Style.green : Style.yellow) : Style.light
                                 }
 
                             }

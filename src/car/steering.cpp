@@ -2,6 +2,7 @@
 
 #include "car/state.h"
 #include "global.h"
+#include "io/buttons.h"
 
 #include <QFile>
 
@@ -9,6 +10,11 @@ Steering::Steering(State *parent) : QObject(parent), m_state(parent) {
   m_poll_timer = new QTimer(this);
   connect(m_poll_timer, &QTimer::timeout, this, &Steering::poll);
   m_poll_timer->start(STEERING_POLL_TIMER);
+}
+
+Steering::~Steering() {
+  sDebug("steering") << "cleanup";
+  delete m_poll_timer;
 }
 
 #define STEERING_TEMP_FILE "/sys/class/thermal/thermal_zone0/temp"
@@ -29,7 +35,26 @@ void Steering::poll() {
 #endif
 }
 
-Steering::~Steering() {
-  sDebug("steering") << "cleanup";
-  delete m_poll_timer;
+void Steering::onButtonPressed(int button) {
+  if (button == Buttons::BUTTON_TOP_LEFT) {
+    setPtt(true);
+  }
+}
+
+void Steering::onButtonReleased(int button) {
+  if (button == Buttons::BUTTON_TOP_LEFT) {
+    setPtt(false);
+  }
+}
+
+void Steering::onManettinoLeftChanged(int value) {
+  if (value <= TC_STATUS_SLIP_AND_TORQUE)
+    setTractionControl((TCStatus)value);
+}
+
+void Steering::onManettinoRightChanged(int value) {
+  float map = value * 20;
+  if (map <= 100) {
+    setMap(map);
+  }
 }

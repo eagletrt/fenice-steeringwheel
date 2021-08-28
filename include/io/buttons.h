@@ -60,30 +60,36 @@ protected slots:
 signals:
   void buttonPressed(int button);
   void buttonReleased(int button);
+  void buttonClicked(int button);
+  void buttonLongClicked(int button);
 
-  void mapChanged(int map);
-  void pumpChanged(int pump);
-  void tractionControlChanged(int tractionControl);
+  void manettinoLeftChanged(int value);
+  void manettinoCenterChanged(int value);
+  void manettinoRightChanged(int value);
 
 private:
-  QTimer *m_timer;
+  QTimer *m_poll_timer;
   QElapsedTimer m_switch_timer;
 
-  bool m_switch_is_wrong;
-
   int m_button_action;
-  int m_map;
-  int m_map_old;
-  int m_pump;
-  int m_pump_old;
-  int m_tc;
-  int m_tc_old;
+  int m_manettino_left;
+  int m_manettino_left_old;
+  int m_manettino_center;
+  int m_manettino_center_old;
+  int m_manettino_right;
+  int m_manettino_right_old;
 
   QVector<States> m_button_state;
+  QVector<QElapsedTimer> m_timers;
 
-  QVector<int> m_pin_state;
-  QVector<int> m_pin_state_old;
-  QVector<int> m_pins;
+  QVector<int> m_button_pins_state;
+  QVector<int> m_button_pins_state_old;
+
+  QVector<int> m_manettino_pins_state;
+  QVector<int> m_manettino_pins_state_old;
+
+  QVector<int> m_button_pins;
+  QVector<int> m_manettino_pins;
 };
 
 #endif // BUTTONS_H

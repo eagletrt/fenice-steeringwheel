@@ -32,6 +32,9 @@ Rectangle {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
             label: "[V] Battery"
+            value: Car.hv.packVoltage
+            max: 460
+            maxDigits: 3
             barCount: 8
 
             columnGradient: Gradient {
@@ -85,7 +88,7 @@ Rectangle {
                             ValueLabel {
                                 unit: "°C"
                                 label: "INVERTER L"
-                                value: Car.lv.dcdcTemperature
+                                value: Car.inverters.leftTemperature
                             }
 
                         }
@@ -97,7 +100,7 @@ Rectangle {
                             ValueLabel {
                                 unit: "%"
                                 label: "MAX POWER"
-                                value: Car.steering.map * 20
+                                value: Car.steering.map
                             }
 
                         }
@@ -109,7 +112,7 @@ Rectangle {
                             ValueLabel {
                                 unit: "°C"
                                 label: "INVERTER R"
-                                value: Car.hv.averageTemperature
+                                value: Car.inverters.leftTemperature
                             }
 
                         }
@@ -123,8 +126,8 @@ Rectangle {
                     Layout.fillWidth: true
 
                     BigValue {
-                        unit: "wh\nkm"
-                        value: 100
+                        unit: "km\nh"
+                        value: Car.ecu.speed
                     }
 
                 }
@@ -146,7 +149,10 @@ Rectangle {
         ValueColumn {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
-            label: "[kw] Battery"
+            label: "[kW] Battery"
+            value: Car.hv.power
+            maxDigits: 2
+            max: 85
             barCount: 8
 
             columnGradient: Gradient {

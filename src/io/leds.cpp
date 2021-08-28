@@ -72,8 +72,8 @@ uint8_t TLC59108::setAllBrightnessDifferent(const uint8_t dutyCycles[]) {
 Leds::Leds(QObject *parent) : QObject(parent), m_left(new TLC59108(0x4a)), m_right(new TLC59108(0x45)) {
   m_left->init();
   m_right->init();
-  m_left->setLedOutputMode(TLC59108::LED_MODE::PWM_IND);
-  m_right->setLedOutputMode(TLC59108::LED_MODE::PWM_IND);
+  m_left->setLedOutputMode(TLC59108::LED_MODE::PWM_INDGRP);
+  m_right->setLedOutputMode(TLC59108::LED_MODE::PWM_INDGRP);
 }
 
 Leds::~Leds() {
@@ -81,4 +81,12 @@ Leds::~Leds() {
   m_right->setAllBrightness(0x0);
   delete m_left;
   delete m_right;
+}
+
+uint8_t Leds::setLeftBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
+  return m_left->setBrightness(pwmChannel, dutyCycle);
+}
+
+uint8_t Leds::setRightBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
+  return m_right->setBrightness(pwmChannel, dutyCycle);
 }

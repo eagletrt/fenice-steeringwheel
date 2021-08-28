@@ -40,16 +40,22 @@ Window {
         }
 
         Connections {
-            function onMapChanged(button) {
-                window.buttonPressed(button);
+            function onRaceChanged(race) {
+                if (stack.currentTab.name !== "telemetry")
+                    popper.show(["default", "Cross", "Skidpad", "Endur", "Accel"][race]);
+
             }
 
-            function onPumpChanged(button) {
-                window.buttonReleased(button);
+            target: Car.telemetry
+        }
+
+        Connections {
+            function onMapChanged(map) {
+                popper.show(String(map) + "%");
             }
 
-            function onTractionControlChanged(map) {
-                popper.show();
+            function onTractionControlChanged(tractionControl) {
+                popper.show(["OFF", "S", "T", "T&S"][tractionControl]);
             }
 
             target: Car.steering
@@ -63,7 +69,17 @@ Window {
             target: Global
         }
 
+        Connections {
+            function onShowPopup(message) {
+                popper.show(message);
+            }
+
+            target: Car
+        }
+
         TabStack {
+            id: stack
+
             anchors.fill: parent
             Component.onCompleted: {
                 connect();
