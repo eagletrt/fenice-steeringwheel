@@ -44,6 +44,8 @@
     "qsgrendererinterface": "cpp",
     "qtimer": "cpp",
     "qquickframebufferobject": "cpp",
-    "cstdint": "cpp"
+    "cstdint": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
   },
 }

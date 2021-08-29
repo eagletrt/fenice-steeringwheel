@@ -37,7 +37,7 @@ HEADERS += \
         include/car/steering.h \
         include/car/telemetry.h \
         include/game/gb.h \
-        include/game/framebuffer.h \
+        include/game/extension.h \
         include/io/buttons.h \
         include/io/leds.h \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.h \
@@ -61,7 +61,7 @@ SOURCES += \
         src/car/steering.cpp \
         src/car/telemetry.cpp \
         src/game/gb.cpp \
-        src/game/framebuffer.cpp \
+        src/game/extension.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c
 

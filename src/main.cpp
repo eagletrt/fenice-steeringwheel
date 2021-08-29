@@ -18,7 +18,9 @@
 #include "car/lv.h"
 #include "car/state.h"
 
-#include "game/framebuffer.h"
+#include "game/extension.h"
+
+#include "gb.h"
 
 #ifdef Q_OS_LINUX
 #include <signal.h>
@@ -66,7 +68,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
 
-  qmlRegisterType<FramebufferItem>("Framebuffer", 1, 0, "Framebuffer");
+  qmlRegisterType<Extension>("Extension", 1, 0, "Extension");
 
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 

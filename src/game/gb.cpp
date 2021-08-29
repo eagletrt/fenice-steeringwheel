@@ -1,7 +1,7 @@
 #include "game/gb.h"
 
-#include <QThread>
 #include <QDebug>
+#include <QThread>
 #include <cstdint>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -54,7 +54,7 @@ uint16_t PC = 256, *reg16 = (uint16_t *)reg8, &HL = reg16[2], SP = 65534, &DIV =
          *reg16_group1[] = {reg16, reg16 + 1, &HL, &SP}, *reg16_group2[] = {reg16, reg16 + 1, &HL, &HL}, prev_cycles,
          cycles;
 
-int tmp, tmp2, F_mask[] = {128, 128, 16, 16}, gb_buffer[23040],
+int tmp, tmp2, F_mask[] = {128, 128, 16, 16}, frame_buffer[23040], gameboy[23040],
                palette[] = {-1, -23197, -65536, -1 << 24, -1, -8092417, -12961132, -1 << 24};
 
 void GB::tick() { cycles += 4; }
@@ -139,7 +139,7 @@ uint8_t GB::get_color(int tile, int y_offset, int x_offset) {
   return (tile_data[1] >> x_offset) % 2 * 2 + (*tile_data >> x_offset) % 2;
 }
 
-GB::GB() {
+GB::GB(QObject* parent) : QObject(parent) {
   rom1 = (rom0 = (uint8_t *)mmap(0, 1 << 20, PROT_READ, MAP_SHARED, open("rom.gb", O_RDONLY), 0)) + 32768;
   tmp = open("rom.sav", O_CREAT | O_RDWR, 0666);
   ftruncate(tmp, 32768);
@@ -398,16 +398,11 @@ void GB::render() {
                   }
                 }
 
-              gb_buffer[LY * 160 + tmp] = palette[(io[327 + palette_index] >> 2 * color) % 4 + palette_index * 4 & 7];
+              frame_buffer[LY * 160 + tmp] = palette[(io[327 + palette_index] >> 2 * color) % 4 + palette_index * 4 & 7];
             }
 
           if (LY == 143) {
             IF |= 1;
-            if (m_elapsed.elapsed() < 1. / 60.) {
-              QThread::msleep(1. / 60. - m_elapsed.elapsed());
-            }
-            gb_buffer[2] = 123;
-            emit framePainted(gb_buffer);
           }
 
           LY = (LY + 1) % 154;

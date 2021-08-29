@@ -2,6 +2,7 @@
 #define FRAMEBUFFER_H
 
 #define GL_GLEXT_PROTOTYPES
+#include <QMutex>
 #include <QOpenGLBuffer>
 #include <QOpenGLDebugLogger>
 #include <QOpenGLFramebufferObjectFormat>
@@ -9,9 +10,8 @@
 #include <QOpenGLTexture>
 #include <QOpenGLVertexArrayObject>
 #include <QQuickFramebufferObject>
-#include <QTimer>
 #include <QThread>
-#include <QMutex>
+#include <QTimer>
 
 #include "game/gb.h"
 

@@ -1,8 +1,8 @@
 #ifndef GB_H
 #define GB_H
 
-#include <QObject>
 #include <QElapsedTimer>
+#include <QObject>
 #include <cstdint>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -12,12 +12,25 @@ extern uint16_t &HL;
 extern uint16_t PC;
 extern uint8_t opcrel;
 
-extern int gb_buffer[23040];
+extern int gameboy[23040];
+extern int frame_buffer[23040];
+extern uint8_t const key_state[8];
 
 class GB : public QObject {
   Q_OBJECT
 public:
-  GB();
+  GB(QObject* parent = nullptr);
+
+  enum Input {
+      SCANCODE_DOWN,
+      SCANCODE_UP,
+      SCANCODE_LEFT,
+      SCANCODE_RIGHT,
+      SCANCODE_TAB,
+      SCANCODE_RETURN,
+      SCANCODE_Z,
+      SCANCODE_X
+  };
 
 public slots:
   void render();
