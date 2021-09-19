@@ -1,5 +1,8 @@
 #include "car/state.h"
 
+#include <algorithm>
+#include <cmath>
+
 #include "global.h"
 
 #include "can/primary.h"
@@ -9,6 +12,7 @@ State::State(QObject *parent) : QObject(parent) {
   m_ecu = new ECU(this);
   m_hv = new HV(this);
   m_lv = new LV(this);
+  m_inverters = new Inverters(this);
   m_pedals = new Pedals(this);
   m_steering = new Steering(this);
   m_telemetry = new Telemetry(this);
@@ -68,7 +72,7 @@ void State::handleTopicSteer(quint32 id, uint8_t *raw) {
     Primary_TLM_STATUS data;
     deserialize_Primary_TLM_STATUS(raw, &data);
     m_telemetry->setStatus((Telemetry::TlmStatus)data.tlm_status);
-    m_telemetry->setRace(data.race_type);
+    m_telemetry->setRace((Telemetry::Race)data.race_type);
     m_telemetry->setPilot(data.driver);
     m_telemetry->setCircuit(data.circuit);
     emit ecuChanged();

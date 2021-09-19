@@ -37,6 +37,15 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "thread": "cpp",
-    "qvector": "cpp"
+    "qvector": "cpp",
+    "qelapsedtimer": "cpp",
+    "qquickwindow": "cpp",
+    "stop_token": "cpp",
+    "qsgrendererinterface": "cpp",
+    "qtimer": "cpp",
+    "qquickframebufferobject": "cpp",
+    "cstdint": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
   },
 }

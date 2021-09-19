@@ -8,7 +8,7 @@ Rectangle {
     id: root
 
     property double value: 0
-    property double max: 1.0
+    property double max: 1
     property int maxDigits: 3
     property int barCount: 10
     property string label

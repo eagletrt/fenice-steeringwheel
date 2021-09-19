@@ -31,10 +31,13 @@ HEADERS += \
         include/car/ecu.h \
         include/car/hv.h \
         include/car/lv.h \
+        include/car/inverters.h \
         include/car/pedals.h \
         include/car/state.h \
         include/car/steering.h \
         include/car/telemetry.h \
+        include/game/gb.h \
+        include/game/extension.h \
         include/io/buttons.h \
         include/io/leds.h \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.h \
@@ -52,10 +55,13 @@ SOURCES += \
         src/car/ecu.cpp \
         src/car/hv.cpp \
         src/car/lv.cpp \
+        src/car/inverters.cpp \
         src/car/pedals.cpp \
         src/car/state.cpp \
         src/car/steering.cpp \
         src/car/telemetry.cpp \
+        src/game/gb.cpp \
+        src/game/extension.cpp \
         thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
         thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c
 
@@ -71,3 +77,6 @@ SOURCES += \
         src/io/leds_x86.cpp 
 DEFINES += S_OS_X86
 }
+
+DISTFILES += \
+    qml/tabs/TabGame.qml

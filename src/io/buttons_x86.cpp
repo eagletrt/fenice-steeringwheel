@@ -23,7 +23,12 @@ QHash<int, int> buttonIds{{Qt::Key_D, Buttons::Input::BUTTON_TOP_LEFT},
                           {Qt::Key_9, 19},
                           {Qt::Key_0, 20}};
 
-Buttons::Buttons(QObject *parent) : QObject(parent) {}
+Buttons::Buttons(QObject *parent) : QObject(parent) {
+  m_timers = QVector<QElapsedTimer>();
+  for (int i = 0; i < buttonIds.size(); i++) {
+    m_timers.append(QElapsedTimer());
+  }
+}
 
 //  Keyboard Map
 //  q:          exit, run / stop  (0)
@@ -67,16 +72,22 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
     if (buttonId < 10) {
       if (event->type() == QEvent::KeyPress && !keyEvent->isAutoRepeat()) {
         emit buttonPressed(buttonId);
+        m_timers[buttonId].restart();
       } else if (event->type() == QEvent::KeyRelease && !keyEvent->isAutoRepeat()) {
         emit buttonReleased(buttonId);
+        if (m_timers[buttonId].elapsed() < 500) {
+          emit buttonClicked(buttonId);
+        } else {
+          emit buttonLongClicked(buttonId);
+        }
       }
     } else if (event->type() == QEvent::KeyPress) {
       if (buttonId > 10 && buttonId <= 20) {
-        emit mapChanged(buttonId - 11);
+        emit manettinoLeftChanged(buttonId - 11);
       } else if (buttonId > 20 && buttonId <= 30) {
-        emit pumpChanged(buttonId - 21);
+        emit manettinoCenterChanged(buttonId - 21);
       } else if (buttonId > 30) {
-        emit tractionControlChanged(buttonId - 31);
+        emit manettinoRightChanged(buttonId - 31);
       }
     }
   }

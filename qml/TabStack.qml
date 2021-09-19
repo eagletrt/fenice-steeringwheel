@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.3
 import "tabs"
 
 Item {
+    property var currentTab: tabs.children[tabs.currentIndex]
+
     function connect() {
         window.buttonReleased.connect(buttonReleasedHandler);
         const currentTab = tabs.children[tabs.currentIndex];
@@ -23,7 +25,7 @@ Item {
     }
 
     function buttonReleasedHandler(button) {
-        if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
+        if (button === Input.paddleTopLeft || button === Input.paddleTopRight) {
             if (tabs.blocked)
                 return ;
 
@@ -48,6 +50,10 @@ Item {
     }
 
     StackLayout {
+        //        TabGame {
+        //            property string name: "game"
+        //        }
+
         id: tabs
 
         property bool blocked: false
@@ -55,24 +61,31 @@ Item {
         anchors.fill: parent
 
         TabRacing {
+            property string name: "racing"
         }
 
         TabTelemetry {
+            property string name: "telemetry"
         }
 
         TabCalibration {
+            property string name: "calibration"
         }
 
         TabStatus {
+            property string name: "status"
         }
 
         TabOverview {
+            property string name: "overview"
         }
 
         TabGps {
+            property string name: "gps"
         }
 
         TabTerminal {
+            property string name: "terminal"
         }
 
     }

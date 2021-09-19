@@ -53,7 +53,6 @@ public:                                                                         
   Q_SLOT void set##capitalized(const type &value) {                                                                    \
     if (internal == value)                                                                                             \
       return;                                                                                                          \
-    sDebug(#external) << "changed" << internal << "->" << value;                                                       \
     internal = value;                                                                                                  \
     emit external##Changed(value);                                                                                     \
   }                                                                                                                    \

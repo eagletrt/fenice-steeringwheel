@@ -1,10 +1,13 @@
 #include <QGuiApplication>
+#include <QHostAddress>
+#include <QNetworkInterface>
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QThread>
 
 #include "global.h"
+
 #include "io/buttons.h"
 #include "io/leds.h"
 
@@ -14,6 +17,10 @@
 #include "car/hv.h"
 #include "car/lv.h"
 #include "car/state.h"
+
+#ifdef EASTER_EGG
+#include "game/extension.h"
+#endif
 
 #ifdef Q_OS_LINUX
 #include <signal.h>
@@ -53,14 +60,6 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication app(argc, argv);
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
-
-  qmlRegisterUncreatableType<ECU>("Car", 1, 0, "ECU", "Not creatable as it is an enum type.");
-  qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
-  qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
-
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 
   QQmlApplicationEngine engine(&app);
@@ -74,17 +73,47 @@ int main(int argc, char *argv[]) {
 
   engine.addImportPath(QStringLiteral("qrc:/"));
 
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
+
+  qmlRegisterUncreatableType<ECU>("Car", 1, 0, "ECU", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
+
+#ifdef EASTER_EGG
+  qmlRegisterType<Extension>("Extension", 1, 0, "Extension");
+  engine.rootContext()->setContextProperty("EASTER_EGG", QVariant(true));
+#else
+  engine.rootContext()->setContextProperty("EASTER_EGG", QVariant(false));
+#endif
+
   Leds *leds = new Leds(&engine);
   Buttons *buttons = new Buttons(&engine);
   CanBus *canBus = new CanBus(&engine);
   State *state = new State(&engine);
 
-  QObject::connect(buttons, &Buttons::mapChanged, state->steering(), &Steering::setMap);
-  QObject::connect(buttons, &Buttons::pumpChanged, state->steering(), &Steering::setPump);
-  QObject::connect(buttons, &Buttons::tractionControlChanged, state->steering(), &Steering::setTractionControl);
+  QObject::connect(buttons, &Buttons::manettinoLeftChanged, state->steering(), &Steering::onManettinoLeftChanged);
+  QObject::connect(buttons, &Buttons::manettinoCenterChanged, state->telemetry(), &Telemetry::onManettinoCenterChanged);
+  QObject::connect(buttons, &Buttons::manettinoRightChanged, state->steering(), &Steering::onManettinoRightChanged);
 
   QObject::connect(canBus, &CanBus::messageReceived, state, &State::handleMessage);
   QObject::connect(state, &State::sendMessage, canBus, &CanBus::sendMessage);
+
+  QObject::connect(buttons, &Buttons::buttonPressed, state->steering(), &Steering::onButtonPressed);
+  QObject::connect(buttons, &Buttons::buttonReleased, state->steering(), &Steering::onButtonReleased);
+
+  QObject::connect(buttons, &Buttons::buttonReleased, state->steering(), &Steering::onButtonReleased);
+
+  QObject::connect(buttons, &Buttons::buttonClicked, state->telemetry(), &Telemetry::onButtonClicked);
+  QObject::connect(buttons, &Buttons::buttonLongClicked, state->telemetry(), &Telemetry::onButtonLongClicked);
+
+  QObject::connect(state->steering(), &Steering::pttChanged, leds,
+                   [&](bool ptt) { leds->setLeftBrightness(7, ptt ? 0xFF : 0x0); });
+
+  QObject::connect(state->telemetry(), &Telemetry::statusChanged, leds, [&](Telemetry::TlmStatus status) {
+    leds->setRightBrightness(6, status == Telemetry::TlmStatus::TLM_STATUS_ON ? 0xFF : 0x0);
+  });
 
 #ifdef S_OS_X86
   app.installEventFilter(buttons);
@@ -104,6 +133,14 @@ int main(int argc, char *argv[]) {
 #ifdef Q_OS_LINUX
   quitGracefully({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
 #endif
+
+  QTimer::singleShot(1000, &engine, [&]() {
+    QList<QHostAddress> addresses = QNetworkInterface::allAddresses();
+    for (const QHostAddress &address : qAsConst(addresses)) {
+      if (address.protocol() == QAbstractSocket::IPv4Protocol && !address.isLoopback())
+        sDebug("main") << "IP address" << address.toString();
+    }
+  });
 
   return app.exec();
 }

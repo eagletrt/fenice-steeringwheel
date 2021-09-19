@@ -3,6 +3,8 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
 Item {
+    id: root
+
     property int value
     property string unit
     property string label
@@ -27,14 +29,14 @@ Item {
 
                 Text {
                     Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                    text: String(value).padStart(2, " ")
+                    text: String(root.value).padStart(2, " ")
                     color: Style.text
                     font: Style.mono.h2
                 }
 
                 Text {
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                    text: unit
+                    text: root.unit
                     color: Style.text
                     font: Style.sans.p
                 }
@@ -53,7 +55,7 @@ Item {
 
             Text {
                 anchors.centerIn: parent
-                text: label
+                text: root.label
                 color: Style.text
                 font: Style.sans.small
             }

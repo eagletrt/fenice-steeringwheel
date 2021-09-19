@@ -1,0 +1,21 @@
+#!/bin/bash
+
+simulate=true
+canplayer vcan0=can0 -I logs/result_primary.log -l i &
+vcan0=$!
+canplayer vcan1=can0 -I logs/result_secondary.log -l i &
+vcan1=$!
+
+trap ctrl_c INT
+
+function ctrl_c() {
+	echo "Quitting"
+	kill $vcan0
+	kill $vcan1
+	simulate=false
+}
+
+while [[ $simulate = true ]]; do
+    sleep 1
+    echo -n "."
+done
