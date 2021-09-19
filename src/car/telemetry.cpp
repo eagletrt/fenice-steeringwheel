@@ -15,9 +15,9 @@ Telemetry::~Telemetry() { sDebug("telemetry") << "cleanup"; }
 
 void Telemetry::sendStatus() {
   quint8 *data = new quint8[sizeof(Primary_SET_TLM_STATUS)];
-  //  serialize_Primary_SET_TLM_STATUS(data, (Primary_Tlm_Status)m_status, (Primary_Race_Type)m_race, m_pilot,
-  //  m_circuit); QByteArray message((const char *)data); emit m_state->sendMessage(CanDevice::Network::PRIMARY,
-  //  ID_TLM_STATUS, message);
+  serialize_Primary_SET_TLM_STATUS(data, (Primary_Tlm_Status)m_status, (Primary_Race_Type)m_race, m_pilot, m_circuit);
+  QByteArray message((const char *)data);
+  emit m_state->sendMessage(CanDevice::Network::PRIMARY, ID_TLM_STATUS, message);
   delete[] data;
 }
 

@@ -19,17 +19,17 @@ extern uint8_t const key_state[8];
 class GB : public QObject {
   Q_OBJECT
 public:
-  GB(QObject* parent = nullptr);
+  GB(QObject *parent = nullptr);
 
   enum Input {
-      SCANCODE_DOWN,
-      SCANCODE_UP,
-      SCANCODE_LEFT,
-      SCANCODE_RIGHT,
-      SCANCODE_TAB,
-      SCANCODE_RETURN,
-      SCANCODE_Z,
-      SCANCODE_X
+    SCANCODE_DOWN,
+    SCANCODE_UP,
+    SCANCODE_LEFT,
+    SCANCODE_RIGHT,
+    SCANCODE_TAB,
+    SCANCODE_RETURN,
+    SCANCODE_Z,
+    SCANCODE_X
   };
 
 public slots:

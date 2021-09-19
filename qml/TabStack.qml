@@ -25,7 +25,7 @@ Item {
     }
 
     function buttonReleasedHandler(button) {
-        if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
+        if (button === Input.paddleTopLeft || button === Input.paddleTopRight) {
             if (tabs.blocked)
                 return ;
 
@@ -50,15 +50,15 @@ Item {
     }
 
     StackLayout {
+        //        TabGame {
+        //            property string name: "game"
+        //        }
+
         id: tabs
 
         property bool blocked: false
 
         anchors.fill: parent
-
-        TabGame {
-            property string name: "game"
-        }
 
         TabRacing {
             property string name: "racing"

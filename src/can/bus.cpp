@@ -35,7 +35,7 @@ bool CanBus::sendMessage(const CanDevice::Network network, quint32 id, const QBy
     auto pair = m_devices[network];
     return pair.first->sendMessage(id, message);
   }
-  sWarning("canbus") << "tried to send a message on offline network" << network;
+  sWarning("canbus") << "tried to send a message" << id << "on offline network" << network;
   return false;
 }
 

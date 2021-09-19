@@ -1,8 +1,8 @@
-#include <QtQuick/QQuickPaintedItem>
 #include <QImage>
 #include <QMutex>
-#include <QTimer>
 #include <QThread>
+#include <QTimer>
+#include <QtQuick/QQuickPaintedItem>
 
 #include "game/gb.h"
 

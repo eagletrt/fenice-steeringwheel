@@ -18,9 +18,9 @@
 #include "car/lv.h"
 #include "car/state.h"
 
+#ifdef EASTER_EGG
 #include "game/extension.h"
-
-#include "gb.h"
+#endif
 
 #ifdef Q_OS_LINUX
 #include <signal.h>
@@ -60,16 +60,6 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication app(argc, argv);
 
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
-  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
-
-  qmlRegisterUncreatableType<ECU>("Car", 1, 0, "ECU", "Not creatable as it is an enum type.");
-  qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
-  qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
-
-  qmlRegisterType<Extension>("Extension", 1, 0, "Extension");
-
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 
   QQmlApplicationEngine engine(&app);
@@ -82,6 +72,21 @@ int main(int argc, char *argv[]) {
       Qt::QueuedConnection);
 
   engine.addImportPath(QStringLiteral("qrc:/"));
+
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
+  qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
+
+  qmlRegisterUncreatableType<ECU>("Car", 1, 0, "ECU", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
+
+#ifdef EASTER_EGG
+  qmlRegisterType<Extension>("Extension", 1, 0, "Extension");
+  engine.rootContext()->setContextProperty("EASTER_EGG", QVariant(true));
+#else
+  engine.rootContext()->setContextProperty("EASTER_EGG", QVariant(false));
+#endif
 
   Leds *leds = new Leds(&engine);
   Buttons *buttons = new Buttons(&engine);

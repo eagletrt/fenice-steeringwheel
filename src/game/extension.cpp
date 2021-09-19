@@ -24,7 +24,7 @@ Extension::Extension(QQuickItem *parent) : QQuickPaintedItem(parent) {
 
   m_gb_thread->start();
 
-  m_image = new QImage((uchar*)frame_buffer, GB_WIDTH, GB_HEIGHT, QImage::Format::Format_RGBX8888);
+  m_image = new QImage((uchar *)frame_buffer, GB_WIDTH, GB_HEIGHT, QImage::Format::Format_RGBX8888);
 }
 
 Extension::~Extension() {

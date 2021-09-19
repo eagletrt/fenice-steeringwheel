@@ -139,7 +139,7 @@ uint8_t GB::get_color(int tile, int y_offset, int x_offset) {
   return (tile_data[1] >> x_offset) % 2 * 2 + (*tile_data >> x_offset) % 2;
 }
 
-GB::GB(QObject* parent) : QObject(parent) {
+GB::GB(QObject *parent) : QObject(parent) {
   rom1 = (rom0 = (uint8_t *)mmap(0, 1 << 20, PROT_READ, MAP_SHARED, open("rom.gb", O_RDONLY), 0)) + 32768;
   tmp = open("rom.sav", O_CREAT | O_RDWR, 0666);
   ftruncate(tmp, 32768);
@@ -398,7 +398,8 @@ void GB::render() {
                   }
                 }
 
-              frame_buffer[LY * 160 + tmp] = palette[(io[327 + palette_index] >> 2 * color) % 4 + palette_index * 4 & 7];
+              frame_buffer[LY * 160 + tmp] =
+                  palette[(io[327 + palette_index] >> 2 * color) % 4 + palette_index * 4 & 7];
             }
 
           if (LY == 143) {
