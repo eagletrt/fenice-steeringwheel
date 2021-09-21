@@ -1,4 +1,4 @@
-# Fenice Steering Wheel
+# Steering Wheel
 
 Welcome to the Fenice Steering Wheel documentation. Fenice Steering Wheel is a
 modular Qt application that interacts with the rest of the vehicle and displays
