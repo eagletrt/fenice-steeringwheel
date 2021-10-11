@@ -30,23 +30,22 @@ QtObject {
     property QtObject status
 
     monoRegular: FontLoader {
-        source: "qrc:/qml/font/RobotoMono-Regular.ttf"
+        source: "qrc:/qml/font/Mono-Regular.ttf"
     }
 
     monoBold: FontLoader {
-        source: "qrc:/qml/font/RobotoMono-Bold.ttf"
+        source: "qrc:/qml/font/Mono-Bold.ttf"
     }
 
     sansRegular: FontLoader {
-        source: "qrc:/qml/font/Inter-Regular.ttf"
+        source: "qrc:/qml/font/Sans-Regular.ttf"
     }
 
     sansBold: FontLoader {
-        source: "qrc:/qml/font/Inter-SemiBold.ttf"
+        source: "qrc:/qml/font/Sans-Bold.ttf"
     }
 
     sizes: QtObject {
-        property string family: monoBold.name
         property int xsmall: 11
         property int small: 12
         property int p: 20
@@ -58,14 +57,14 @@ QtObject {
     }
 
     mono: QtObject {
-        property string family: monoBold.name
+        property string family: monoRegular.name
         property font xsmall: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Regular",
             "pointSize": sizes.xsmall
         })
         property font small: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Regular",
             "pointSize": sizes.small
         })
@@ -75,27 +74,27 @@ QtObject {
             "pointSize": sizes.p
         })
         property font h3: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Bold",
             "pointSize": sizes.h3
         })
         property font h2: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Bold",
             "pointSize": sizes.h2
         })
         property font h1: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Bold",
             "pointSize": sizes.h1
         })
         property font big: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Bold",
             "pointSize": sizes.big
         })
         property font verybig: Qt.font({
-            "family": monoBold.name,
+            "family": monoRegular.name,
             "styleName": "Bold",
             "pointSize": sizes.verybig
         })
@@ -119,27 +118,27 @@ QtObject {
             "pointSize": sizes.p
         })
         property font h3: Qt.font({
-            "family": sansBold.name,
+            "family": sansRegular.name,
             "styleName": "SemiBold",
             "pointSize": sizes.h3
         })
         property font h2: Qt.font({
-            "family": sansBold.name,
+            "family": sansRegular.name,
             "styleName": "SemiBold",
             "pointSize": sizes.h2
         })
         property font h1: Qt.font({
-            "family": sansBold.name,
+            "family": sansRegular.name,
             "styleName": "SemiBold",
             "pointSize": sizes.h1
         })
         property font big: Qt.font({
-            "family": sansBold.name,
+            "family": sansRegular.name,
             "styleName": "SemiBold",
             "pointSize": sizes.big
         })
         property font verybig: Qt.font({
-            "family": sansBold.name,
+            "family": sansRegular.name,
             "styleName": "SemiBold",
             "pointSize": sizes.verybig
         })

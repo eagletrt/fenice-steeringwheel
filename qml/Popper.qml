@@ -12,12 +12,17 @@ Rectangle {
     color: Style.foreground
     radius: 10
     visible: false
+
     onShow: {
         metrics.text = line;
         root.width = metrics.boundingRect.width + defaultPadding;
         root.height = metrics.boundingRect.height;
         message.text = line;
-        animation.start();
+        if (animation.running) {
+            animation.restart();
+        } else {
+            animation.start();
+        }
     }
 
     TextMetrics {

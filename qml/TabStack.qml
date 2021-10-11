@@ -30,7 +30,7 @@ Item {
                 return ;
 
             const total = tabs.children.length;
-            const step = button === Input.paddleBottomLeft ? -1 : +1;
+            const step = button === Input.paddleTopLeft ? -1 : +1;
             const index = Utils.mod(tabs.currentIndex + step, total);
             const currentTab = tabs.children[tabs.currentIndex];
             const nextTab = tabs.children[index];
@@ -62,6 +62,10 @@ Item {
 
         TabRacing {
             property string name: "racing"
+        }
+
+        TabNewRacing {
+            property string name: "racingnew"
         }
 
         TabTelemetry {

@@ -40,7 +40,5 @@ void Telemetry::onButtonLongClicked(int button) {
 }
 
 void Telemetry::onManettinoCenterChanged(int value) {
-  if (value <= 4) {
-    setRace((Race)value);
-  }
+  // TODO: implement
 }

@@ -1,3 +1,6 @@
+# devtools
+.vscode/
+
 # qt build
 build*
 

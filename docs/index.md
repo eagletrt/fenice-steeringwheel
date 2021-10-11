@@ -18,21 +18,9 @@ still be tested.
 development/qt
 ```
 
-%
-
 ```{toctree}
 :caption: 'Interface:'
 :maxdepth: 2
 
 interface/tabs
 ```
-
-%
-
-% Other useful stuff
-
-% ----
-
-% * :ref:`genindex`
-
-% * :ref:`search`
