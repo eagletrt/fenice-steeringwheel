@@ -10,17 +10,3 @@ that allows simple communications with all the I/O of the device.
 During development the software can be tested on any x86 machine that supports
 Qt natively. Most of the custom I/O is abstracted so complex interaction can
 still be tested.
-
-```{toctree}
-:caption: 'Development:'
-:maxdepth: 2
-
-development/qt
-```
-
-```{toctree}
-:caption: 'Interface:'
-:maxdepth: 2
-
-interface/tabs
-```
