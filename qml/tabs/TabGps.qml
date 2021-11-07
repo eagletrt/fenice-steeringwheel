@@ -13,22 +13,6 @@ Item {
     }
 
     Canvas {
-        // Timer {
-        //     interval: 16
-        //     repeat: true
-        //     running: true
-        //     onTriggered: {
-        //         canvas.requestPaint();
-        //     }
-        // }
-        // NumberAnimation on t {
-        //     from: 1
-        //     to: 2 * 314
-        //     duration: 1000
-        //     easing.type: Easing.InOutQuad
-        //     loops: Animation.Infinite
-        // }
-
         id: canvas
 
         property int dotX: 310

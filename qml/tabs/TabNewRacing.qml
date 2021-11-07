@@ -8,44 +8,57 @@ import QtQuick.Layouts 1.15
 import "components"
 
 Rectangle {
-    //    Gauge {
-    //        minimumValue: 0
-    //        value: 50
-    //        maximumValue: 100
-    //        anchors.left: parent.left
-    //        anchors.top: parent.top
-    //        anchors.bottom: parent.bottom
-    //        tickmarkAlignment: Qt.AlignRight
-    //        font: Style.mono.p
-    //        style: GaugeStyle {
-    //            valueBar: Rectangle {
-    //                color: Style.blue
-    //                implicitWidth: 64
-    //            }
-    //        }
-    //    }
-    //    Gauge {
-    //        minimumValue: 0
-    //        value: 50
-    //        maximumValue: 100
-    //        anchors.right: parent.right
-    //        anchors.top: parent.top
-    //        anchors.bottom: parent.bottom
-    //        tickmarkAlignment: Qt.AlignLeft
-    //        font: Style.mono.p
-    //        style: GaugeStyle {
-    //            valueBar: Rectangle {
-    //                color: Style.green
-    //                implicitWidth: 64
-    //            }
-    //        }
-    //    }
-
     id: racing
 
     property int columnWidth: 100
 
     color: Style.background
+
+    Gauge {
+        minimumValue: 0
+        value: 50
+        maximumValue: 100
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        tickmarkAlignment: Qt.AlignRight
+        font: Style.mono.p
+
+        style: GaugeStyle {
+
+            valueBar: Rectangle {
+                color: Style.blue
+                implicitWidth: 64
+            }
+
+        }
+
+    }
+
+    Gauge {
+        minimumValue: 0
+        value: 50
+        maximumValue: 100
+        tickmarkStepSize: 100
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        tickmarkAlignment: Qt.AlignLeft
+        font: Style.mono.p
+
+        style: GaugeStyle {
+
+            valueBar: Rectangle {
+                color: Style.green
+                implicitWidth: 64
+            }
+
+            tickmarkLabel: Item {
+            }
+
+        }
+
+    }
 
     CircularGauge {
         id: gauge
@@ -103,6 +116,7 @@ Rectangle {
 
                     ColumnLayout {
                         anchors.fill: parent
+
                         ColumnLayout {
                             Layout.alignment: Qt.AlignRight
                             Layout.preferredWidth: 120

@@ -60,12 +60,12 @@ Item {
 
         anchors.fill: parent
 
-        TabRacing {
-            property string name: "racing"
-        }
-
         TabNewRacing {
             property string name: "racingnew"
+        }
+
+        TabRacing {
+            property string name: "racing"
         }
 
         TabTelemetry {
