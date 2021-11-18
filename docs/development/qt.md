@@ -313,27 +313,11 @@ Copy URL from one of following Precompiled Compressed Base-Toolchain
 *(for maximum compatability)* based on your Raspberry Pi Variant and OS
 you installed on it, from below:
 
-```{eval-rst}
-.. list-table::
-   :widths: 25 25 50
-   :header-rows: 1
-
-   *  - Raspberry Pi Board
-      - Stretch(32-bit) OS
-      - Buster(32-bit) OS
-
-   *  - Raspberry Pi - *Zero/W/WH & 1 Model A/B/A+/B+*
-      - https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Stretch/GCC%206.3.0/Raspberry%20Pi%201%2C%20Zero/cross-gcc-6.3.0-pi_0-1.tar.gz
-      - https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%208.3.0/Raspberry%20Pi%201%2C%20Zero/cross-gcc-8.3.0-pi_0-1.tar.gz
-
-   *  - Raspberry Pi - *2 & 3 Model A/B*
-      - https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Stretch/GCC%206.3.0/Raspberry%20Pi%202%2C%203/cross-gcc-6.3.0-pi_2-3.tar.gz
-      - https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%208.3.0/Raspberry%20Pi%202%2C%203/cross-gcc-8.3.0-pi_2-3.tar.gz
-
-   *  - Raspberry Pi - *3 & 4 Model A+/B+ & Compute 3/3-lite/3+*
-      - https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Stretch/GCC%206.3.0/Raspberry%20Pi%203A%2B%2C%203B%2B%2C%204/cross-gcc-6.3.0-pi_3%2B.tar.gz
-      - https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%208.3.0/Raspberry%20Pi%203A%2B%2C%203B%2B%2C%204/cross-gcc-8.3.0-pi_3%2B.tar.gz
-```
+|Raspberry Pi Board|Stretch (32 bit)|Buster (32 bit)|
+|------------------|----------------|---------------|
+|Zero/W/WH & 1 Model A/B/A+/B+|https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Stretch/GCC%206.3.0/Raspberry%20Pi%201%2C%20Zero/cross-gcc-6.3.0-pi_0-1.tar.gz|https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%208.3.0/Raspberry%20Pi%201%2C%20Zero/cross-gcc-8.3.0-pi_0-1.tar.gz|
+|2 & 3 Model A/B|https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Stretch/GCC%206.3.0/Raspberry%20Pi%202%2C%203/cross-gcc-6.3.0-pi_2-3.tar.gz|https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%208.3.0/Raspberry%20Pi%202%2C%203/cross-gcc-8.3.0-pi_2-3.tar.gz|
+|3 & 4 Model A+/B+ & Compute 3/3-lite/3+|https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Stretch/GCC%206.3.0/Raspberry%20Pi%203A%2B%2C%203B%2B%2C%204/cross-gcc-6.3.0-pi_3%2B.tar.gz|https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%208.3.0/Raspberry%20Pi%203A%2B%2C%203B%2B%2C%204/cross-gcc-8.3.0-pi_3%2B.tar.gz|
 
 **Note:** You can also use the [latest cross-compiler
 binaries](https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/)
@@ -375,13 +359,21 @@ To do this, enter the following commands one by one into your terminal
 present on the same network)*:
 
 - **Command 1:**
-  `rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/lib sysroot`
+  ```
+  rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/lib sysroot
+  ```
 - **Command 2:**
-  `rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/usr/include sysroot/usr`
+  ```
+  rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/usr/include sysroot/usr
+  ```
 - **Command 3:**
-  `rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/usr/lib sysroot/usr`
+  ```
+  rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/usr/lib sysroot/usr
+  ```
 - **Command 4:**
-  `rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/opt/vc sysroot/opt`
+  ```
+  rsync -avz --rsync-path="sudo rsync" --delete pi@192.168.1.47:/opt/vc sysroot/opt
+  ```
 
 **Note:** Double check after each of the above commands that all the
 files have been copied to `~/rpi-qt/sysroot` folder. There will be an
