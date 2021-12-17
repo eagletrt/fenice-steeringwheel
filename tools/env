@@ -18,16 +18,17 @@ if ! [ -d .git ]; then
   exit 1
 fi
 
-QT_MAKE="qmake"
+QT_IDENTIFYING_CMD="qmlformat"
 
-if ! command -v $QT_MAKE &> /dev/null
+if ! command -v $QT_IDENTIFYING_CMD &> /dev/null
 then
   # ... if qmake is not found search common Qt installation
   QT_PATH="$QT_HOME/$QT_VERSION/bin"
-  QT_MAKE="$QT_PATH/qmake"
 else
-  QT_PATH="$(dirname "$(command -v "$QT_MAKE")")"
+  QT_PATH="$(dirname "$(command -v "$QT_IDENTIFYING_CMD")")"
 fi
+
+QT_MAKE="$QT_PATH/qmake"
 
 export QT_PATH
 export QT_MAKE

@@ -93,17 +93,15 @@ int main(int argc, char *argv[]) {
   CanBus *canBus = new CanBus(&engine);
   State *state = new State(&engine);
 
-  QObject::connect(buttons, &Buttons::manettinoLeftChanged, state->steering(), &Steering::onManettinoLeftChanged);
-  QObject::connect(buttons, &Buttons::manettinoCenterChanged, state->telemetry(), &Telemetry::onManettinoCenterChanged);
-  QObject::connect(buttons, &Buttons::manettinoRightChanged, state->steering(), &Steering::onManettinoRightChanged);
-
   QObject::connect(canBus, &CanBus::messageReceived, state, &State::handleMessage);
   QObject::connect(state, &State::sendMessage, canBus, &CanBus::sendMessage);
 
+  QObject::connect(buttons, &Buttons::manettinoLeftChanged, state->steering(), &Steering::onManettinoLeftChanged);
+  QObject::connect(buttons, &Buttons::manettinoRightChanged, state->steering(), &Steering::onManettinoRightChanged);
   QObject::connect(buttons, &Buttons::buttonPressed, state->steering(), &Steering::onButtonPressed);
   QObject::connect(buttons, &Buttons::buttonReleased, state->steering(), &Steering::onButtonReleased);
 
-  QObject::connect(buttons, &Buttons::buttonReleased, state->steering(), &Steering::onButtonReleased);
+  QObject::connect(buttons, &Buttons::buttonClicked, state->ecu(), &ECU::onButtonClicked);
 
   QObject::connect(buttons, &Buttons::buttonClicked, state->telemetry(), &Telemetry::onButtonClicked);
   QObject::connect(buttons, &Buttons::buttonLongClicked, state->telemetry(), &Telemetry::onButtonLongClicked);
@@ -134,7 +132,7 @@ int main(int argc, char *argv[]) {
   quitGracefully({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
 #endif
 
-  QTimer::singleShot(1000, &engine, [&]() {
+  QTimer::singleShot(5000, &engine, [&]() {
     QList<QHostAddress> addresses = QNetworkInterface::allAddresses();
     for (const QHostAddress &address : qAsConst(addresses)) {
       if (address.protocol() == QAbstractSocket::IPv4Protocol && !address.isLoopback())

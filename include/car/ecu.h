@@ -29,13 +29,19 @@ public:
   S_PROPERTY(InverterStatus, inverterStatusLeft, m_inverter_l, InverterStatusLeft,
              ECU::InverterStatus::INVERTER_STATUS_OFF)
   S_PROPERTY(InverterStatus, inverterStatusRight, m_inverter_r, InverterStatusRight,
-             ECU::InverterStatus::INVERTER_STATUS_IDLE)
+             ECU::InverterStatus::INVERTER_STATUS_OFF)
   S_PROPERTY(qint32, leftSpeedRads, m_left_speed_rads, LeftSpeedRads, 0)
   S_PROPERTY(qint32, rightSpeedRads, m_right_speed_rads, RightSpeedRads, 0)
   S_PROPERTY(float, speed, m_speed, Speed, 0)
 public:
   ECU(State *parent = nullptr);
   ~ECU();
+
+protected slots:
+  void sendToggleCarStatus();
+
+public slots:
+  void onButtonClicked(int button);
 
 private:
   State *m_state;

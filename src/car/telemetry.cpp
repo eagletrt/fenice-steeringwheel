@@ -38,7 +38,3 @@ void Telemetry::onButtonLongClicked(int button) {
     }
   }
 }
-
-void Telemetry::onManettinoCenterChanged(int value) {
-  // TODO: implement
-}

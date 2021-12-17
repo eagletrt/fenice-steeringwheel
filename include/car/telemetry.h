@@ -33,7 +33,6 @@ protected slots:
 public slots:
   void onButtonClicked(int button);
   void onButtonLongClicked(int button);
-  void onManettinoCenterChanged(int value);
 
 private:
   State *m_state;

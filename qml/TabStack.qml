@@ -60,10 +60,6 @@ Item {
 
         anchors.fill: parent
 
-        TabNewRacing {
-            property string name: "racingnew"
-        }
-
         TabRacing {
             property string name: "racing"
         }

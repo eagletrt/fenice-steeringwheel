@@ -18,7 +18,6 @@
         <file>qml/tabs/TabGps.qml</file>
         <file>qml/tabs/TabOverview.qml</file>
         <file>qml/tabs/TabRacing.qml</file>
-        <file>qml/tabs/TabNewRacing.qml</file>
         <file>qml/tabs/TabStatus.qml</file>
         <file>qml/tabs/TabTelemetry.qml</file>
         <file>qml/tabs/TabTerminal.qml</file>
