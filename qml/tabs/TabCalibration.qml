@@ -52,7 +52,7 @@ Control {
             name: "APPS"
             color: Style.green
             zero: 0
-            value: Car.pedals.apps
+            // value: Car.pedals.apps
         }
 
         CalibrationBar {
@@ -62,7 +62,7 @@ Control {
             name: "STEER"
             color: Style.red
             zero: 0.5
-            value: Car.pedals.steer
+            // value: Car.pedals.steer
         }
 
         CalibrationBar {
@@ -72,7 +72,7 @@ Control {
             name: "BSE"
             color: Style.yellow
             zero: 0
-            value: Car.pedals.bse
+            // value: Car.pedals.bse
         }
 
         Rectangle {

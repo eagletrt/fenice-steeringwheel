@@ -13,7 +13,7 @@ class Telemetry : public QObject {
   Q_OBJECT
 
 public:
-  enum TlmStatus { TLM_STATUS_ON = Primary_Tlm_Status_ON, TLM_STATUS_OFF = Primary_Tlm_Status_OFF };
+  enum TlmStatus { TLM_STATUS_ON = primary_Tlm_Status_ON, TLM_STATUS_OFF = primary_Tlm_Status_OFF };
   Q_ENUM(TlmStatus);
 
   enum Race { RACE_DEFAULT, RACE_AUTOCROSS, RACE_SKIDPAD, RACE_ENDURANCE, RACE_ACCELERATION };

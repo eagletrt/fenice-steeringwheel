@@ -28,11 +28,10 @@ HEADERS += \
         include/can/device.h \
         include/can/primary.h \
         include/can/secondary.h \
-        include/car/ecu.h \
+        include/car/das.h \
         include/car/hv.h \
         include/car/lv.h \
         include/car/inverters.h \
-        include/car/pedals.h \
         include/car/state.h \
         include/car/steering.h \
         include/car/telemetry.h \
@@ -46,15 +45,14 @@ HEADERS += \
         thirdparty/can-cicd/includes_generator/Secondary/ids.h
 
 SOURCES += \
+        src/car/das.cpp \
         src/main.cpp \
         src/global.cpp \
         src/can/device.cpp \
         src/can/bus.cpp \
-        src/car/ecu.cpp \
         src/car/hv.cpp \
         src/car/lv.cpp \
         src/car/inverters.cpp \
-        src/car/pedals.cpp \
         src/car/state.cpp \
         src/car/steering.cpp \
         src/car/telemetry.cpp \

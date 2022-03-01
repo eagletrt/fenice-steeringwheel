@@ -8,7 +8,7 @@ Control {
     id: status
 
     property var possibleStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
-    property var sensors: ["Inv Right", "Telemetry", "Inv Left", "ECU", "PCU", "BMS HV", "Steering", "BMS LV"]
+    property var sensors: ["Inv Right", "Telemetry", "Inv Left", "DAS", "PCU", "BMS HV", "Steering", "BMS LV"]
 
     padding: 20
 
