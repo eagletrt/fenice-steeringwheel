@@ -127,7 +127,7 @@ Rectangle {
 
                     BigValue {
                         unit: "km\nh"
-                        value: Car.ecu.speed
+                        value: Car.das.speed
                     }
 
                 }

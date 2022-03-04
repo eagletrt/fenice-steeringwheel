@@ -9,21 +9,19 @@
 #include "can/secondary.h"
 
 State::State(QObject *parent) : QObject(parent) {
-  m_ecu = new ECU(this);
+  m_das = new DAS(this);
   m_hv = new HV(this);
   m_lv = new LV(this);
   m_inverters = new Inverters(this);
-  m_pedals = new Pedals(this);
   m_steering = new Steering(this);
   m_telemetry = new Telemetry(this);
 }
 
 State::~State() {
   sDebug("state") << "cleanup";
-  delete m_ecu;
+  delete m_das;
   delete m_hv;
   delete m_lv;
-  delete m_pedals;
   delete m_steering;
   delete m_telemetry;
 }
@@ -43,10 +41,10 @@ void State::handleMessage(const CanDevice *, quint32 id, const QByteArray &messa
   case TOPIC_STEER_FILTER:
     handleTopicSteer(id, raw);
     break;
-  case TOPIC_ECUnSTEER_FILTER:
+  case TOPIC_DASnSTEER_FILTER:
     handleTopicEcuSteer(id, raw);
     break;
-  case TOPIC_ECUnSTEERnCART_FILTER:
+  case TOPIC_DASnSTEERnCART_FILTER:
     handleTopicEcuSteerCart(id, raw);
     break;
   }
@@ -57,10 +55,38 @@ void State::handleMessage(const CanDevice *, quint32 id, const QByteArray &messa
 void State::handleTopicBroadcast(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_TIMESTAMP: {
-    Primary_TIMESTAMP data;
-    deserialize_Primary_TIMESTAMP(raw, &data);
+    primary_TIMESTAMP data;
+    deserialize_primary_TIMESTAMP(raw, &data);
     m_timestamp = data.timestamp;
     emit timestampChanged();
+    break;
+  }
+  case ID_DAS_VERSION: {
+    primary_DAS_VERSION data;
+    deserialize_primary_DAS_VERSION(raw, &data);
+    m_das->setDasVersionCancicd(data.cancicd_version);
+    m_das->setDasVersionComponent(data.component_version);
+    break;
+  }
+  case ID_HV_VERSION: {
+    primary_HV_VERSION data;
+    deserialize_primary_HV_VERSION(raw, &data);
+    m_das->setHvVersionCancicd(data.cancicd_version);
+    m_das->setHvVersionComponent(data.component_version);
+    break;
+  }
+  case ID_LV_VERSION: {
+    primary_LV_VERSION data;
+    deserialize_primary_LV_VERSION(raw, &data);
+    m_das->setLvVersionCancicd(data.cancicd_version);
+    m_das->setLvVersionComponent(data.component_version);
+    break;
+  }
+  case ID_TLM_VERSION: {
+    primary_TLM_VERSION data;
+    deserialize_primary_TLM_VERSION(raw, &data);
+    m_das->setTlmVersionCancicd(data.cancicd_version);
+    m_das->setTlmVersionComponent(data.component_version);
     break;
   }
   }
@@ -69,22 +95,23 @@ void State::handleTopicBroadcast(quint32 id, uint8_t *raw) {
 void State::handleTopicSteer(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_TLM_STATUS: {
-    Primary_TLM_STATUS data;
-    deserialize_Primary_TLM_STATUS(raw, &data);
+    primary_TLM_STATUS data;
+    deserialize_primary_TLM_STATUS(raw, &data);
     m_telemetry->setStatus((Telemetry::TlmStatus)data.tlm_status);
     m_telemetry->setRace((Telemetry::Race)data.race_type);
     m_telemetry->setPilot(data.driver);
     m_telemetry->setCircuit(data.circuit);
-    emit ecuChanged();
+    emit dasChanged();
     break;
   }
   case ID_CAR_STATUS: {
-    Primary_CAR_STATUS data;
-    deserialize_Primary_CAR_STATUS(raw, &data);
-    m_ecu->setCarStatus((ECU::CarStatus)data.car_status);
-    m_ecu->setInverterStatusLeft((ECU::InverterStatus)data.inverter_l);
-    m_ecu->setInverterStatusRight((ECU::InverterStatus)data.inverter_r);
-    emit ecuChanged();
+    primary_CAR_STATUS data;
+    deserialize_primary_CAR_STATUS(raw, &data);
+    m_das->setCarStatus((DAS::CarStatus)data.car_status);
+    m_das->setInverterStatusLeft((DAS::InverterStatus)data.inverter_l);
+    m_das->setInverterStatusRight((DAS::InverterStatus)data.inverter_r);
+    
+    emit dasChanged();
     break;
   }
   }
@@ -93,15 +120,15 @@ void State::handleTopicSteer(quint32 id, uint8_t *raw) {
 void State::handleTopicEcuSteer(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_LV_CURRENT: {
-    Primary_LV_CURRENT data;
-    deserialize_Primary_LV_CURRENT(raw, &data);
+    primary_LV_CURRENT data;
+    deserialize_primary_LV_CURRENT(raw, &data);
     m_lv->setCurrent(data.current);
     emit lvChanged();
     break;
   }
   case ID_LV_VOLTAGE: {
-    Primary_LV_VOLTAGE data;
-    deserialize_Primary_LV_VOLTAGE(raw, &data);
+    primary_LV_VOLTAGE data;
+    deserialize_primary_LV_VOLTAGE(raw, &data);
     m_lv->setVoltage1(data.voltage_1);
     m_lv->setVoltage2(data.voltage_2);
     m_lv->setVoltage3(data.voltage_3);
@@ -111,16 +138,16 @@ void State::handleTopicEcuSteer(quint32 id, uint8_t *raw) {
     break;
   }
   case ID_LV_TEMPERATURE: {
-    Primary_LV_TEMPERATURE data;
-    deserialize_Primary_LV_TEMPERATURE(raw, &data);
+    primary_LV_TEMPERATURE data;
+    deserialize_primary_LV_TEMPERATURE(raw, &data);
     m_lv->setDcdcTemperature(data.dcdc_temperature);
-    m_lv->setBatteryTemperature(data.battery_temperature);
+    m_lv->setBatteryTemperature(data.bp_temperature);
     emit lvChanged();
     break;
   }
   case ID_COOLING_STATUS: {
-    Primary_COOLING_STATUS data;
-    deserialize_Primary_COOLING_STATUS(raw, &data);
+    primary_COOLING_STATUS data;
+    deserialize_primary_COOLING_STATUS(raw, &data);
     m_lv->setHvFanSpeed(data.hv_fan_speed);
     m_lv->setLvFanSpeed(data.lv_fan_speed);
     m_lv->setPumpSpeed(data.pump_speed);
@@ -133,16 +160,16 @@ void State::handleTopicEcuSteer(quint32 id, uint8_t *raw) {
 void State::handleTopicEcuSteerCart(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_HV_CURRENT: {
-    Primary_HV_CURRENT data;
-    deserialize_Primary_HV_CURRENT(raw, &data);
+    primary_HV_CURRENT data;
+    deserialize_primary_HV_CURRENT(raw, &data);
     m_hv->setCurrent(data.current);
     m_hv->setPower(data.power);
     emit hvChanged();
     break;
   }
   case ID_HV_VOLTAGE: {
-    Primary_HV_VOLTAGE data;
-    deserialize_Primary_HV_VOLTAGE(raw, &data);
+    primary_HV_VOLTAGE data;
+    deserialize_primary_HV_VOLTAGE(raw, &data);
     m_hv->setPackVoltage(data.pack_voltage);
     m_hv->setBusVoltage(data.bus_voltage);
     m_hv->setMaxCellVoltage(data.max_cell_voltage);
@@ -151,8 +178,8 @@ void State::handleTopicEcuSteerCart(quint32 id, uint8_t *raw) {
     break;
   }
   case ID_HV_TEMP: {
-    Primary_HV_TEMP data;
-    deserialize_Primary_HV_TEMP(raw, &data);
+    primary_HV_TEMP data;
+    deserialize_primary_HV_TEMP(raw, &data);
     m_hv->setAverageTemperature(data.average_temp);
     m_hv->setMaxTemperature(data.max_temp);
     m_hv->setMinTemperature(data.min_temp);
@@ -160,8 +187,8 @@ void State::handleTopicEcuSteerCart(quint32 id, uint8_t *raw) {
     break;
   }
   case ID_HV_ERRORS: {
-    Primary_HV_ERRORS data;
-    deserialize_Primary_HV_ERRORS(raw, &data);
+    primary_HV_ERRORS data;
+    deserialize_primary_HV_ERRORS(raw, &data);
     quint16 errors = ((quint16)data.errors[1] << 8) | data.errors[0];
     m_hv->setErrors(errors);
     quint16 warnings = ((quint16)data.warnings[1] << 8) | data.warnings[0];
@@ -170,8 +197,8 @@ void State::handleTopicEcuSteerCart(quint32 id, uint8_t *raw) {
     break;
   }
   case ID_TS_STATUS: {
-    Primary_TS_STATUS data;
-    deserialize_Primary_TS_STATUS(raw, &data);
+    primary_TS_STATUS data;
+    deserialize_primary_TS_STATUS(raw, &data);
     m_hv->setTsStatus((HV::TsStatus)data.ts_status);
     emit hvChanged();
     break;

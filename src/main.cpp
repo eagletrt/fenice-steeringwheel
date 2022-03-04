@@ -13,7 +13,7 @@
 
 #include "can/bus.h"
 
-#include "car/ecu.h"
+#include "car/das.h"
 #include "car/hv.h"
 #include "car/lv.h"
 #include "car/state.h"
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
 
-  qmlRegisterUncreatableType<ECU>("Car", 1, 0, "ECU", "Not creatable as it is an enum type.");
+  qmlRegisterUncreatableType<DAS>("Car", 1, 0, "DAS", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
 
@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
   QObject::connect(buttons, &Buttons::buttonPressed, state->steering(), &Steering::onButtonPressed);
   QObject::connect(buttons, &Buttons::buttonReleased, state->steering(), &Steering::onButtonReleased);
 
-  QObject::connect(buttons, &Buttons::buttonClicked, state->ecu(), &ECU::onButtonClicked);
+  QObject::connect(buttons, &Buttons::buttonClicked, state->das(), &DAS::onButtonClicked);
 
   QObject::connect(buttons, &Buttons::buttonClicked, state->telemetry(), &Telemetry::onButtonClicked);
   QObject::connect(buttons, &Buttons::buttonLongClicked, state->telemetry(), &Telemetry::onButtonLongClicked);

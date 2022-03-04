@@ -5,22 +5,20 @@
 
 #include "can/device.h"
 
-#include "ecu.h"
+#include "das.h"
 #include "hv.h"
 #include "inverters.h"
 #include "lv.h"
-#include "pedals.h"
 #include "steering.h"
 #include "telemetry.h"
 
 class State : public QObject {
   Q_OBJECT
   Q_PROPERTY(quint32 timestamp MEMBER m_timestamp NOTIFY timestampChanged)
-  Q_PROPERTY(ECU *ecu MEMBER m_ecu NOTIFY ecuChanged)
+  Q_PROPERTY(DAS *das MEMBER m_das NOTIFY dasChanged)
   Q_PROPERTY(HV *hv MEMBER m_hv NOTIFY hvChanged)
   Q_PROPERTY(LV *lv MEMBER m_lv NOTIFY lvChanged)
   Q_PROPERTY(Inverters *inverters MEMBER m_inverters NOTIFY invertersChanged)
-  Q_PROPERTY(Pedals *pedals MEMBER m_pedals NOTIFY pedalsChanged)
   Q_PROPERTY(Steering *steering MEMBER m_steering NOTIFY steeringChanged)
   Q_PROPERTY(Telemetry *telemetry MEMBER m_telemetry NOTIFY hvChanged)
 public:
@@ -29,11 +27,10 @@ public:
 
 public:
   quint32 timestamp() { return m_timestamp; }
-  const ECU *ecu() { return m_ecu; }
+  const DAS *das() { return m_das; }
   const HV *hv() { return m_hv; }
   const LV *lv() { return m_lv; }
   const Inverters *inverters() { return m_inverters; }
-  const Pedals *pedals() { return m_pedals; }
   const Steering *steering() { return m_steering; }
   const Telemetry *telemetry() { return m_telemetry; }
 
@@ -52,21 +49,19 @@ private:
 
 signals:
   void timestampChanged();
-  void ecuChanged();
+  void dasChanged();
   void hvChanged();
   void lvChanged();
   void invertersChanged();
-  void pedalsChanged();
   void steeringChanged();
   void telemetryChanged();
 
 private:
   quint32 m_timestamp = 0;
-  ECU *m_ecu;
+  DAS *m_das;
   HV *m_hv;
   LV *m_lv;
   Inverters *m_inverters;
-  Pedals *m_pedals;
   Steering *m_steering;
   Telemetry *m_telemetry;
 };
