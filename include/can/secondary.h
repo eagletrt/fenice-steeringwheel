@@ -5,9 +5,9 @@
 #define __STDC_VERSION__ 201112
 #endif
 
-#include "Secondary/c/Secondary.h"
-#include "Secondary/can_config.h"
-#include "Secondary/ids.h"
+#include "secondary/c/secondary.h"
+#include "secondary/can_config.h"
+#include "secondary/ids.h"
 
 #ifdef setBit
 #undef setBit

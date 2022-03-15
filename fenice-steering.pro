@@ -37,12 +37,12 @@ HEADERS += \
         include/car/telemetry.h \
         include/io/buttons.h \
         include/io/leds.h \
-        thirdparty/can-cicd/naked_generator/Primary/c/Primary.h \
-        thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.h \
-        thirdparty/can-cicd/includes_generator/Primary/can_config.h \
-        thirdparty/can-cicd/includes_generator/Primary/ids.h \
-        thirdparty/can-cicd/includes_generator/Secondary/can_config.h \
-        thirdparty/can-cicd/includes_generator/Secondary/ids.h
+        thirdparty/can-cicd/naked_generator/primary/c/primary.h \
+        thirdparty/can-cicd/naked_generator/secondary/c/secondary.h \
+        thirdparty/can-cicd/includes_generator/primary/can_config.h \
+        thirdparty/can-cicd/includes_generator/primary/ids.h \
+        thirdparty/can-cicd/includes_generator/secondary/can_config.h \
+        thirdparty/can-cicd/includes_generator/secondary/ids.h
 
 SOURCES += \
         src/car/das.cpp \
@@ -56,8 +56,8 @@ SOURCES += \
         src/car/state.cpp \
         src/car/steering.cpp \
         src/car/telemetry.cpp \
-        thirdparty/can-cicd/naked_generator/Primary/c/Primary.c \
-        thirdparty/can-cicd/naked_generator/Secondary/c/Secondary.c
+        thirdparty/can-cicd/naked_generator/primary/c/primary.c \
+        thirdparty/can-cicd/naked_generator/secondary/c/secondary.c
 
 
 CONFIG(raspberry) {
