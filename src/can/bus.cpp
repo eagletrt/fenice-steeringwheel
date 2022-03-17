@@ -71,7 +71,7 @@ void CanBus::start() {
 
           can->connectDevice();
           CanDevice *device = new CanDevice(network, can);
-          QThread *thread = new QThread(this);
+          QThread *thread = new QThread();
 
           connect(device, &CanDevice::messageReceived, this, &CanBus::handleMessage);
           connect(thread, &QThread::started, device, &CanDevice::start);

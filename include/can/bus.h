@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QHash>
 
 #include "can/device.h"
 
