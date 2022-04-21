@@ -164,8 +164,8 @@ public:
   ~Leds();
 
 public:
-  uint8_t setLeftBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
-  uint8_t setRightBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
+  uint8_t set_left_brightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
+  uint8_t set_right_brightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
 
 private:
   QTimer *m_timer;

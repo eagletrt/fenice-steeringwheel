@@ -54,6 +54,8 @@ int main(int argc, char *argv[]) {
     qputenv("QT_FONT_DPI", "84");
   }
 #endif
+
+  // setup global logging, also reflected in the UI
   qInstallMessageHandler(Global::messageHandler);
 
   sDebug("main") << "running on" << QSysInfo::currentCpuArchitecture();
@@ -81,36 +83,29 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
 
-#ifdef EASTER_EGG
-  qmlRegisterType<Extension>("Extension", 1, 0, "Extension");
-  engine.rootContext()->setContextProperty("EASTER_EGG", QVariant(true));
-#else
-  engine.rootContext()->setContextProperty("EASTER_EGG", QVariant(false));
-#endif
-
   Leds *leds = new Leds(&engine);
   Buttons *buttons = new Buttons(&engine);
   CanBus *canBus = new CanBus(&engine);
   State *state = new State(&engine);
 
-  QObject::connect(canBus, &CanBus::messageReceived, state, &State::handleMessage);
-  QObject::connect(state, &State::sendMessage, canBus, &CanBus::sendMessage);
+  QObject::connect(canBus, &CanBus::message_received, state, &State::handle_message);
+  QObject::connect(state, &State::send_message, canBus, &CanBus::send_message);
 
-  QObject::connect(buttons, &Buttons::manettinoLeftChanged, state->steering(), &Steering::onManettinoLeftChanged);
-  QObject::connect(buttons, &Buttons::manettinoRightChanged, state->steering(), &Steering::onManettinoRightChanged);
-  QObject::connect(buttons, &Buttons::buttonPressed, state->steering(), &Steering::onButtonPressed);
-  QObject::connect(buttons, &Buttons::buttonReleased, state->steering(), &Steering::onButtonReleased);
+  QObject::connect(buttons, &Buttons::manettino_left_changed, state->steering(), &Steering::on_manettino_left_changed);
+  QObject::connect(buttons, &Buttons::manettino_right_changed, state->steering(), &Steering::on_manettino_right_changed);
+  QObject::connect(buttons, &Buttons::button_pressed, state->steering(), &Steering::on_button_pressed);
+  QObject::connect(buttons, &Buttons::button_released, state->steering(), &Steering::on_button_released);
 
-  QObject::connect(buttons, &Buttons::buttonClicked, state->das(), &DAS::onButtonClicked);
+  QObject::connect(buttons, &Buttons::button_clicked, state->das(), &DAS::on_button_clicked);
 
-  QObject::connect(buttons, &Buttons::buttonClicked, state->telemetry(), &Telemetry::onButtonClicked);
-  QObject::connect(buttons, &Buttons::buttonLongClicked, state->telemetry(), &Telemetry::onButtonLongClicked);
+  QObject::connect(buttons, &Buttons::button_clicked, state->telemetry(), &Telemetry::on_button_clicked);
+  QObject::connect(buttons, &Buttons::button_long_clicked, state->telemetry(), &Telemetry::on_button_long_clicked);
 
-  QObject::connect(state->steering(), &Steering::pttChanged, leds,
-                   [&](bool ptt) { leds->setLeftBrightness(7, ptt ? 0xFF : 0x0); });
+  QObject::connect(state->steering(), &Steering::ptt_changed, leds,
+                   [&](bool ptt) { leds->set_left_brightness(7, ptt ? 0xFF : 0x0); });
 
-  QObject::connect(state->telemetry(), &Telemetry::statusChanged, leds, [&](Telemetry::TlmStatus status) {
-    leds->setRightBrightness(6, status == Telemetry::TlmStatus::TLM_STATUS_ON ? 0xFF : 0x0);
+  QObject::connect(state->telemetry(), &Telemetry::status_changed, leds, [&](Telemetry::TlmStatus status) {
+    leds->set_right_brightness(6, status == Telemetry::TlmStatus::TLM_STATUS_ON ? 0xFF : 0x0);
   });
 
 #ifdef S_OS_X86
@@ -131,6 +126,8 @@ int main(int argc, char *argv[]) {
 #ifdef Q_OS_LINUX
   quitGracefully({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
 #endif
+
+  // print the IP of the steering-wheels
 
   QTimer::singleShot(5000, &engine, [&]() {
     QList<QHostAddress> addresses = QNetworkInterface::allAddresses();

@@ -19,20 +19,22 @@ public:
   enum Race { RACE_DEFAULT, RACE_AUTOCROSS, RACE_SKIDPAD, RACE_ENDURANCE, RACE_ACCELERATION };
   Q_ENUM(Race)
 
-  S_PROPERTY(TlmStatus, status, m_status, Status, TlmStatus::TLM_STATUS_OFF)
-  S_PROPERTY(quint8, pilot, m_pilot, Pilot, 0)
-  S_PROPERTY(Race, race, m_race, Race, Race::RACE_DEFAULT)
-  S_PROPERTY(quint8, circuit, m_circuit, Circuit, 0)
+  S_PROPERTY(TlmStatus, status, TlmStatus::TLM_STATUS_OFF)
+  S_PROPERTY(quint8, pilot, 0)
+  S_PROPERTY(Race, race, Race::RACE_DEFAULT)
+  S_PROPERTY(quint8, circuit, 0)
+  S_PROPERTY(quint8, version_component, 0)
+  S_PROPERTY(quint8, version_cancicd, 0)
 public:
   Telemetry(State *parent = nullptr);
   ~Telemetry();
 
 protected slots:
-  void sendStatus();
+  void send_status(TlmStatus status, quint8 pilot, Race race, quint8 circuit);
 
 public slots:
-  void onButtonClicked(int button);
-  void onButtonLongClicked(int button);
+  void on_button_clicked(int button);
+  void on_button_long_clicked(int button);
 
 private:
   State *m_state;

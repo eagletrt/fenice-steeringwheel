@@ -83,10 +83,10 @@ Leds::~Leds() {
   delete m_right;
 }
 
-uint8_t Leds::setLeftBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
+uint8_t Leds::set_left_brightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
   return m_left->setBrightness(pwmChannel, dutyCycle);
 }
 
-uint8_t Leds::setRightBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
+uint8_t Leds::set_right_brightness(const uint8_t pwmChannel, const uint8_t dutyCycle) {
   return m_right->setBrightness(pwmChannel, dutyCycle);
 }

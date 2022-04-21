@@ -5,7 +5,7 @@
 Global::Global(QObject *parent) : QObject(parent) {}
 Global::~Global() {}
 
-void Global::appendLine(const QString &line) { emit logsChanged(line); }
+void Global::append_line(const QString &line) { emit logs_changed(line); }
 
 Q_GLOBAL_STATIC(Global, global);
 
@@ -48,6 +48,6 @@ void Global::messageHandler(QtMsgType type, const QMessageLogContext &context, c
   fprintf(stderr, "%s\n", resultBytes.constData());
 
   if (global.exists()) {
-    global->appendLine(result);
+    global->append_line(result);
   }
 }

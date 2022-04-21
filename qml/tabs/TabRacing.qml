@@ -32,7 +32,7 @@ Rectangle {
             Layout.fillHeight: true
             Layout.minimumWidth: racing.columnWidth
             label: "[V] Battery"
-            value: Car.hv.packVoltage
+            value: Car.hv.pack_voltage
             max: 460
             maxDigits: 3
             barCount: 8
@@ -88,7 +88,7 @@ Rectangle {
                             ValueLabel {
                                 unit: "°C"
                                 label: "INVERTER L"
-                                value: Car.inverters.leftTemperature
+                                value: Car.inverters.left_temperature
                             }
 
                         }
@@ -112,7 +112,7 @@ Rectangle {
                             ValueLabel {
                                 unit: "°C"
                                 label: "INVERTER R"
-                                value: Car.inverters.leftTemperature
+                                value: Car.inverters.right_temperature
                             }
 
                         }

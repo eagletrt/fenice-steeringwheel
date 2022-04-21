@@ -28,11 +28,11 @@ Window {
         anchors.fill: parent
 
         Connections {
-            function onButtonPressed(button) {
+            function onButton_pressed(button) {
                 window.buttonPressed(button);
             }
 
-            function onButtonReleased(button) {
+            function onButton_released(button) {
                 window.buttonReleased(button);
             }
 
@@ -40,7 +40,7 @@ Window {
         }
 
         Connections {
-            function onRaceChanged(race) {
+            function onRace_changed(race) {
                 if (stack.currentTab.name !== "telemetry")
                     popper.show(["default", "Cross", "Skidpad", "Endur", "Accel"][race]);
 
@@ -50,11 +50,11 @@ Window {
         }
 
         Connections {
-            function onMapChanged(map) {
+            function onMap_changed(map) {
                 popper.show(String(map) + "%");
             }
 
-            function onTractionControlChanged(tractionControl) {
+            function onTraction_control_changed(tractionControl) {
                 popper.show(["OFF", "S", "T", "T&S"][tractionControl]);
             }
 
@@ -62,7 +62,7 @@ Window {
         }
 
         Connections {
-            function onLogsChanged(line) {
+            function onLogs_changed(line) {
                 window.logsChanged(line);
             }
 
@@ -70,7 +70,7 @@ Window {
         }
 
         Connections {
-            function onShowPopup(message) {
+            function onShow_popup(message) {
                 popper.show(message);
             }
 

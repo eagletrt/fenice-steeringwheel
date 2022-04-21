@@ -21,10 +21,12 @@ public:
   };
   Q_ENUM(TCStatus)
 
-  S_PROPERTY(float, temperature, m_temperature, Temperature, 0)
-  S_PROPERTY(quint8, map, m_map, Map, 0)
-  S_PROPERTY(TCStatus, tractionControl, m_traction_control, TractionControl, TCStatus::TC_STATUS_OFF)
-  S_PROPERTY(bool, ptt, m_ptt, Ptt, false)
+  S_PROPERTY(float, temperature, 0)
+  S_PROPERTY(quint8, map, 0)
+  S_PROPERTY(TCStatus, traction_control, TCStatus::TC_STATUS_OFF)
+  S_PROPERTY(bool, ptt, false)
+  S_PROPERTY(quint8, version_component, 0)
+  S_PROPERTY(quint8, version_cancicd, 0)
 public:
   Steering(State *parent = nullptr);
   ~Steering();
@@ -33,10 +35,10 @@ protected slots:
   void poll();
 
 public slots:
-  void onButtonPressed(int button);
-  void onButtonReleased(int button);
-  void onManettinoLeftChanged(int value);
-  void onManettinoRightChanged(int value);
+  void on_button_pressed(int button);
+  void on_button_released(int button);
+  void on_manettino_left_changed(int value);
+  void on_manettino_right_changed(int value);
 
 private:
   QTimer *m_poll_timer;

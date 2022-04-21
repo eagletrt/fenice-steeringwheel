@@ -88,7 +88,7 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
   m_poll_timer->start(50);
 }
 
-void Buttons::readGpioState() {
+void Buttons::read_gpio_state() {
   for (int i = 0; i < m_button_pins.size(); i++) {
     m_button_pins_state[i] = digitalRead(m_button_pins.at(i));
 
@@ -111,14 +111,14 @@ void Buttons::readGpioState() {
 
       int buttonId = buttonIds[m_button_pins[i]];
       if (m_button_action == BUTTON_PRESSED) {
-        emit buttonPressed(buttonId);
+        emit button_pressed(buttonId);
         m_timers[i].restart();
       } else {
-        emit buttonReleased(buttonId);
+        emit button_released(buttonId);
         if (m_timers[i].elapsed() < 500) {
-          emit buttonClicked(buttonId);
+          emit button_clicked(buttonId);
         } else {
-          emit buttonLongClicked(buttonId);
+          emit button_long_clicked(buttonId);
         }
       }
     }
@@ -147,15 +147,15 @@ void Buttons::readGpioState() {
         int elapsed = m_switch_timer.restart();
         if (elapsed > 10) {
           if (m_manettino_left != -1 && m_manettino_left != m_manettino_left_old) {
-            emit manettinoLeftChanged(m_manettino_left);
+            emit manettino_left_changed(m_manettino_left);
             m_manettino_left_old = m_manettino_left;
           }
           if (m_manettino_center != -1 && m_manettino_center != m_manettino_center_old) {
-            emit manettinoCenterChanged(m_manettino_center);
+            emit manettino_center_changed(m_manettino_center);
             m_manettino_center_old = m_manettino_center;
           }
           if (m_manettino_right != -1 && m_manettino_right != m_manettino_right_old) {
-            emit manettinoRightChanged(m_manettino_right);
+            emit manettino_right_changed(m_manettino_right);
             m_manettino_right_old = m_manettino_right;
           }
         }

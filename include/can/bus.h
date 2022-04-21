@@ -22,13 +22,13 @@ public:
 
 public slots:
   void start();
-  bool sendMessage(const CanDevice::Network network, quint32 id, const QByteArray &message);
+  bool send_message(const CanDevice::Network network, quint32 id, const QByteArray &message);
 
 protected slots:
-  void handleMessage(const CanDevice *device, quint32 id, const QByteArray &message);
+  void handle_message(const CanDevice *device, quint32 id, const QByteArray &message);
 
 signals:
-  void messageReceived(const CanDevice *device, quint32 id, const QByteArray &message);
+  void message_received(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:
   QHash<CanDevice::Network, QPair<CanDevice *, QThread *>> m_devices;

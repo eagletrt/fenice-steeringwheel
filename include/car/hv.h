@@ -17,23 +17,7 @@ public:
     TS_STATUS_ON /*= Primary_Ts_Status_ON*/,
     TS_STATUS_FATAL /*= Primary_Ts_Status_FATAL*/,
   };
-  Q_ENUM(TsStatus)
-
-  S_PROPERTY(float, packVoltage, m_pack_voltage, PackVoltage, 0)
-  S_PROPERTY(quint16, busVoltage, m_bus_voltage, BusVoltage, 0)
-  S_PROPERTY(quint16, maxCellVoltage, m_max_cell_voltage, MaxCellVoltage, 0)
-  S_PROPERTY(quint16, minCellVoltage, m_min_cell_voltage, MinCellVoltage, 0)
-  S_PROPERTY(quint16, current, m_current, Current, 0)
-  S_PROPERTY(qint16, power, m_power, Power, 0)
-  S_PROPERTY(quint16, averageTemperature, m_average_temperature, AverageTemperature, 0)
-  S_PROPERTY(quint16, maxTemperature, m_max_temperature, MaxTemperature, 0)
-  S_PROPERTY(quint16, minTemperature, m_min_temperature, MinTemperature, 0)
-  S_PROPERTY(quint16, errors, m_errors, Errors, 0)
-  S_PROPERTY(quint16, warnings, m_warnings, Warnings, 0)
-  S_PROPERTY(TsStatus, tsStatus, m_ts_status, TsStatus, TsStatus::TS_STATUS_OFF)
-public:
-  HV(State *parent = nullptr);
-  ~HV();
+  Q_ENUM(TsStatus);
 
   enum Error {
     LTC_PEC = 0b1,
@@ -48,6 +32,24 @@ public:
     FEEDBACK_SOFT = 0b1000000000
   };
   Q_ENUM(Error);
+
+  S_PROPERTY(float, pack_voltage, 0)
+  S_PROPERTY(quint16, bus_voltage, 0)
+  S_PROPERTY(quint16, max_cell_voltage, 0)
+  S_PROPERTY(quint16, min_cell_voltage, 0)
+  S_PROPERTY(quint16, current, 0)
+  S_PROPERTY(qint16, power, 0)
+  S_PROPERTY(quint16, average_temperature, 0)
+  S_PROPERTY(quint16, max_temperature, 0)
+  S_PROPERTY(quint16, min_temperature, 0)
+  S_PROPERTY(quint16, errors, 0)
+  S_PROPERTY(quint16, warnings, 0)
+  S_PROPERTY(TsStatus, ts_status, TsStatus::TS_STATUS_OFF)
+  S_PROPERTY(quint8, version_component, 0)
+  S_PROPERTY(quint8, version_cancicd, 0)
+public:
+  HV(State *parent = nullptr);
+  ~HV();
 
 private:
   State *m_state;

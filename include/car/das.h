@@ -25,32 +25,24 @@ public:
   };
   Q_ENUM(InverterStatus);
 
-  S_PROPERTY(CarStatus, carStatus, m_car_status, CarStatus, DAS::CarStatus::CAR_STATUS_IDLE)
-  S_PROPERTY(InverterStatus, inverterStatusLeft, m_inverter_l, InverterStatusLeft,
-             DAS::InverterStatus::INVERTER_STATUS_OFF)
-  S_PROPERTY(InverterStatus, inverterStatusRight, m_inverter_r, InverterStatusRight,
-             DAS::InverterStatus::INVERTER_STATUS_OFF)
-  S_PROPERTY(qint32, leftSpeedRads, m_left_speed_rads, LeftSpeedRads, 0)
-  S_PROPERTY(qint32, rightSpeedRads, m_right_speed_rads, RightSpeedRads, 0)
-  S_PROPERTY(float, speed, m_speed, Speed, 0)
-  S_PROPERTY(quint16, encoderR, m_encoder_r, EncoderR, 0)
-  S_PROPERTY(quint8, dasVersionComponent, dasVersionComponent_r, DasVersionComponent, 0)
-  S_PROPERTY(quint8, dasVersionCancicd, dasVersionCancicd_r, DasVersionCancicd, 0)
-  S_PROPERTY(quint8, hvVersionComponent, hvVersionComponent_r, HvVersionComponent, 0)
-  S_PROPERTY(quint8, hvVersionCancicd, hvVersionCancicd_r, HvVersionCancicd, 0)
-  S_PROPERTY(quint8, lvVersionComponent, lvVersionComponent_r, LvVersionComponent, 0)
-  S_PROPERTY(quint8, lvVersionCancicd, lvVersionCancicd_r, LvVersionCancicd, 0)
-  S_PROPERTY(quint8, tlmVersionComponent, tlmVersionComponent_r, TlmVersionComponent, 0)
-  S_PROPERTY(quint8, tlmVersionCancicd, tlmVersionCancicd_r, TlmVersionCancicd, 0)
+  S_PROPERTY(CarStatus, car_status, DAS::CarStatus::CAR_STATUS_IDLE)
+  S_PROPERTY(InverterStatus, inverter_l, DAS::InverterStatus::INVERTER_STATUS_OFF)
+  S_PROPERTY(InverterStatus, inverter_r, DAS::InverterStatus::INVERTER_STATUS_OFF)
+  S_PROPERTY(qint32, left_speed_rads, 0)
+  S_PROPERTY(qint32, right_speed_rads, 0)
+  S_PROPERTY(float, speed, 0)
+  S_PROPERTY(quint16, encoder_r, 0)
+  S_PROPERTY(quint8, version_component, 0)
+  S_PROPERTY(quint8, version_cancicd, 0)
 public:
   DAS(State *parent = nullptr);
   ~DAS();
 
 protected slots:
-  void sendToggleCarStatus();
+  void send_toggle_car_status();
 
 public slots:
-  void onButtonClicked(int button);
+  void on_button_clicked(int button);
 
 private:
   State *m_state;

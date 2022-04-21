@@ -14,13 +14,13 @@
 
 class State : public QObject {
   Q_OBJECT
-  Q_PROPERTY(quint32 timestamp MEMBER m_timestamp NOTIFY timestampChanged)
-  Q_PROPERTY(DAS *das MEMBER m_das NOTIFY dasChanged)
-  Q_PROPERTY(HV *hv MEMBER m_hv NOTIFY hvChanged)
-  Q_PROPERTY(LV *lv MEMBER m_lv NOTIFY lvChanged)
-  Q_PROPERTY(Inverters *inverters MEMBER m_inverters NOTIFY invertersChanged)
-  Q_PROPERTY(Steering *steering MEMBER m_steering NOTIFY steeringChanged)
-  Q_PROPERTY(Telemetry *telemetry MEMBER m_telemetry NOTIFY hvChanged)
+  Q_PROPERTY(quint32 timestamp MEMBER m_timestamp NOTIFY timestamp_changed)
+  Q_PROPERTY(DAS *das MEMBER m_das NOTIFY das_changed)
+  Q_PROPERTY(HV *hv MEMBER m_hv NOTIFY hv_changed)
+  Q_PROPERTY(LV *lv MEMBER m_lv NOTIFY lv_changed)
+  Q_PROPERTY(Inverters *inverters MEMBER m_inverters NOTIFY inverters_changed)
+  Q_PROPERTY(Steering *steering MEMBER m_steering NOTIFY steering_changed)
+  Q_PROPERTY(Telemetry *telemetry MEMBER m_telemetry NOTIFY hv_changed)
 public:
   State(QObject *parent = nullptr);
   ~State();
@@ -35,26 +35,26 @@ public:
   const Telemetry *telemetry() { return m_telemetry; }
 
 signals:
-  void sendMessage(const CanDevice::Network network, quint32 id, const QByteArray &message);
-  void showPopup(const QString &message);
+  void send_message(const CanDevice::Network network, quint32 id, const QByteArray &message);
+  void show_popup(const QString &message);
 
 public slots:
-  void handleMessage(const CanDevice *device, quint32 id, const QByteArray &message);
+  void handle_message(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:
-  void handleTopicBroadcast(quint32 id, uint8_t *raw);
-  void handleTopicSteer(quint32 id, uint8_t *raw);
-  void handleTopicEcuSteer(quint32 id, uint8_t *raw);
-  void handleTopicEcuSteerCart(quint32 id, uint8_t *raw);
+  void handle_topic_broadcast(quint32 id, uint8_t *raw);
+  void handle_topic_steer(quint32 id, uint8_t *raw);
+  void handle_topic_ecu_steer(quint32 id, uint8_t *raw);
+  void handle_topic_ecu_steer_cart(quint32 id, uint8_t *raw);
 
 signals:
-  void timestampChanged();
-  void dasChanged();
-  void hvChanged();
-  void lvChanged();
-  void invertersChanged();
-  void steeringChanged();
-  void telemetryChanged();
+  void timestamp_changed();
+  void das_changed();
+  void hv_changed();
+  void lv_changed();
+  void inverters_changed();
+  void steering_changed();
+  void telemetry_changed();
 
 private:
   quint32 m_timestamp = 0;

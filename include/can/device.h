@@ -18,13 +18,13 @@ public:
 public slots:
   void start();
   void stop();
-  bool sendMessage(quint32 id, const QByteArray &message);
+  bool send_message(quint32 id, const QByteArray &message);
 
 protected slots:
   void parse();
 
 signals:
-  void messageReceived(const CanDevice *device, quint32 id, const QByteArray &message);
+  void message_received(const CanDevice *device, quint32 id, const QByteArray &message);
 
 public:
   const Network network;

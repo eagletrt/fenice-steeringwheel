@@ -55,18 +55,18 @@ public:
   Q_ENUM(Input)
 
 protected slots:
-  void readGpioState();
+  void read_gpio_state();
   bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
-  void buttonPressed(int button);
-  void buttonReleased(int button);
-  void buttonClicked(int button);
-  void buttonLongClicked(int button);
+  void button_pressed(int button);
+  void button_released(int button);
+  void button_clicked(int button);
+  void button_long_clicked(int button);
 
-  void manettinoLeftChanged(int value);
-  void manettinoCenterChanged(int value);
-  void manettinoRightChanged(int value);
+  void manettino_left_changed(int value);
+  void manettino_center_changed(int value);
+  void manettino_right_changed(int value);
 
 private:
   QTimer *m_poll_timer;

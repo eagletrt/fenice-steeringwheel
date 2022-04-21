@@ -26,8 +26,8 @@ void Steering::poll() {
   QFile file(STEERING_TEMP_FILE);
   if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
     QByteArray line = file.readLine();
-    setTemperature(line.toFloat() / STEERING_TEMP_SCALE);
-    emit m_state->steeringChanged();
+    set_temperature(line.toFloat() / STEERING_TEMP_SCALE);
+    emit m_state->steering_changed();
     file.close();
   } else {
     sWarning("steering") << "couldn't open" << STEERING_TEMP_FILE << "to read temperature";
@@ -35,26 +35,26 @@ void Steering::poll() {
 #endif
 }
 
-void Steering::onButtonPressed(int button) {
+void Steering::on_button_pressed(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
-    setPtt(true);
+    set_ptt(true);
   }
 }
 
-void Steering::onButtonReleased(int button) {
+void Steering::on_button_released(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
-    setPtt(false);
+    set_ptt(false);
   }
 }
 
-void Steering::onManettinoLeftChanged(int value) {
+void Steering::on_manettino_left_changed(int value) {
   if (value <= TC_STATUS_SLIP_AND_TORQUE)
-    setTractionControl((TCStatus)value);
+    set_traction_control((TCStatus)value);
 }
 
-void Steering::onManettinoRightChanged(int value) {
+void Steering::on_manettino_right_changed(int value) {
   float map = value * 20;
   if (map <= 100) {
-    setMap(map);
+    set_map(map);
   }
 }

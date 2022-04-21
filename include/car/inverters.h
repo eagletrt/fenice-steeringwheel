@@ -11,8 +11,8 @@ class State;
 class Inverters : public QObject {
   Q_OBJECT
 public:
-  S_PROPERTY(float, rightTemperature, m_right_temperature, RightTemperature, 0)
-  S_PROPERTY(float, leftTemperature, m_left_temperature, LeftTemperature, 0)
+  S_PROPERTY(float, right_temperature, 0)
+  S_PROPERTY(float, left_temperature, 0)
 public:
   Inverters(State *parent = nullptr);
   ~Inverters();

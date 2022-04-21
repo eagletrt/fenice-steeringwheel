@@ -14,7 +14,7 @@ void CanDevice::start() { connect(m_can, &QCanBusDevice::framesReceived, this, &
 
 void CanDevice::stop() { disconnect(m_can, &QCanBusDevice::framesReceived, this, &CanDevice::parse); }
 
-bool CanDevice::sendMessage(quint32 id, const QByteArray &message) {
+bool CanDevice::send_message(quint32 id, const QByteArray &message) {
   return m_can->writeFrame(QCanBusFrame(id, message));
 }
 
@@ -24,7 +24,7 @@ void CanDevice::parse() {
     QByteArray message = frame.payload();
     quint32 id = frame.frameId();
     if (id != 0) {
-      emit messageReceived(this, id, message);
+      emit message_received(this, id, message);
     }
   }
 }

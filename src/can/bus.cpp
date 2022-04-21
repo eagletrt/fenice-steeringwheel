@@ -26,14 +26,14 @@ CanBus::~CanBus() {
   }
 }
 
-void CanBus::handleMessage(const CanDevice *device, quint32 id, const QByteArray &message) {
-  emit messageReceived(device, id, message);
+void CanBus::handle_message(const CanDevice *device, quint32 id, const QByteArray &message) {
+  emit message_received(device, id, message);
 }
 
-bool CanBus::sendMessage(const CanDevice::Network network, quint32 id, const QByteArray &message) {
+bool CanBus::send_message(const CanDevice::Network network, quint32 id, const QByteArray &message) {
   if (m_devices.find(network) != m_devices.end()) {
     auto pair = m_devices[network];
-    return pair.first->sendMessage(id, message);
+    return pair.first->send_message(id, message);
   }
   sWarning("canbus") << "tried to send a message" << id << "on offline network" << network;
   return false;
@@ -73,7 +73,7 @@ void CanBus::start() {
           CanDevice *device = new CanDevice(network, can);
           QThread *thread = new QThread();
 
-          connect(device, &CanDevice::messageReceived, this, &CanBus::handleMessage);
+          connect(device, &CanDevice::message_received, this, &CanBus::handle_message);
           connect(thread, &QThread::started, device, &CanDevice::start);
 
           device->moveToThread(thread);

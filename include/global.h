@@ -2,6 +2,7 @@
 #define GLOBAL_H
 
 #include <QDebug>
+#include <QMetaEnum>
 
 class Global : public QObject {
   Q_OBJECT
@@ -9,14 +10,19 @@ public:
   Global(QObject *parent = nullptr);
   ~Global();
 
-  void appendLine(const QString &line);
+  void append_line(const QString &line);
 
   static Global &instance();
   static void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
 signals:
-  void logsChanged(const QString &line);
+  void logs_changed(const QString &line);
 };
+
+template<typename QEnum>
+inline QString enum_to_string(const QEnum value) {
+  return QString(QMetaEnum::fromType<QEnum>().valueToKey(value));
+}
 
 #define sDebug(SCOPE) (QMessageLogger(QT_MESSAGELOG_FILE, QT_MESSAGELOG_LINE, QT_MESSAGELOG_FUNC, SCOPE).debug)()
 #define sInfo(SCOPE) (QMessageLogger(QT_MESSAGELOG_FILE, QT_MESSAGELOG_LINE, QT_MESSAGELOG_FUNC, SCOPE).info)()
@@ -39,26 +45,26 @@ signals:
 #define SS_OVERLOAD_SELECT(NAME, NUM) SS_CAT(NAME##_, NUM)
 #define SS_MACRO_OVERLOAD(NAME, ...) SS_OVERLOAD_SELECT(NAME, SS_VA_ARG_SIZE(__VA_ARGS__))(__VA_ARGS__)
 
-#define S_PROPERTY(...) SS_MACRO_OVERLOAD(S_PROPERTY, __VA_ARGS__)
+#define S_PROPERTY(...)  SS_MACRO_OVERLOAD(S_PROPERTY, __VA_ARGS__)
 
-#define S_PROPERTY_4(type, external, internal, capitalized) _S_PROPERTY(type, external, internal, capitalized, )
+#define S_PROPERTY_2(type, name) _S_PROPERTY(type, name, )
 
-#define S_PROPERTY_5(type, external, internal, capitalized, def)                                                       \
-  _S_PROPERTY(type, external, internal, capitalized, = def)
+#define S_PROPERTY_3(type, name, def)                                                       \
+  _S_PROPERTY(type, name, = def)
 
-#define _S_PROPERTY(type, external, internal, capitalized, init)                                                       \
-  Q_PROPERTY(type external READ get##capitalized WRITE set##capitalized NOTIFY external##Changed)                      \
+#define _S_PROPERTY(type, name, init)                                                       \
+  Q_PROPERTY(type name READ get_##name WRITE set_##name NOTIFY name##_changed)                      \
 public:                                                                                                                \
-  type get##capitalized() const { return internal; }                                                                   \
-  Q_SLOT void set##capitalized(const type &value) {                                                                    \
-    if (internal == value)                                                                                             \
+  type get_##name() const { return m_##name; }                                                                   \
+  Q_SLOT void set_##name(const type &value) {                                                                    \
+    if (m_##name == value)                                                                                             \
       return;                                                                                                          \
-    internal = value;                                                                                                  \
-    emit external##Changed(value);                                                                                     \
+    m_##name = value;                                                                                                  \
+    emit name##_changed(value);                                                                                     \
   }                                                                                                                    \
-  Q_SIGNAL void external##Changed(type value);                                                                         \
+  Q_SIGNAL void name##_changed(type value);                                                                         \
                                                                                                                        \
 private:                                                                                                               \
-  type internal init;
+  type m_##name init;
 
 #endif // GLOBAL_H
