@@ -7,26 +7,19 @@ Rectangle {
     property int defaultPadding: 40
     property int totalDuration: 550
 
-    signal show(string line)
+    signal show(string line, color color)
 
     color: Style.foreground
-    radius: 10
+    height: 480
+    width: 800
     visible: false
     onShow: {
-        metrics.text = line;
-        root.width = metrics.boundingRect.width + defaultPadding;
-        root.height = metrics.boundingRect.height;
         message.text = line;
+        root.color = color;
         if (animation.running)
             animation.restart();
         else
             animation.start();
-    }
-
-    TextMetrics {
-        id: metrics
-
-        font: Style.mono.verybig
     }
 
     SequentialAnimation {
@@ -61,6 +54,7 @@ Rectangle {
     Text {
         id: message
 
+        horizontalAlignment: Text.AlignHCenter
         anchors.centerIn: parent
         color: Style.textInverted
         font: Style.mono.verybig

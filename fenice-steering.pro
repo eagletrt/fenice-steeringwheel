@@ -72,5 +72,4 @@ SOURCES += \
 DEFINES += S_OS_X86
 }
 
-DISTFILES += \
-    qml/tabs/TabGame.qml
+DISTFILES +=

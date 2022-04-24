@@ -7,9 +7,10 @@ Item {
 
     property int value
     property string unit
+    property font valueFont: Style.mono.h1
+    property font unitFont: Style.sans.p
 
     anchors.fill: parent
-    anchors.centerIn: parent
 
     RowLayout {
         anchors.fill: parent
@@ -22,16 +23,16 @@ Item {
         Text {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             text: root.value
+            font: root.valueFont
             color: Style.text
-            font: Style.mono.verybig
             horizontalAlignment: Text.right
         }
 
         Text {
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             text: root.unit
+            font: root.unitFont
             color: Style.text
-            font: Style.sans.h3
         }
 
         Item {

@@ -7,14 +7,6 @@ ListView {
     id: terminal
 
     property int history: 100
-    property string header: "██████████████████████████████     ███   ███  ████████████████████
-                           ████   ███                             
-  ████████████  ████████  ██████ ███   ███  ███         ████████  
-      ███      ███       ███  █████   ███  ███        ███         
-     ███      ████████  ███    ███   ███  █████████  █████████
-
->>>>>> fenice steering wheel v0.0.1 >>>>>>>>>
-"
 
     function onLogsChanged(line) {
         let logs = terminal.model;
@@ -31,7 +23,7 @@ ListView {
     }
     flickableDirection: Flickable.VerticalFlick
     boundsBehavior: Flickable.StopAtBounds
-    model: header.split("\n")
+    model: []
     clip: true
     spacing: -4 // avoid high padding values for text delegates
     Layout.fillWidth: true

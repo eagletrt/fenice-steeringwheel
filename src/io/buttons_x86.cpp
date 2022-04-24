@@ -5,23 +5,23 @@
 #include "global.h"
 
 QHash<int, int> button_ids{{Qt::Key_D, Buttons::Input::BUTTON_TOP_LEFT},
-                          {Qt::Key_A, Buttons::Input::BUTTON_BOTTOM_LEFT},
-                          {Qt::Key_F, Buttons::Input::BUTTON_TOP_RIGHT},
-                          {Qt::Key_S, Buttons::Input::BUTTON_BOTTOM_RIGHT},
-                          {Qt::Key_C, Buttons::Input::PADDLE_TOP_LEFT},
-                          {Qt::Key_Z, Buttons::Input::PADDLE_BOTTOM_LEFT},
-                          {Qt::Key_V, Buttons::Input::PADDLE_TOP_RIGHT},
-                          {Qt::Key_X, Buttons::Input::PADDLE_BOTTOM_RIGHT},
-                          {Qt::Key_1, 11},
-                          {Qt::Key_2, 12},
-                          {Qt::Key_3, 13},
-                          {Qt::Key_4, 14},
-                          {Qt::Key_5, 15},
-                          {Qt::Key_6, 16},
-                          {Qt::Key_7, 17},
-                          {Qt::Key_8, 18},
-                          {Qt::Key_9, 19},
-                          {Qt::Key_0, 20}};
+                           {Qt::Key_A, Buttons::Input::BUTTON_BOTTOM_LEFT},
+                           {Qt::Key_F, Buttons::Input::BUTTON_TOP_RIGHT},
+                           {Qt::Key_S, Buttons::Input::BUTTON_BOTTOM_RIGHT},
+                           {Qt::Key_C, Buttons::Input::PADDLE_TOP_LEFT},
+                           {Qt::Key_Z, Buttons::Input::PADDLE_BOTTOM_LEFT},
+                           {Qt::Key_V, Buttons::Input::PADDLE_TOP_RIGHT},
+                           {Qt::Key_X, Buttons::Input::PADDLE_BOTTOM_RIGHT},
+                           {Qt::Key_1, 11},
+                           {Qt::Key_2, 12},
+                           {Qt::Key_3, 13},
+                           {Qt::Key_4, 14},
+                           {Qt::Key_5, 15},
+                           {Qt::Key_6, 16},
+                           {Qt::Key_7, 17},
+                           {Qt::Key_8, 18},
+                           {Qt::Key_9, 19},
+                           {Qt::Key_0, 20}};
 
 Buttons::Buttons(QObject *parent) : QObject(parent) {
   m_timers = QVector<QElapsedTimer>();
@@ -62,6 +62,7 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
 
   bool ctrl = (keyEvent->modifiers() & Qt::ControlModifier) != 0;
   bool alt = (keyEvent->modifiers() & Qt::AltModifier) != 0;
+
   if (!alt && ctrl) {
     buttonId += 10;
   } else if (alt && !ctrl) {
@@ -83,11 +84,11 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
       }
     } else if (event->type() == QEvent::KeyPress) {
       if (buttonId > 10 && buttonId <= 20) {
-        emit manettino_left_changed(buttonId - 11);
+        emit manettino_right_changed(buttonId - 11);
       } else if (buttonId > 20 && buttonId <= 30) {
-        emit manettino_center_changed(buttonId - 21);
+        emit manettino_left_changed(buttonId - 21);
       } else if (buttonId > 30) {
-        emit manettino_right_changed(buttonId - 31);
+        emit manettino_center_changed(buttonId - 31);
       }
     }
   }

@@ -84,7 +84,7 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
 
   // Setup signal / slot mechanism
   m_poll_timer = new QTimer(this);
-  connect(m_poll_timer, SIGNAL(timeout()), this, SLOT(readGpioState()));
+  connect(m_poll_timer, SIGNAL(timeout()), this, SLOT(read_gpio_state()));
   m_poll_timer->start(50);
 }
 

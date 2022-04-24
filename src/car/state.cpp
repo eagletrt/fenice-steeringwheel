@@ -110,7 +110,7 @@ void State::handle_topic_steer(quint32 id, uint8_t *raw) {
     m_das->set_car_status((DAS::CarStatus)data.car_status);
     m_das->set_inverter_l((DAS::InverterStatus)data.inverter_l);
     m_das->set_inverter_r((DAS::InverterStatus)data.inverter_r);
-    
+
     emit das_changed();
     break;
   }

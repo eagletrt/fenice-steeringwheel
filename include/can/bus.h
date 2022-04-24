@@ -1,9 +1,9 @@
 #ifndef CANBUS_H
 #define CANBUS_H
 
+#include <QHash>
 #include <QObject>
 #include <QThread>
-#include <QHash>
 
 #include "can/device.h"
 

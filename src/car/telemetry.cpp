@@ -4,8 +4,7 @@
 #include "global.h"
 #include "io/buttons.h"
 
-Telemetry::Telemetry(State *parent) : QObject(parent), m_state(parent) {
-}
+Telemetry::Telemetry(State *parent) : QObject(parent), m_state(parent) {}
 
 Telemetry::~Telemetry() { sDebug("telemetry") << "cleanup"; }
 

@@ -12,19 +12,6 @@ Rectangle {
 
     color: Style.background
 
-    Timer {
-        property real start: Date.now()
-
-        interval: 10
-        running: true
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: function update() {
-            let d = new Date(Date.now() - start);
-            time.text = String(d.getUTCMinutes()).padStart(2, "0") + ":" + String(d.getUTCSeconds()).padStart(2, "0") + "." + String((Math.min(99, d.getUTCMilliseconds() / 10)).toFixed()).padStart(2, "0");
-        }
-    }
-
     RowLayout {
         anchors.fill: parent
 
@@ -61,20 +48,6 @@ Rectangle {
                 anchors.fill: parent
 
                 Item {
-                    Layout.minimumHeight: childrenRect.height
-                    Layout.fillWidth: true
-
-                    Text {
-                        id: time
-
-                        anchors.centerIn: parent
-                        color: Style.text
-                        font: Style.mono.big
-                    }
-
-                }
-
-                Item {
                     Layout.minimumHeight: 100
                     Layout.fillWidth: true
 
@@ -85,10 +58,10 @@ Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
 
-                            ValueLabel {
+                            ValueWithUnitAndLabel {
+                                value: Car.inverters.left_temperature
                                 unit: "°C"
                                 label: "INVERTER L"
-                                value: Car.inverters.left_temperature
                             }
 
                         }
@@ -97,10 +70,10 @@ Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
 
-                            ValueLabel {
+                            ValueWithUnitAndLabel {
+                                value: Car.steering.map
                                 unit: "%"
                                 label: "MAX POWER"
-                                value: Car.steering.map
                             }
 
                         }
@@ -109,10 +82,10 @@ Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
 
-                            ValueLabel {
+                            ValueWithUnitAndLabel {
+                                value: Car.inverters.right_temperature
                                 unit: "°C"
                                 label: "INVERTER R"
-                                value: Car.inverters.right_temperature
                             }
 
                         }
@@ -125,9 +98,11 @@ Rectangle {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                    BigValue {
+                    ValueWithUnit {
                         unit: "km\nh"
                         value: Car.das.speed
+                        valueFont: Style.mono.verybig
+                        unitFont: Style.mono.h3
                     }
 
                 }

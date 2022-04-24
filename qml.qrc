@@ -7,19 +7,17 @@
         <file>qml/Main.qml</file>
         <file>qml/Popper.qml</file>
         <file>qml/TabStack.qml</file>
-        <file>qml/tabs/components/BigValue.qml</file>
         <file>qml/tabs/components/CalibrationBar.qml</file>
         <file>qml/tabs/components/MapBar.qml</file>
-        <file>qml/tabs/components/StatusCard.qml</file>
+        <file>qml/tabs/components/StatusBox.qml</file>
         <file>qml/tabs/components/ValueColumn.qml</file>
-        <file>qml/tabs/components/ValueLabel.qml</file>
+        <file>qml/tabs/components/ValueWithUnit.qml</file>
+        <file>qml/tabs/components/ValueWithUnitAndLabel.qml</file>
         <file>qml/tabs/TabCalibration.qml</file>
-        <file>qml/tabs/TabGame.qml</file>
+        <file>qml/tabs/TabRacing.qml</file>
         <file>qml/tabs/TabGps.qml</file>
         <file>qml/tabs/TabOverview.qml</file>
-        <file>qml/tabs/TabRacing.qml</file>
         <file>qml/tabs/TabStatus.qml</file>
-        <file>qml/tabs/TabTelemetry.qml</file>
         <file>qml/tabs/TabTerminal.qml</file>
         <file>qml/const/Style.qml</file>
         <file>qml/const/Input.qml</file>

@@ -30,7 +30,7 @@ Control {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    StatusCard {
+                    StatusBox {
                         name: modelData
                         state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }
@@ -58,7 +58,7 @@ Control {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    StatusCard {
+                    StatusBox {
                         name: modelData
                         state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }

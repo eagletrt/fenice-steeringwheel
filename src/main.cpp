@@ -92,7 +92,8 @@ int main(int argc, char *argv[]) {
   QObject::connect(state, &State::send_message, canBus, &CanBus::send_message);
 
   QObject::connect(buttons, &Buttons::manettino_left_changed, state->steering(), &Steering::on_manettino_left_changed);
-  QObject::connect(buttons, &Buttons::manettino_right_changed, state->steering(), &Steering::on_manettino_right_changed);
+  QObject::connect(buttons, &Buttons::manettino_right_changed, state->steering(),
+                   &Steering::on_manettino_right_changed);
   QObject::connect(buttons, &Buttons::button_pressed, state->steering(), &Steering::on_button_pressed);
   QObject::connect(buttons, &Buttons::button_released, state->steering(), &Steering::on_button_released);
 
@@ -127,13 +128,15 @@ int main(int argc, char *argv[]) {
   quitGracefully({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
 #endif
 
+  sDebug("main") << "fenice steering wheel v0.0.0";
+
   // print the IP of the steering-wheels
 
   QTimer::singleShot(5000, &engine, [&]() {
     QList<QHostAddress> addresses = QNetworkInterface::allAddresses();
     for (const QHostAddress &address : qAsConst(addresses)) {
       if (address.protocol() == QAbstractSocket::IPv4Protocol && !address.isLoopback())
-        sDebug("main") << "IP address" << address.toString();
+        sDebug("main") << "ip address" << address.toString();
     }
   });
 

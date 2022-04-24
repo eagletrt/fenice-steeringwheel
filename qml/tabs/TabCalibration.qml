@@ -46,33 +46,36 @@ Control {
         rowSpacing: 10
 
         CalibrationBar {
+            // value: Car.pedals.apps
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.columnSpan: 2
             name: "APPS"
             color: Style.green
             zero: 0
-            // value: Car.pedals.apps
         }
 
         CalibrationBar {
+            // value: Car.pedals.steer
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.columnSpan: 2
             name: "STEER"
             color: Style.red
             zero: 0.5
-            // value: Car.pedals.steer
         }
 
         CalibrationBar {
+            // value: Car.pedals.bse
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.columnSpan: 2
             name: "BSE"
             color: Style.yellow
             zero: 0
-            // value: Car.pedals.bse
         }
 
         Rectangle {

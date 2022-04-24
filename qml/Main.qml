@@ -42,7 +42,7 @@ Window {
         Connections {
             function onRace_changed(race) {
                 if (stack.currentTab.name !== "telemetry")
-                    popper.show(["default", "Cross", "Skidpad", "Endur", "Accel"][race]);
+                    popper.show(["None", "Cross", "Skidpad", "Endur", "Accel"][race], Style.foreground);
 
             }
 
@@ -51,11 +51,11 @@ Window {
 
         Connections {
             function onMap_changed(map) {
-                popper.show(String(map) + "%");
+                popper.show(String(map) + "%", Style.foreground);
             }
 
             function onTraction_control_changed(tractionControl) {
-                popper.show(["OFF", "S", "T", "T&S"][tractionControl]);
+                popper.show(["Off", "Slip", "Torque", "Torque\n&\nSlip"][tractionControl], Style.foreground);
             }
 
             target: Car.steering
@@ -70,8 +70,8 @@ Window {
         }
 
         Connections {
-            function onShow_popup(message) {
-                popper.show(message);
+            function onShow_popup(message, color) {
+                popper.show(message, color);
             }
 
             target: Car

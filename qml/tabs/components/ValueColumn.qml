@@ -20,28 +20,13 @@ Rectangle {
         anchors.fill: parent
 
         Item {
-            Layout.minimumHeight: childrenRect.height
+            Layout.minimumHeight: 80
             Layout.fillWidth: true
 
-            Column {
-                anchors.centerIn: parent
-                anchors.left: parent.left
-                anchors.right: parent.right
-
-                Text {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font: Style.mono.h3
-                    color: Style.text
-                    text: root.value.toFixed().padStart(root.maxDigits, " ")
-                }
-
-                Text {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: root.label
-                    color: Style.text
-                    font: Style.sans.small
-                }
-
+            ValueWithUnitAndLabel {
+                value: root.value.toFixed().padStart(root.maxDigits, " ")
+                label: root.label
+                labelFont: Style.sans.xsmall
             }
 
         }

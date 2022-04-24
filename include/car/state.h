@@ -1,6 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
+#include <QColor>
 #include <QObject>
 
 #include "can/device.h"
@@ -36,7 +37,7 @@ public:
 
 signals:
   void send_message(const CanDevice::Network network, quint32 id, const QByteArray &message);
-  void show_popup(const QString &message);
+  void show_popup(const QString &message, QColor color = QColorConstants::White);
 
 public slots:
   void handle_message(const CanDevice *device, quint32 id, const QByteArray &message);

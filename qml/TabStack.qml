@@ -48,10 +48,6 @@ Item {
     }
 
     StackLayout {
-        //        TabGame {
-        //            property string name: "game"
-        //        }
-
         id: tabs
 
         property bool blocked: false
@@ -60,10 +56,6 @@ Item {
 
         TabRacing {
             property string name: "racing"
-        }
-
-        TabTelemetry {
-            property string name: "telemetry"
         }
 
         TabCalibration {
