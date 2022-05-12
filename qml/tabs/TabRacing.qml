@@ -184,27 +184,39 @@ Rectangle {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                    // change dimension
-                    // change colors
-                    // test that the speedometer functions
-                    // possibly improving the lights of the speedometer
-                    Speedometer
+                    RowLayout
                     {
-                        objectName: "speedometer"
-                        anchors.horizontalCenter:  parent.horizontalCenter
-                        width: speedometerSize
-                        height: speedometerSize
-//                        startAngle: startAngle
-//                        alignAngle: alignAngle
-//                        lowestRange: lowestRange
-//                        highestRange: highestRange
-//                        speed: speed
-//                        arcWidth: arcWidth
-//                        outerColor: outerColor
-//                        innerColor: innerColor
-//                        textColor: textColor
-//                        backgroundColor: backgroundColor
+                        // change dimension
+                        // change colors
+                        // test that the speedometer functions
+                        // possibly improving the lights of the speedometer
+                        Speedometer
+                        {
+                            objectName: "speedometer"
+//                            anchors.horizontalCenter:  parent.horizontalCenter
+                            width: speedometerSize
+                            height: speedometerSize
+    //                        startAngle: startAngle
+    //                        alignAngle: alignAngle
+    //                        lowestRange: lowestRange
+    //                        highestRange: highestRange
+                             speed: Car.das.speed
+    //                        arcWidth: arcWidth
+    //                        outerColor: outerColor
+    //                        innerColor: innerColor
+    //                        textColor: textColor
+    //                        backgroundColor: backgroundColor
+                        }
+                        SpinBox {
+                            id: spinBox
+                            from: 0
+                            to: 40000
+                            stepSize: 100
+                            onValueModified: Car.das.speed = value
+//                            onValueModified: myGauge.angle = value
+                        }
                     }
+
 
 
 //                    ValueWithUnit {

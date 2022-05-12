@@ -61,17 +61,18 @@ signals:
   void backgroundColorChanged();
 
 private:
-  qreal m_SpeedometerSize;
-  qreal m_StartAngle;
-  qreal m_AlignAngle;
-  qreal m_LowestRange;
-  qreal m_HighestRange;
-  qreal m_Speed;
-  int m_ArcWidth;
-  QColor m_OuterColor;
-  QColor m_InnerColor;
-  QColor m_TextColor;
-  QColor m_BackgroundColor;
+    qreal   m_SpeedometerSize = 300;
+    qreal   m_StartAngle = 50;
+    qreal   m_AlignAngle = 360 - (m_StartAngle * 3);
+    qreal   m_LowestRange = 0;
+    qreal   m_HighestRange = 4000;
+    qreal   m_Speed = 2340;
+    int     m_ArcWidth = 10;
+    QColor  m_OuterColor = QColor(12, 16, 247);
+    QColor  m_InnerColor = QColor(51, 88, 255, 80);
+    QColor  m_TextColor = QColor(255, 255, 255);
+    QColor  m_BackgroundColor = Qt::transparent;
+
 };
 
 #endif // SPEEDOMETER_H
