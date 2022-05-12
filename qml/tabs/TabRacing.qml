@@ -186,26 +186,12 @@ Rectangle {
 
                     RowLayout
                     {
-                        // change dimension
-                        // change colors
-                        // test that the speedometer functions
-                        // possibly improving the lights of the speedometer
                         Speedometer
                         {
                             objectName: "speedometer"
-//                            anchors.horizontalCenter:  parent.horizontalCenter
                             width: speedometerSize
                             height: speedometerSize
-    //                        startAngle: startAngle
-    //                        alignAngle: alignAngle
-    //                        lowestRange: lowestRange
-    //                        highestRange: highestRange
                              speed: Car.das.speed
-    //                        arcWidth: arcWidth
-    //                        outerColor: outerColor
-    //                        innerColor: innerColor
-    //                        textColor: textColor
-    //                        backgroundColor: backgroundColor
                         }
                         SpinBox {
                             id: spinBox
@@ -213,18 +199,8 @@ Rectangle {
                             to: 40000
                             stepSize: 100
                             onValueModified: Car.das.speed = value
-//                            onValueModified: myGauge.angle = value
                         }
                     }
-
-
-
-//                    ValueWithUnit {
-//                        unit: "km\nh"
-//                        value: Car.das.speed
-//                        valueFont: Style.mono.verybig
-//                        unitFont: Style.mono.h3
-//                    }
 
                 }
 
