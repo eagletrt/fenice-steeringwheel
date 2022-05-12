@@ -16,6 +16,7 @@
 #include "car/das.h"
 #include "car/hv.h"
 #include "car/lv.h"
+#include "car/speedometer.h"
 #include "car/state.h"
 
 #ifdef EASTER_EGG
@@ -82,6 +83,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<DAS>("Car", 1, 0, "DAS", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
+  qmlRegisterType<Speedometer>("Speedometer", 1, 0, "Speedometer");
 
   Leds *leds = new Leds(&engine);
   Buttons *buttons = new Buttons(&engine);

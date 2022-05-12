@@ -37,6 +37,7 @@ HEADERS += \
         include/car/telemetry.h \
         include/io/buttons.h \
         include/io/leds.h \
+        include/car/speedometer.h \
         thirdparty/can-cicd/naked_generator/primary/c/primary.h \
         thirdparty/can-cicd/naked_generator/secondary/c/secondary.h \
         thirdparty/can-cicd/includes_generator/primary/can_config.h \
@@ -45,17 +46,18 @@ HEADERS += \
         thirdparty/can-cicd/includes_generator/secondary/ids.h
 
 SOURCES += \
-        src/car/das.cpp \
         src/main.cpp \
         src/global.cpp \
         src/can/device.cpp \
         src/can/bus.cpp \
+        src/car/das.cpp \
         src/car/hv.cpp \
         src/car/lv.cpp \
         src/car/inverters.cpp \
         src/car/state.cpp \
         src/car/steering.cpp \
         src/car/telemetry.cpp \
+        src/car/speedometer.cpp \
         thirdparty/can-cicd/naked_generator/primary/c/primary.c \
         thirdparty/can-cicd/naked_generator/secondary/c/secondary.c
 
@@ -71,6 +73,3 @@ SOURCES += \
         src/io/leds_x86.cpp 
 DEFINES += S_OS_X86
 }
-
-DISTFILES += \
-    qml/tabs/components/Bar.qml
