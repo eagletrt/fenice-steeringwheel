@@ -178,13 +178,43 @@ Rectangle {
                         }
                     }
 
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        value: Car.inverters.left_temperature
-                        unit: "°C"
-                        label: "BMS HV"
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    // change dimension
+                    // change colors
+                    // test that the speedometer functions
+                    // possibly improving the lights of the speedometer
+                    Speedometer
+                    {
+                        objectName: "speedometer"
+                        anchors.horizontalCenter:  parent.horizontalCenter
+                        width: speedometerSize
+                        height: speedometerSize
+//                        startAngle: startAngle
+//                        alignAngle: alignAngle
+//                        lowestRange: lowestRange
+//                        highestRange: highestRange
+//                        speed: speed
+//                        arcWidth: arcWidth
+//                        outerColor: outerColor
+//                        innerColor: innerColor
+//                        textColor: textColor
+//                        backgroundColor: backgroundColor
                     }
+
+
+//                    ValueWithUnit {
+//                        unit: "km\nh"
+//                        value: Car.das.speed
+//                        valueFont: Style.mono.verybig
+//                        unitFont: Style.mono.h3
+//                    }
+
+                }
 
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true

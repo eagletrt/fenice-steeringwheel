@@ -2,12 +2,20 @@
 #include <QPainter>
 
 Speedometer::Speedometer(QQuickItem *parent)
-    : QQuickPaintedItem(parent), m_SpeedometerSize(500), // touch screen is 800 x 480
-      m_StartAngle(50), m_AlignAngle(260),               // it should be 360 - m_StartAngle*3 for good looking
-      m_LowestRange(0), m_HighestRange(4000), m_Speed(2430), m_ArcWidth(10), m_OuterColor(QColor(12, 16, 247)),
-      m_InnerColor(QColor(51, 88, 255, 80)), m_TextColor(QColor(255, 255, 255)), m_BackgroundColor(Qt::transparent) {}
-
-void Speedometer::paint(QPainter *painter) {
+    :QQuickPaintedItem(parent)
+{
+    m_SpeedometerSize = (300); // touch screen is 800 x 480
+    m_StartAngle=(100);
+    m_AlignAngle=(260); // it should be 360 - m_StartAngle*3 for good looking
+    m_LowestRange=(0);
+    m_HighestRange=(4000);
+    m_Speed=(2430);
+    m_ArcWidth=(10);
+    m_OuterColor=(QColor(12,16,247));
+    m_InnerColor=(QColor(51,88,255,80));
+    m_TextColor=(QColor(255,255,255));
+    m_BackgroundColor = (Qt::transparent);
+}
 
   QRectF rect = this->boundingRect();
   painter->setRenderHint(QPainter::Antialiasing);
