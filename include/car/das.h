@@ -32,6 +32,7 @@ public:
   S_PROPERTY(qint32, right_speed_rads, 0)
   S_PROPERTY(float, speed, 0)
   S_PROPERTY(quint16, encoder_r, 0)
+  S_PROPERTY(quint16, encoder_l, 0)
   S_PROPERTY(quint8, version_component, 0)
   S_PROPERTY(quint8, version_cancicd, 0)
 public:
@@ -42,7 +43,7 @@ protected slots:
   void send_toggle_car_status();
 
 public slots:
-  void on_button_clicked(int button);
+  void button_clicked(int button);
 
 private:
   State *m_state;

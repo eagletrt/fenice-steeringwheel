@@ -35,10 +35,10 @@ protected slots:
   void poll();
 
 public slots:
-  void on_button_pressed(int button);
-  void on_button_released(int button);
-  void on_manettino_left_changed(int value);
-  void on_manettino_right_changed(int value);
+  void button_pressed(int button);
+  void button_released(int button);
+  void manettino_left_changed(int value);
+  void manettino_right_changed(int value);
 
 private:
   QTimer *m_poll_timer;

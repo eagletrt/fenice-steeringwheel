@@ -26,7 +26,7 @@ void DAS::send_toggle_car_status() {
   delete[] data;
 }
 
-void DAS::on_button_clicked(int button) {
+void DAS::button_clicked(int button) {
   if (button == Buttons::Input::BUTTON_START_STOP) {
     send_toggle_car_status();
   }

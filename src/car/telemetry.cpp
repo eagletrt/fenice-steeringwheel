@@ -18,15 +18,21 @@ void Telemetry::send_status(TlmStatus status, quint8 pilot, Race race, quint8 ci
   delete[] data;
 }
 
-void Telemetry::on_button_clicked(int button) {
+void Telemetry::send_marker() {
+  QByteArray message; // empty _._
+  emit m_state->send_message(CanDevice::Network::PRIMARY, ID_MARKER, message);
+}
+
+void Telemetry::button_clicked(int button) {
   if (button == Buttons::Input::BUTTON_TOP_RIGHT) {
     if (m_status == TlmStatus::TLM_STATUS_ON) {
       emit m_state->show_popup("MARKER");
+      send_marker();
     }
   }
 }
 
-void Telemetry::on_button_long_clicked(int button) {
+void Telemetry::button_long_clicked(int button) {
   if (button == Buttons::Input::BUTTON_TOP_RIGHT) {
     if (m_status == TlmStatus::TLM_STATUS_OFF) {
       set_status(TlmStatus::TLM_STATUS_ON);

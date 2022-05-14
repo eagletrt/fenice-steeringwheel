@@ -26,33 +26,24 @@ State::~State() {
   delete m_telemetry;
 }
 
-#define STATE_TOPIC_MASK 0b00000011111
-
-void State::handle_message(const CanDevice *, quint32 id, const QByteArray &message) {
+void State::handle_message(const CanDevice *device, quint32 id, const QByteArray &message) {
   int length = message.length();
   uint8_t *raw = new uint8_t[length];
   memcpy(raw, message.data(), length * sizeof(uint8_t));
 
-  quint32 topic = id & STATE_TOPIC_MASK;
-  switch (topic) {
-  case TOPIC_BROADCAST_FILTER:
-    handle_topic_broadcast(id, raw);
+  switch (device->network) {
+  case CanDevice::Network::PRIMARY:
+    handle_primary(id, raw);
     break;
-  case TOPIC_STEER_FILTER:
-    handle_topic_steer(id, raw);
-    break;
-  case TOPIC_DASnSTEER_FILTER:
-    handle_topic_ecu_steer(id, raw);
-    break;
-  case TOPIC_DASnSTEERnCART_FILTER:
-    handle_topic_ecu_steer_cart(id, raw);
+  case CanDevice::Network::SECONDARY:
+    handle_secondary(id, raw);
     break;
   }
 
   delete[] raw;
 }
 
-void State::handle_topic_broadcast(quint32 id, uint8_t *raw) {
+void State::handle_primary(quint32 id, uint8_t *raw) {
   switch (id) {
   case ID_TIMESTAMP: {
     primary_TIMESTAMP data;
@@ -89,11 +80,6 @@ void State::handle_topic_broadcast(quint32 id, uint8_t *raw) {
     m_telemetry->set_version_cancicd(data.cancicd_version);
     break;
   }
-  }
-}
-
-void State::handle_topic_steer(quint32 id, uint8_t *raw) {
-  switch (id) {
   case ID_TLM_STATUS: {
     primary_TLM_STATUS data;
     deserialize_primary_TLM_STATUS(raw, &data);
@@ -101,7 +87,7 @@ void State::handle_topic_steer(quint32 id, uint8_t *raw) {
     m_telemetry->set_race((Telemetry::Race)data.race_type);
     m_telemetry->set_pilot(data.driver);
     m_telemetry->set_circuit(data.circuit);
-    emit das_changed();
+    emit telemetry_changed();
     break;
   }
   case ID_CAR_STATUS: {
@@ -110,15 +96,9 @@ void State::handle_topic_steer(quint32 id, uint8_t *raw) {
     m_das->set_car_status((DAS::CarStatus)data.car_status);
     m_das->set_inverter_l((DAS::InverterStatus)data.inverter_l);
     m_das->set_inverter_r((DAS::InverterStatus)data.inverter_r);
-
     emit das_changed();
     break;
   }
-  }
-}
-
-void State::handle_topic_ecu_steer(quint32 id, uint8_t *raw) {
-  switch (id) {
   case ID_LV_CURRENT: {
     primary_LV_CURRENT data;
     deserialize_primary_LV_CURRENT(raw, &data);
@@ -154,11 +134,6 @@ void State::handle_topic_ecu_steer(quint32 id, uint8_t *raw) {
     emit lv_changed();
     break;
   }
-  }
-}
-
-void State::handle_topic_ecu_steer_cart(quint32 id, uint8_t *raw) {
-  switch (id) {
   case ID_HV_CURRENT: {
     primary_HV_CURRENT data;
     deserialize_primary_HV_CURRENT(raw, &data);
@@ -201,6 +176,26 @@ void State::handle_topic_ecu_steer_cart(quint32 id, uint8_t *raw) {
     deserialize_primary_TS_STATUS(raw, &data);
     m_hv->set_ts_status((HV::TsStatus)data.ts_status);
     emit hv_changed();
+    break;
+  }
+  }
+}
+
+void State::handle_secondary(quint32 id, uint8_t *raw) {
+  switch (id) {
+  case ID_GPS_COORDS: {
+    secondary_GPS_COORDS data;
+    deserialize_secondary_GPS_COORDS(raw, &data);
+    m_telemetry->set_latitude(data.latitude);
+    m_telemetry->set_longitude(data.longitude);
+    emit telemetry_changed();
+    break;
+  }
+  case ID_GPS_SPEED: {
+    secondary_GPS_SPEED data;
+    deserialize_secondary_GPS_SPEED(raw, &data);
+    m_telemetry->set_gps_speed(data.speed);
+    emit telemetry_changed();
     break;
   }
   }

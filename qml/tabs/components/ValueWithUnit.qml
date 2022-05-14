@@ -10,35 +10,26 @@ Item {
     property font valueFont: Style.mono.h1
     property font unitFont: Style.sans.p
 
-    anchors.fill: parent
+    width: main.width
+    height: main.height
 
-    RowLayout {
-        anchors.fill: parent
-        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+    Text {
+        id: main
+        text: root.value
+        font: root.valueFont
+        color: Style.text
 
-        Item {
-            Layout.fillWidth: true
-        }
-
-        Text {
-            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-            text: root.value
-            font: root.valueFont
-            color: Style.text
-            horizontalAlignment: Text.right
-        }
-
-        Text {
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            text: root.unit
-            font: root.unitFont
-            color: Style.text
-        }
-
-        Item {
-            Layout.fillWidth: true
-        }
-
+        horizontalAlignment: Text.right
     }
 
+    Text {
+        id: other
+        anchors.left: main.right
+        anchors.leftMargin: 4
+        anchors.verticalCenter: main.verticalCenter
+
+        text: root.unit
+        font: root.unitFont
+        color: Style.text
+    }
 }

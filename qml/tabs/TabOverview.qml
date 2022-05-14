@@ -13,5 +13,4 @@ Item {
 
         source: "qrc:/qml/img/fenice.png"
     }
-
 }

@@ -72,4 +72,5 @@ SOURCES += \
 DEFINES += S_OS_X86
 }
 
-DISTFILES +=
+DISTFILES += \
+    qml/tabs/components/Bar.qml

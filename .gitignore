@@ -9,3 +9,6 @@ build*
 
 # python local version
 .python-version
+
+# temp
+*~*

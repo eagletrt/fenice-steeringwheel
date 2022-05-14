@@ -43,10 +43,8 @@ public slots:
   void handle_message(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:
-  void handle_topic_broadcast(quint32 id, uint8_t *raw);
-  void handle_topic_steer(quint32 id, uint8_t *raw);
-  void handle_topic_ecu_steer(quint32 id, uint8_t *raw);
-  void handle_topic_ecu_steer_cart(quint32 id, uint8_t *raw);
+  void handle_primary(quint32 id, uint8_t *raw);
+  void handle_secondary(quint32 id, uint8_t *raw);
 
 signals:
   void timestamp_changed();

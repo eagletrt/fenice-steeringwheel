@@ -91,16 +91,15 @@ int main(int argc, char *argv[]) {
   QObject::connect(canBus, &CanBus::message_received, state, &State::handle_message);
   QObject::connect(state, &State::send_message, canBus, &CanBus::send_message);
 
-  QObject::connect(buttons, &Buttons::manettino_left_changed, state->steering(), &Steering::on_manettino_left_changed);
-  QObject::connect(buttons, &Buttons::manettino_right_changed, state->steering(),
-                   &Steering::on_manettino_right_changed);
-  QObject::connect(buttons, &Buttons::button_pressed, state->steering(), &Steering::on_button_pressed);
-  QObject::connect(buttons, &Buttons::button_released, state->steering(), &Steering::on_button_released);
+  QObject::connect(buttons, &Buttons::manettino_left_changed, state->steering(), &Steering::manettino_left_changed);
+  QObject::connect(buttons, &Buttons::manettino_right_changed, state->steering(), &Steering::manettino_right_changed);
+  QObject::connect(buttons, &Buttons::button_pressed, state->steering(), &Steering::button_pressed);
+  QObject::connect(buttons, &Buttons::button_released, state->steering(), &Steering::button_released);
 
-  QObject::connect(buttons, &Buttons::button_clicked, state->das(), &DAS::on_button_clicked);
+  QObject::connect(buttons, &Buttons::button_clicked, state->das(), &DAS::button_clicked);
 
-  QObject::connect(buttons, &Buttons::button_clicked, state->telemetry(), &Telemetry::on_button_clicked);
-  QObject::connect(buttons, &Buttons::button_long_clicked, state->telemetry(), &Telemetry::on_button_long_clicked);
+  QObject::connect(buttons, &Buttons::button_clicked, state->telemetry(), &Telemetry::button_clicked);
+  QObject::connect(buttons, &Buttons::button_long_clicked, state->telemetry(), &Telemetry::button_long_clicked);
 
   QObject::connect(state->steering(), &Steering::ptt_changed, leds,
                    [&](bool ptt) { leds->set_left_brightness(7, ptt ? 0xFF : 0x0); });

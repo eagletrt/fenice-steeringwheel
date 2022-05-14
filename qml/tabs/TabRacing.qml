@@ -8,143 +8,265 @@ import "components"
 Rectangle {
     id: racing
 
-    property int columnWidth: 100
+    property int columnWidth: 80
 
     color: Style.background
 
     RowLayout {
         anchors.fill: parent
+        spacing: 5
 
-        ValueColumn {
+        RowLayout {
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.minimumWidth: racing.columnWidth
-            label: "[V] Battery"
-            value: Car.hv.pack_voltage
-            max: 460
-            maxDigits: 3
-            barCount: 8
+            spacing: 0
+            ValueColumn {
+                Layout.fillHeight: true
+                Layout.minimumWidth: racing.columnWidth
+                label: "[V] BMS"
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
 
-            columnGradient: Gradient {
-                GradientStop {
-                    position: 1
-                    color: Style.red
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
                 }
-
-                GradientStop {
-                    position: 0
-                    color: Style.orange
-                }
-
             }
 
+            Bar {
+                Layout.fillHeight: true
+                Layout.topMargin: 85
+                Layout.minimumWidth: 15
+
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
+
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
+                }
+            }
         }
 
-        Rectangle {
+        ColumnLayout {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            color: Style.background
 
-            ColumnLayout {
-                anchors.fill: parent
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
 
-                Item {
-                    Layout.minimumHeight: 100
-                    Layout.fillWidth: true
-
-                    RowLayout {
-                        anchors.fill: parent
-
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-
-                            ValueWithUnitAndLabel {
-                                value: Car.inverters.left_temperature
-                                unit: "°C"
-                                label: "INVERTER L"
-                            }
-
-                        }
-
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-
-                            ValueWithUnitAndLabel {
-                                value: Car.steering.map
-                                unit: "%"
-                                label: "MAX POWER"
-                            }
-
-                        }
-
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-
-                            ValueWithUnitAndLabel {
-                                value: Car.inverters.right_temperature
-                                unit: "°C"
-                                label: "INVERTER R"
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
+                GridLayout {
+                    anchors.fill: parent
+                    columns: 4
+                    rows: 3
 
                     ValueWithUnit {
-                        unit: "km\nh"
-                        value: Car.das.speed
-                        valueFont: Style.mono.verybig
-                        unitFont: Style.mono.h3
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.columnSpan: 2
+
+                        value: 100
+                        unit: "km/h"
                     }
 
-                }
-
-                Item {
-                    Layout.minimumHeight: 80
-                    Layout.fillWidth: true
-
-                    MapBar {
-                        map: Car.steering.map
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.left_temperature
+                        unit: "°C"
+                        label: "INVERTER L"
                     }
 
-                }
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.right_temperature
+                        unit: "°C"
+                        label: "INVERTER R"
+                    }
 
+                    ValueWithUnit {
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.columnSpan: 2
+
+                        value: 100
+                        unit: "km/h"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.left_temperature
+                        unit: "°C"
+                        label: "MOTOR L"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.right_temperature
+                        unit: "°C"
+                        label: "MOTOR RIGHT"
+                    }
+
+                    Rectangle {
+                        Layout.preferredWidth: parent.width / 2
+                        Layout.fillHeight: true
+                        Layout.columnSpan: 2
+                        Layout.rowSpan: 2
+
+                        color: Style.transparent
+                        border.color: Style.surface
+                        border.width: 1
+
+                        GridLayout {
+                            anchors.fill: parent
+                            columns: 2
+                            rows: 2
+                            columnSpacing: 0
+                            rowSpacing: 0
+
+                            ValueWithUnitAndLabel {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                value: Car.inverters.left_temperature
+                                unit: "°C"
+                                label: "TYRE FL"
+                            }
+
+                            ValueWithUnitAndLabel {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                value: Car.inverters.right_temperature
+                                unit: "°C"
+                                label: "TYRE FR"
+                            }
+
+                            ValueWithUnitAndLabel {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                value: Car.inverters.left_temperature
+                                unit: "°C"
+                                label: "TYRE RL"
+                            }
+
+                            ValueWithUnitAndLabel {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                value: Car.inverters.right_temperature
+                                unit: "°C"
+                                label: "TYRE RR"
+                            }
+                        }
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.left_temperature
+                        unit: "°C"
+                        label: "BMS HV"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.right_temperature
+                        unit: "°C"
+                        label: "BMS LV"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.steering.map
+                        unit: "%"
+                        label: "OTHER"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.steering.map
+                        unit: "%"
+                        label: "OTHER"
+                    }
+                }
             }
 
+            MapBar {
+                Layout.minimumHeight: 80
+                Layout.fillWidth: true
+                map: Car.steering.map
+            }
         }
 
-        ValueColumn {
+        RowLayout {
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.minimumWidth: racing.columnWidth
-            label: "[kW] Battery"
-            value: Car.hv.power
-            maxDigits: 2
-            max: 85
-            barCount: 8
+            spacing: 0
 
-            columnGradient: Gradient {
-                GradientStop {
-                    position: 1
-                    color: Style.blue
+            Bar {
+                Layout.fillHeight: true
+                Layout.topMargin: 85
+                Layout.minimumWidth: 15
+
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
+
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
                 }
-
-                GradientStop {
-                    position: 0
-                    color: Style.aqua
-                }
-
             }
+            ValueColumn {
+                Layout.fillHeight: true
+                Layout.minimumWidth: racing.columnWidth
+                label: "[V] BMS"
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
 
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
+                }
+            }
         }
-
     }
-
 }

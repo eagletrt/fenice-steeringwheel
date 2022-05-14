@@ -2,7 +2,7 @@ import Const 1.0
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
-Item {
+Column {
     id: root
 
     property int value
@@ -12,38 +12,22 @@ Item {
     property font unitFont: Style.mono.p
     property font labelFont: Style.sans.small
 
-    anchors.fill: parent
+    spacing: 5
 
-    ColumnLayout {
-        anchors.fill: parent
-        spacing: 0
+    ValueWithUnit {
+        anchors.horizontalCenter: parent.horizontalCenter
 
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            ValueWithUnit {
-                value: root.value
-                unit: root.unit
-                valueFont: root.valueFont
-                unitFont: root.unitFont
-            }
-
-        }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.minimumHeight: childrenRect.height
-
-            Text {
-                anchors.centerIn: parent
-                text: root.label
-                color: Style.text
-                font: root.labelFont
-            }
-
-        }
-
+        value: root.value
+        unit: root.unit
+        valueFont: root.valueFont
+        unitFont: root.unitFont
     }
 
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        text: root.label
+        color: Style.text
+        font: root.labelFont
+    }
 }

@@ -23,18 +23,22 @@ public:
   S_PROPERTY(quint8, pilot, 0)
   S_PROPERTY(Race, race, Race::RACE_DEFAULT)
   S_PROPERTY(quint8, circuit, 0)
+  S_PROPERTY(float, latitude, 0)
+  S_PROPERTY(float, longitude, 0)
+  S_PROPERTY(quint16, gps_speed, 0)
   S_PROPERTY(quint8, version_component, 0)
   S_PROPERTY(quint8, version_cancicd, 0)
 public:
   Telemetry(State *parent = nullptr);
   ~Telemetry();
 
-protected slots:
-  void send_status(TlmStatus status, quint8 pilot, Race race, quint8 circuit);
+private:
+  void send_status(Telemetry::TlmStatus status, quint8 pilot, Telemetry::Race race, quint8 circuit);
+  void send_marker();
 
 public slots:
-  void on_button_clicked(int button);
-  void on_button_long_clicked(int button);
+  void button_clicked(int button);
+  void button_long_clicked(int button);
 
 private:
   State *m_state;

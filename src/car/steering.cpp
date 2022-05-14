@@ -35,24 +35,24 @@ void Steering::poll() {
 #endif
 }
 
-void Steering::on_button_pressed(int button) {
+void Steering::button_pressed(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
     set_ptt(true);
   }
 }
 
-void Steering::on_button_released(int button) {
+void Steering::button_released(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
     set_ptt(false);
   }
 }
 
-void Steering::on_manettino_left_changed(int value) {
+void Steering::manettino_left_changed(int value) {
   if (value <= TC_STATUS_SLIP_AND_TORQUE)
     set_traction_control((TCStatus)value);
 }
 
-void Steering::on_manettino_right_changed(int value) {
+void Steering::manettino_right_changed(int value) {
   float map = value * 20;
   if (map <= 100) {
     set_map(map);
