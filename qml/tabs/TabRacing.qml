@@ -182,13 +182,11 @@ Rectangle {
 
                 Item {
                     Layout.fillHeight: true
-//                    Layout.fillWidth: true
                     Layout.leftMargin: 140
+                    Layout.topMargin: 40
 
-//                        Layout.alignment: Qt.AlignHCenter
                         Speedometer
                         {
-                            //anchors.fill: parent
                             objectName: "speedometer"
                             width: speedometerSize
                             height: speedometerSize
