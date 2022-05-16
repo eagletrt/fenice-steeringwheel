@@ -64,6 +64,7 @@ private:
     qreal   m_SpeedometerSize = 300;
     qreal   m_StartAngle = 50;
     qreal   m_AlignAngle = 360 - (m_StartAngle * 3);
+//    qreal   m_AlignAngle = 210;
     qreal   m_LowestRange = 0;
     qreal   m_HighestRange = 4000;
     qreal   m_Speed = 2340;

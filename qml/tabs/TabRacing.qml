@@ -182,25 +182,18 @@ Rectangle {
 
                 Item {
                     Layout.fillHeight: true
-                    Layout.fillWidth: true
+//                    Layout.fillWidth: true
+                    Layout.leftMargin: 140
 
-                    RowLayout
-                    {
+//                        Layout.alignment: Qt.AlignHCenter
                         Speedometer
                         {
+                            //anchors.fill: parent
                             objectName: "speedometer"
                             width: speedometerSize
                             height: speedometerSize
-                             speed: Car.das.speed
+                            speed: Car.das.speed
                         }
-                        SpinBox {
-                            id: spinBox
-                            from: 0
-                            to: 40000
-                            stepSize: 100
-                            onValueModified: Car.das.speed = value
-                        }
-                    }
 
                 }
 

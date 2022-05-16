@@ -3,28 +3,63 @@
 
 Speedometer::Speedometer(QQuickItem *parent)
     :QQuickPaintedItem(parent)
-{
-//    const QColor OC =
-//    m_SpeedometerSize=SIZE; // touch screen is 800 x 480
-//    m_StartAngle= START_ANGLE;
-//    m_AlignAngle=360 - (START_ANGLE * 3); // it should be 360 - m_StartAngle*3 for good looking
-//    m_LowestRange=0;
-//    m_HighestRange=4000;
-//    m_Speed=2430;
-//    m_ArcWidth=10;
-//    m_OuterColor=QColor(12,16,247);
-//    m_InnerColor=QColor(51,88,255,80);
-//    m_TextColor=QColor(255,255,255);
-//    m_BackgroundColor=Qt::transparent;
-}
+{}
 
   QRectF rect = this->boundingRect();
   painter->setRenderHint(QPainter::Antialiasing);
   QPen pen = painter->pen();
   pen.setCapStyle(Qt::FlatCap);
 
-  double startAngle;
-  double spanAngle;
+    QRectF rect = this->boundingRect();
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPen pen = painter->pen();
+    pen.setCapStyle(Qt::FlatCap);
+
+    double startAngle;
+    double spanAngle;
+
+    startAngle = m_StartAngle + 145;
+    spanAngle = 0 - m_AlignAngle;
+
+    //all arc
+    painter->save();
+    pen.setWidth(m_ArcWidth);
+    pen.setColor(m_InnerColor);
+    painter->setPen(pen);
+    // painter->drawRect(rect);
+    painter->drawArc(rect.adjusted(m_ArcWidth, m_ArcWidth, -m_ArcWidth, -m_ArcWidth), startAngle * 16, spanAngle * 16);
+    painter->restore();
+
+    //inner pie
+    int pieSize = m_SpeedometerSize/5;
+    painter->save();
+    pen.setWidth(m_ArcWidth/2);
+    pen.setColor(m_OuterColor);
+    painter->setBrush(m_InnerColor);
+    painter->setPen(pen);
+    painter->drawPie(rect.adjusted(pieSize, pieSize, -pieSize, -pieSize), startAngle * 16, spanAngle * 16);
+    painter->restore();
+
+    //text which shows the value
+    painter->save();
+    // TODO select the right font from Style
+    QFont font("Halvetica",52,QFont::Bold);
+    painter->setFont(font);
+    pen.setColor(m_TextColor);
+    painter->setPen(pen);
+    painter->drawText(rect.adjusted(m_SpeedometerSize/30, m_SpeedometerSize/30, -m_SpeedometerSize/30, -m_SpeedometerSize/4), Qt::AlignCenter  ,QString::number((m_Speed/40),'f',1));
+    painter->restore();
+
+    //current active progress
+    painter->save();
+    pen.setWidth(m_ArcWidth);
+    pen.setColor(m_OuterColor);
+    qreal valueToAngle = ((m_Speed - m_LowestRange)/(m_HighestRange - m_LowestRange)) * spanAngle;
+    painter->setPen(pen);
+    painter->drawArc(rect.adjusted(m_ArcWidth, m_ArcWidth, -m_ArcWidth, -m_ArcWidth), startAngle * 16, valueToAngle * 16);
+    painter->restore();
+
+}
 
   startAngle = m_StartAngle - 40;
   spanAngle = 0 - m_AlignAngle;
