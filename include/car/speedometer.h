@@ -66,7 +66,7 @@ private:
     qreal   m_AlignAngle = 360 - (m_StartAngle * 3);
 //    qreal   m_AlignAngle = 210;
     qreal   m_LowestRange = 0;
-    qreal   m_HighestRange = 4000;
+    qreal   m_HighestRange = 120;
     qreal   m_Speed = 2340;
     int     m_ArcWidth = 10;
     QColor  m_OuterColor = QColor(12, 16, 247);
