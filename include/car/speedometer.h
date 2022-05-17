@@ -4,8 +4,13 @@
 #include <QObject>
 #include <QQuickPaintedItem>
 
-class Speedometer : public QQuickPaintedItem {
-  Q_OBJECT
+
+const qreal SPEEDOMETER_MAXIMUM_SPEED = 180;
+
+
+class Speedometer : public QQuickPaintedItem
+{
+    Q_OBJECT
 
   Q_PROPERTY(qreal speedometerSize READ getSpeedometerSize WRITE setSpeedometerSize NOTIFY speedometerSizeChanged)
   Q_PROPERTY(qreal startAngle READ getStartAngle WRITE setStartAngle NOTIFY startAngleChanged)
@@ -65,7 +70,7 @@ private:
     qreal   m_StartAngle = 50;
     qreal   m_AlignAngle = 360 - (m_StartAngle * 3);
     qreal   m_LowestRange = 0;
-    qreal   m_HighestRange = 180;
+    qreal   m_HighestRange = SPEEDOMETER_MAXIMUM_SPEED;
     qreal   m_Speed = 2340;
     int     m_ArcWidth = 10;
     QColor  m_OuterColor = QColor(12, 16, 247);
