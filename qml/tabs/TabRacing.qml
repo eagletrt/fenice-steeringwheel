@@ -182,11 +182,9 @@ Rectangle {
 
                 Item {
                     Layout.fillHeight: true
-                    Layout.leftMargin: 140
-                    Layout.topMargin: 40
+                    Layout.leftMargin: 60
 
-                        Speedometer
-                        {
+                        Speedometer {
                             objectName: "speedometer"
                             width: speedometerSize
                             height: speedometerSize

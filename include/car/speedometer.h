@@ -61,12 +61,11 @@ signals:
   void backgroundColorChanged();
 
 private:
-    qreal   m_SpeedometerSize = 300;
+    qreal   m_SpeedometerSize = 470;
     qreal   m_StartAngle = 50;
     qreal   m_AlignAngle = 360 - (m_StartAngle * 3);
-//    qreal   m_AlignAngle = 210;
     qreal   m_LowestRange = 0;
-    qreal   m_HighestRange = 120;
+    qreal   m_HighestRange = 180;
     qreal   m_Speed = 2340;
     int     m_ArcWidth = 10;
     QColor  m_OuterColor = QColor(12, 16, 247);

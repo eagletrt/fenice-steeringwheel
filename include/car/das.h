@@ -30,7 +30,7 @@ public:
   S_PROPERTY(InverterStatus, inverter_r, DAS::InverterStatus::INVERTER_STATUS_OFF)
   S_PROPERTY(qint32, left_speed_rads, 0)
   S_PROPERTY(qint32, right_speed_rads, 0)
-  S_PROPERTY(float, speed, 100.0f)
+  S_PROPERTY(float, speed, 0)
   S_PROPERTY(quint16, encoder_r, 0)
   S_PROPERTY(quint16, encoder_l, 0)
   S_PROPERTY(quint8, version_component, 0)

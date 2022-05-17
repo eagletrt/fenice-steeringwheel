@@ -43,11 +43,11 @@ Speedometer::Speedometer(QQuickItem *parent)
     //text which shows the value
     painter->save();
     // TODO select the right font from Style
-    QFont font("Halvetica",52,QFont::Bold);
+    QFont font("Halvetica",70,QFont::Bold);
     painter->setFont(font);
     pen.setColor(m_TextColor);
     painter->setPen(pen);
-    painter->drawText(rect.adjusted(m_SpeedometerSize/30, m_SpeedometerSize/30, -m_SpeedometerSize/30, -m_SpeedometerSize/4), Qt::AlignCenter  ,QString::number((m_Speed/40),'f',1));
+    painter->drawText(rect.adjusted(m_SpeedometerSize/30, m_SpeedometerSize/30, -m_SpeedometerSize/30, -m_SpeedometerSize/4), Qt::AlignCenter  ,QString::number((m_Speed),'f',1));
     painter->restore();
 
     //current active progress
