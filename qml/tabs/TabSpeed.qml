@@ -3,65 +3,72 @@ import Const 1.0
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Speedometer 1.0
 import "components"
 
 Rectangle {
     id: racing
 
-    property int columnWidth: 100
+    property int columnWidth: 80
 
     color: Style.background
 
-    function connect() {
-        window.buttonPressed.connect(onButtonPressed);
-        window.buttonReleased.connect(onButtonReleased);
-    }
-
-    function disconnect() {
-        window.buttonPressed.disconnect(onButtonPressed);
-        window.buttonReleased.disconnect(onButtonReleased);
-    }
-
-    function onButtonPressed(button) {
-        if (button === Input.increaseSpeed)
-            Car.das.speed += 0.8;
-        else if (button === Input.decreaseSpeed)
-            Car.das.speed -= 0.8;
-    }
-
-    function onButtonReleased(button) {
-    }
-
     RowLayout {
         anchors.fill: parent
+        spacing: 5
 
-        ValueColumn {
+        RowLayout {
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.minimumWidth: racing.columnWidth
-            label: "[V] Battery"
-            value: Car.hv.pack_voltage
-            max: 460
-            maxDigits: 3
-            barCount: 8
+            spacing: 0
+            ValueColumn {
+                Layout.fillHeight: true
+                Layout.minimumWidth: racing.columnWidth
+                label: "[V] BMS"
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
 
-            columnGradient: Gradient {
-                GradientStop {
-                    position: 1
-                    color: Style.red
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
                 }
+            }
 
-                GradientStop {
-                    position: 0
-                    color: Style.orange
+            Bar {
+                Layout.fillHeight: true
+                Layout.topMargin: 85
+                Layout.minimumWidth: 15
+
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
+
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
                 }
             }
         }
 
-        Rectangle {
+        Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            color: Style.background
 
             ColumnLayout {
                 anchors.fill: parent
@@ -106,10 +113,29 @@ Rectangle {
                     Layout.leftMargin: 60
 
                     Speedometer {
+                        speed: accelerating ? 180 : 0
+
+                        property bool accelerating: false
+
+                        Keys.onSpacePressed: accelerating = true
+                        Keys.onReleased: {
+                            if (event.key === Qt.Key_Space) {
+                                accelerating = false;
+                                event.accepted = true;
+                            }
+                        }
+
+                        Component.onCompleted: forceActiveFocus()
+
+                        Behavior on speed  {
+                            NumberAnimation {
+                                duration: 1000
+                            }
+                        }
+
                         objectName: "speedometer"
                         width: speedometerSize
                         height: speedometerSize
-                        speed: Car.das.speed
                     }
                 }
 
@@ -122,24 +148,52 @@ Rectangle {
             }
         }
 
-        ValueColumn {
+        RowLayout {
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.minimumWidth: racing.columnWidth
-            label: "[kW] Battery"
-            value: Car.hv.power
-            maxDigits: 2
-            max: 85
-            barCount: 8
+            spacing: 0
 
-            columnGradient: Gradient {
-                GradientStop {
-                    position: 1
-                    color: Style.blue
+            Bar {
+                Layout.fillHeight: true
+                Layout.topMargin: 85
+                Layout.minimumWidth: 15
+
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
+
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
                 }
+            }
+            ValueColumn {
+                Layout.fillHeight: true
+                Layout.minimumWidth: racing.columnWidth
+                label: "[V] BMS"
+                value: Car.hv.pack_voltage
+                max: 460
+                maxDigits: 3
+                barCount: 8
 
-                GradientStop {
-                    position: 0
-                    color: Style.aqua
+                columnGradient: Gradient {
+                    GradientStop {
+                        position: 1
+                        color: Style.red
+                    }
+
+                    GradientStop {
+                        position: 0
+                        color: Style.orange
+                    }
                 }
             }
         }

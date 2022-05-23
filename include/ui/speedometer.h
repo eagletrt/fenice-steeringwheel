@@ -4,13 +4,10 @@
 #include <QObject>
 #include <QQuickPaintedItem>
 
-
 const qreal SPEEDOMETER_MAXIMUM_SPEED = 180;
 
-
-class Speedometer : public QQuickPaintedItem
-{
-    Q_OBJECT
+class Speedometer : public QQuickPaintedItem {
+  Q_OBJECT
 
   Q_PROPERTY(qreal speedometerSize READ getSpeedometerSize WRITE setSpeedometerSize NOTIFY speedometerSizeChanged)
   Q_PROPERTY(qreal startAngle READ getStartAngle WRITE setStartAngle NOTIFY startAngleChanged)
@@ -66,18 +63,17 @@ signals:
   void backgroundColorChanged();
 
 private:
-    qreal   m_SpeedometerSize = 470;
-    qreal   m_StartAngle = 50;
-    qreal   m_AlignAngle = 360 - (m_StartAngle * 3);
-    qreal   m_LowestRange = 0;
-    qreal   m_HighestRange = SPEEDOMETER_MAXIMUM_SPEED;
-    qreal   m_Speed = 2340;
-    int     m_ArcWidth = 10;
-    QColor  m_OuterColor = QColor(12, 16, 247);
-    QColor  m_InnerColor = QColor(51, 88, 255, 80);
-    QColor  m_TextColor = QColor(255, 255, 255);
-    QColor  m_BackgroundColor = Qt::transparent;
-
+  qreal m_SpeedometerSize = 470;
+  qreal m_StartAngle = 50;
+  qreal m_AlignAngle = 360 - (m_StartAngle * 3);
+  qreal m_LowestRange = 0;
+  qreal m_HighestRange = SPEEDOMETER_MAXIMUM_SPEED;
+  qreal m_Speed = 2340;
+  int m_ArcWidth = 10;
+  QColor m_OuterColor = QColor("#4F4F4F");
+  QColor m_InnerColor = QColor("#323232");
+  QColor m_TextColor = QColor("#FFFFFF");
+  QColor m_BackgroundColor = Qt::transparent;
 };
 
 #endif // SPEEDOMETER_H

@@ -12,26 +12,6 @@ Rectangle {
 
     color: Style.background
 
-    function connect() {
-        window.buttonPressed.connect(onButtonPressed);
-        window.buttonReleased.connect(onButtonReleased);
-    }
-
-    function disconnect() {
-        window.buttonPressed.disconnect(onButtonPressed);
-        window.buttonReleased.disconnect(onButtonReleased);
-    }
-
-    function onButtonPressed(button) {
-        if (button === Input.increaseSpeed)
-            Car.das.speed += 0.8;
-        else if (button === Input.decreaseSpeed)
-            Car.das.speed -= 0.8;
-    }
-
-    function onButtonReleased(button) {
-    }
-
     RowLayout {
         anchors.fill: parent
         spacing: 5
@@ -198,20 +178,13 @@ Rectangle {
                         }
                     }
 
-                }
-
-                Item {
-                    Layout.fillHeight: true
-                    Layout.leftMargin: 60
-
-                        Speedometer {
-                            objectName: "speedometer"
-                            width: speedometerSize
-                            height: speedometerSize
-                            speed: Car.das.speed
-                        }
-
-                }
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.inverters.left_temperature
+                        unit: "°C"
+                        label: "BMS HV"
+                    }
 
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true

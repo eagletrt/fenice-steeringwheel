@@ -1,3 +1,4 @@
+#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QHostAddress>
 #include <QNetworkInterface>
@@ -16,8 +17,8 @@
 #include "car/das.h"
 #include "car/hv.h"
 #include "car/lv.h"
-#include "car/speedometer.h"
 #include "car/state.h"
+#include "ui/speedometer.h"
 
 #ifdef EASTER_EGG
 #include "game/extension.h"
@@ -75,6 +76,9 @@ int main(int argc, char *argv[]) {
       Qt::QueuedConnection);
 
   engine.addImportPath(QStringLiteral("qrc:/"));
+
+  QFontDatabase::addApplicationFont("qrc:/qml/font/Mono-Regular.ttf");
+  QFontDatabase::addApplicationFont("qrc:/qml/font/Mono-Bold.ttf");
 
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");

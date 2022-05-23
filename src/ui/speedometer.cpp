@@ -1,67 +1,19 @@
-#include "car/speedometer.h"
+#include "ui/speedometer.h"
 #include <QPainter>
 
-Speedometer::Speedometer(QQuickItem *parent)
-    :QQuickPaintedItem(parent)
-{}
+Speedometer::Speedometer(QQuickItem *parent) : QQuickPaintedItem(parent) {}
+
+void Speedometer::paint(QPainter *painter) {
 
   QRectF rect = this->boundingRect();
   painter->setRenderHint(QPainter::Antialiasing);
   QPen pen = painter->pen();
   pen.setCapStyle(Qt::FlatCap);
 
-    QRectF rect = this->boundingRect();
-    painter->setRenderHint(QPainter::Antialiasing);
-    QPen pen = painter->pen();
-    pen.setCapStyle(Qt::FlatCap);
+  double startAngle;
+  double spanAngle;
 
-    double startAngle;
-    double spanAngle;
-
-    startAngle = m_StartAngle + 145;
-    spanAngle = 0 - m_AlignAngle;
-
-    //all arc
-    painter->save();
-    pen.setWidth(m_ArcWidth);
-    pen.setColor(m_InnerColor);
-    painter->setPen(pen);
-    // painter->drawRect(rect);
-    painter->drawArc(rect.adjusted(m_ArcWidth, m_ArcWidth, -m_ArcWidth, -m_ArcWidth), startAngle * 16, spanAngle * 16);
-    painter->restore();
-
-    //inner pie
-    int pieSize = m_SpeedometerSize/5;
-    painter->save();
-    pen.setWidth(m_ArcWidth/2);
-    pen.setColor(m_OuterColor);
-    painter->setBrush(m_InnerColor);
-    painter->setPen(pen);
-    painter->drawPie(rect.adjusted(pieSize, pieSize, -pieSize, -pieSize), startAngle * 16, spanAngle * 16);
-    painter->restore();
-
-    //text which shows the value
-    painter->save();
-    // TODO select the right font from Style
-    QFont font("Halvetica",70,QFont::Bold);
-    painter->setFont(font);
-    pen.setColor(m_TextColor);
-    painter->setPen(pen);
-    painter->drawText(rect.adjusted(m_SpeedometerSize/30, m_SpeedometerSize/30, -m_SpeedometerSize/30, -m_SpeedometerSize/4), Qt::AlignCenter  ,QString::number((m_Speed),'f',1));
-    painter->restore();
-
-    //current active progress
-    painter->save();
-    pen.setWidth(m_ArcWidth);
-    pen.setColor(m_OuterColor);
-    qreal valueToAngle = ((m_Speed - m_LowestRange)/(m_HighestRange - m_LowestRange)) * spanAngle;
-    painter->setPen(pen);
-    painter->drawArc(rect.adjusted(m_ArcWidth, m_ArcWidth, -m_ArcWidth, -m_ArcWidth), startAngle * 16, valueToAngle * 16);
-    painter->restore();
-
-}
-
-  startAngle = m_StartAngle - 40;
+  startAngle = m_StartAngle + 145;
   spanAngle = 0 - m_AlignAngle;
 
   // all arc
@@ -85,13 +37,14 @@ Speedometer::Speedometer(QQuickItem *parent)
 
   // text which shows the value
   painter->save();
-  QFont font("Halvetica", 52, QFont::Bold);
+  // TODO select the right font from Style
+  QFont font("Azeret Mono", 70, QFont::Bold);
   painter->setFont(font);
   pen.setColor(m_TextColor);
   painter->setPen(pen);
   painter->drawText(
       rect.adjusted(m_SpeedometerSize / 30, m_SpeedometerSize / 30, -m_SpeedometerSize / 30, -m_SpeedometerSize / 4),
-      Qt::AlignCenter, QString::number((m_Speed / 40), 'f', 1));
+      Qt::AlignCenter, QString::number((m_Speed), 'd', 0));
   painter->restore();
 
   // current active progress
