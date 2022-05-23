@@ -14,6 +14,7 @@
         <file>qml/tabs/components/ValueWithUnit.qml</file>
         <file>qml/tabs/components/ValueWithUnitAndLabel.qml</file>
         <file>qml/tabs/TabRacing.qml</file>
+        <file>qml/tabs/TabSpeed.qml</file>
         <file>qml/tabs/TabGps.qml</file>
         <file>qml/tabs/TabOverview.qml</file>
         <file>qml/tabs/TabStatus.qml</file>

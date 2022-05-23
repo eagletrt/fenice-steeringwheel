@@ -53,6 +53,10 @@ Item {
             property string name: "racing"
         }
 
+        TabSpeed {
+            property string name: "racing"
+        }
+
         TabStatus {
             property string name: "status"
         }

@@ -10,4 +10,5 @@ QtObject {
     property int paddleBottomLeft: 5
     property int paddleTopRight: 6
     property int paddleBottomRight: 7
+    property int buttonStartStop: 8
 }

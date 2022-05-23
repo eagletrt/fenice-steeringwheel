@@ -1,3 +1,4 @@
+#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QHostAddress>
 #include <QNetworkInterface>
@@ -17,6 +18,7 @@
 #include "car/hv.h"
 #include "car/lv.h"
 #include "car/state.h"
+#include "ui/speedometer.h"
 
 #ifdef EASTER_EGG
 #include "game/extension.h"
@@ -75,6 +77,9 @@ int main(int argc, char *argv[]) {
 
   engine.addImportPath(QStringLiteral("qrc:/"));
 
+  QFontDatabase::addApplicationFont("qrc:/qml/font/Mono-Regular.ttf");
+  QFontDatabase::addApplicationFont("qrc:/qml/font/Mono-Bold.ttf");
+
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Style.qml"), "Const", 1, 0, "Style");
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Input.qml"), "Const", 1, 0, "Input");
   qmlRegisterSingletonType(QUrl("qrc:///qml/const/Utils.qml"), "Const", 1, 0, "Utils");
@@ -82,6 +87,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<DAS>("Car", 1, 0, "DAS", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
+  qmlRegisterType<Speedometer>("Car", 1, 0, "Speedometer");
 
   Leds *leds = new Leds(&engine);
   Buttons *buttons = new Buttons(&engine);

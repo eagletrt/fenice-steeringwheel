@@ -147,7 +147,7 @@ Rectangle {
                             ValueWithUnitAndLabel {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                value: 100
+                                value: 90
                                 unit: "°C"
                                 label: "TYRE FL"
                             }
@@ -171,7 +171,7 @@ Rectangle {
                             ValueWithUnitAndLabel {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                value: -50
+                                value: 50
                                 unit: "°C"
                                 label: "TYRE RR"
                             }
