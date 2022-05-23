@@ -7,7 +7,7 @@ import "components"
 Control {
     id: status
 
-    property var possibleStates: ['OK', 'NO', 'DEFAULT', 'OUTDATED']
+    property var possibleStates: ['NORMAL', 'ERROR', 'DEFAULT', 'OUTDATED']
     property var sensors: ["Inv Right", "Telemetry", "Inv Left", "DAS", "PCU", "BMS HV", "Steering", "BMS LV"]
 
     padding: 20
@@ -31,7 +31,7 @@ Control {
                     Layout.fillHeight: true
 
                     StatusBox {
-                        name: modelData
+                        title: modelData
                         state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }
                 }
@@ -56,7 +56,7 @@ Control {
                     Layout.fillHeight: true
 
                     StatusBox {
-                        name: modelData
+                        title: modelData
                         state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }
                 }

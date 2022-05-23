@@ -11,11 +11,21 @@ Column {
     property font valueFont: Style.mono.h1
     property font unitFont: Style.mono.p
     property font labelFont: Style.sans.small
+    property real high: 100
+    property real medhigh: 60
+    property real medlow: 0
+    property real low: -10
 
     spacing: 5
 
     ValueWithUnit {
+        id: main
         anchors.horizontalCenter: parent.horizontalCenter
+
+        high: root.high
+        medhigh: root.medhigh
+        medlow: root.medlow
+        low: root.low
 
         value: root.value
         unit: root.unit
@@ -27,7 +37,7 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
 
         text: root.label
-        color: Style.text
+        color: main.color
         font: root.labelFont
     }
 }

@@ -4,14 +4,14 @@ import QtQuick 2.0
 Rectangle {
     id: root
 
-    property string name
-    property string version: "v1.0.0"
+    property string title
+    property string subtitle: "v1.0.0"
 
     state: "DEFAULT"
     anchors.fill: parent
     states: [
         State {
-            name: "OK"
+            name: "NORMAL"
 
             PropertyChanges {
                 target: root
@@ -19,7 +19,7 @@ Rectangle {
             }
         },
         State {
-            name: "NO"
+            name: "ERROR"
 
             PropertyChanges {
                 target: root
@@ -49,14 +49,14 @@ Rectangle {
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: root.name
+            text: root.title
             color: Style.textInverted
             font: Style.sans.h3
         }
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: root.version
+            text: root.subtitle
             color: Style.darker
             font: Style.mono.small
         }

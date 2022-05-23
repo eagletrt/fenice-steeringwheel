@@ -147,7 +147,7 @@ Rectangle {
                             ValueWithUnitAndLabel {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                value: Car.inverters.left_temperature
+                                value: 100
                                 unit: "°C"
                                 label: "TYRE FL"
                             }
@@ -155,7 +155,7 @@ Rectangle {
                             ValueWithUnitAndLabel {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                value: Car.inverters.right_temperature
+                                value: 80
                                 unit: "°C"
                                 label: "TYRE FR"
                             }
@@ -163,7 +163,7 @@ Rectangle {
                             ValueWithUnitAndLabel {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                value: Car.inverters.left_temperature
+                                value: 50
                                 unit: "°C"
                                 label: "TYRE RL"
                             }
@@ -171,7 +171,7 @@ Rectangle {
                             ValueWithUnitAndLabel {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                value: Car.inverters.right_temperature
+                                value: -50
                                 unit: "°C"
                                 label: "TYRE RR"
                             }
