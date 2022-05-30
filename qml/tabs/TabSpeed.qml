@@ -20,6 +20,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 0
+
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
@@ -39,14 +40,15 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
                 Layout.fillHeight: true
-                Layout.topMargin: 85
+                Layout.topMargin: 95
                 Layout.minimumWidth: 15
-
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -62,8 +64,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         Item {
@@ -83,7 +88,6 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-
                             value: Car.inverters.left_temperature
                             unit: "°C"
                             label: "INVERTER L"
@@ -92,7 +96,6 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-
                             value: Car.steering.map
                             unit: "%"
                             label: "MAX POWER"
@@ -105,7 +108,9 @@ Rectangle {
                             unit: "°C"
                             label: "INVERTER R"
                         }
+
                     }
+
                 }
 
                 Item {
@@ -113,10 +118,9 @@ Rectangle {
                     Layout.leftMargin: 60
 
                     Speedometer {
-                        speed: accelerating ? 180 : 0
-
                         property bool accelerating: false
 
+                        speed: accelerating ? 180 : 0
                         Keys.onSpacePressed: accelerating = true
                         Keys.onReleased: {
                             if (event.key === Qt.Key_Space) {
@@ -124,28 +128,30 @@ Rectangle {
                                 event.accepted = true;
                             }
                         }
-
                         Component.onCompleted: forceActiveFocus()
-
-                        Behavior on speed  {
-                            NumberAnimation {
-                                duration: 1000
-                            }
-                        }
-
                         objectName: "speedometer"
                         width: speedometerSize
                         height: speedometerSize
+
+                        Behavior on speed {
+                            NumberAnimation {
+                                duration: 1000
+                            }
+
+                        }
+
                     }
+
                 }
 
                 MapBar {
                     Layout.minimumHeight: 80
                     Layout.fillWidth: true
-
                     map: Car.steering.map
                 }
+
             }
+
         }
 
         RowLayout {
@@ -155,9 +161,8 @@ Rectangle {
 
             Bar {
                 Layout.fillHeight: true
-                Layout.topMargin: 85
+                Layout.topMargin: 95
                 Layout.minimumWidth: 15
-
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -173,8 +178,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
@@ -194,8 +202,13 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

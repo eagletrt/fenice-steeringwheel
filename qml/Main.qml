@@ -8,7 +8,11 @@ Window {
     id: main
 
     width: Style.width
+    maximumWidth: Style.width
+    minimumWidth: Style.width
     height: Style.height
+    maximumHeight: Style.height
+    minimumHeight: Style.height
     visible: true
     title: qsTr("Steering Wheel")
 
@@ -39,6 +43,7 @@ Window {
             function onRace_changed(race) {
                 if (stack.currentTab.name !== "telemetry")
                     popper.show(["None", "Cross", "Skidpad", "Endur", "Accel"][race], Style.foreground);
+
             }
 
             target: Car.telemetry
@@ -86,5 +91,7 @@ Window {
 
             anchors.centerIn: parent
         }
+
     }
+
 }

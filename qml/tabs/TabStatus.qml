@@ -34,7 +34,9 @@ Control {
                         title: modelData
                         state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }
+
                 }
+
             }
 
             Item {
@@ -46,6 +48,7 @@ Control {
                     fillMode: Image.PreserveAspectFit
                     source: "qrc:///qml/img/eagle.png"
                 }
+
             }
 
             Repeater {
@@ -59,8 +62,13 @@ Control {
                         title: modelData
                         state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

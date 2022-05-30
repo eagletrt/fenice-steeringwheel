@@ -9,7 +9,6 @@ Item {
 
     property double value: 0
     property string label
-
     property double max: 1
     property int maxDigits: 3
     property int barCount: 10
@@ -20,9 +19,8 @@ Item {
         anchors.fill: parent
 
         ValueWithUnitAndLabel {
-            Layout.minimumHeight: 80
+            Layout.minimumHeight: 90
             Layout.fillWidth: true
-
             value: root.value.toFixed().padStart(root.maxDigits, " ")
             label: root.label
             labelFont: Style.sans.xsmall
@@ -31,7 +29,6 @@ Item {
         Bar {
             Layout.fillWidth: true
             Layout.fillHeight: true
-
             value: root.value
             max: root.max
             maxDigits: root.maxDigits
@@ -39,5 +36,7 @@ Item {
             columnGradient: root.columnGradient
             rotation: root.rotation
         }
+
     }
+
 }

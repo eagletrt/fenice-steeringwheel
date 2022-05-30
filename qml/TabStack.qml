@@ -11,6 +11,7 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.connect)
             currentTab.connect();
+
     }
 
     function disconnect() {
@@ -18,12 +19,14 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.disconnect)
             currentTab.disconnect();
+
     }
 
     function buttonReleasedHandler(button) {
         if (button === Input.paddleTopLeft || button === Input.paddleTopRight) {
             if (tabs.blocked)
-                return;
+                return ;
+
             const total = tabs.children.length;
             const step = button === Input.paddleTopLeft ? -1 : +1;
             const index = Utils.mod(tabs.currentIndex + step, total);
@@ -31,8 +34,10 @@ Item {
             const nextTab = tabs.children[index];
             if (currentTab.disconnect)
                 currentTab.disconnect();
+
             if (nextTab.connect)
                 nextTab.connect();
+
             tabs.currentIndex = index;
         }
     }
@@ -42,35 +47,71 @@ Item {
         color: Style.background
     }
 
-    StackLayout {
-        id: tabs
-
-        property bool blocked: false
-
+    ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
-        TabRacing {
-            property string name: "racing"
+        StackLayout {
+            id: tabs
+
+            property bool blocked: false
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            TabRacing {
+                property string name: "racing"
+            }
+
+            TabSpeed {
+                property string name: "speed"
+            }
+
+            TabStatus {
+                property string name: "status"
+            }
+
+            TabOverview {
+                property string name: "overview"
+            }
+
+            TabGps {
+                property string name: "gps"
+            }
+
+            TabTerminal {
+                property string name: "terminal"
+            }
+
         }
 
-        TabSpeed {
-            property string name: "racing"
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.maximumHeight: 16
+            Layout.minimumHeight: 16
+            spacing: 2
+
+            Repeater {
+                model: ["racing", "speed", "status", "overview", "gps", "terminal"]
+
+                delegate: Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color: currentTab.name === modelData ? Style.dark : Style.darker
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: modelData
+                        font.family: Style.sans.family
+                        color: Style.text
+                    }
+
+                }
+
+            }
+
         }
 
-        TabStatus {
-            property string name: "status"
-        }
-
-        TabOverview {
-            property string name: "overview"
-        }
-
-        TabGps {
-            property string name: "gps"
-        }
-
-        TabTerminal {
-            property string name: "terminal"
-        }
     }
+
 }

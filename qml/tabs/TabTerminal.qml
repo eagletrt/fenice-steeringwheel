@@ -7,7 +7,6 @@ ListView {
     id: terminal
 
     property int history: 100
-
     property string header: "d88888b d88888b d8b   db d888888b  .o88b. d88888b
 88'     88'     888o  88   `88'   d8P  Y8 88'
 88ooo   88ooooo 88V8o 88    88    8P      88ooooo
@@ -23,6 +22,7 @@ YP      Y88888P VP   V8P Y888888P  `Y88P' Y88888P
         logs.push(line);
         if (logs.length > history)
             logs.shift();
+
         terminal.model = logs;
         scroll.increase();
     }
@@ -49,4 +49,5 @@ YP      Y88888P VP   V8P Y888888P  `Y88P' Y88888P
 
         stepSize: 10
     }
+
 }

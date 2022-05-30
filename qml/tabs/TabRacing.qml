@@ -20,6 +20,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 0
+
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
@@ -39,14 +40,15 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
                 Layout.fillHeight: true
-                Layout.topMargin: 85
+                Layout.topMargin: 95
                 Layout.minimumWidth: 15
-
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -62,8 +64,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         ColumnLayout {
@@ -82,7 +87,6 @@ Rectangle {
                     ValueWithUnit {
                         Layout.alignment: Qt.AlignCenter
                         Layout.columnSpan: 2
-
                         value: 100
                         unit: "km/h"
                     }
@@ -106,7 +110,6 @@ Rectangle {
                     ValueWithUnit {
                         Layout.alignment: Qt.AlignCenter
                         Layout.columnSpan: 2
-
                         value: 100
                         unit: "km/h"
                     }
@@ -132,10 +135,7 @@ Rectangle {
                         Layout.fillHeight: true
                         Layout.columnSpan: 2
                         Layout.rowSpan: 2
-
                         color: Style.transparent
-                        border.color: Style.surface
-                        border.width: 1
 
                         GridLayout {
                             anchors.fill: parent
@@ -175,7 +175,9 @@ Rectangle {
                                 unit: "°C"
                                 label: "TYRE RR"
                             }
+
                         }
+
                     }
 
                     ValueWithUnitAndLabel {
@@ -209,7 +211,9 @@ Rectangle {
                         unit: "%"
                         label: "OTHER"
                     }
+
                 }
+
             }
 
             MapBar {
@@ -217,6 +221,7 @@ Rectangle {
                 Layout.fillWidth: true
                 map: Car.steering.map
             }
+
         }
 
         RowLayout {
@@ -226,9 +231,8 @@ Rectangle {
 
             Bar {
                 Layout.fillHeight: true
-                Layout.topMargin: 85
+                Layout.topMargin: 95
                 Layout.minimumWidth: 15
-
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -244,8 +248,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
@@ -265,8 +272,13 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

@@ -17,6 +17,7 @@ Rectangle {
                 target: root
                 color: Style.status.ok
             }
+
         },
         State {
             name: "ERROR"
@@ -25,6 +26,7 @@ Rectangle {
                 target: root
                 color: Style.status.error
             }
+
         },
         State {
             name: "OUTDATED"
@@ -33,6 +35,7 @@ Rectangle {
                 target: root
                 color: Style.status.warn
             }
+
         },
         State {
             name: "DEFAULT"
@@ -41,6 +44,7 @@ Rectangle {
                 target: root
                 color: Style.status.def
             }
+
         }
     ]
 
@@ -60,5 +64,7 @@ Rectangle {
             color: Style.darker
             font: Style.mono.small
         }
+
     }
+
 }

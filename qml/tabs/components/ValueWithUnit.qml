@@ -8,7 +8,7 @@ Item {
     property int value
     property string unit
     property font valueFont: Style.mono.h1
-    property font unitFont: Style.sans.p
+    property font unitFont: Style.sans.xsmall
     property color color: Style.text
     property real high: +Infinity
     property real medhigh: +Infinity
@@ -17,7 +17,6 @@ Item {
 
     width: main.width
     height: main.height
-
     states: [
         State {
             name: "HIGH"
@@ -27,6 +26,7 @@ Item {
                 target: root
                 color: Style.red
             }
+
         },
         State {
             name: "MEDHIGH"
@@ -36,6 +36,7 @@ Item {
                 target: root
                 color: Style.orange
             }
+
         },
         State {
             name: "LOW"
@@ -45,6 +46,7 @@ Item {
                 target: root
                 color: Style.blue
             }
+
         },
         State {
             name: "MEDLOW"
@@ -54,6 +56,7 @@ Item {
                 target: root
                 color: Style.aqua
             }
+
         },
         State {
             name: "NORMAL"
@@ -63,26 +66,28 @@ Item {
                 target: root
                 color: Style.text
             }
+
         }
     ]
 
     Text {
         id: main
+
         text: root.value
         font: root.valueFont
         color: root.color
-
         horizontalAlignment: Text.right
     }
 
     Text {
         id: other
-        anchors.left: main.right
-        anchors.leftMargin: 4
-        anchors.verticalCenter: main.verticalCenter
 
+        anchors.left: main.right
+        anchors.leftMargin: 2
+        anchors.verticalCenter: main.verticalCenter
         text: root.unit
         font: root.unitFont
         color: root.color
     }
+
 }
