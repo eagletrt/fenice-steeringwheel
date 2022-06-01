@@ -48,8 +48,8 @@ void Steering::button_released(int button) {
 }
 
 void Steering::manettino_left_changed(int value) {
-  if (value <= TC_STATUS_SLIP_AND_TORQUE)
-    set_traction_control((TCStatus)value);
+  if (value <= primary_TractionControl_COMPLETE)
+    set_traction_control((primary_TractionControl)value);
 }
 
 void Steering::manettino_right_changed(int value) {

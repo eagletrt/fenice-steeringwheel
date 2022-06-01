@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include "global.h"
+#include "primary/c/network.h"
 
 class State;
 
@@ -13,17 +14,9 @@ class State;
 class Steering : public QObject {
   Q_OBJECT
 public:
-  enum TCStatus {
-    TC_STATUS_OFF,
-    TC_STATUS_SLIP,
-    TC_STATUS_TORQUE,
-    TC_STATUS_SLIP_AND_TORQUE,
-  };
-  Q_ENUM(TCStatus)
-
   S_PROPERTY(float, temperature, 0)
   S_PROPERTY(quint8, map, 0)
-  S_PROPERTY(TCStatus, traction_control, TCStatus::TC_STATUS_OFF)
+  S_PROPERTY(primary_TractionControl, traction_control, primary_TractionControl_OFF)
   S_PROPERTY(bool, ptt, false)
   S_PROPERTY(quint8, version_component, 0)
   S_PROPERTY(quint8, version_cancicd, 0)

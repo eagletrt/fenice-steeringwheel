@@ -19,15 +19,12 @@ RESOURCES += qml.qrc
 INCLUDEPATH += \
             . \
             include/ \
-            thirdparty/can-cicd/naked_generator/ \
-            thirdparty/can-cicd/includes_generator/
+            thirdparty/can/lib/
 
 HEADERS += \
         include/global.h \
         include/can/bus.h \
         include/can/device.h \
-        include/can/primary.h \
-        include/can/secondary.h \
         include/car/das.h \
         include/car/hv.h \
         include/car/lv.h \
@@ -42,12 +39,10 @@ HEADERS += \
         include/ui/openglwindow.h \
         include/ui/peanut.h \
         include/ui/speedometer.h \
-        thirdparty/can-cicd/naked_generator/primary/c/primary.h \
-        thirdparty/can-cicd/naked_generator/secondary/c/secondary.h \
-        thirdparty/can-cicd/includes_generator/primary/can_config.h \
-        thirdparty/can-cicd/includes_generator/primary/ids.h \
-        thirdparty/can-cicd/includes_generator/secondary/can_config.h \
-        thirdparty/can-cicd/includes_generator/secondary/ids.h
+        thirdparty/can/lib/primary/c/network.h \
+        thirdparty/can/lib/secondary/c/network.h \
+        thirdparty/can/lib/primary/c/ids.h \
+        thirdparty/can/lib/secondary/c/ids.h
 
 SOURCES += \
         src/main.cpp \
@@ -64,9 +59,7 @@ SOURCES += \
         src/ui/emulator.cpp \
         src/ui/gameboy.cpp \
         src/ui/openglwindow.cpp \
-        src/ui/speedometer.cpp \
-        thirdparty/can-cicd/naked_generator/primary/c/primary.c \
-        thirdparty/can-cicd/naked_generator/secondary/c/secondary.c
+        src/ui/speedometer.cpp
 
 
 CONFIG(raspberry) {

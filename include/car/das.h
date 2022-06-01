@@ -3,31 +3,17 @@
 
 #include <QObject>
 
-#include "can/primary.h"
 #include "global.h"
+#include "primary/c/network.h"
 
 class State;
 
 class DAS : public QObject {
   Q_OBJECT
 public:
-  enum CarStatus {
-    CAR_STATUS_IDLE /*= Primary_Car_Status_IDLE*/,
-    CAR_STATUS_SETUP /*= Primary_Car_Status_SETUP*/,
-    CAR_STATUS_RUN /*= Primary_Car_Status_RUN*/,
-  };
-  Q_ENUM(CarStatus);
-
-  enum InverterStatus {
-    INVERTER_STATUS_OFF /*= Primary_Inverter_Status_OFF*/,
-    INVERTER_STATUS_IDLE /*= Primary_Inverter_Status_IDLE*/,
-    INVERTER_STATUS_ON /*= Primary_Inverter_Status_ON*/,
-  };
-  Q_ENUM(InverterStatus);
-
-  S_PROPERTY(CarStatus, car_status, DAS::CarStatus::CAR_STATUS_IDLE)
-  S_PROPERTY(InverterStatus, inverter_l, DAS::InverterStatus::INVERTER_STATUS_OFF)
-  S_PROPERTY(InverterStatus, inverter_r, DAS::InverterStatus::INVERTER_STATUS_OFF)
+  S_PROPERTY(primary_CarStatus, car_status, primary_CarStatus_IDLE)
+  S_PROPERTY(primary_InverterStatus, inverter_l, primary_InverterStatus_OFF)
+  S_PROPERTY(primary_InverterStatus, inverter_r, primary_InverterStatus_OFF)
   S_PROPERTY(qint32, left_speed_rads, 0)
   S_PROPERTY(qint32, right_speed_rads, 0)
   S_PROPERTY(float, speed, 0)

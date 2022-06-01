@@ -5,8 +5,10 @@
 
 #include "global.h"
 
-#include "can/primary.h"
-#include "can/secondary.h"
+#include "primary/c/ids.h"
+#include "primary/c/network.h"
+#include "secondary/c/ids.h"
+#include "secondary/c/network.h"
 
 State::State(QObject *parent) : QObject(parent) {
   m_das = new DAS(this);
@@ -45,106 +47,105 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
 
 void State::handle_primary(quint32 id, uint8_t *raw) {
   switch (id) {
-  case ID_TIMESTAMP: {
-    primary_TIMESTAMP data;
-    deserialize_primary_TIMESTAMP(raw, &data);
+  case primary_id_TIMESTAMP: {
+    primary_message_TIMESTAMP data;
+    primary_deserialize_TIMESTAMP(&data, raw);
     m_timestamp = data.timestamp;
     emit timestamp_changed();
     break;
   }
-  case ID_DAS_VERSION: {
-    primary_DAS_VERSION data;
-    deserialize_primary_DAS_VERSION(raw, &data);
+  case primary_id_DAS_VERSION: {
+    primary_message_DAS_VERSION data;
+    primary_deserialize_DAS_VERSION(&data, raw);
     m_das->set_version_component(data.component_version);
     m_das->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case ID_HV_VERSION: {
-    primary_HV_VERSION data;
-    deserialize_primary_HV_VERSION(raw, &data);
+  case primary_id_HV_VERSION: {
+    primary_message_HV_VERSION data;
+    primary_deserialize_HV_VERSION(&data, raw);
     m_hv->set_version_component(data.component_version);
     m_hv->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case ID_LV_VERSION: {
-    primary_LV_VERSION data;
-    deserialize_primary_LV_VERSION(raw, &data);
+  case primary_id_LV_VERSION: {
+    primary_message_LV_VERSION data;
+    primary_deserialize_LV_VERSION(&data, raw);
     m_lv->set_version_component(data.component_version);
     m_lv->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case ID_TLM_VERSION: {
-    primary_TLM_VERSION data;
-    deserialize_primary_TLM_VERSION(raw, &data);
+  case primary_id_TLM_VERSION: {
+    primary_message_TLM_VERSION data;
+    primary_deserialize_TLM_VERSION(&data, raw);
     m_telemetry->set_version_component(data.component_version);
     m_telemetry->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case ID_TLM_STATUS: {
-    primary_TLM_STATUS data;
-    deserialize_primary_TLM_STATUS(raw, &data);
-    m_telemetry->set_status((Telemetry::TlmStatus)data.tlm_status);
-    m_telemetry->set_race((Telemetry::Race)data.race_type);
+  case primary_id_TLM_STATUS: {
+    primary_message_TLM_STATUS data;
+    primary_deserialize_TLM_STATUS(&data, raw);
+    m_telemetry->set_status(data.tlm_status);
+    m_telemetry->set_race(data.race_type);
     m_telemetry->set_pilot(data.driver);
     m_telemetry->set_circuit(data.circuit);
     emit telemetry_changed();
     break;
   }
-  case ID_CAR_STATUS: {
-    primary_CAR_STATUS data;
-    deserialize_primary_CAR_STATUS(raw, &data);
-    m_das->set_car_status((DAS::CarStatus)data.car_status);
-    m_das->set_inverter_l((DAS::InverterStatus)data.inverter_l);
-    m_das->set_inverter_r((DAS::InverterStatus)data.inverter_r);
+  case primary_id_CAR_STATUS: {
+    primary_message_CAR_STATUS data;
+    primary_deserialize_CAR_STATUS(&data, raw);
+    m_das->set_car_status(data.car_status);
+    m_das->set_inverter_l(data.inverter_l);
+    m_das->set_inverter_r(data.inverter_r);
     emit das_changed();
     break;
   }
-  case ID_LV_CURRENT: {
-    primary_LV_CURRENT data;
-    deserialize_primary_LV_CURRENT(raw, &data);
+  case primary_id_LV_CURRENT: {
+    primary_message_LV_CURRENT data;
+    primary_deserialize_LV_CURRENT(&data, raw);
     m_lv->set_current(data.current);
     emit lv_changed();
     break;
   }
-  case ID_LV_VOLTAGE: {
-    primary_LV_VOLTAGE data;
-    deserialize_primary_LV_VOLTAGE(raw, &data);
+  case primary_id_LV_VOLTAGE: {
+    primary_message_LV_VOLTAGE data;
+    primary_deserialize_LV_VOLTAGE(&data, raw);
     m_lv->set_voltage_1(data.voltage_1);
     m_lv->set_voltage_2(data.voltage_2);
     m_lv->set_voltage_3(data.voltage_3);
     m_lv->set_voltage_4(data.voltage_4);
-    m_lv->set_total_voltage(data.total_voltage);
     emit lv_changed();
     break;
   }
-  case ID_LV_TEMPERATURE: {
-    primary_LV_TEMPERATURE data;
-    deserialize_primary_LV_TEMPERATURE(raw, &data);
-    m_lv->set_dcdc_temperature(data.dcdc_temperature);
-    m_lv->set_battery_temperature(data.bp_temperature);
+  case primary_id_LV_TEMPERATURE: {
+    primary_message_LV_TEMPERATURE data;
+    primary_deserialize_LV_TEMPERATURE(&data, raw);
+    m_lv->set_dcdc_temperature(data.dcdc12_temperature);
+    m_lv->set_battery_temperature(data.bp_temperature_1);
     emit lv_changed();
     break;
   }
-  case ID_COOLING_STATUS: {
-    primary_COOLING_STATUS data;
-    deserialize_primary_COOLING_STATUS(raw, &data);
+  case primary_id_COOLING_STATUS: {
+    primary_message_COOLING_STATUS data;
+    primary_deserialize_COOLING_STATUS(&data, raw);
     m_lv->set_hv_fan_speed(data.hv_fan_speed);
     m_lv->set_lv_fan_speed(data.lv_fan_speed);
     m_lv->set_pump_speed(data.pump_speed);
     emit lv_changed();
     break;
   }
-  case ID_HV_CURRENT: {
-    primary_HV_CURRENT data;
-    deserialize_primary_HV_CURRENT(raw, &data);
+  case primary_id_HV_CURRENT: {
+    primary_message_HV_CURRENT data;
+    primary_deserialize_HV_CURRENT(&data, raw);
     m_hv->set_current(data.current);
     m_hv->set_power(data.power);
     emit hv_changed();
     break;
   }
-  case ID_HV_VOLTAGE: {
-    primary_HV_VOLTAGE data;
-    deserialize_primary_HV_VOLTAGE(raw, &data);
+  case primary_id_HV_VOLTAGE: {
+    primary_message_HV_VOLTAGE data;
+    primary_deserialize_HV_VOLTAGE(&data, raw);
     m_hv->set_pack_voltage(data.pack_voltage);
     m_hv->set_bus_voltage(data.bus_voltage);
     m_hv->set_max_cell_voltage(data.max_cell_voltage);
@@ -152,29 +153,27 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit hv_changed();
     break;
   }
-  case ID_HV_TEMP: {
-    primary_HV_TEMP data;
-    deserialize_primary_HV_TEMP(raw, &data);
+  case primary_id_HV_TEMP: {
+    primary_message_HV_TEMP data;
+    primary_deserialize_HV_TEMP(&data, raw);
     m_hv->set_average_temperature(data.average_temp);
     m_hv->set_max_temperature(data.max_temp);
     m_hv->set_min_temperature(data.min_temp);
     emit hv_changed();
     break;
   }
-  case ID_HV_ERRORS: {
-    primary_HV_ERRORS data;
-    deserialize_primary_HV_ERRORS(raw, &data);
-    quint16 errors = ((quint16)data.errors[1] << 8) | data.errors[0];
-    m_hv->set_errors(errors);
-    quint16 warnings = ((quint16)data.warnings[1] << 8) | data.warnings[0];
-    m_hv->set_warnings(warnings);
+  case primary_id_HV_ERRORS: {
+    primary_message_HV_ERRORS data;
+    primary_deserialize_HV_ERRORS(&data, raw);
+    m_hv->set_errors(data.errors);
+    m_hv->set_warnings(data.warnings);
     emit hv_changed();
     break;
   }
-  case ID_TS_STATUS: {
-    primary_TS_STATUS data;
-    deserialize_primary_TS_STATUS(raw, &data);
-    m_hv->set_ts_status((HV::TsStatus)data.ts_status);
+  case primary_id_TS_STATUS: {
+    primary_message_TS_STATUS data;
+    primary_deserialize_TS_STATUS(&data, raw);
+    m_hv->set_ts_status(data.ts_status);
     emit hv_changed();
     break;
   }
@@ -183,17 +182,17 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
 
 void State::handle_secondary(quint32 id, uint8_t *raw) {
   switch (id) {
-  case ID_GPS_COORDS: {
-    secondary_GPS_COORDS data;
-    deserialize_secondary_GPS_COORDS(raw, &data);
+  case secondary_id_GPS_COORDS: {
+    secondary_message_GPS_COORDS data;
+    secondary_deserialize_GPS_COORDS(&data, raw);
     m_telemetry->set_latitude(data.latitude);
     m_telemetry->set_longitude(data.longitude);
     emit telemetry_changed();
     break;
   }
-  case ID_GPS_SPEED: {
-    secondary_GPS_SPEED data;
-    deserialize_secondary_GPS_SPEED(raw, &data);
+  case secondary_id_GPS_SPEED: {
+    secondary_message_GPS_SPEED data;
+    secondary_deserialize_GPS_SPEED(&data, raw);
     m_telemetry->set_gps_speed(data.speed);
     emit telemetry_changed();
     break;

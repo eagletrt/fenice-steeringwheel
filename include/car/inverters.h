@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "can/primary.h"
 #include "global.h"
+#include "primary/c/network.h"
 
 class State;
 

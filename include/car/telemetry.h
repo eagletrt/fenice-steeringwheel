@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QVector>
 
-#include "can/primary.h"
 #include "global.h"
+#include "primary/c/network.h"
 
 class State;
 
@@ -13,15 +13,9 @@ class Telemetry : public QObject {
   Q_OBJECT
 
 public:
-  enum TlmStatus { TLM_STATUS_ON = primary_Tlm_Status_ON, TLM_STATUS_OFF = primary_Tlm_Status_OFF };
-  Q_ENUM(TlmStatus);
-
-  enum Race { RACE_DEFAULT, RACE_AUTOCROSS, RACE_SKIDPAD, RACE_ENDURANCE, RACE_ACCELERATION };
-  Q_ENUM(Race)
-
-  S_PROPERTY(TlmStatus, status, TlmStatus::TLM_STATUS_OFF)
+  S_PROPERTY(primary_Toggle, status, primary_Toggle_OFF)
   S_PROPERTY(quint8, pilot, 0)
-  S_PROPERTY(Race, race, Race::RACE_DEFAULT)
+  S_PROPERTY(primary_RaceType, race, primary_RaceType_AUTOCROSS)
   S_PROPERTY(quint8, circuit, 0)
   S_PROPERTY(float, latitude, 0)
   S_PROPERTY(float, longitude, 0)
@@ -33,7 +27,7 @@ public:
   ~Telemetry();
 
 private:
-  void send_status(Telemetry::TlmStatus status, quint8 pilot, Telemetry::Race race, quint8 circuit);
+  void send_status(primary_Toggle status, quint8 pilot, primary_RaceType race, quint8 circuit);
   void send_marker();
 
 public slots:

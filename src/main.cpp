@@ -7,6 +7,24 @@
 #include <QQmlContext>
 #include <QThread>
 
+#define primary_IMPLEMENTATION
+#define primary_IDS_IMPLEMENTATION
+
+#include "primary/c/ids.h"
+#include "primary/c/network.h"
+
+#undef primary_IMPLEMENTATION
+#undef primary_IDS_IMPLEMENTATION
+
+#define secondary_IMPLEMENTATION
+#define secondary_IDS_IMPLEMENTATION
+
+#include "secondary/c/ids.h"
+#include "secondary/c/network.h"
+
+#undef secondary_IMPLEMENTATION
+#undef secondary_IDS_IMPLEMENTATION
+
 #include "global.h"
 
 #include "io/buttons.h"
@@ -121,8 +139,8 @@ int main(int argc, char *argv[]) {
   QObject::connect(state->steering(), &Steering::ptt_changed, leds,
                    [&](bool ptt) { leds->set_left_brightness(7, ptt ? 0xFF : 0x0); });
 
-  QObject::connect(state->telemetry(), &Telemetry::status_changed, leds, [&](Telemetry::TlmStatus status) {
-    leds->set_right_brightness(6, status == Telemetry::TlmStatus::TLM_STATUS_ON ? 0xFF : 0x0);
+  QObject::connect(state->telemetry(), &Telemetry::status_changed, leds, [&](primary_Toggle status) {
+    leds->set_right_brightness(6, status == primary_Toggle_ON ? 0xFF : 0x0);
   });
 
 #ifdef S_OS_X86
