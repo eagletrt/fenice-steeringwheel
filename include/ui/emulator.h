@@ -1,29 +1,71 @@
 #ifndef EMULATOR_H
 #define EMULATOR_H
 
-#include "ui/openglwindow.h"
+#include <QOpenGLFunctions>
+#include <QQuickItem>
 
 #include <QElapsedTimer>
 #include <QOpenGLShaderProgram>
 
 #include "ui/gameboy.h"
 
-class Emulator : public OpenGLWindow {
+class EmulatorRenderer : public QObject, protected QOpenGLFunctions {
+  Q_OBJECT
 public:
-  using OpenGLWindow::OpenGLWindow;
-  Emulator(QWindow *parent = nullptr);
-  ~Emulator();
+  EmulatorRenderer(bool visible = true);
+  ~EmulatorRenderer();
 
-  void initialize() override;
-  void render() override;
+  void set_window_size(const QSize &size) { m_window_size = size; }
+  void set_size(const QSize &size) { m_size = size; }
+  void set_position(const QPoint &position) { m_position = position; }
+  void set_window(QQuickWindow *window) { m_window = window; }
+
+public slots:
+  void init();
+  void paint();
+  void change_visibility(bool visible);
 
 private:
-  GameBoy *m_gb;
-  GLuint m_texture = 0;
+  bool m_visible = true;
+
+  GameBoy *m_gb = nullptr;
+  QElapsedTimer *m_elapsed = nullptr;
+  QTimer *m_timer = nullptr;
 
   QOpenGLShaderProgram *m_program = nullptr;
-  QElapsedTimer *m_elapsed;
-  int m_frame = 0;
+  GLuint m_texture = 0;
+
+  QSize m_window_size;
+  QSize m_size;
+  QPoint m_position;
+
+  QQuickWindow *m_window = nullptr;
+};
+
+class Emulator : public QQuickItem {
+  Q_OBJECT
+  QML_ELEMENT
+
+public:
+  Emulator();
+
+public slots:
+  void sync();
+  void cleanup();
+  void button_pressed(int button);
+  void button_released(int button);
+
+signals:
+  void visibility_changed(bool visible);
+
+private slots:
+  void handle_window_changed(QQuickWindow *win);
+  void handle_visibility_change();
+
+private:
+  void releaseResources() override;
+  qreal m_t;
+  EmulatorRenderer *m_renderer;
 };
 
 #endif // EMULATOR_H

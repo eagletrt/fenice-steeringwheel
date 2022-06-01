@@ -84,16 +84,40 @@ Item {
                 property string name: "terminal"
             }
 
+            Item {
+                property string name: "pokemon"
+
+                function connect() {
+                    window.buttonPressed.connect(emulator.button_pressed);
+                    window.buttonReleased.connect(emulator.button_released);
+                }
+
+                function disconnect() {
+                    window.buttonPressed.disconnect(emulator.button_pressed);
+                    window.buttonReleased.disconnect(emulator.button_released);
+                }
+
+                Emulator {
+                    id: emulator
+
+                    width: Style.height * 1.1
+                    height: Style.height
+                    anchors.centerIn: parent
+                }
+
+            }
+
         }
 
         RowLayout {
+            visible: currentTab.name !== "pokemon"
             Layout.fillWidth: true
             Layout.maximumHeight: 16
             Layout.minimumHeight: 16
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "status", "overview", "gps", "terminal"]
+                model: ["racing", "speed", "status", "overview", "gps", "terminal", "pokemon"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true

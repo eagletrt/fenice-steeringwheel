@@ -6,6 +6,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QThread>
+#include <QWindow>
 
 #define primary_IMPLEMENTATION
 #define primary_IDS_IMPLEMENTATION
@@ -37,13 +38,8 @@
 #include "car/lv.h"
 #include "car/state.h"
 
-#include "ui/speedometer.h"
-
-#define EMULATOR
-
-#ifdef EMULATOR
 #include "ui/emulator.h"
-#endif
+#include "ui/speedometer.h"
 
 #ifdef Q_OS_LINUX
 #include <signal.h>
@@ -85,14 +81,6 @@ int main(int argc, char *argv[]) {
 
   QGuiApplication app(argc, argv);
 
-#ifdef EMULATOR
-  Emulator emulator;
-
-  emulator.setWidth(800);
-  emulator.setHeight(480);
-  emulator.show();
-#endif
-
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 
   QQmlApplicationEngine engine(&app);
@@ -117,6 +105,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterUncreatableType<HV>("Car", 1, 0, "HV", "Not creatable as it is an enum type.");
   qmlRegisterUncreatableType<LV>("Car", 1, 0, "LV", "Not creatable as it is an enum type.");
   qmlRegisterType<Speedometer>("Car", 1, 0, "Speedometer");
+  qmlRegisterType<Emulator>("Car", 1, 0, "Emulator");
 
   Leds *leds = new Leds(&engine);
   Buttons *buttons = new Buttons(&engine);
