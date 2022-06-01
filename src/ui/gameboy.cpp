@@ -1,6 +1,8 @@
 #include "ui/gameboy.h"
 
 #include <QDebug>
+#include <QFile>
+
 #include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -302,12 +304,16 @@ GameBoy::GameBoy() : m_gb() {
   m_priv = {.rom = NULL, .cart_ram = NULL};
 
   char *rom_file_name = (char *)"rom.gb";
-  if (access(rom_file_name, F_OK) != 0) {
-    qFatal("Rom file not found. Emulator won't work.");
-    return;
-  }
 
-  m_priv.rom = read_rom_to_ram(rom_file_name);
+  QFile file(":/rom.gb");
+  if (!file.open(QIODevice::ReadOnly))
+    return;
+  QByteArray blob = file.readAll();
+
+  uint8_t *rom = (uint8_t *)malloc(blob.size());
+  memcpy(rom, blob.data(), blob.size());
+
+  m_priv.rom = rom;
 
   char *save_file_name;
   char *str_replace;

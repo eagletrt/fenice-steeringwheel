@@ -21,6 +21,8 @@
 
 #include "ui/speedometer.h"
 
+#define EMULATOR
+
 #ifdef EMULATOR
 #include "ui/emulator.h"
 #endif
@@ -70,7 +72,7 @@ int main(int argc, char *argv[]) {
 
   emulator.setWidth(800);
   emulator.setHeight(480);
-  emulator.hide();
+  emulator.show();
 #endif
 
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));

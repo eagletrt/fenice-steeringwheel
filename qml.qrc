@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>rom.gb</file>
         <file>qml/font/Sans-Regular.ttf</file>
         <file>qml/font/Sans-Bold.ttf</file>
         <file>qml/font/Mono-Regular.ttf</file>
