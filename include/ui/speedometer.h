@@ -70,9 +70,9 @@ private:
   qreal m_HighestRange = SPEEDOMETER_MAXIMUM_SPEED;
   qreal m_Speed = 2340;
   int m_ArcWidth = 10;
-  QColor m_OuterColor = QColor("#4F4F4F");
-  QColor m_InnerColor = QColor("#323232");
-  QColor m_TextColor = QColor("#FFFFFF");
+  QColor m_OuterColor = QColor(0x4F4F4F);
+  QColor m_InnerColor = QColor(0x323232);
+  QColor m_TextColor = QColor(0xFFFFFF);
   QColor m_BackgroundColor = Qt::transparent;
 };
 

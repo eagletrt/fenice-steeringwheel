@@ -37,6 +37,10 @@ HEADERS += \
         include/car/telemetry.h \
         include/io/buttons.h \
         include/io/leds.h \
+        include/ui/emulator.h \
+        include/ui/gameboy.h \
+        include/ui/openglwindow.h \
+        include/ui/peanut.h \
         include/ui/speedometer.h \
         thirdparty/can-cicd/naked_generator/primary/c/primary.h \
         thirdparty/can-cicd/naked_generator/secondary/c/secondary.h \
@@ -57,6 +61,9 @@ SOURCES += \
         src/car/state.cpp \
         src/car/steering.cpp \
         src/car/telemetry.cpp \
+        src/ui/emulator.cpp \
+        src/ui/gameboy.cpp \
+        src/ui/openglwindow.cpp \
         src/ui/speedometer.cpp \
         thirdparty/can-cicd/naked_generator/primary/c/primary.c \
         thirdparty/can-cicd/naked_generator/secondary/c/secondary.c

@@ -1,3 +1,4 @@
+import Car 1.0
 import Const 1.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3

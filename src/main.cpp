@@ -18,10 +18,11 @@
 #include "car/hv.h"
 #include "car/lv.h"
 #include "car/state.h"
+
 #include "ui/speedometer.h"
 
-#ifdef EASTER_EGG
-#include "game/extension.h"
+#ifdef EMULATOR
+#include "ui/emulator.h"
 #endif
 
 #ifdef Q_OS_LINUX
@@ -63,6 +64,14 @@ int main(int argc, char *argv[]) {
   sDebug("main") << "running on" << QSysInfo::currentCpuArchitecture();
 
   QGuiApplication app(argc, argv);
+
+#ifdef EMULATOR
+  Emulator emulator;
+
+  emulator.setWidth(800);
+  emulator.setHeight(480);
+  emulator.hide();
+#endif
 
   const QUrl url(QStringLiteral("qrc:///qml/Main.qml"));
 
