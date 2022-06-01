@@ -1,3 +1,7 @@
-[submodule "wiringpi"]
+[submodule "thirdparty/wiringpi"]
 	path = thirdparty/wiringpi
 	url = https://github.com/wiringpi/wiringpi
+[submodule "thirdparty/can"]
+	path = thirdparty/can
+	url = git@github.com:eagletrt/can.git
+    branch = build
