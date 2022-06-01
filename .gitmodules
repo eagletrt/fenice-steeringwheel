@@ -1,6 +1,3 @@
-[submodule "can-cicd"]
-	path = thirdparty/can-cicd
-	url = https://github.com/eagletrt/can-cicd-forkme
-[submodule "thirdparty/wiringpi"]
+[submodule "wiringpi"]
 	path = thirdparty/wiringpi
 	url = https://github.com/wiringpi/wiringpi
