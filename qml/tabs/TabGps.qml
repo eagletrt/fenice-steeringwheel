@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
-    id: root
+    id: gps
 
     Image {
         anchors.fill: parent

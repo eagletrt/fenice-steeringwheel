@@ -10,10 +10,11 @@ Item {
     property string color: "red"
     property double value: 0
     property double zero: 0
+    property color background: Style.surface
 
     Rectangle {
         anchors.fill: parent
-        color: Style.surface
+        color: root.background
 
         Control {
             anchors.fill: parent

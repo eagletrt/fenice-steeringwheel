@@ -40,16 +40,6 @@ Window {
         }
 
         Connections {
-            function onRace_changed(race) {
-                if (stack.currentTab.name !== "telemetry")
-                    popper.show(["None", "Cross", "Skidpad", "Endur", "Accel"][race], Style.foreground);
-
-            }
-
-            target: Car.telemetry
-        }
-
-        Connections {
             function onMap_changed(map) {
                 popper.show(String(map) + "%", Style.foreground);
             }

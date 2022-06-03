@@ -86,9 +86,6 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     primary_message_TLM_STATUS data;
     primary_deserialize_TLM_STATUS(&data, raw);
     m_telemetry->set_status(data.tlm_status);
-    m_telemetry->set_race(data.race_type);
-    m_telemetry->set_pilot(data.driver);
-    m_telemetry->set_circuit(data.circuit);
     emit telemetry_changed();
     break;
   }
@@ -96,8 +93,8 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     primary_message_CAR_STATUS data;
     primary_deserialize_CAR_STATUS(&data, raw);
     m_das->set_car_status(data.car_status);
-    m_das->set_inverter_l(data.inverter_l);
-    m_das->set_inverter_r(data.inverter_r);
+    m_das->set_inverter_left(data.inverter_l);
+    m_das->set_inverter_right(data.inverter_r);
     emit das_changed();
     break;
   }
@@ -182,6 +179,31 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
 
 void State::handle_secondary(quint32 id, uint8_t *raw) {
   switch (id) {
+  case secondary_id_CONTROL_OUTPUT: {
+    secondary_message_CONTROL_OUTPUT data;
+    secondary_deserialize_CONTROL_OUTPUT(&data, raw);
+    m_das->set_control_left(data.left);
+    m_das->set_control_right(data.right);
+    emit das_changed();
+    break;
+  }
+  case secondary_id_PEDALS_OUTPUT: {
+    secondary_message_PEDALS_OUTPUT data;
+    secondary_deserialize_PEDALS_OUTPUT(&data, raw);
+    secondary_message_PEDALS_OUTPUT_conversion converted_data;
+    secondary_raw_to_conversion_PEDALS_OUTPUT(&converted_data, &data);
+    m_das->set_apps(data.apps);
+    m_das->set_bse(data.bse_rear);
+    emit das_changed();
+    break;
+  }
+  case secondary_id_STEERING_ANGLE: {
+    secondary_message_STEERING_ANGLE data;
+    secondary_deserialize_STEERING_ANGLE(&data, raw);
+    m_das->set_steering_angle(data.angle);
+    emit das_changed();
+    break;
+  }
   case secondary_id_GPS_COORDS: {
     secondary_message_GPS_COORDS data;
     secondary_deserialize_GPS_COORDS(&data, raw);

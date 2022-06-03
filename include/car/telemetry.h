@@ -14,9 +14,6 @@ class Telemetry : public QObject {
 
 public:
   S_PROPERTY(primary_Toggle, status, primary_Toggle_OFF)
-  S_PROPERTY(quint8, pilot, 0)
-  S_PROPERTY(primary_RaceType, race, primary_RaceType_AUTOCROSS)
-  S_PROPERTY(quint8, circuit, 0)
   S_PROPERTY(float, latitude, 0)
   S_PROPERTY(float, longitude, 0)
   S_PROPERTY(quint16, gps_speed, 0)
@@ -27,7 +24,7 @@ public:
   ~Telemetry();
 
 private:
-  void send_status(primary_Toggle status, quint8 pilot, primary_RaceType race, quint8 circuit);
+  void send_status(primary_Toggle status);
   void send_marker();
 
 public slots:

@@ -51,9 +51,9 @@ template <typename QEnum> inline QString enum_to_string(const QEnum value) {
 #define S_PROPERTY_3(type, name, def) _S_PROPERTY(type, name, = def)
 
 #define _S_PROPERTY(type, name, init)                                                                                  \
-  Q_PROPERTY(type name READ get_##name WRITE set_##name NOTIFY name##_changed)                                         \
+  Q_PROPERTY(type name READ name WRITE set_##name NOTIFY name##_changed)                                               \
 public:                                                                                                                \
-  type get_##name() const { return m_##name; }                                                                         \
+  type name() const { return m_##name; }                                                                               \
   Q_SLOT void set_##name(const type &value) {                                                                          \
     if (m_##name == value)                                                                                             \
       return;                                                                                                          \

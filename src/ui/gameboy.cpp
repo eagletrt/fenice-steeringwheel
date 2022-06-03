@@ -1,6 +1,6 @@
 #include "ui/gameboy.h"
 
-#include <QDebug>
+#include "global.h"
 #include <QFile>
 
 #include <errno.h>
@@ -176,7 +176,7 @@ void auto_assign_palette(priv_t *priv, uint8_t game_checksum) {
   default: {
     const uint16_t palette[3][4] = {
         {0x7FFF, 0x5294, 0x294A, 0x0000}, {0x7FFF, 0x5294, 0x294A, 0x0000}, {0x7FFF, 0x5294, 0x294A, 0x0000}};
-    qDebug("no palette found for 0x%02X.", game_checksum);
+    sDebug("gameboy") << "no palette found for game with checksum" << Qt::hex << game_checksum;
     memcpy(priv->selected_palette, palette, palette_bytes);
   }
   }
@@ -199,22 +199,29 @@ void gb_error(gb_s *gb, const enum gb_error_e gb_err, const uint16_t val) {
   case GB_INVALID_OPCODE:
     /* We compensate for the post-increment in the __gb_step_cpu
      * function. */
-    fprintf(stdout, "Invalid opcode %#04x at PC: %#06x, SP: %#06x\n", val, gb->cpu_reg.pc - 1, gb->cpu_reg.sp);
+    sCritical("gameboy") << "invalid opcode" << Qt::hex << val << "at PC:" << Qt::hex << gb->cpu_reg.pc - 1
+                         << "SP:" << Qt::hex << gb->cpu_reg.sp;
     break;
 
   /* Ignoring non fatal errors. */
   case GB_INVALID_WRITE:
+    sWarning("gameboy") << "invalid write" << Qt::hex << val << "at PC:" << Qt::hex << gb->cpu_reg.pc - 1
+                        << "SP:" << Qt::hex << gb->cpu_reg.sp;
+    return;
+
   case GB_INVALID_READ:
+    sWarning("gameboy") << "invalid read" << Qt::hex << val << "at PC:" << Qt::hex << gb->cpu_reg.pc - 1
+                        << "SP:" << Qt::hex << gb->cpu_reg.sp;
     return;
 
   default:
-    printf("Unknown error");
+    sCritical("gameboy") << "unknown error";
     break;
   }
 }
 
 GameBoy::GameBoy() : m_gb() {
-  m_priv = {.rom = NULL, .cart_ram = NULL};
+  m_priv = {.rom = NULL, .cart_ram = NULL, .selected_palette = {}, .fb = {}};
 
   QFile romFile(":/rom.gb");
   if (!romFile.open(QIODevice::ReadOnly))
