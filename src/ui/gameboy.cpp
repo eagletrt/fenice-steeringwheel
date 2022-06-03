@@ -17,100 +17,28 @@ extern "C" {
 /**
  * Returns a byte from the ROM file at the given address.
  */
-uint8_t gb_rom_read(struct gb_s *gb, const uint_fast32_t addr) {
-  const struct priv_t *const p = (const struct priv_t *const)gb->direct.priv;
+uint8_t gb_rom_read(gb_s *gb, const uint_fast32_t addr) {
+  const priv_t *const p = (const priv_t *const)gb->direct.priv;
   return p->rom[addr];
 }
 
 /**
  * Returns a byte from the cartridge RAM at the given address.
  */
-uint8_t gb_cart_ram_read(struct gb_s *gb, const uint_fast32_t addr) {
-  const struct priv_t *const p = (const struct priv_t *const)gb->direct.priv;
+uint8_t gb_cart_ram_read(gb_s *gb, const uint_fast32_t addr) {
+  const priv_t *const p = (const priv_t *const)gb->direct.priv;
   return p->cart_ram[addr];
 }
 
 /**
  * Writes a given byte to the cartridge RAM at the given address.
  */
-void gb_cart_ram_write(struct gb_s *gb, const uint_fast32_t addr, const uint8_t val) {
-  const struct priv_t *const p = (const struct priv_t *const)gb->direct.priv;
+void gb_cart_ram_write(gb_s *gb, const uint_fast32_t addr, const uint8_t val) {
+  const priv_t *const p = (const priv_t *const)gb->direct.priv;
   p->cart_ram[addr] = val;
 }
 
-/**
- * Returns a pointer to the allocated space containing the ROM. Must be freed.
- */
-uint8_t *read_rom_to_ram(const char *file_name) {
-  FILE *rom_file = fopen(file_name, "rb");
-  size_t rom_size;
-  uint8_t *rom = NULL;
-
-  if (rom_file == NULL)
-    return NULL;
-
-  fseek(rom_file, 0, SEEK_END);
-  rom_size = ftell(rom_file);
-  rewind(rom_file);
-  rom = (uint8_t *)malloc(rom_size);
-
-  if (fread(rom, sizeof(uint8_t), rom_size, rom_file) != rom_size) {
-    free(rom);
-    fclose(rom_file);
-    return NULL;
-  }
-
-  fclose(rom_file);
-  return rom;
-}
-
-void read_cart_ram_file(const char *save_file_name, uint8_t **dest, const size_t len) {
-  FILE *f;
-
-  /* If save file not required. */
-  if (len == 0) {
-    *dest = NULL;
-    return;
-  }
-
-  /* Allocate enough memory to hold save file. */
-  if ((*dest = (uint8_t *)malloc(len)) == NULL) {
-    printf("%d: %s\n", __LINE__, strerror(errno));
-    exit(EXIT_FAILURE);
-  }
-
-  f = fopen(save_file_name, "rb");
-
-  /* It doesn't matter if the save file doesn't exist. We initialise the
-   * save memory allocated above. The save file will be created on exit. */
-  if (f == NULL) {
-    memset(*dest, 0, len);
-    return;
-  }
-
-  /* Read save file to allocated memory. */
-  fread(*dest, sizeof(uint8_t), len, f);
-  fclose(f);
-}
-
-void write_cart_ram_file(const char *save_file_name, uint8_t **dest, const size_t len) {
-  FILE *f;
-
-  if (len == 0 || *dest == NULL)
-    return;
-
-  if ((f = fopen(save_file_name, "wb")) == NULL) {
-    puts("Unable to open save file.");
-    printf("%d: %s\n", __LINE__, strerror(errno));
-    exit(EXIT_FAILURE);
-  }
-
-  /* Record save file. */
-  fwrite(*dest, sizeof(uint8_t), len, f);
-  fclose(f);
-}
-
-void auto_assign_palette(struct priv_t *priv, uint8_t game_checksum) {
+void auto_assign_palette(priv_t *priv, uint8_t game_checksum) {
   size_t palette_bytes = 3 * 4 * sizeof(uint16_t);
 
   switch (game_checksum) {
@@ -248,14 +176,14 @@ void auto_assign_palette(struct priv_t *priv, uint8_t game_checksum) {
   default: {
     const uint16_t palette[3][4] = {
         {0x7FFF, 0x5294, 0x294A, 0x0000}, {0x7FFF, 0x5294, 0x294A, 0x0000}, {0x7FFF, 0x5294, 0x294A, 0x0000}};
-    printf("No palette found for 0x%02X.\n", game_checksum);
+    qDebug("no palette found for 0x%02X.", game_checksum);
     memcpy(priv->selected_palette, palette, palette_bytes);
   }
   }
 }
 
-void lcd_draw_line(struct gb_s *gb, const uint8_t pixels[160], const uint_least8_t line) {
-  struct priv_t *priv = (struct priv_t *)gb->direct.priv;
+void lcd_draw_line(gb_s *gb, const uint8_t pixels[160], const uint_least8_t line) {
+  priv_t *priv = (priv_t *)gb->direct.priv;
 
   for (unsigned int x = 0; x < LCD_WIDTH; x++) {
     priv->fb[line][x] = priv->selected_palette[(pixels[x] & LCD_PALETTE_ALL) >> 4][pixels[x] & 3];
@@ -266,9 +194,7 @@ void lcd_draw_line(struct gb_s *gb, const uint8_t pixels[160], const uint_least8
  * Handles an error reported by the emulator. The emulator context may be used
  * to better understand why the error given in gb_err was reported.
  */
-void gb_error(struct gb_s *gb, const enum gb_error_e gb_err, const uint16_t val) {
-  struct priv_t *priv = (struct priv_t *)gb->direct.priv;
-
+void gb_error(gb_s *gb, const enum gb_error_e gb_err, const uint16_t val) {
   switch (gb_err) {
   case GB_INVALID_OPCODE:
     /* We compensate for the post-increment in the __gb_step_cpu
@@ -285,60 +211,120 @@ void gb_error(struct gb_s *gb, const enum gb_error_e gb_err, const uint16_t val)
     printf("Unknown error");
     break;
   }
-
-  fprintf(stderr, "Error. Press q to exit, or any other key to continue.");
-
-  if (getchar() == 'q') {
-    /* Record save file. */
-    write_cart_ram_file("recovery.sav", &priv->cart_ram, gb_get_save_size(gb));
-
-    free(priv->rom);
-    free(priv->cart_ram);
-    exit(EXIT_FAILURE);
-  }
-
-  return;
 }
 
 GameBoy::GameBoy() : m_gb() {
   m_priv = {.rom = NULL, .cart_ram = NULL};
 
-  char *rom_file_name = (char *)"rom.gb";
-
-  QFile file(":/rom.gb");
-  if (!file.open(QIODevice::ReadOnly))
+  QFile romFile(":/rom.gb");
+  if (!romFile.open(QIODevice::ReadOnly))
     return;
-  QByteArray blob = file.readAll();
 
-  uint8_t *rom = (uint8_t *)malloc(blob.size());
-  memcpy(rom, blob.data(), blob.size());
+  QByteArray blob = romFile.readAll();
 
-  m_priv.rom = rom;
+  m_priv.rom = (uint8_t *)malloc(blob.size());
+  memcpy(m_priv.rom, blob.data(), blob.size());
 
-  char *save_file_name;
-  char *str_replace;
-  const char extension[] = ".sav";
+  romFile.close();
 
-  save_file_name = (char *)malloc(strlen(rom_file_name) + strlen(extension) + 1);
+  m_gb = malloc(sizeof(gb_s));
 
-  strcpy(save_file_name, rom_file_name);
+  gb_init((gb_s *)m_gb, &gb_rom_read, &gb_cart_ram_read, &gb_cart_ram_write, &gb_error, &m_priv);
 
-  if ((str_replace = strrchr(save_file_name, '.')) == NULL || str_replace == save_file_name)
-    str_replace = save_file_name + strlen(save_file_name);
+  gb_init_lcd((gb_s *)m_gb, &lcd_draw_line);
 
-  for (unsigned int i = 0; i <= strlen(extension); i++)
-    *(str_replace++) = extension[i];
+  auto_assign_palette(&m_priv, gb_colour_hash((gb_s *)m_gb));
 
-  m_gb = malloc(sizeof(struct gb_s));
+  uint_fast32_t ram_size = gb_get_save_size((gb_s *)m_gb);
 
-  gb_init((struct gb_s *)m_gb, &gb_rom_read, &gb_cart_ram_read, &gb_cart_ram_write, &gb_error, &m_priv);
-
-  read_cart_ram_file(save_file_name, &m_priv.cart_ram, gb_get_save_size((struct gb_s *)m_gb));
-  gb_init_lcd((struct gb_s *)m_gb, &lcd_draw_line);
-
-  auto_assign_palette(&m_priv, gb_colour_hash((struct gb_s *)m_gb));
+  QFile ramFile("./ram.save");
+  if (ramFile.open(QIODevice::ReadOnly)) {
+    QByteArray blob = ramFile.read(ram_size);
+    m_priv.cart_ram = (uint8_t *)malloc(ram_size);
+    memcpy(m_priv.cart_ram, blob.data(), ram_size);
+    ramFile.close();
+  } else {
+    m_priv.cart_ram = (uint8_t *)malloc(ram_size);
+  }
 }
 
-void GameBoy::execute() { gb_run_frame((struct gb_s *)m_gb); }
+GameBoy::~GameBoy() {
+  uint_fast32_t ram_size = gb_get_save_size((gb_s *)m_gb);
+  QFile file("./ram.save");
+  if (file.open(QIODevice::WriteOnly)) {
+    file.write((const char *)m_priv.cart_ram, (int)ram_size);
+    file.close();
+  } else {
+  }
+
+  delete m_priv.rom;
+  delete m_priv.cart_ram;
+  gb_s *gb = (gb_s *)m_gb;
+  delete gb;
+}
+
+void GameBoy::execute() { gb_run_frame((gb_s *)m_gb); }
+
+void GameBoy::button_pressed(Buttons::Input button) {
+  gb_s *gb = (gb_s *)m_gb;
+  switch (button) {
+  case Buttons::Input::BUTTON_TOP_LEFT:
+    gb->direct.joypad_bits.up = 0;
+    break;
+  case Buttons::Input::BUTTON_BOTTOM_LEFT:
+    gb->direct.joypad_bits.left = 0;
+    break;
+  case Buttons::Input::BUTTON_TOP_RIGHT:
+    gb->direct.joypad_bits.down = 0;
+    break;
+  case Buttons::Input::BUTTON_BOTTOM_RIGHT:
+    gb->direct.joypad_bits.right = 0;
+    break;
+  case Buttons::Input::PADDLE_TOP_LEFT:
+    break;
+  case Buttons::Input::PADDLE_BOTTOM_LEFT:
+    gb->direct.joypad_bits.a = 0;
+    break;
+  case Buttons::Input::PADDLE_TOP_RIGHT:
+    break;
+  case Buttons::Input::PADDLE_BOTTOM_RIGHT:
+    gb->direct.joypad_bits.b = 0;
+    break;
+  case Buttons::Input::BUTTON_START_STOP:
+    gb->direct.joypad_bits.start = 0;
+    break;
+  }
+}
+
+void GameBoy::button_released(Buttons::Input button) {
+  gb_s *gb = (gb_s *)m_gb;
+  switch (button) {
+  case Buttons::Input::BUTTON_TOP_LEFT:
+    gb->direct.joypad_bits.up = 1;
+    break;
+  case Buttons::Input::BUTTON_BOTTOM_LEFT:
+    gb->direct.joypad_bits.left = 1;
+    break;
+  case Buttons::Input::BUTTON_TOP_RIGHT:
+    gb->direct.joypad_bits.down = 1;
+    break;
+  case Buttons::Input::BUTTON_BOTTOM_RIGHT:
+    gb->direct.joypad_bits.right = 1;
+    break;
+  case Buttons::Input::PADDLE_TOP_LEFT:
+    break;
+  case Buttons::Input::PADDLE_BOTTOM_LEFT:
+    gb->direct.joypad_bits.a = 1;
+    break;
+  case Buttons::Input::PADDLE_TOP_RIGHT:
+    break;
+  case Buttons::Input::PADDLE_BOTTOM_RIGHT:
+    gb->direct.joypad_bits.b = 1;
+    break;
+  case Buttons::Input::BUTTON_START_STOP:
+    gb->direct.joypad_bits.start = 1;
+    break;
+  }
+}
 
 priv_t *GameBoy::data() { return &m_priv; }

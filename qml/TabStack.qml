@@ -68,12 +68,12 @@ Item {
                 property string name: "speed"
             }
 
-            TabStatus {
-                property string name: "status"
+            TabCalibration {
+                property string name: "calibration"
             }
 
-            TabOverview {
-                property string name: "overview"
+            TabStatus {
+                property string name: "status"
             }
 
             TabGps {
@@ -117,7 +117,7 @@ Item {
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "status", "overview", "gps", "terminal", "pokemon"]
+                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "pokemon"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true

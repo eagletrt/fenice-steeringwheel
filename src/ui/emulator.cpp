@@ -24,11 +24,15 @@ void Emulator::cleanup() {
 }
 
 void Emulator::button_pressed(int button) {
-  qDebug() << "here!" << button; // TODO: controls
+  if (m_renderer) {
+    m_renderer->game_boy()->button_pressed((Buttons::Input)button);
+  }
 }
 
 void Emulator::button_released(int button) {
-  qDebug() << "here!" << button; // TODO: controls
+  if (m_renderer) {
+    m_renderer->game_boy()->button_released((Buttons::Input)button);
+  }
 }
 
 class CleanupJob : public QRunnable {
@@ -130,6 +134,8 @@ void EmulatorRenderer::init() {
   }
 }
 
+#define RENDER_SPEED 1
+
 void EmulatorRenderer::paint() {
   if (!m_visible)
     return;
@@ -146,7 +152,7 @@ void EmulatorRenderer::paint() {
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, m_texture);
 
-  if (m_elapsed->elapsed() >= (1000. / VERTICAL_SYNC)) {
+  if (m_elapsed->elapsed() >= ((1000. / RENDER_SPEED) / VERTICAL_SYNC)) {
     m_elapsed->restart();
     m_gb->execute();
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, LCD_WIDTH, LCD_HEIGHT, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV,

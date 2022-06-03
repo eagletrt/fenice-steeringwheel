@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "io/buttons.h"
+
 struct priv_t {
   uint8_t *rom;
   uint8_t *cart_ram;
@@ -24,8 +26,11 @@ struct priv_t {
 class GameBoy {
 public:
   GameBoy();
+  ~GameBoy();
 
   void execute();
+  void button_pressed(Buttons::Input button);
+  void button_released(Buttons::Input button);
   priv_t *data();
 
 private:

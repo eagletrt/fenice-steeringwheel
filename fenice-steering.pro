@@ -36,7 +36,6 @@ HEADERS += \
         include/io/leds.h \
         include/ui/emulator.h \
         include/ui/gameboy.h \
-        include/ui/openglwindow.h \
         include/ui/peanut.h \
         include/ui/speedometer.h \
         thirdparty/can/lib/primary/c/network.h \
@@ -58,7 +57,6 @@ SOURCES += \
         src/car/telemetry.cpp \
         src/ui/emulator.cpp \
         src/ui/gameboy.cpp \
-        src/ui/openglwindow.cpp \
         src/ui/speedometer.cpp
 
 
@@ -73,3 +71,7 @@ SOURCES += \
         src/io/leds_x86.cpp 
 DEFINES += S_OS_X86
 }
+
+DISTFILES += \
+  qml/tabs/TabCalibration.qml \
+  qml/tabs/components/CalibrationBar.qml

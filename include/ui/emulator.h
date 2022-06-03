@@ -20,6 +20,8 @@ public:
   void set_position(const QPoint &position) { m_position = position; }
   void set_window(QQuickWindow *window) { m_window = window; }
 
+  GameBoy *game_boy() { return m_gb; }
+
 public slots:
   void init();
   void paint();
