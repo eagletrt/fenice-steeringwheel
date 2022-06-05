@@ -1,7 +1,7 @@
 # Steering Wheel 
 
 <p align="center">
-   <img width="60%" src="https://i.imgur.com/DnmX57U.png">
+   <img width="60%" src=".media/screenshot.png">
 </p>
 <p align="center">
    <kbd>Qt project for the steering wheel UI and backend.</kbd>
