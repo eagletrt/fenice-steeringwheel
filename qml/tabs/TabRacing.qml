@@ -40,9 +40,7 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
 
             Bar {
@@ -64,11 +62,8 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
-
         }
 
         ColumnLayout {
@@ -175,9 +170,7 @@ Rectangle {
                                 unit: "°C"
                                 label: "TYRE RR"
                             }
-
                         }
-
                     }
 
                     ValueWithUnitAndLabel {
@@ -211,9 +204,7 @@ Rectangle {
                         unit: "%"
                         label: "OTHER"
                     }
-
                 }
-
             }
 
             MapBar {
@@ -221,7 +212,6 @@ Rectangle {
                 Layout.fillWidth: true
                 map: Car.steering.map
             }
-
         }
 
         RowLayout {
@@ -248,9 +238,7 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
 
             ValueColumn {
@@ -272,13 +260,8 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

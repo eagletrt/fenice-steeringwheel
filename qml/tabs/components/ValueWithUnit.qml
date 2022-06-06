@@ -26,7 +26,6 @@ Item {
                 target: root
                 color: Style.red
             }
-
         },
         State {
             name: "MEDHIGH"
@@ -36,7 +35,6 @@ Item {
                 target: root
                 color: Style.orange
             }
-
         },
         State {
             name: "LOW"
@@ -46,7 +44,6 @@ Item {
                 target: root
                 color: Style.blue
             }
-
         },
         State {
             name: "MEDLOW"
@@ -56,7 +53,6 @@ Item {
                 target: root
                 color: Style.aqua
             }
-
         },
         State {
             name: "NORMAL"
@@ -66,7 +62,6 @@ Item {
                 target: root
                 color: Style.text
             }
-
         }
     ]
 
@@ -89,5 +84,4 @@ Item {
         font: root.unitFont
         color: root.color
     }
-
 }

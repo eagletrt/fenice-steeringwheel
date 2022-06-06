@@ -32,7 +32,6 @@ Item {
                         color: Style.textInverted
                         font: Style.sans.h3
                     }
-
                 }
 
                 Item {
@@ -69,15 +68,10 @@ Item {
                                         color: "transparent"
                                         border.width: 1
                                     }
-
                                 }
-
                             }
-
                         }
-
                     }
-
                 }
 
                 Item {
@@ -91,13 +85,8 @@ Item {
                         color: Style.textInverted
                         font: Style.mono.h3
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

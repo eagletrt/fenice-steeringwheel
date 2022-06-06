@@ -38,5 +38,4 @@ Column {
         color: main.color
         font: root.labelFont
     }
-
 }

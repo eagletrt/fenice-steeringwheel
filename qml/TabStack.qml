@@ -12,7 +12,6 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.connect)
             currentTab.connect();
-
     }
 
     function disconnect() {
@@ -20,25 +19,21 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.disconnect)
             currentTab.disconnect();
-
     }
 
     function buttonReleasedHandler(button) {
-        if (button === Input.paddleTopLeft || button === Input.paddleTopRight) {
+        if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
             if (tabs.blocked)
-                return ;
-
+                return;
             const total = tabs.children.length;
-            const step = button === Input.paddleTopLeft ? -1 : +1;
+            const step = button === Input.paddleBottomLeft ? -1 : +1;
             const index = Utils.mod(tabs.currentIndex + step, total);
             const currentTab = tabs.children[tabs.currentIndex];
             const nextTab = tabs.children[index];
             if (currentTab.disconnect)
                 currentTab.disconnect();
-
             if (nextTab.connect)
                 nextTab.connect();
-
             tabs.currentIndex = index;
         }
     }
@@ -85,7 +80,7 @@ Item {
             }
 
             Item {
-                property string name: "pokemon"
+                property string name: "emulator"
 
                 function connect() {
                     window.buttonPressed.connect(emulator.button_pressed);
@@ -104,20 +99,18 @@ Item {
                     height: Style.height
                     anchors.centerIn: parent
                 }
-
             }
-
         }
 
         RowLayout {
-            visible: currentTab.name !== "pokemon"
+            visible: currentTab.name !== "emulator"
             Layout.fillWidth: true
             Layout.maximumHeight: 16
             Layout.minimumHeight: 16
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "pokemon"]
+                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "emulator"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true
@@ -130,13 +123,8 @@ Item {
                         font.family: Style.sans.family
                         color: Style.text
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

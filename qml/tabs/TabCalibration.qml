@@ -33,7 +33,6 @@ Control {
     function onButtonReleased(button) {
         // send message
         // send message
-
         if (button === Input.buttonBottomLeft) {
             setmin.color = setmin.defaultColor;
             popper.show("MIN SET", Style.foreground);
@@ -101,7 +100,6 @@ Control {
                 color: Style.textInverted
                 font: Style.sans.h3
             }
-
         }
 
         Rectangle {
@@ -119,9 +117,6 @@ Control {
                 color: Style.textInverted
                 font: Style.sans.h3
             }
-
         }
-
     }
-
 }
