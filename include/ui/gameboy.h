@@ -19,8 +19,8 @@
 struct priv_t {
   uint8_t *rom;
   uint8_t *cart_ram;
-  uint16_t selected_palette[3][4];
-  uint16_t fb[LCD_HEIGHT][LCD_WIDTH];
+  uint8_t selected_palette[3][4][3];
+  uint8_t fb[LCD_HEIGHT][LCD_WIDTH][3];
 };
 
 class GameBoy {

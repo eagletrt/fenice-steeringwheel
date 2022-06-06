@@ -119,7 +119,7 @@ void EmulatorRenderer::init() {
     glBindTexture(GL_TEXTURE_2D, m_texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB5, LCD_WIDTH, LCD_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, LCD_WIDTH, LCD_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE,
                  (GLvoid *)m_gb->data()->fb);
   }
 
@@ -155,7 +155,7 @@ void EmulatorRenderer::paint() {
   if (m_elapsed->elapsed() >= ((1000. / RENDER_SPEED) / VERTICAL_SYNC)) {
     m_elapsed->restart();
     m_gb->execute();
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, LCD_WIDTH, LCD_HEIGHT, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV,
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, LCD_WIDTH, LCD_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE,
                     (GLvoid *)m_gb->data()->fb);
   }
 

@@ -39,143 +39,154 @@ void gb_cart_ram_write(gb_s *gb, const uint_fast32_t addr, const uint8_t val) {
 }
 
 void auto_assign_palette(priv_t *priv, uint8_t game_checksum) {
-  size_t palette_bytes = 3 * 4 * sizeof(uint16_t);
+  size_t palette_bytes = 3 * 4 * 3 * sizeof(uint8_t);
 
   switch (game_checksum) {
-  /* Balloon Kid and Tetris Blast */
-  case 0x71:
-  case 0xFF: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x7E60, 0x7C00, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x7E60, 0x7C00, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x7E60, 0x7C00, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Balloon Kid and Tetris Blast */
+//  case 0x71:
+//  case 0xFF: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x7E60, 0x7C00, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x7E60, 0x7C00, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x7E60, 0x7C00, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Pokemon Yellow and Tetris */
-  case 0x15:
-  case 0xDB:
-  case 0x95: /* Not officially */
-  {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x7FE0, 0x7C00, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x7FE0, 0x7C00, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x7FE0, 0x7C00, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Pokemon Yellow and Tetris */
+//  case 0x15:
+//  case 0xDB:
+//  case 0x95: /* Not officially */
+//  {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x7FE0, 0x7C00, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x7FE0, 0x7C00, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x7FE0, 0x7C00, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Donkey Kong */
-  case 0x19: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x7E60, 0x7C00, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Donkey Kong */
+//  case 0x19: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x7E60, 0x7C00, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Pokemon Blue */
-  case 0x61:
-  case 0x45:
+//  /* Pokemon Blue */
+//  case 0x61:
+//  case 0x45:
 
-  /* Pokemon Blue Star */
-  case 0xD8: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x329F, 0x001F, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x329F, 0x001F, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Pokemon Blue Star */
+//  case 0xD8: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x329F, 0x001F, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x329F, 0x001F, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Pokemon Red */
-  case 0x14: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x3FE6, 0x0200, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Pokemon Red */
+//  case 0x14: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x3FE6, 0x0200, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Pokemon Red Star */
-  case 0x8B: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x329F, 0x001F, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x3FE6, 0x0200, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Pokemon Red Star */
+//  case 0x8B: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x329F, 0x001F, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x3FE6, 0x0200, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Kirby */
-  case 0x27:
-  case 0x49:
-  case 0x5C:
-  case 0xB3: {
-    const uint16_t palette[3][4] = {
-        {0x7D8A, 0x6800, 0x3000, 0x0000}, /* OBJ0 */
-        {0x001F, 0x7FFF, 0x7FEF, 0x021F}, /* OBJ1 */
-        {0x527F, 0x7FE0, 0x0180, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Kirby */
+//  case 0x27:
+//  case 0x49:
+//  case 0x5C:
+//  case 0xB3: {
+//    const uint16_t palette[3][4] = {
+//        {0x7D8A, 0x6800, 0x3000, 0x0000}, /* OBJ0 */
+//        {0x001F, 0x7FFF, 0x7FEF, 0x021F}, /* OBJ1 */
+//        {0x527F, 0x7FE0, 0x0180, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Donkey Kong Land [1/2/III] */
-  case 0x18:
-  case 0x6A:
-  case 0x4B:
-  case 0x6B: {
-    const uint16_t palette[3][4] = {
-        {0x7F08, 0x7F40, 0x48E0, 0x2400}, /* OBJ0 */
-        {0x7FFF, 0x2EFF, 0x7C00, 0x001F}, /* OBJ1 */
-        {0x7FFF, 0x463B, 0x2951, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Donkey Kong Land [1/2/III] */
+//  case 0x18:
+//  case 0x6A:
+//  case 0x4B:
+//  case 0x6B: {
+//    const uint16_t palette[3][4] = {
+//        {0x7F08, 0x7F40, 0x48E0, 0x2400}, /* OBJ0 */
+//        {0x7FFF, 0x2EFF, 0x7C00, 0x001F}, /* OBJ1 */
+//        {0x7FFF, 0x463B, 0x2951, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Link's Awakening */
-  case 0x70: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x03E0, 0x1A00, 0x0120}, /* OBJ0 */
-        {0x7FFF, 0x329F, 0x001F, 0x001F}, /* OBJ1 */
-        {0x7FFF, 0x7E10, 0x48E7, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Link's Awakening */
+//  case 0x70: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x03E0, 0x1A00, 0x0120}, /* OBJ0 */
+//        {0x7FFF, 0x329F, 0x001F, 0x001F}, /* OBJ1 */
+//        {0x7FFF, 0x7E10, 0x48E7, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
-  /* Mega Man [1/2/3] & others I don't care about. */
-  case 0x01:
-  case 0x10:
-  case 0x29:
-  case 0x52:
-  case 0x5D:
-  case 0x68:
-  case 0x6D:
-  case 0xF6: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x329F, 0x001F, 0x0000}, /* OBJ0 */
-        {0x7FFF, 0x3FE6, 0x0200, 0x0000}, /* OBJ1 */
-        {0x7FFF, 0x7EAC, 0x40C0, 0x0000}  /* BG */
-    };
-    memcpy(priv->selected_palette, palette, palette_bytes);
-    break;
-  }
+//  /* Mega Man [1/2/3] & others I don't care about. */
+//  case 0x01:
+//  case 0x10:
+//  case 0x29:
+//  case 0x52:
+//  case 0x5D:
+//  case 0x68:
+//  case 0x6D:
+//  case 0xF6: {
+//    const uint16_t palette[3][4] = {
+//        {0x7FFF, 0x329F, 0x001F, 0x0000}, /* OBJ0 */
+//        {0x7FFF, 0x3FE6, 0x0200, 0x0000}, /* OBJ1 */
+//        {0x7FFF, 0x7EAC, 0x40C0, 0x0000}  /* BG */
+//    };
+//    memcpy(priv->selected_palette, palette, palette_bytes);
+//    break;
+//  }
 
   default: {
-    const uint16_t palette[3][4] = {
-        {0x7FFF, 0x5294, 0x294A, 0x0000}, {0x7FFF, 0x5294, 0x294A, 0x0000}, {0x7FFF, 0x5294, 0x294A, 0x0000}};
+    const uint8_t palette[3][4][3] = {
+        {{ 255 , 255 , 255 },
+        { 80 , 80 , 80 },
+        { 40 , 40 , 40 },
+        { 20 , 20 , 20 }},
+        {{ 255 , 255 , 255 },
+        { 80 , 80 , 80 },
+        { 40 , 40 , 40 },
+        { 20 , 20 , 20 }},
+        {{ 255 , 255 , 255 },
+        { 80 , 80 , 80 },
+        { 40 , 40 , 40 },
+        { 20 , 20 , 20 }}};
     sDebug("gameboy") << "no palette found for game with checksum" << Qt::hex << game_checksum;
     memcpy(priv->selected_palette, palette, palette_bytes);
   }
@@ -186,7 +197,9 @@ void lcd_draw_line(gb_s *gb, const uint8_t pixels[160], const uint_least8_t line
   priv_t *priv = (priv_t *)gb->direct.priv;
 
   for (unsigned int x = 0; x < LCD_WIDTH; x++) {
-    priv->fb[line][x] = priv->selected_palette[(pixels[x] & LCD_PALETTE_ALL) >> 4][pixels[x] & 3];
+    priv->fb[line][x][0] = priv->selected_palette[(pixels[x] & LCD_PALETTE_ALL) >> 4][pixels[x] & 3][0];
+    priv->fb[line][x][1] = priv->selected_palette[(pixels[x] & LCD_PALETTE_ALL) >> 4][pixels[x] & 3][1];
+    priv->fb[line][x][2] = priv->selected_palette[(pixels[x] & LCD_PALETTE_ALL) >> 4][pixels[x] & 3][2];
   }
 }
 
