@@ -24,9 +24,9 @@ Control {
     }
 
     function onButtonPressed(button) {
-        if (button === Input.buttonBottomLeft)
+        if (button === Input.buttonTopLeft)
             setmin.color = Qt.darker(setmin.defaultColor, 1.4);
-        else if (button === Input.buttonBottomRight)
+        else if (button === Input.buttonTopRight)
             setmax.color = Qt.darker(setmax.defaultColor, 1.4);
     }
 
