@@ -22,6 +22,7 @@ Item {
             Layout.minimumHeight: 90
             Layout.fillWidth: true
             value: root.value.toFixed().padStart(root.maxDigits, " ")
+            valueFont: Style.mono.h2
             label: root.label
             labelFont: Style.sans.xsmall
         }
@@ -36,5 +37,7 @@ Item {
             columnGradient: root.columnGradient
             rotation: root.rotation
         }
+
     }
+
 }

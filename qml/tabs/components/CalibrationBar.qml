@@ -32,6 +32,7 @@ Item {
                         color: Style.textInverted
                         font: Style.sans.h3
                     }
+
                 }
 
                 Item {
@@ -42,7 +43,7 @@ Item {
                         id: sensorValue
 
                         anchors.fill: parent
-                        value: root.value
+                        value: root.value / 100
 
                         background: Rectangle {
                             color: Style.dark
@@ -68,10 +69,15 @@ Item {
                                         color: "transparent"
                                         border.width: 1
                                     }
+
                                 }
+
                             }
+
                         }
+
                     }
+
                 }
 
                 Item {
@@ -81,12 +87,17 @@ Item {
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
-                        text: ((sensorValue.visualPosition - root.zero) * 100).toFixed(0) + "%"
+                        text: (root.value - (root.zero * 100)).toFixed(0) + "%"
                         color: Style.textInverted
                         font: Style.mono.h3
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

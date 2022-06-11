@@ -20,7 +20,6 @@ QHash<int, int> buttonIds{
 
 Buttons::Buttons(QObject *parent) : QObject(parent) {
   // Init GPIO access
-  wiringPiSetup();
   mcp23017Setup(100, 0x20); // manettino left + manettino right
   mcp23017Setup(116, 0x27); // manettino center + paddles top + paddles bottom +
                             // buttons top + buttons bottom

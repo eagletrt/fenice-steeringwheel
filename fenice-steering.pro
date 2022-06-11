@@ -34,6 +34,7 @@ HEADERS += \
         include/car/telemetry.h \
         include/io/buttons.h \
         include/io/leds.h \
+        include/io/ptt.h \
         include/ui/emulator.h \
         include/ui/gameboy.h \
         include/ui/peanut.h \
@@ -63,12 +64,14 @@ SOURCES += \
 CONFIG(raspberry) {
 SOURCES += \
         src/io/buttons.cpp \
-        src/io/leds.cpp 
+        src/io/leds.cpp \
+        src/io/ptt.cpp
 DEFINES += S_OS_RASPBERRY
 } else {
 SOURCES += \
         src/io/buttons_x86.cpp \
-        src/io/leds_x86.cpp 
+        src/io/leds_x86.cpp \
+        src/io/ptt_x86.cpp
 DEFINES += S_OS_X86
 }
 

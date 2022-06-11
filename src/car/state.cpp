@@ -33,6 +33,8 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
   uint8_t *raw = new uint8_t[length];
   memcpy(raw, message.data(), length * sizeof(uint8_t));
 
+  // qDebug() << id << message;
+
   switch (device->network) {
   case CanDevice::Network::PRIMARY:
     handle_primary(id, raw);
@@ -143,19 +145,23 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
   case primary_id_HV_VOLTAGE: {
     primary_message_HV_VOLTAGE data;
     primary_deserialize_HV_VOLTAGE(&data, raw);
-    m_hv->set_pack_voltage(data.pack_voltage);
-    m_hv->set_bus_voltage(data.bus_voltage);
-    m_hv->set_max_cell_voltage(data.max_cell_voltage);
-    m_hv->set_min_cell_voltage(data.min_cell_voltage);
+    primary_message_HV_VOLTAGE_conversion conversion;
+    primary_raw_to_conversion_HV_VOLTAGE(&conversion, &data);
+    m_hv->set_pack_voltage(conversion.pack_voltage);
+    m_hv->set_bus_voltage(conversion.bus_voltage);
+    m_hv->set_max_cell_voltage(conversion.max_cell_voltage);
+    m_hv->set_min_cell_voltage(conversion.min_cell_voltage);
     emit hv_changed();
     break;
   }
   case primary_id_HV_TEMP: {
     primary_message_HV_TEMP data;
     primary_deserialize_HV_TEMP(&data, raw);
-    m_hv->set_average_temperature(data.average_temp);
-    m_hv->set_max_temperature(data.max_temp);
-    m_hv->set_min_temperature(data.min_temp);
+    primary_message_HV_TEMP_conversion conversion;
+    primary_raw_to_conversion_HV_TEMP(&conversion, &data);
+    m_hv->set_average_temperature(conversion.average_temp);
+    m_hv->set_max_temperature(conversion.max_temp);
+    m_hv->set_min_temperature(conversion.min_temp);
     emit hv_changed();
     break;
   }
@@ -190,10 +196,10 @@ void State::handle_secondary(quint32 id, uint8_t *raw) {
   case secondary_id_PEDALS_OUTPUT: {
     secondary_message_PEDALS_OUTPUT data;
     secondary_deserialize_PEDALS_OUTPUT(&data, raw);
-    secondary_message_PEDALS_OUTPUT_conversion converted_data;
-    secondary_raw_to_conversion_PEDALS_OUTPUT(&converted_data, &data);
-    m_das->set_apps(data.apps);
-    m_das->set_bse(data.bse_rear);
+    secondary_message_PEDALS_OUTPUT_conversion conversion;
+    secondary_raw_to_conversion_PEDALS_OUTPUT(&conversion, &data);
+    m_das->set_apps(conversion.apps);
+    m_das->set_bse(conversion.bse_rear);
     emit das_changed();
     break;
   }

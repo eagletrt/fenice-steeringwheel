@@ -152,7 +152,7 @@ void EmulatorRenderer::paint() {
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, m_texture);
 
-  if (m_elapsed->elapsed() >= ((1000. / RENDER_SPEED) / VERTICAL_SYNC)) {
+  if (m_elapsed->elapsed() >= ((600. / RENDER_SPEED) / VERTICAL_SYNC)) {
     m_elapsed->restart();
     m_gb->execute();
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, LCD_WIDTH, LCD_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE,

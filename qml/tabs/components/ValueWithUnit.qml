@@ -5,15 +5,16 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
-    property int value
+    property real value
     property string unit
+    property int decimals: 0
     property font valueFont: Style.mono.h1
     property font unitFont: Style.sans.xsmall
     property color color: Style.text
     property real high: +Infinity
-    property real medhigh: +Infinity
-    property real medlow: -Infinity
     property real low: -Infinity
+    property real medhigh: root.high * 0.8
+    property real medlow: root.low * 1.1
 
     width: main.width
     height: main.height
@@ -26,6 +27,7 @@ Item {
                 target: root
                 color: Style.red
             }
+
         },
         State {
             name: "MEDHIGH"
@@ -35,6 +37,7 @@ Item {
                 target: root
                 color: Style.orange
             }
+
         },
         State {
             name: "LOW"
@@ -44,6 +47,7 @@ Item {
                 target: root
                 color: Style.blue
             }
+
         },
         State {
             name: "MEDLOW"
@@ -53,6 +57,7 @@ Item {
                 target: root
                 color: Style.aqua
             }
+
         },
         State {
             name: "NORMAL"
@@ -62,13 +67,14 @@ Item {
                 target: root
                 color: Style.text
             }
+
         }
     ]
 
     Text {
         id: main
 
-        text: root.value
+        text: root.value.toFixed(root.decimals)
         font: root.valueFont
         color: root.color
         horizontalAlignment: Text.right
@@ -84,4 +90,5 @@ Item {
         font: root.unitFont
         color: root.color
     }
+
 }

@@ -5,16 +5,17 @@ import QtQuick.Layouts 1.15
 Column {
     id: root
 
-    property int value
+    property real value
     property string unit
     property string label
+    property int decimals: 0
     property font valueFont: Style.mono.h1
     property font unitFont: Style.mono.p
     property font labelFont: Style.sans.small
     property real high: +Infinity
-    property real medhigh: +Infinity
-    property real medlow: -Infinity
     property real low: -Infinity
+    property real medhigh: root.high * 0.8
+    property real medlow: root.low * 1.1
 
     spacing: 5
 
@@ -30,6 +31,7 @@ Column {
         unit: root.unit
         valueFont: root.valueFont
         unitFont: root.unitFont
+        decimals: root.decimals
     }
 
     Text {
@@ -38,4 +40,5 @@ Column {
         color: main.color
         font: root.labelFont
     }
+
 }

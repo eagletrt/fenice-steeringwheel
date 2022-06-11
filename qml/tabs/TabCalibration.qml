@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 import "components"
 
 Control {
-    id: calibration
+    id: root
 
     property int nameWidth: 130
     property int valueWidth: 100
@@ -14,35 +14,34 @@ Control {
     property int lenght: 3
 
     function connect() {
-        window.buttonPressed.connect(onButtonPressed);
         window.buttonReleased.connect(onButtonReleased);
     }
 
     function disconnect() {
-        window.buttonPressed.disconnect(onButtonPressed);
         window.buttonReleased.disconnect(onButtonReleased);
     }
 
-    function onButtonPressed(button) {
-        if (button === Input.buttonTopLeft)
-            setmin.color = Qt.darker(setmin.defaultColor, 1.4);
-        else if (button === Input.buttonTopRight)
-            setmax.color = Qt.darker(setmax.defaultColor, 1.4);
-    }
-
     function onButtonReleased(button) {
-        // send message
-        // send message
         if (button === Input.buttonBottomLeft) {
-            setmin.color = setmin.defaultColor;
+            set("MIN");
             popper.show("MIN SET", Style.foreground);
         } else if (button === Input.buttonBottomRight) {
-            setmax.color = setmax.defaultColor;
+            set("MAX");
             popper.show("MAX SET", Style.foreground);
-        } else if (button === Input.paddleBottomLeft)
-            selected = Utils.mod(selected + 1, lenght);
-        else if (button === Input.paddleBottomRight)
+        } else if (button === Input.paddleTopLeft)
             selected = Utils.mod(selected - 1, lenght);
+        else if (button === Input.paddleTopRight)
+            selected = Utils.mod(selected + 1, lenght);
+    }
+
+    function set(bound) {
+        if (root.selected === 0)
+            Car.das.send_set_pedal_range(0, bound === "MAX" ? 0 : 1);
+
+        if (root.selected === 1)
+            Car.das.send_set_pedal_range(1, bound === "MAX" ? 0 : 1);
+        else
+            Car.das.send_set_steering_angle_range(bound === "MAX" ? 1 : 0);
     }
 
     padding: 20
@@ -100,6 +99,7 @@ Control {
                 color: Style.textInverted
                 font: Style.sans.h3
             }
+
         }
 
         Rectangle {
@@ -117,6 +117,9 @@ Control {
                 color: Style.textInverted
                 font: Style.sans.h3
             }
+
         }
+
     }
+
 }

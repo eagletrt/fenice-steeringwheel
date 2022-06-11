@@ -11,9 +11,9 @@ class State;
 class DAS : public QObject {
   Q_OBJECT
 public:
-  S_PROPERTY(primary_CarStatus, car_status, primary_CarStatus_IDLE)
-  S_PROPERTY(primary_InverterStatus, inverter_left, primary_InverterStatus_OFF)
-  S_PROPERTY(primary_InverterStatus, inverter_right, primary_InverterStatus_OFF)
+  S_PROPERTY(quint8, car_status, primary_CarStatus_IDLE)
+  S_PROPERTY(quint8, inverter_left, primary_InverterStatus_OFF)
+  S_PROPERTY(quint8, inverter_right, primary_InverterStatus_OFF)
   S_PROPERTY(qint32, left_speed_rads, 0)
   S_PROPERTY(qint32, right_speed_rads, 0)
   S_PROPERTY(float, speed, 0)
@@ -32,6 +32,8 @@ public:
 
 protected slots:
   void send_toggle_car_status();
+  void send_set_pedal_range(quint8 pedal, quint8 bound);
+  void send_set_steering_angle_range(quint8 bound);
 
 public slots:
   void button_clicked(int button);

@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.15
 import "components"
 
 Rectangle {
-    id: racing
+    id: speed
 
     property int columnWidth: 80
 
@@ -23,7 +23,7 @@ Rectangle {
 
             ValueColumn {
                 Layout.fillHeight: true
-                Layout.minimumWidth: racing.columnWidth
+                Layout.minimumWidth: speed.columnWidth
                 label: "[V] BMS"
                 value: Car.hv.pack_voltage
                 max: 460
@@ -40,7 +40,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
@@ -62,8 +64,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         Item {
@@ -103,7 +108,9 @@ Rectangle {
                             unit: "°C"
                             label: "INVERTER R"
                         }
+
                     }
+
                 }
 
                 Item {
@@ -126,12 +133,15 @@ Rectangle {
                         width: speedometerSize
                         height: speedometerSize
 
-                        Behavior on speed  {
+                        Behavior on speed {
                             NumberAnimation {
                                 duration: 1000
                             }
+
                         }
+
                     }
+
                 }
 
                 MapBar {
@@ -139,7 +149,9 @@ Rectangle {
                     Layout.fillWidth: true
                     map: Car.steering.map
                 }
+
             }
+
         }
 
         RowLayout {
@@ -166,12 +178,14 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             ValueColumn {
                 Layout.fillHeight: true
-                Layout.minimumWidth: racing.columnWidth
+                Layout.minimumWidth: speed.columnWidth
                 label: "[V] BMS"
                 value: Car.hv.pack_voltage
                 max: 460
@@ -188,8 +202,13 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

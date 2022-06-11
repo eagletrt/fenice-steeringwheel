@@ -8,6 +8,10 @@
 #include <QThread>
 #include <QWindow>
 
+#ifdef S_OS_RASPBERRY
+#include <wiringPi.h>
+#endif
+
 #define primary_IMPLEMENTATION
 #define primary_IDS_IMPLEMENTATION
 
@@ -30,6 +34,7 @@
 
 #include "io/buttons.h"
 #include "io/leds.h"
+#include "io/ptt.h"
 
 #include "can/bus.h"
 
@@ -74,6 +79,10 @@ int main(int argc, char *argv[]) {
   }
 #endif
 
+#ifdef S_OS_RASPBERRY
+  wiringPiSetup();
+#endif
+
   // setup global logging, also reflected in the UI
   qInstallMessageHandler(Global::messageHandler);
 
@@ -111,6 +120,7 @@ int main(int argc, char *argv[]) {
   Buttons *buttons = new Buttons(&engine);
   CanBus *canBus = new CanBus(&engine);
   State *state = new State(&engine);
+  Ptt *ptt = new Ptt(&engine);
 
   QObject::connect(canBus, &CanBus::message_received, state, &State::handle_message);
   QObject::connect(state, &State::send_message, canBus, &CanBus::send_message);
@@ -125,12 +135,24 @@ int main(int argc, char *argv[]) {
   QObject::connect(buttons, &Buttons::button_clicked, state->telemetry(), &Telemetry::button_clicked);
   QObject::connect(buttons, &Buttons::button_long_clicked, state->telemetry(), &Telemetry::button_long_clicked);
 
-  QObject::connect(state->steering(), &Steering::ptt_changed, leds,
-                   [&](bool ptt) { leds->set_left_brightness(7, ptt ? 0xFF : 0x0); });
+  QObject::connect(state->steering(), &Steering::ptt_changed, leds, [&](bool ptt_value) {
+    leds->set_left_brightness(7, ptt_value ? 0xFF : 0x0);
+    if (ptt_value) {
+      ptt->start();
+    } else {
+      ptt->stop();
+    }
+  });
 
   QObject::connect(state->telemetry(), &Telemetry::status_changed, leds, [&](primary_Toggle status) {
     leds->set_right_brightness(6, status == primary_Toggle_ON ? 0xFF : 0x0);
   });
+
+  leds->set_left_brightness(0, 0xFF);
+  leds->set_left_brightness(3, 0xFF);
+
+  leds->set_right_brightness(0, 0xFF);
+  leds->set_right_brightness(3, 0xFF);
 
 #ifdef S_OS_X86
   app.installEventFilter(buttons);

@@ -40,7 +40,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
@@ -62,8 +64,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         ColumnLayout {
@@ -79,11 +84,55 @@ Rectangle {
                     columns: 4
                     rows: 3
 
-                    ValueWithUnit {
+                    Text {
+                        id: car_status
+
                         Layout.alignment: Qt.AlignCenter
                         Layout.columnSpan: 2
-                        value: 100
-                        unit: "km/h"
+                        font: Style.sans.h1
+                        color: Style.text
+                        states: [
+                            State {
+                                name: "IDLE"
+                                when: Car.das.car_status === 0
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "IDLE"
+                                }
+
+                            },
+                            State {
+                                name: "SETUP"
+                                when: Car.das.car_status === 1
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "SETUP"
+                                }
+
+                            },
+                            State {
+                                name: "RUN"
+                                when: Car.das.car_status === 2
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "RUN"
+                                }
+
+                            },
+                            State {
+                                name: "???"
+                                when: true
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "???"
+                                }
+
+                            }
+                        ]
                     }
 
                     ValueWithUnitAndLabel {
@@ -170,15 +219,18 @@ Rectangle {
                                 unit: "°C"
                                 label: "TYRE RR"
                             }
+
                         }
+
                     }
 
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        value: Car.inverters.left_temperature
+                        value: Car.hv.max_temperature
                         unit: "°C"
                         label: "BMS HV"
+                        high: 50
                     }
 
                     ValueWithUnitAndLabel {
@@ -192,19 +244,22 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        value: Car.steering.map
-                        unit: "%"
-                        label: "OTHER"
+                        value: 1000 * (Car.hv.max_cell_voltage - Car.hv.min_cell_voltage)
+                        unit: "mV"
+                        label: "Cell Delta"
                     }
 
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        value: Car.steering.map
-                        unit: "%"
-                        label: "OTHER"
+                        value: Car.steering.temperature
+                        unit: "°C"
+                        label: "RPI"
+                        high: 80
                     }
+
                 }
+
             }
 
             MapBar {
@@ -212,6 +267,7 @@ Rectangle {
                 Layout.fillWidth: true
                 map: Car.steering.map
             }
+
         }
 
         RowLayout {
@@ -238,7 +294,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             ValueColumn {
@@ -260,8 +318,13 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }
