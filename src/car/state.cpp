@@ -110,26 +110,32 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
   case primary_id_LV_VOLTAGE: {
     primary_message_LV_VOLTAGE data;
     primary_deserialize_LV_VOLTAGE(&data, raw);
-    m_lv->set_voltage_1(data.voltage_1);
-    m_lv->set_voltage_2(data.voltage_2);
-    m_lv->set_voltage_3(data.voltage_3);
-    m_lv->set_voltage_4(data.voltage_4);
+    primary_message_LV_VOLTAGE_conversion conversion;
+    primary_raw_to_conversion_struct_LV_VOLTAGE(&conversion, &data);
+    m_lv->set_voltage_1(conversion.voltage_1);
+    m_lv->set_voltage_2(conversion.voltage_2);
+    m_lv->set_voltage_3(conversion.voltage_3);
+    m_lv->set_voltage_4(conversion.voltage_4);
+    m_lv->set_voltage_min(
+        qMin(conversion.voltage_1, qMin(conversion.voltage_2, qMin(conversion.voltage_3, conversion.voltage_4))));
     emit lv_changed();
     break;
   }
   case primary_id_LV_TEMPERATURE: {
     primary_message_LV_TEMPERATURE data;
     primary_deserialize_LV_TEMPERATURE(&data, raw);
-    m_lv->set_dcdc_temperature(data.dcdc12_temperature);
-    m_lv->set_battery_temperature(data.bp_temperature_1);
+    primary_message_LV_TEMPERATURE_conversion conversion;
+    primary_raw_to_conversion_struct_LV_TEMPERATURE(&conversion, &data);
+    m_lv->set_dcdc_temperature(conversion.dcdc12_temperature);
+    m_lv->set_battery_temperature(conversion.bp_temperature_1);
     emit lv_changed();
     break;
   }
   case primary_id_COOLING_STATUS: {
     primary_message_COOLING_STATUS data;
     primary_deserialize_COOLING_STATUS(&data, raw);
-    m_lv->set_hv_fan_speed(data.hv_fan_speed);
-    m_lv->set_lv_fan_speed(data.lv_fan_speed);
+    m_lv->set_inverter_radiators_speed(data.inverters_radiator_speed);
+    m_lv->set_motor_radiators_speed(data.motors_radiator_speed);
     m_lv->set_pump_speed(data.pump_speed);
     emit lv_changed();
     break;
@@ -146,7 +152,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     primary_message_HV_VOLTAGE data;
     primary_deserialize_HV_VOLTAGE(&data, raw);
     primary_message_HV_VOLTAGE_conversion conversion;
-    primary_raw_to_conversion_HV_VOLTAGE(&conversion, &data);
+    primary_raw_to_conversion_struct_HV_VOLTAGE(&conversion, &data);
     m_hv->set_pack_voltage(conversion.pack_voltage);
     m_hv->set_bus_voltage(conversion.bus_voltage);
     m_hv->set_max_cell_voltage(conversion.max_cell_voltage);
@@ -158,7 +164,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     primary_message_HV_TEMP data;
     primary_deserialize_HV_TEMP(&data, raw);
     primary_message_HV_TEMP_conversion conversion;
-    primary_raw_to_conversion_HV_TEMP(&conversion, &data);
+    primary_raw_to_conversion_struct_HV_TEMP(&conversion, &data);
     m_hv->set_average_temperature(conversion.average_temp);
     m_hv->set_max_temperature(conversion.max_temp);
     m_hv->set_min_temperature(conversion.min_temp);
@@ -197,7 +203,7 @@ void State::handle_secondary(quint32 id, uint8_t *raw) {
     secondary_message_PEDALS_OUTPUT data;
     secondary_deserialize_PEDALS_OUTPUT(&data, raw);
     secondary_message_PEDALS_OUTPUT_conversion conversion;
-    secondary_raw_to_conversion_PEDALS_OUTPUT(&conversion, &data);
+    secondary_raw_to_conversion_struct_PEDALS_OUTPUT(&conversion, &data);
     m_das->set_apps(conversion.apps);
     m_das->set_bse(conversion.bse_rear);
     emit das_changed();

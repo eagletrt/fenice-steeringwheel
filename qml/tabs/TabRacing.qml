@@ -92,47 +92,47 @@ Rectangle {
                         font: Style.sans.h1
                         color: Style.text
                         states: [
-                            State {
-                                name: "IDLE"
-                                when: Car.das.car_status === 0
+                             State {
+                                 name: "IDLE"
+                                 when: Car.das.car_status === 0
 
-                                PropertyChanges {
-                                    target: car_status
-                                    text: "IDLE"
-                                }
+                                 PropertyChanges {
+                                     target: car_status
+                                     text: "IDLE"
+                                 }
 
-                            },
-                            State {
-                                name: "SETUP"
-                                when: Car.das.car_status === 1
+                             },
+                             State {
+                                 name: "SETUP"
+                                 when: Car.das.car_status === 1
 
-                                PropertyChanges {
-                                    target: car_status
-                                    text: "SETUP"
-                                }
+                                 PropertyChanges {
+                                     target: car_status
+                                     text: "SETUP"
+                                 }
 
-                            },
-                            State {
-                                name: "RUN"
-                                when: Car.das.car_status === 2
+                             },
+                             State {
+                                 name: "RUN"
+                                 when: Car.das.car_status === 2
 
-                                PropertyChanges {
-                                    target: car_status
-                                    text: "RUN"
-                                }
+                                 PropertyChanges {
+                                     target: car_status
+                                     text: "RUN"
+                                 }
 
-                            },
-                            State {
-                                name: "???"
-                                when: true
+                             },
+                             State {
+                                 name: "???"
+                                 when: true
 
-                                PropertyChanges {
-                                    target: car_status
-                                    text: "???"
-                                }
+                                 PropertyChanges {
+                                     target: car_status
+                                     text: "???"
+                                 }
 
-                            }
-                        ]
+                             }
+                         ]
                     }
 
                     ValueWithUnitAndLabel {
@@ -151,11 +151,12 @@ Rectangle {
                         label: "INVERTER R"
                     }
 
-                    ValueWithUnit {
+                    Text {
                         Layout.alignment: Qt.AlignCenter
                         Layout.columnSpan: 2
-                        value: 100
-                        unit: "km/h"
+                        font: Style.sans.h1
+                        color: Style.text
+                        text: "SBORAT"
                     }
 
                     ValueWithUnitAndLabel {
@@ -174,56 +175,6 @@ Rectangle {
                         label: "MOTOR RIGHT"
                     }
 
-                    Rectangle {
-                        Layout.preferredWidth: parent.width / 2
-                        Layout.fillHeight: true
-                        Layout.columnSpan: 2
-                        Layout.rowSpan: 2
-                        color: Style.transparent
-
-                        GridLayout {
-                            anchors.fill: parent
-                            columns: 2
-                            rows: 2
-                            columnSpacing: 0
-                            rowSpacing: 0
-
-                            ValueWithUnitAndLabel {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                value: 90
-                                unit: "°C"
-                                label: "TYRE FL"
-                            }
-
-                            ValueWithUnitAndLabel {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                value: 80
-                                unit: "°C"
-                                label: "TYRE FR"
-                            }
-
-                            ValueWithUnitAndLabel {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                value: 50
-                                unit: "°C"
-                                label: "TYRE RL"
-                            }
-
-                            ValueWithUnitAndLabel {
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                value: 50
-                                unit: "°C"
-                                label: "TYRE RR"
-                            }
-
-                        }
-
-                    }
-
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -236,7 +187,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        value: Car.inverters.right_temperature
+                        value: Car.lv.battery_temperature
                         unit: "°C"
                         label: "BMS LV"
                     }
@@ -244,9 +195,42 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        value: 90
+                        unit: "°C"
+                        label: "TYRE FL"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: 80
+                        unit: "°C"
+                        label: "TYRE FR"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
                         value: 1000 * (Car.hv.max_cell_voltage - Car.hv.min_cell_voltage)
                         unit: "mV"
-                        label: "Cell Delta"
+                        label: "HV Delta"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: Car.lv.voltage_min
+                        decimals: 1
+                        unit: "V"
+                        label: "LV MIN"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        value: 0
+                        unit: "°C"
+                        label: "OTHER"
                     }
 
                     ValueWithUnitAndLabel {
