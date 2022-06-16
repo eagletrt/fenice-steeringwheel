@@ -33,9 +33,6 @@ Item {
             lastPressed = [];
         if (lastPressed.length === fireGameboy.length && !onGameboy) {
             onGameboy = true;
-            console.log("FIRE GAMEBOY");
-            console.log(tabs.children.length - 1);
-            console.log(tabs.children[tabs.currentIndex]);
             const gameboyTab = tabs.children.length - 1;
             const currentTab = tabs.children[tabs.currentIndex];
             if (currentTab.disconnect)
