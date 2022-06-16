@@ -9,6 +9,7 @@ Item {
     property var lastPressed: []
     // V Z C S
     property var fireGameboy: [Input.paddleTopRight, Input.paddleBottomLeft, Input.paddleTopLeft, Input.buttonBottomRight]
+    property bool onGameboy: false
 
     function connect() {
         window.buttonReleased.connect(buttonReleasedHandler);
@@ -30,11 +31,23 @@ Item {
         lastPressed.push(button)
         if(lastPressed[lastPressed.length - 1] !== fireGameboy[lastPressed.length - 1])
             lastPressed = [];
-        if (lastPressed.length === fireGameboy.length) {
+        if (lastPressed.length === fireGameboy.length && !onGameboy) {
+            onGameboy = true;
             console.log("FIRE GAMEBOY");
+            console.log(tabs.children.length - 1);
+            console.log(tabs.children[tabs.currentIndex]);
+            const gameboyTab = tabs.children.length - 1;
+            const currentTab = tabs.children[tabs.currentIndex];
+            if (currentTab.disconnect)
+                currentTab.disconnect();
+            if (gameboyTab.connect)
+                gameboyTab.connect();
+
+            tabs.currentIndex = gameboyTab;
             lastPressed = [];
         }
         else if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
+            onGameboy = false;
             if (tabs.blocked)
                 return ;
 
