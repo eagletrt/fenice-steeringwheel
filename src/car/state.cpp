@@ -49,49 +49,49 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
 
 void State::handle_primary(quint32 id, uint8_t *raw) {
   switch (id) {
-  case primary_id_TIMESTAMP: {
+  case primary_ID_TIMESTAMP: {
     primary_message_TIMESTAMP data;
     primary_deserialize_TIMESTAMP(&data, raw);
     m_timestamp = data.timestamp;
     emit timestamp_changed();
     break;
   }
-  case primary_id_DAS_VERSION: {
+  case primary_ID_DAS_VERSION: {
     primary_message_DAS_VERSION data;
     primary_deserialize_DAS_VERSION(&data, raw);
     m_das->set_version_component(data.component_version);
     m_das->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case primary_id_HV_VERSION: {
+  case primary_ID_HV_VERSION: {
     primary_message_HV_VERSION data;
     primary_deserialize_HV_VERSION(&data, raw);
     m_hv->set_version_component(data.component_version);
     m_hv->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case primary_id_LV_VERSION: {
+  case primary_ID_LV_VERSION: {
     primary_message_LV_VERSION data;
     primary_deserialize_LV_VERSION(&data, raw);
     m_lv->set_version_component(data.component_version);
     m_lv->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case primary_id_TLM_VERSION: {
+  case primary_ID_TLM_VERSION: {
     primary_message_TLM_VERSION data;
     primary_deserialize_TLM_VERSION(&data, raw);
     m_telemetry->set_version_component(data.component_version);
     m_telemetry->set_version_cancicd(data.cancicd_version);
     break;
   }
-  case primary_id_TLM_STATUS: {
+  case primary_ID_TLM_STATUS: {
     primary_message_TLM_STATUS data;
     primary_deserialize_TLM_STATUS(&data, raw);
     m_telemetry->set_status(data.tlm_status);
     emit telemetry_changed();
     break;
   }
-  case primary_id_CAR_STATUS: {
+  case primary_ID_CAR_STATUS: {
     primary_message_CAR_STATUS data;
     primary_deserialize_CAR_STATUS(&data, raw);
     m_das->set_car_status(data.car_status);
@@ -100,14 +100,14 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit das_changed();
     break;
   }
-  case primary_id_LV_CURRENT: {
+  case primary_ID_LV_CURRENT: {
     primary_message_LV_CURRENT data;
     primary_deserialize_LV_CURRENT(&data, raw);
     m_lv->set_current(data.current);
     emit lv_changed();
     break;
   }
-  case primary_id_LV_VOLTAGE: {
+  case primary_ID_LV_VOLTAGE: {
     primary_message_LV_VOLTAGE data;
     primary_deserialize_LV_VOLTAGE(&data, raw);
     primary_message_LV_VOLTAGE_conversion conversion;
@@ -121,7 +121,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit lv_changed();
     break;
   }
-  case primary_id_LV_TEMPERATURE: {
+  case primary_ID_LV_TEMPERATURE: {
     primary_message_LV_TEMPERATURE data;
     primary_deserialize_LV_TEMPERATURE(&data, raw);
     primary_message_LV_TEMPERATURE_conversion conversion;
@@ -131,7 +131,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit lv_changed();
     break;
   }
-  case primary_id_COOLING_STATUS: {
+  case primary_ID_COOLING_STATUS: {
     primary_message_COOLING_STATUS data;
     primary_deserialize_COOLING_STATUS(&data, raw);
     m_lv->set_radiators_speed(data.radiators_speed);
@@ -139,7 +139,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit lv_changed();
     break;
   }
-  case primary_id_HV_CURRENT: {
+  case primary_ID_HV_CURRENT: {
     primary_message_HV_CURRENT data;
     primary_deserialize_HV_CURRENT(&data, raw);
     m_hv->set_current(data.current);
@@ -147,7 +147,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit hv_changed();
     break;
   }
-  case primary_id_HV_VOLTAGE: {
+  case primary_ID_HV_VOLTAGE: {
     primary_message_HV_VOLTAGE data;
     primary_deserialize_HV_VOLTAGE(&data, raw);
     primary_message_HV_VOLTAGE_conversion conversion;
@@ -159,7 +159,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit hv_changed();
     break;
   }
-  case primary_id_HV_TEMP: {
+  case primary_ID_HV_TEMP: {
     primary_message_HV_TEMP data;
     primary_deserialize_HV_TEMP(&data, raw);
     primary_message_HV_TEMP_conversion conversion;
@@ -170,7 +170,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit hv_changed();
     break;
   }
-  case primary_id_HV_ERRORS: {
+  case primary_ID_HV_ERRORS: {
     primary_message_HV_ERRORS data;
     primary_deserialize_HV_ERRORS(&data, raw);
     m_hv->set_errors(data.errors);
@@ -178,7 +178,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit hv_changed();
     break;
   }
-  case primary_id_TS_STATUS: {
+  case primary_ID_TS_STATUS: {
     primary_message_TS_STATUS data;
     primary_deserialize_TS_STATUS(&data, raw);
     m_hv->set_ts_status(data.ts_status);
@@ -190,7 +190,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
 
 void State::handle_secondary(quint32 id, uint8_t *raw) {
   switch (id) {
-  case secondary_id_CONTROL_OUTPUT: {
+  case secondary_ID_CONTROL_OUTPUT: {
     secondary_message_CONTROL_OUTPUT data;
     secondary_deserialize_CONTROL_OUTPUT(&data, raw);
     m_das->set_control_left(data.left);
@@ -198,7 +198,7 @@ void State::handle_secondary(quint32 id, uint8_t *raw) {
     emit das_changed();
     break;
   }
-  case secondary_id_PEDALS_OUTPUT: {
+  case secondary_ID_PEDALS_OUTPUT: {
     secondary_message_PEDALS_OUTPUT data;
     secondary_deserialize_PEDALS_OUTPUT(&data, raw);
     secondary_message_PEDALS_OUTPUT_conversion conversion;
@@ -208,14 +208,14 @@ void State::handle_secondary(quint32 id, uint8_t *raw) {
     emit das_changed();
     break;
   }
-  case secondary_id_STEERING_ANGLE: {
+  case secondary_ID_STEERING_ANGLE: {
     secondary_message_STEERING_ANGLE data;
     secondary_deserialize_STEERING_ANGLE(&data, raw);
     m_das->set_steering_angle(data.angle);
     emit das_changed();
     break;
   }
-  case secondary_id_GPS_COORDS: {
+  case secondary_ID_GPS_COORDS: {
     secondary_message_GPS_COORDS data;
     secondary_deserialize_GPS_COORDS(&data, raw);
     m_telemetry->set_latitude(data.latitude);
@@ -223,7 +223,7 @@ void State::handle_secondary(quint32 id, uint8_t *raw) {
     emit telemetry_changed();
     break;
   }
-  case secondary_id_GPS_SPEED: {
+  case secondary_ID_GPS_SPEED: {
     secondary_message_GPS_SPEED data;
     secondary_deserialize_GPS_SPEED(&data, raw);
     m_telemetry->set_gps_speed(data.speed);

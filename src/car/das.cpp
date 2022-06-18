@@ -11,7 +11,7 @@ DAS::DAS(State *parent) : QObject(parent), m_state(parent) {}
 DAS::~DAS() { sDebug("das") << "cleanup"; }
 
 void DAS::send_toggle_car_status() {
-  quint8 *data = new quint8[primary_SET_CAR_STATUS_SIZE];
+  quint8 *data = new quint8[primary_SIZE_SET_CAR_STATUS];
   switch (m_car_status) {
   case primary_CarStatus_IDLE:
     primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_RUN);
@@ -23,24 +23,24 @@ void DAS::send_toggle_car_status() {
     primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_IDLE);
     break;
   }
-  QByteArray message((const char *)data, primary_SET_CAR_STATUS_SIZE);
-  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_id_SET_CAR_STATUS, message);
+  QByteArray message((const char *)data, primary_SIZE_SET_CAR_STATUS);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_CAR_STATUS, message);
   delete[] data;
 }
 
 void DAS::send_set_pedal_range(quint8 pedal, quint8 bound) {
-  quint8 *data = new quint8[primary_SET_PEDALS_RANGE_SIZE];
+  quint8 *data = new quint8[primary_SIZE_SET_PEDALS_RANGE];
   primary_serialize_SET_PEDALS_RANGE(data, (primary_Bound)bound, (primary_Pedal)pedal);
-  QByteArray message((const char *)data, primary_SET_PEDALS_RANGE_SIZE);
-  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_id_SET_PEDALS_RANGE, message);
+  QByteArray message((const char *)data, primary_SIZE_SET_PEDALS_RANGE);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_PEDALS_RANGE, message);
   delete[] data;
 }
 
 void DAS::send_set_steering_angle_range(quint8 bound) {
-  quint8 *data = new quint8[primary_SET_STEERING_ANGLE_RANGE_SIZE];
+  quint8 *data = new quint8[primary_SIZE_SET_STEERING_ANGLE_RANGE];
   primary_serialize_SET_STEERING_ANGLE_RANGE(data, (primary_Bound)bound);
-  QByteArray message((const char *)data, primary_SET_STEERING_ANGLE_RANGE_SIZE);
-  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_id_SET_STEERING_ANGLE_RANGE, message);
+  QByteArray message((const char *)data, primary_SIZE_SET_STEERING_ANGLE_RANGE);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_STEERING_ANGLE_RANGE, message);
   delete[] data;
 }
 

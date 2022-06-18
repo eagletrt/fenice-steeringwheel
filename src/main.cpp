@@ -12,24 +12,6 @@
 #include <wiringPi.h>
 #endif
 
-#define primary_IMPLEMENTATION
-#define primary_IDS_IMPLEMENTATION
-
-#include "primary/c/ids.h"
-#include "primary/c/network.h"
-
-#undef primary_IMPLEMENTATION
-#undef primary_IDS_IMPLEMENTATION
-
-#define secondary_IMPLEMENTATION
-#define secondary_IDS_IMPLEMENTATION
-
-#include "secondary/c/ids.h"
-#include "secondary/c/network.h"
-
-#undef secondary_IMPLEMENTATION
-#undef secondary_IDS_IMPLEMENTATION
-
 #include "global.h"
 
 #include "io/buttons.h"

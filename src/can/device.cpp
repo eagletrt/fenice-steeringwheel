@@ -1,3 +1,15 @@
+#define primary_NETWORK_IMPLEMENTATION
+#define primary_IDS_IMPLEMENTATION
+
+#include "primary/c/ids.h"
+#include "primary/c/network.h"
+
+#define secondary_NETWORK_IMPLEMENTATION
+#define secondary_IDS_IMPLEMENTATION
+
+#include "secondary/c/ids.h"
+#include "secondary/c/network.h"
+
 #include "can/device.h"
 
 #include "global.h"
