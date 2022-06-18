@@ -41,6 +41,8 @@ HEADERS += \
         include/ui/speedometer.h \
         thirdparty/can/lib/primary/c/network.h \
         thirdparty/can/lib/secondary/c/network.h \
+        thirdparty/can/lib/primary/c/watchdog.h \
+        thirdparty/can/lib/secondary/c/watchdog.h \
         thirdparty/can/lib/primary/c/ids.h \
         thirdparty/can/lib/secondary/c/ids.h
 

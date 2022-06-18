@@ -11,6 +11,7 @@ class State;
 class HV : public QObject {
   Q_OBJECT
 public:
+  S_PROPERTY(bool, valid, false)
   S_PROPERTY(float, pack_voltage, 0)
   S_PROPERTY(quint16, bus_voltage, 0)
   S_PROPERTY(float, max_cell_voltage, 0)

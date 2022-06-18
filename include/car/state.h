@@ -3,8 +3,11 @@
 
 #include <QColor>
 #include <QObject>
+#include <QTimer>
 
 #include "can/device.h"
+#include "primary/c/watchdog.h"
+#include "secondary/c/watchdog.h"
 
 #include "das.h"
 #include "hv.h"
@@ -63,6 +66,9 @@ private:
   Inverters *m_inverters;
   Steering *m_steering;
   Telemetry *m_telemetry;
+  primary_watchdog *m_primary_watchdog;
+  secondary_watchdog *m_secondary_watchdog;
+  QTimer *m_watchdog_timer;
 };
 
 #endif // STATE_H

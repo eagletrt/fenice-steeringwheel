@@ -8,6 +8,7 @@ Column {
     property real value
     property string unit
     property string label
+    property bool valid: true
     property int decimals: 0
     property font valueFont: Style.mono.h1
     property font unitFont: Style.mono.p
@@ -27,6 +28,7 @@ Column {
         medhigh: root.medhigh
         medlow: root.medlow
         low: root.low
+        valid: root.valid
         value: root.value
         unit: root.unit
         valueFont: root.valueFont

@@ -211,6 +211,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.hv.valid
                         value: 1000 * (Car.hv.max_cell_voltage - Car.hv.min_cell_voltage)
                         unit: "mV"
                         label: "HV Delta"

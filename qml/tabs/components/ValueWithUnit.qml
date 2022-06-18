@@ -7,6 +7,7 @@ Item {
 
     property real value
     property string unit
+    property bool valid: true
     property int decimals: 0
     property font valueFont: Style.mono.h1
     property font unitFont: Style.sans.xsmall

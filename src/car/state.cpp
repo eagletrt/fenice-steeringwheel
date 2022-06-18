@@ -1,5 +1,6 @@
 #include "car/state.h"
 
+#include <QDateTime>
 #include <algorithm>
 #include <cmath>
 
@@ -17,6 +18,16 @@ State::State(QObject *parent) : QObject(parent) {
   m_inverters = new Inverters(this);
   m_steering = new Steering(this);
   m_telemetry = new Telemetry(this);
+  m_primary_watchdog = primary_watchdog_new();
+  m_secondary_watchdog = secondary_watchdog_new();
+
+  m_watchdog_timer = new QTimer();
+  m_watchdog_timer->setInterval(5000);
+  connect(m_watchdog_timer, &QTimer::timeout, this, [&]() -> void {
+    primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentMSecsSinceEpoch());
+    secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentMSecsSinceEpoch());
+  });
+  m_watchdog_timer->start();
 }
 
 State::~State() {
@@ -26,6 +37,9 @@ State::~State() {
   delete m_lv;
   delete m_steering;
   delete m_telemetry;
+  delete m_watchdog_timer;
+  primary_watchdog_free(m_primary_watchdog);
+  secondary_watchdog_free(m_secondary_watchdog);
 }
 
 void State::handle_message(const CanDevice *device, quint32 id, const QByteArray &message) {
@@ -47,53 +61,57 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
   delete[] raw;
 }
 
+#define DESERIALIZE(network, message)                                                                                  \
+  network##_message_##message data;                                                                                    \
+  network##_deserialize_##message(&data, raw);
+
+#define DESERIALIZE_CONVERSION(network, message)                                                                       \
+  DESERIALIZE(network, message)                                                                                        \
+  network##_message_##message##_conversion conversion;                                                                 \
+  network##_raw_to_conversion_struct_##message(&conversion, &data);
+
 void State::handle_primary(quint32 id, uint8_t *raw) {
+  primary_watchdog_reset(m_primary_watchdog, id, QDateTime::currentMSecsSinceEpoch());
   switch (id) {
   case primary_ID_TIMESTAMP: {
-    primary_message_TIMESTAMP data;
-    primary_deserialize_TIMESTAMP(&data, raw);
+    DESERIALIZE(primary, TIMESTAMP);
     m_timestamp = data.timestamp;
     emit timestamp_changed();
     break;
   }
   case primary_ID_DAS_VERSION: {
-    primary_message_DAS_VERSION data;
-    primary_deserialize_DAS_VERSION(&data, raw);
+    DESERIALIZE(primary, DAS_VERSION);
     m_das->set_version_component(data.component_version);
     m_das->set_version_cancicd(data.cancicd_version);
     break;
   }
   case primary_ID_HV_VERSION: {
-    primary_message_HV_VERSION data;
-    primary_deserialize_HV_VERSION(&data, raw);
+    DESERIALIZE(primary, HV_VERSION);
     m_hv->set_version_component(data.component_version);
     m_hv->set_version_cancicd(data.cancicd_version);
     break;
   }
   case primary_ID_LV_VERSION: {
-    primary_message_LV_VERSION data;
+    DESERIALIZE(primary, LV_VERSION);
     primary_deserialize_LV_VERSION(&data, raw);
     m_lv->set_version_component(data.component_version);
     m_lv->set_version_cancicd(data.cancicd_version);
     break;
   }
   case primary_ID_TLM_VERSION: {
-    primary_message_TLM_VERSION data;
-    primary_deserialize_TLM_VERSION(&data, raw);
+    DESERIALIZE(primary, TLM_VERSION);
     m_telemetry->set_version_component(data.component_version);
     m_telemetry->set_version_cancicd(data.cancicd_version);
     break;
   }
   case primary_ID_TLM_STATUS: {
-    primary_message_TLM_STATUS data;
-    primary_deserialize_TLM_STATUS(&data, raw);
+    DESERIALIZE(primary, TLM_STATUS);
     m_telemetry->set_status(data.tlm_status);
     emit telemetry_changed();
     break;
   }
   case primary_ID_CAR_STATUS: {
-    primary_message_CAR_STATUS data;
-    primary_deserialize_CAR_STATUS(&data, raw);
+    DESERIALIZE(primary, CAR_STATUS);
     m_das->set_car_status(data.car_status);
     m_das->set_inverter_left(data.inverter_l);
     m_das->set_inverter_right(data.inverter_r);
@@ -101,17 +119,13 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     break;
   }
   case primary_ID_LV_CURRENT: {
-    primary_message_LV_CURRENT data;
-    primary_deserialize_LV_CURRENT(&data, raw);
+    DESERIALIZE(primary, LV_CURRENT);
     m_lv->set_current(data.current);
     emit lv_changed();
     break;
   }
   case primary_ID_LV_VOLTAGE: {
-    primary_message_LV_VOLTAGE data;
-    primary_deserialize_LV_VOLTAGE(&data, raw);
-    primary_message_LV_VOLTAGE_conversion conversion;
-    primary_raw_to_conversion_struct_LV_VOLTAGE(&conversion, &data);
+    DESERIALIZE_CONVERSION(primary, LV_VOLTAGE);
     m_lv->set_voltage_1(conversion.voltage_1);
     m_lv->set_voltage_2(conversion.voltage_2);
     m_lv->set_voltage_3(conversion.voltage_3);
@@ -122,36 +136,28 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     break;
   }
   case primary_ID_LV_TEMPERATURE: {
-    primary_message_LV_TEMPERATURE data;
-    primary_deserialize_LV_TEMPERATURE(&data, raw);
-    primary_message_LV_TEMPERATURE_conversion conversion;
-    primary_raw_to_conversion_struct_LV_TEMPERATURE(&conversion, &data);
+    DESERIALIZE_CONVERSION(primary, LV_TEMPERATURE);
     m_lv->set_dcdc_temperature(conversion.dcdc12_temperature);
     m_lv->set_battery_temperature(conversion.bp_temperature_1);
     emit lv_changed();
     break;
   }
   case primary_ID_COOLING_STATUS: {
-    primary_message_COOLING_STATUS data;
-    primary_deserialize_COOLING_STATUS(&data, raw);
-    m_lv->set_radiators_speed(data.radiators_speed);
-    m_lv->set_pumps_speed(data.pumps_speed);
+    DESERIALIZE_CONVERSION(primary, COOLING_STATUS);
+    m_lv->set_radiators_speed(conversion.radiators_speed);
+    m_lv->set_pumps_speed(conversion.pumps_speed);
     emit lv_changed();
     break;
   }
   case primary_ID_HV_CURRENT: {
-    primary_message_HV_CURRENT data;
-    primary_deserialize_HV_CURRENT(&data, raw);
+    DESERIALIZE(primary, HV_CURRENT);
     m_hv->set_current(data.current);
     m_hv->set_power(data.power);
     emit hv_changed();
     break;
   }
   case primary_ID_HV_VOLTAGE: {
-    primary_message_HV_VOLTAGE data;
-    primary_deserialize_HV_VOLTAGE(&data, raw);
-    primary_message_HV_VOLTAGE_conversion conversion;
-    primary_raw_to_conversion_struct_HV_VOLTAGE(&conversion, &data);
+    DESERIALIZE_CONVERSION(primary, HV_VOLTAGE);
     m_hv->set_pack_voltage(conversion.pack_voltage);
     m_hv->set_bus_voltage(conversion.bus_voltage);
     m_hv->set_max_cell_voltage(conversion.max_cell_voltage);
@@ -160,10 +166,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     break;
   }
   case primary_ID_HV_TEMP: {
-    primary_message_HV_TEMP data;
-    primary_deserialize_HV_TEMP(&data, raw);
-    primary_message_HV_TEMP_conversion conversion;
-    primary_raw_to_conversion_struct_HV_TEMP(&conversion, &data);
+    DESERIALIZE_CONVERSION(primary, HV_TEMP);
     m_hv->set_average_temperature(conversion.average_temp);
     m_hv->set_max_temperature(conversion.max_temp);
     m_hv->set_min_temperature(conversion.min_temp);
@@ -171,16 +174,14 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     break;
   }
   case primary_ID_HV_ERRORS: {
-    primary_message_HV_ERRORS data;
-    primary_deserialize_HV_ERRORS(&data, raw);
+    DESERIALIZE(primary, HV_ERRORS);
     m_hv->set_errors(data.errors);
     m_hv->set_warnings(data.warnings);
     emit hv_changed();
     break;
   }
   case primary_ID_TS_STATUS: {
-    primary_message_TS_STATUS data;
-    primary_deserialize_TS_STATUS(&data, raw);
+    DESERIALIZE(primary, TS_STATUS);
     m_hv->set_ts_status(data.ts_status);
     emit hv_changed();
     break;
@@ -189,43 +190,37 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
 }
 
 void State::handle_secondary(quint32 id, uint8_t *raw) {
+  secondary_watchdog_reset(m_secondary_watchdog, id, QDateTime::currentMSecsSinceEpoch());
   switch (id) {
   case secondary_ID_CONTROL_OUTPUT: {
-    secondary_message_CONTROL_OUTPUT data;
-    secondary_deserialize_CONTROL_OUTPUT(&data, raw);
+    DESERIALIZE(secondary, CONTROL_OUTPUT);
     m_das->set_control_left(data.left);
     m_das->set_control_right(data.right);
     emit das_changed();
     break;
   }
   case secondary_ID_PEDALS_OUTPUT: {
-    secondary_message_PEDALS_OUTPUT data;
-    secondary_deserialize_PEDALS_OUTPUT(&data, raw);
-    secondary_message_PEDALS_OUTPUT_conversion conversion;
-    secondary_raw_to_conversion_struct_PEDALS_OUTPUT(&conversion, &data);
+    DESERIALIZE_CONVERSION(secondary, PEDALS_OUTPUT);
     m_das->set_apps(conversion.apps);
     m_das->set_bse(conversion.bse_rear);
     emit das_changed();
     break;
   }
   case secondary_ID_STEERING_ANGLE: {
-    secondary_message_STEERING_ANGLE data;
-    secondary_deserialize_STEERING_ANGLE(&data, raw);
+    DESERIALIZE(secondary, STEERING_ANGLE);
     m_das->set_steering_angle(data.angle);
     emit das_changed();
     break;
   }
   case secondary_ID_GPS_COORDS: {
-    secondary_message_GPS_COORDS data;
-    secondary_deserialize_GPS_COORDS(&data, raw);
+    DESERIALIZE(secondary, GPS_COORDS);
     m_telemetry->set_latitude(data.latitude);
     m_telemetry->set_longitude(data.longitude);
     emit telemetry_changed();
     break;
   }
   case secondary_ID_GPS_SPEED: {
-    secondary_message_GPS_SPEED data;
-    secondary_deserialize_GPS_SPEED(&data, raw);
+    DESERIALIZE(secondary, GPS_SPEED);
     m_telemetry->set_gps_speed(data.speed);
     emit telemetry_changed();
     break;

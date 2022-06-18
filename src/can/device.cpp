@@ -1,14 +1,18 @@
 #define primary_NETWORK_IMPLEMENTATION
 #define primary_IDS_IMPLEMENTATION
+#define primary_WATCHDOG_IMPLEMENTATION
 
 #include "primary/c/ids.h"
 #include "primary/c/network.h"
+#include "primary/c/watchdog.h"
 
 #define secondary_NETWORK_IMPLEMENTATION
 #define secondary_IDS_IMPLEMENTATION
+#define secondary_WATCHDOG_IMPLEMENTATION
 
 #include "secondary/c/ids.h"
 #include "secondary/c/network.h"
+#include "secondary/c/watchdog.h"
 
 #include "can/device.h"
 

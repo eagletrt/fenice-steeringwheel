@@ -9,17 +9,19 @@ class State;
 
 class LV : public QObject {
   Q_OBJECT
-  S_PROPERTY(quint8, current)
-  S_PROPERTY(float, voltage_1)
-  S_PROPERTY(float, voltage_2)
-  S_PROPERTY(float, voltage_3)
-  S_PROPERTY(float, voltage_4)
-  S_PROPERTY(float, voltage_min)
-  S_PROPERTY(quint16, total_voltage)
-  S_PROPERTY(float, dcdc_temperature)
-  S_PROPERTY(float, battery_temperature)
-  S_PROPERTY(quint8, radiators_speed)
-  S_PROPERTY(quint8, pumps_speed)
+public:
+  S_PROPERTY(bool, valid, false)
+  S_PROPERTY(quint8, current, 0)
+  S_PROPERTY(float, voltage_1, 0)
+  S_PROPERTY(float, voltage_2, 0)
+  S_PROPERTY(float, voltage_3, 0)
+  S_PROPERTY(float, voltage_4, 0)
+  S_PROPERTY(float, voltage_min, 0)
+  S_PROPERTY(quint16, total_voltage, 0)
+  S_PROPERTY(float, dcdc_temperature, 0)
+  S_PROPERTY(float, battery_temperature, 0)
+  S_PROPERTY(quint8, radiators_speed, 0)
+  S_PROPERTY(quint8, pumps_speed, 0)
   S_PROPERTY(quint8, version_component, 0)
   S_PROPERTY(quint8, version_cancicd, 0)
 public:

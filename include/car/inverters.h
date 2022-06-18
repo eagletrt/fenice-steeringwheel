@@ -11,6 +11,7 @@ class State;
 class Inverters : public QObject {
   Q_OBJECT
 public:
+  S_PROPERTY(bool, valid, false)
   S_PROPERTY(float, right_temperature, 0)
   S_PROPERTY(float, left_temperature, 0)
 public:

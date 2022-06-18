@@ -11,6 +11,7 @@ class State;
 class DAS : public QObject {
   Q_OBJECT
 public:
+  S_PROPERTY(bool, valid, false)
   S_PROPERTY(quint8, car_status, primary_CarStatus_IDLE)
   S_PROPERTY(quint8, inverter_left, primary_InverterStatus_OFF)
   S_PROPERTY(quint8, inverter_right, primary_InverterStatus_OFF)

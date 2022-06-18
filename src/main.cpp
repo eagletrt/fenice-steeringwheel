@@ -126,9 +126,8 @@ int main(int argc, char *argv[]) {
     }
   });
 
-  QObject::connect(state->telemetry(), &Telemetry::status_changed, leds, [&](primary_Toggle status) {
-    leds->set_right_brightness(6, status == primary_Toggle_ON ? 0xFF : 0x0);
-  });
+  QObject::connect(state->telemetry(), &Telemetry::status_changed, leds,
+                   [&](bool status) { leds->set_right_brightness(6, status == primary_Toggle_ON ? 0xFF : 0x0); });
 
   leds->set_left_brightness(0, 0xFF);
   leds->set_left_brightness(3, 0xFF);
