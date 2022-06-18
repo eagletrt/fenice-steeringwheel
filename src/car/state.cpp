@@ -134,9 +134,8 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
   case primary_id_COOLING_STATUS: {
     primary_message_COOLING_STATUS data;
     primary_deserialize_COOLING_STATUS(&data, raw);
-    m_lv->set_inverter_radiators_speed(data.inverters_radiator_speed);
-    m_lv->set_motor_radiators_speed(data.motors_radiator_speed);
-    m_lv->set_pump_speed(data.pump_speed);
+    m_lv->set_radiators_speed(data.radiators_speed);
+    m_lv->set_pumps_speed(data.pumps_speed);
     emit lv_changed();
     break;
   }

@@ -74,7 +74,7 @@ Item {
     Text {
         id: main
 
-        text: root.value.toFixed(root.decimals)
+        text: root.value.toFixed(root.decimals).substring(0, 3)
         font: root.valueFont
         color: root.color
         horizontalAlignment: Text.right

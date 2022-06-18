@@ -92,47 +92,47 @@ Rectangle {
                         font: Style.sans.h1
                         color: Style.text
                         states: [
-                             State {
-                                 name: "IDLE"
-                                 when: Car.das.car_status === 0
+                            State {
+                                name: "IDLE"
+                                when: Car.das.car_status === 0
 
-                                 PropertyChanges {
-                                     target: car_status
-                                     text: "IDLE"
-                                 }
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "IDLE"
+                                }
 
-                             },
-                             State {
-                                 name: "SETUP"
-                                 when: Car.das.car_status === 1
+                            },
+                            State {
+                                name: "SETUP"
+                                when: Car.das.car_status === 1
 
-                                 PropertyChanges {
-                                     target: car_status
-                                     text: "SETUP"
-                                 }
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "SETUP"
+                                }
 
-                             },
-                             State {
-                                 name: "RUN"
-                                 when: Car.das.car_status === 2
+                            },
+                            State {
+                                name: "RUN"
+                                when: Car.das.car_status === 2
 
-                                 PropertyChanges {
-                                     target: car_status
-                                     text: "RUN"
-                                 }
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "RUN"
+                                }
 
-                             },
-                             State {
-                                 name: "???"
-                                 when: true
+                            },
+                            State {
+                                name: "???"
+                                when: true
 
-                                 PropertyChanges {
-                                     target: car_status
-                                     text: "???"
-                                 }
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "???"
+                                }
 
-                             }
-                         ]
+                            }
+                        ]
                     }
 
                     ValueWithUnitAndLabel {
