@@ -88,6 +88,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            valid: Car.inverters.valid
                             value: Car.inverters.left_temperature
                             unit: "°C"
                             label: "INVERTER L"
@@ -96,6 +97,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            valid: true
                             value: Car.steering.map
                             unit: "%"
                             label: "MAX POWER"
@@ -104,6 +106,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            valid: Car.inverters.valid
                             value: Car.inverters.right_temperature
                             unit: "°C"
                             label: "INVERTER R"

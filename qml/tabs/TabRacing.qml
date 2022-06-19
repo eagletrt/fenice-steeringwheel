@@ -138,6 +138,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.inverters.valid
                         value: Car.inverters.left_temperature
                         unit: "°C"
                         label: "INVERTER L"
@@ -146,6 +147,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.inverters.valid
                         value: Car.inverters.right_temperature
                         unit: "°C"
                         label: "INVERTER R"
@@ -162,6 +164,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.inverters.valid
                         value: Car.inverters.left_temperature
                         unit: "°C"
                         label: "MOTOR L"
@@ -170,6 +173,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.inverters.valid
                         value: Car.inverters.right_temperature
                         unit: "°C"
                         label: "MOTOR RIGHT"
@@ -178,6 +182,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.hv.valid
                         value: Car.hv.max_temperature
                         unit: "°C"
                         label: "BMS HV"
@@ -187,6 +192,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.lv.valid
                         value: Car.lv.battery_temperature
                         unit: "°C"
                         label: "BMS LV"
@@ -220,6 +226,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.lv.valid
                         value: Car.lv.voltage_min
                         decimals: 1
                         unit: "V"
@@ -237,6 +244,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: true
                         value: Car.steering.temperature
                         unit: "°C"
                         label: "RPI"
