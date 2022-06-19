@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.15
 Item {
     id: root
 
+    property bool valid: true
     property double value: 0
     property string label
     property double max: 1
@@ -21,6 +22,7 @@ Item {
         ValueWithUnitAndLabel {
             Layout.minimumHeight: 90
             Layout.fillWidth: true
+            valid: root.valid
             value: root.value.toFixed().padStart(root.maxDigits, " ")
             valueFont: Style.mono.h2
             label: root.label

@@ -25,6 +25,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
                 label: "[V] BMS"
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -49,6 +50,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -272,6 +274,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -296,6 +299,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
                 label: "[V] BMS"
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
