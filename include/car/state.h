@@ -52,6 +52,7 @@ private:
   enum message_topic { T_DAS, T_HV, T_INVERTERS, T_LV, T_STATE, T_STEERING, T_TELEMETRY };
   void handle_primary(quint32 id, uint8_t *raw);
   void handle_secondary(quint32 id, uint8_t *raw);
+  void validate(message_topic central_unit);
 
 signals:
   void timestamp_changed();

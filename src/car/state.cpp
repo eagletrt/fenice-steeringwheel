@@ -11,7 +11,6 @@
 #include "secondary/c/ids.h"
 #include "secondary/c/network.h"
 
-
 State::State(QObject *parent) : QObject(parent) {
   m_das = new DAS(this);
   m_hv = new HV(this);
@@ -53,13 +52,6 @@ State::State(QObject *parent) : QObject(parent) {
         }
         break;
       }
-      case T_INVERTERS: {
-        if (m_inverters->valid() != timed_out) {
-          m_inverters->set_valid(timed_out);
-          emit m_inverters->valid_changed(timed_out);
-        }
-        break;
-      }
       case T_LV: {
         if (m_lv->valid() != timed_out) {
           m_lv->set_valid(timed_out);
@@ -75,7 +67,7 @@ State::State(QObject *parent) : QObject(parent) {
         break;
       }
       default:
-          break;
+        break;
       }
     }
     foreach (const quint32 key, m_secondary_message_topic.keys()) {
@@ -95,13 +87,6 @@ State::State(QObject *parent) : QObject(parent) {
         }
         break;
       }
-      case T_INVERTERS: {
-        if (m_inverters->valid() != timed_out) {
-          m_inverters->set_valid(timed_out);
-          emit m_inverters->valid_changed(timed_out);
-        }
-        break;
-      }
       case T_LV: {
         if (m_lv->valid() != timed_out) {
           m_lv->set_valid(timed_out);
@@ -117,7 +102,7 @@ State::State(QObject *parent) : QObject(parent) {
         break;
       }
       default:
-          break;
+        break;
       }
     }
   });
@@ -163,6 +148,41 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
   DESERIALIZE(network, message)                                                                                        \
   network##_message_##message##_conversion conversion;                                                                 \
   network##_raw_to_conversion_struct_##message(&conversion, &data);
+
+void State::validate(message_topic central_unit) {
+  switch (central_unit) {
+  case T_DAS: {
+    if (!m_das->valid()) {
+      m_das->set_valid(true);
+      emit m_das->valid_changed(true);
+    }
+    break;
+  }
+  case T_HV: {
+    if (!m_hv->valid()) {
+      m_hv->set_valid(true);
+      emit m_hv->valid_changed(true);
+    }
+    break;
+  }
+  case T_LV: {
+    if (!m_lv->valid()) {
+      m_lv->set_valid(true);
+      emit m_lv->valid_changed(true);
+    }
+    break;
+  }
+  case T_TELEMETRY: {
+    if (!m_telemetry->valid()) {
+      m_telemetry->set_valid(true);
+      emit m_telemetry->valid_changed(true);
+    }
+    break;
+  }
+  default:
+    break;
+  }
+}
 
 void State::handle_primary(quint32 id, uint8_t *raw) {
   primary_watchdog_reset(m_primary_watchdog, id, QDateTime::currentMSecsSinceEpoch());

@@ -140,7 +140,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        valid: Car.inverters.valid
+                        valid: Car.das.valid
                         value: Car.inverters.left_temperature
                         unit: "°C"
                         label: "INVERTER L"
@@ -149,7 +149,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        valid: Car.inverters.valid
+                        valid: Car.das.valid
                         value: Car.inverters.right_temperature
                         unit: "°C"
                         label: "INVERTER R"
@@ -166,7 +166,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        valid: Car.inverters.valid
+                        valid: Car.das.valid
                         value: Car.inverters.left_temperature
                         unit: "°C"
                         label: "MOTOR L"
@@ -175,7 +175,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        valid: Car.inverters.valid
+                        valid: Car.das.valid
                         value: Car.inverters.right_temperature
                         unit: "°C"
                         label: "MOTOR RIGHT"

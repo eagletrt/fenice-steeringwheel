@@ -90,7 +90,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            valid: Car.inverters.valid
+                            valid: Car.das.valid
                             value: Car.inverters.left_temperature
                             unit: "°C"
                             label: "INVERTER L"
@@ -108,7 +108,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            valid: Car.inverters.valid
+                            valid: Car.das.valid
                             value: Car.inverters.right_temperature
                             unit: "°C"
                             label: "INVERTER R"
