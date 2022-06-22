@@ -11,6 +11,7 @@
 #include "secondary/c/ids.h"
 #include "secondary/c/network.h"
 
+
 State::State(QObject *parent) : QObject(parent) {
   m_das = new DAS(this);
   m_hv = new HV(this);
@@ -19,6 +20,9 @@ State::State(QObject *parent) : QObject(parent) {
   m_steering = new Steering(this);
   m_telemetry = new Telemetry(this);
 
+  m_primary_watchdog = primary_watchdog_new();
+  m_secondary_watchdog = secondary_watchdog_new();
+
   // activate all messages
   foreach (const quint32 key, m_primary_message_topic.keys()) {
     CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, key);
@@ -26,9 +30,6 @@ State::State(QObject *parent) : QObject(parent) {
   foreach (const quint32 key, m_secondary_message_topic.keys()) {
     CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, key);
   }
-
-  m_primary_watchdog = primary_watchdog_new();
-  m_secondary_watchdog = secondary_watchdog_new();
 
   m_watchdog_timer = new QTimer();
   m_watchdog_timer->setInterval(5000);
