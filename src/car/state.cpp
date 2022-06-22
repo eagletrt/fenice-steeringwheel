@@ -18,6 +18,15 @@ State::State(QObject *parent) : QObject(parent) {
   m_inverters = new Inverters(this);
   m_steering = new Steering(this);
   m_telemetry = new Telemetry(this);
+
+  // activate all messages
+  foreach (const quint32 key, m_primary_message_topic.keys()) {
+    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, key);
+  }
+  foreach (const quint32 key, m_secondary_message_topic.keys()) {
+    CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, key);
+  }
+
   m_primary_watchdog = primary_watchdog_new();
   m_secondary_watchdog = secondary_watchdog_new();
 
@@ -26,6 +35,90 @@ State::State(QObject *parent) : QObject(parent) {
   connect(m_watchdog_timer, &QTimer::timeout, this, [&]() -> void {
     primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentMSecsSinceEpoch());
     secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentMSecsSinceEpoch());
+    foreach (const quint32 key, m_primary_message_topic.keys()) {
+      bool timed_out = CANLIB_BITTEST_ARRAY(m_primary_watchdog->timeout, key);
+      switch (m_primary_message_topic.value(key)) {
+      case T_DAS: {
+        if (m_das->valid() != timed_out) {
+          m_das->set_valid(timed_out);
+          emit m_das->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_HV: {
+        if (m_hv->valid() != timed_out) {
+          m_hv->set_valid(timed_out);
+          emit m_hv->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_INVERTERS: {
+        if (m_inverters->valid() != timed_out) {
+          m_inverters->set_valid(timed_out);
+          emit m_inverters->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_LV: {
+        if (m_lv->valid() != timed_out) {
+          m_lv->set_valid(timed_out);
+          emit m_lv->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_TELEMETRY: {
+        if (m_telemetry->valid() != timed_out) {
+          m_telemetry->set_valid(timed_out);
+          emit m_telemetry->valid_changed(timed_out);
+        }
+        break;
+      }
+      default:
+          break;
+      }
+    }
+    foreach (const quint32 key, m_secondary_message_topic.keys()) {
+      bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, key);
+      switch (m_secondary_message_topic.value(key)) {
+      case T_DAS: {
+        if (m_das->valid() != timed_out) {
+          m_das->set_valid(timed_out);
+          emit m_das->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_HV: {
+        if (m_hv->valid() != timed_out) {
+          m_hv->set_valid(timed_out);
+          emit m_hv->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_INVERTERS: {
+        if (m_inverters->valid() != timed_out) {
+          m_inverters->set_valid(timed_out);
+          emit m_inverters->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_LV: {
+        if (m_lv->valid() != timed_out) {
+          m_lv->set_valid(timed_out);
+          emit m_lv->valid_changed(timed_out);
+        }
+        break;
+      }
+      case T_TELEMETRY: {
+        if (m_telemetry->valid() != timed_out) {
+          m_telemetry->set_valid(timed_out);
+          emit m_telemetry->valid_changed(timed_out);
+        }
+        break;
+      }
+      default:
+          break;
+      }
+    }
   });
   m_watchdog_timer->start();
 }

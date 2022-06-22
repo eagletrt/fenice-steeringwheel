@@ -2,11 +2,14 @@
 #define STATE_H
 
 #include <QColor>
+#include <QHash>
 #include <QObject>
 #include <QTimer>
 
 #include "can/device.h"
+#include "primary/c/ids.h"
 #include "primary/c/watchdog.h"
+#include "secondary/c/ids.h"
 #include "secondary/c/watchdog.h"
 
 #include "das.h"
@@ -46,6 +49,7 @@ public slots:
   void handle_message(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:
+  enum message_topic { T_DAS, T_HV, T_INVERTERS, T_LV, T_STATE, T_STEERING, T_TELEMETRY };
   void handle_primary(quint32 id, uint8_t *raw);
   void handle_secondary(quint32 id, uint8_t *raw);
 
@@ -69,6 +73,19 @@ private:
   primary_watchdog *m_primary_watchdog;
   secondary_watchdog *m_secondary_watchdog;
   QTimer *m_watchdog_timer;
+
+  const QHash<quint32, message_topic> m_primary_message_topic = {
+      {primary_ID_DAS_VERSION, T_DAS},       {primary_ID_HV_VERSION, T_HV},        {primary_ID_LV_VERSION, T_LV},
+      {primary_ID_TLM_VERSION, T_TELEMETRY}, {primary_ID_TLM_STATUS, T_TELEMETRY}, {primary_ID_CAR_STATUS, T_DAS},
+      {primary_ID_LV_CURRENT, T_LV},         {primary_ID_LV_VOLTAGE, T_LV},        {primary_ID_LV_TEMPERATURE, T_LV},
+      {primary_ID_COOLING_STATUS, T_LV},     {primary_ID_HV_CURRENT, T_HV},        {primary_ID_HV_TEMP, T_HV},
+      {primary_ID_HV_ERRORS, T_HV},          {primary_ID_TS_STATUS, T_HV},
+  };
+  const QHash<quint32, message_topic> m_secondary_message_topic = {
+      {secondary_ID_CONTROL_OUTPUT, T_DAS},      {secondary_ID_PEDALS_OUTPUT, T_DAS},
+      {secondary_ID_STEERING_ANGLE, T_STEERING}, {secondary_ID_GPS_COORDS, T_TELEMETRY},
+      {secondary_ID_GPS_SPEED, T_TELEMETRY},
+  };
 };
 
 #endif // STATE_H
