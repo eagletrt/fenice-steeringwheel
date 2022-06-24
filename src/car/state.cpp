@@ -22,12 +22,30 @@ State::State(QObject *parent) : QObject(parent) {
   m_primary_watchdog = primary_watchdog_new();
   m_secondary_watchdog = secondary_watchdog_new();
 
-  // activate all messages
-  foreach (const quint32 key, m_primary_message_topic.keys()) {
-    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, key);
+  m_primary_message_topic = {
+      {primary_ID_DAS_VERSION, m_das},       {primary_ID_HV_VERSION, m_hv},        {primary_ID_LV_VERSION, m_lv},
+      {primary_ID_TLM_VERSION, m_telemetry}, {primary_ID_TLM_STATUS, m_telemetry}, {primary_ID_CAR_STATUS, m_das},
+      {primary_ID_LV_CURRENT, m_lv},         {primary_ID_LV_VOLTAGE, m_lv},        {primary_ID_LV_TEMPERATURE, m_lv},
+      {primary_ID_COOLING_STATUS, m_lv},     {primary_ID_HV_CURRENT, m_hv},        {primary_ID_HV_TEMP, m_hv},
+      {primary_ID_HV_ERRORS, m_hv},          {primary_ID_TS_STATUS, m_hv},
+  };
+
+  m_secondary_message_topic = {
+      {secondary_ID_CONTROL_OUTPUT, m_das},  {secondary_ID_PEDALS_OUTPUT, m_das},
+      {secondary_ID_STEERING_ANGLE, m_das},  {secondary_ID_GPS_COORDS, m_telemetry},
+      {secondary_ID_GPS_SPEED, m_telemetry},
+  };
+
+  QHashIterator<canlib_message_id, Interface *> primary_iterator(m_primary_message_topic);
+  while (primary_iterator.hasNext()) {
+    primary_iterator.next();
+    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, primary_iterator.key());
   }
-  foreach (const quint32 key, m_secondary_message_topic.keys()) {
-    CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, key);
+
+  QHashIterator<canlib_message_id, Interface *> secondary_iterator(m_secondary_message_topic);
+  while (secondary_iterator.hasNext()) {
+    secondary_iterator.next();
+    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, secondary_iterator.key());
   }
 
   m_watchdog_timer = new QTimer();
