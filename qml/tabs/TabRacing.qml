@@ -41,7 +41,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
@@ -64,8 +66,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         ColumnLayout {
@@ -97,6 +102,7 @@ Rectangle {
                                     target: car_status
                                     text: "IDLE"
                                 }
+
                             },
                             State {
                                 name: "SETUP"
@@ -106,6 +112,7 @@ Rectangle {
                                     target: car_status
                                     text: "SETUP"
                                 }
+
                             },
                             State {
                                 name: "RUN"
@@ -115,6 +122,7 @@ Rectangle {
                                     target: car_status
                                     text: "RUN"
                                 }
+
                             },
                             State {
                                 name: "???"
@@ -124,6 +132,7 @@ Rectangle {
                                     target: car_status
                                     text: "???"
                                 }
+
                             }
                         ]
                     }
@@ -243,7 +252,9 @@ Rectangle {
                         label: "RPI"
                         high: 80
                     }
+
                 }
+
             }
 
             MapBar {
@@ -251,6 +262,7 @@ Rectangle {
                 Layout.fillWidth: true
                 map: Car.steering.map
             }
+
         }
 
         RowLayout {
@@ -278,7 +290,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             ValueColumn {
@@ -301,8 +315,13 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }
