@@ -6,6 +6,10 @@ import "tabs"
 
 Item {
     property var currentTab: tabs.children[tabs.currentIndex]
+    property var lastPressed: []
+    // V Z C S
+    property var fireGameboy: [Input.paddleTopRight, Input.paddleBottomLeft, Input.paddleTopLeft, Input.buttonBottomRight]
+    property bool onGameboy: false
 
     function connect() {
         window.buttonReleased.connect(buttonReleasedHandler);
@@ -22,7 +26,23 @@ Item {
     }
 
     function buttonReleasedHandler(button) {
-        if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
+        lastPressed.push(button)
+        if(lastPressed[lastPressed.length - 1] !== fireGameboy[lastPressed.length - 1])
+            lastPressed = [];
+        if (lastPressed.length === fireGameboy.length && !onGameboy) {
+            onGameboy = true;
+            const gameboyTab = tabs.children.length - 1;
+            const currentTab = tabs.children[tabs.currentIndex];
+            if (currentTab.disconnect)
+                currentTab.disconnect();
+            if (gameboyTab.connect)
+                gameboyTab.connect();
+
+            tabs.currentIndex = gameboyTab;
+            lastPressed = [];
+        }
+        else if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
+            onGameboy = false;
             if (tabs.blocked)
                 return;
             const total = tabs.children.length;
@@ -110,7 +130,7 @@ Item {
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "emulator"]
+                model: ["racing", "speed", "calibration", "status", "gps", "terminal"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true
