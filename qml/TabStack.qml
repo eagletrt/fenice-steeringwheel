@@ -26,8 +26,8 @@ Item {
     }
 
     function buttonReleasedHandler(button) {
-        lastPressed.push(button)
-        if(lastPressed[lastPressed.length - 1] !== fireGameboy[lastPressed.length - 1])
+        lastPressed.push(button);
+        if (lastPressed[lastPressed.length - 1] !== fireGameboy[lastPressed.length - 1])
             lastPressed = [];
         if (lastPressed.length === fireGameboy.length && !onGameboy) {
             onGameboy = true;
@@ -37,11 +37,9 @@ Item {
                 currentTab.disconnect();
             if (gameboyTab.connect)
                 gameboyTab.connect();
-
             tabs.currentIndex = gameboyTab;
             lastPressed = [];
-        }
-        else if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
+        } else if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
             onGameboy = false;
             if (tabs.blocked)
                 return;
