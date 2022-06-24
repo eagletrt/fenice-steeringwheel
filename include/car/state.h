@@ -49,10 +49,11 @@ public slots:
   void handle_message(const CanDevice *device, quint32 id, const QByteArray &message);
 
 private:
-  enum message_topic { T_DAS, T_HV, T_INVERTERS, T_LV, T_STATE, T_STEERING, T_TELEMETRY };
   void handle_primary(quint32 id, uint8_t *raw);
   void handle_secondary(quint32 id, uint8_t *raw);
-  void validate(message_topic central_unit);
+
+private slots:
+  void timeout();
 
 signals:
   void timestamp_changed();
@@ -75,17 +76,18 @@ private:
   secondary_watchdog *m_secondary_watchdog;
   QTimer *m_watchdog_timer;
 
-  const QHash<quint32, message_topic> m_primary_message_topic = {
-      {primary_ID_DAS_VERSION, T_DAS},       {primary_ID_HV_VERSION, T_HV},        {primary_ID_LV_VERSION, T_LV},
-      {primary_ID_TLM_VERSION, T_TELEMETRY}, {primary_ID_TLM_STATUS, T_TELEMETRY}, {primary_ID_CAR_STATUS, T_DAS},
-      {primary_ID_LV_CURRENT, T_LV},         {primary_ID_LV_VOLTAGE, T_LV},        {primary_ID_LV_TEMPERATURE, T_LV},
-      {primary_ID_COOLING_STATUS, T_LV},     {primary_ID_HV_CURRENT, T_HV},        {primary_ID_HV_TEMP, T_HV},
-      {primary_ID_HV_ERRORS, T_HV},          {primary_ID_TS_STATUS, T_HV},
+  const QHash<canlib_message_id, Interface *> m_primary_message_topic = {
+      {primary_ID_DAS_VERSION, m_das},       {primary_ID_HV_VERSION, m_hv},        {primary_ID_LV_VERSION, m_lv},
+      {primary_ID_TLM_VERSION, m_telemetry}, {primary_ID_TLM_STATUS, m_telemetry}, {primary_ID_CAR_STATUS, m_das},
+      {primary_ID_LV_CURRENT, m_lv},         {primary_ID_LV_VOLTAGE, m_lv},        {primary_ID_LV_TEMPERATURE, m_lv},
+      {primary_ID_COOLING_STATUS, m_lv},     {primary_ID_HV_CURRENT, m_hv},        {primary_ID_HV_TEMP, m_hv},
+      {primary_ID_HV_ERRORS, m_hv},          {primary_ID_TS_STATUS, m_hv},
   };
-  const QHash<quint32, message_topic> m_secondary_message_topic = {
-      {secondary_ID_CONTROL_OUTPUT, T_DAS},      {secondary_ID_PEDALS_OUTPUT, T_DAS},
-      {secondary_ID_STEERING_ANGLE, T_STEERING}, {secondary_ID_GPS_COORDS, T_TELEMETRY},
-      {secondary_ID_GPS_SPEED, T_TELEMETRY},
+
+  const QHash<canlib_message_id, Interface *> m_secondary_message_topic = {
+      {secondary_ID_CONTROL_OUTPUT, m_das},  {secondary_ID_PEDALS_OUTPUT, m_das},
+      {secondary_ID_STEERING_ANGLE, m_das},  {secondary_ID_GPS_COORDS, m_telemetry},
+      {secondary_ID_GPS_SPEED, m_telemetry},
   };
 };
 

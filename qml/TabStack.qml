@@ -12,7 +12,6 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.connect)
             currentTab.connect();
-
     }
 
     function disconnect() {
@@ -20,14 +19,12 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.disconnect)
             currentTab.disconnect();
-
     }
 
     function buttonReleasedHandler(button) {
         if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
             if (tabs.blocked)
-                return ;
-
+                return;
             const total = tabs.children.length;
             const step = button === Input.paddleBottomLeft ? -1 : +1;
             const index = Utils.mod(tabs.currentIndex + step, total);
@@ -35,10 +32,8 @@ Item {
             const nextTab = tabs.children[index];
             if (currentTab.disconnect)
                 currentTab.disconnect();
-
             if (nextTab.connect)
                 nextTab.connect();
-
             tabs.currentIndex = index;
         }
     }
@@ -104,9 +99,7 @@ Item {
                     height: Style.height
                     anchors.centerIn: parent
                 }
-
             }
-
         }
 
         RowLayout {
@@ -130,13 +123,8 @@ Item {
                         font.family: Style.sans.family
                         color: Style.text
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

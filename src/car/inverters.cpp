@@ -3,6 +3,6 @@
 #include "car/state.h"
 #include "global.h"
 
-Inverters::Inverters(State *parent) : QObject(parent), m_state(parent) {}
+Inverters::Inverters(State *parent) : Interface(parent), m_state(parent) {}
 
 Inverters::~Inverters() { sDebug("inverters") << "cleanup"; }

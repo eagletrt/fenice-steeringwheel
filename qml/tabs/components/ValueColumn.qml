@@ -39,7 +39,5 @@ Item {
             columnGradient: root.columnGradient
             rotation: root.rotation
         }
-
     }
-
 }

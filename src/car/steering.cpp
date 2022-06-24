@@ -6,7 +6,7 @@
 
 #include <QFile>
 
-Steering::Steering(State *parent) : QObject(parent), m_state(parent) {
+Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
   m_poll_timer = new QTimer(this);
   connect(m_poll_timer, &QTimer::timeout, this, &Steering::poll);
   m_poll_timer->start(STEERING_POLL_TIMER);
