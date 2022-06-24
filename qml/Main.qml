@@ -81,7 +81,5 @@ Window {
 
             anchors.centerIn: parent
         }
-
     }
-
 }

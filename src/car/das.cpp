@@ -6,7 +6,7 @@
 #include "global.h"
 #include "io/buttons.h"
 
-DAS::DAS(State *parent) : QObject(parent), m_state(parent) {}
+DAS::DAS(State *parent) : Interface(parent), m_state(parent) {}
 
 DAS::~DAS() { sDebug("das") << "cleanup"; }
 

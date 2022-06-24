@@ -4,16 +4,16 @@
 #include <QObject>
 #include <QVector>
 
+#include "car/interface.h"
 #include "global.h"
 #include "primary/c/network.h"
 
 class State;
 
-class Telemetry : public QObject {
+class Telemetry : public Interface {
   Q_OBJECT
 
 public:
-  S_PROPERTY(bool, valid, false)
   S_PROPERTY(primary_Toggle, status, primary_Toggle_OFF)
   S_PROPERTY(float, latitude, 0)
   S_PROPERTY(float, longitude, 0)

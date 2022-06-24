@@ -25,6 +25,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
                 label: "[V] BMS"
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -40,15 +41,14 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
 
             Bar {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -64,11 +64,8 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
-
         }
 
         ColumnLayout {
@@ -100,7 +97,6 @@ Rectangle {
                                     target: car_status
                                     text: "IDLE"
                                 }
-
                             },
                             State {
                                 name: "SETUP"
@@ -110,7 +106,6 @@ Rectangle {
                                     target: car_status
                                     text: "SETUP"
                                 }
-
                             },
                             State {
                                 name: "RUN"
@@ -120,7 +115,6 @@ Rectangle {
                                     target: car_status
                                     text: "RUN"
                                 }
-
                             },
                             State {
                                 name: "???"
@@ -130,7 +124,6 @@ Rectangle {
                                     target: car_status
                                     text: "???"
                                 }
-
                             }
                         ]
                     }
@@ -138,6 +131,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.das.valid
                         value: Car.inverters.left_temperature
                         unit: "°C"
                         label: "INVERTER L"
@@ -146,6 +140,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.das.valid
                         value: Car.inverters.right_temperature
                         unit: "°C"
                         label: "INVERTER R"
@@ -162,6 +157,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.das.valid
                         value: Car.inverters.left_temperature
                         unit: "°C"
                         label: "MOTOR L"
@@ -170,6 +166,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.das.valid
                         value: Car.inverters.right_temperature
                         unit: "°C"
                         label: "MOTOR RIGHT"
@@ -178,6 +175,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.hv.valid
                         value: Car.hv.max_temperature
                         unit: "°C"
                         label: "BMS HV"
@@ -187,6 +185,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.lv.valid
                         value: Car.lv.battery_temperature
                         unit: "°C"
                         label: "BMS LV"
@@ -220,6 +219,7 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: Car.lv.valid
                         value: Car.lv.voltage_min
                         decimals: 1
                         unit: "V"
@@ -237,14 +237,13 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        valid: true
                         value: Car.steering.temperature
                         unit: "°C"
                         label: "RPI"
                         high: 80
                     }
-
                 }
-
             }
 
             MapBar {
@@ -252,7 +251,6 @@ Rectangle {
                 Layout.fillWidth: true
                 map: Car.steering.map
             }
-
         }
 
         RowLayout {
@@ -264,6 +262,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -279,15 +278,14 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
 
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
                 label: "[V] BMS"
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -303,13 +301,8 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

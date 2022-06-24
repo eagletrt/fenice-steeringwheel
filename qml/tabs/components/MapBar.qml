@@ -10,18 +10,18 @@ Item {
     property int barHeight: 6
     property int markerSize: 20
     property var maps: [{
-        "name": "0"
-    }, {
-        "name": "20"
-    }, {
-        "name": "40"
-    }, {
-        "name": "60"
-    }, {
-        "name": "80"
-    }, {
-        "name": "100"
-    }]
+            "name": "0"
+        }, {
+            "name": "20"
+        }, {
+            "name": "40"
+        }, {
+            "name": "60"
+        }, {
+            "name": "80"
+        }, {
+            "name": "100"
+        }]
 
     Item {
         anchors.fill: parent
@@ -63,13 +63,9 @@ Item {
                                         color: Style.text
                                         font: Style.sans.p
                                     }
-
                                 }
-
                             }
-
                         }
-
                     }
 
                     Item {
@@ -115,21 +111,12 @@ Item {
                                         radius: width * 0.5
                                         color: modelData.name === String(root.map) ? (modelData.name === "0" ? Style.green : Style.yellow) : Style.light
                                     }
-
                                 }
-
                             }
-
                         }
-
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

@@ -7,12 +7,13 @@ import QtQuick.Layouts 1.15
 ProgressBar {
     id: root
 
+    property bool valid: true
     property double max: 1
     property int maxDigits: 3
     property int barCount: 10
     property Gradient columnGradient
 
-    value: value
+    value: valid ? value : "N/A"
     to: max
     rotation: 180
 
@@ -40,7 +41,6 @@ ProgressBar {
                 height: parent.height * root.visualPosition
                 color: "black"
             }
-
         }
 
         OpacityMask {
@@ -59,11 +59,7 @@ ProgressBar {
                     color: "transparent"
                     border.width: 1
                 }
-
             }
-
         }
-
     }
-
 }

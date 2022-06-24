@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 
+#include "car/interface.h"
 #include "global.h"
 #include "primary/c/network.h"
 
@@ -11,7 +12,7 @@ class State;
 
 #define STEERING_POLL_TIMER 5000
 
-class Steering : public QObject {
+class Steering : public Interface {
   Q_OBJECT
 public:
   S_PROPERTY(float, temperature, 0)

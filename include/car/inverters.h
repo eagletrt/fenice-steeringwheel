@@ -3,15 +3,15 @@
 
 #include <QObject>
 
+#include "car/interface.h"
 #include "global.h"
 #include "primary/c/network.h"
 
 class State;
 
-class Inverters : public QObject {
+class Inverters : public Interface {
   Q_OBJECT
 public:
-  S_PROPERTY(bool, valid, false)
   S_PROPERTY(float, right_temperature, 0)
   S_PROPERTY(float, left_temperature, 0)
 public:

@@ -3,14 +3,14 @@
 
 #include <QObject>
 
+#include "car/interface.h"
 #include "global.h"
 
 class State;
 
-class LV : public QObject {
+class LV : public Interface {
   Q_OBJECT
 public:
-  S_PROPERTY(bool, valid, false)
   S_PROPERTY(quint8, current, 0)
   S_PROPERTY(float, voltage_1, 0)
   S_PROPERTY(float, voltage_2, 0)

@@ -35,7 +35,6 @@ Rectangle {
                 to: true
                 duration: 0
             }
-
         }
 
         ParallelAnimation {
@@ -46,9 +45,7 @@ Rectangle {
                 to: false
                 duration: totalDuration
             }
-
         }
-
     }
 
     Text {
@@ -59,5 +56,4 @@ Rectangle {
         color: Style.textInverted
         font: Style.mono.verybig
     }
-
 }

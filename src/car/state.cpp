@@ -18,15 +18,21 @@ State::State(QObject *parent) : QObject(parent) {
   m_inverters = new Inverters(this);
   m_steering = new Steering(this);
   m_telemetry = new Telemetry(this);
+
   m_primary_watchdog = primary_watchdog_new();
   m_secondary_watchdog = secondary_watchdog_new();
 
+  // activate all messages
+  foreach (const quint32 key, m_primary_message_topic.keys()) {
+    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, key);
+  }
+  foreach (const quint32 key, m_secondary_message_topic.keys()) {
+    CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, key);
+  }
+
   m_watchdog_timer = new QTimer();
   m_watchdog_timer->setInterval(5000);
-  connect(m_watchdog_timer, &QTimer::timeout, this, [&]() -> void {
-    primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentMSecsSinceEpoch());
-    secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentMSecsSinceEpoch());
-  });
+  connect(m_watchdog_timer, &QTimer::timeout, this, &State::timeout);
   m_watchdog_timer->start();
 }
 
@@ -69,6 +75,24 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
   DESERIALIZE(network, message)                                                                                        \
   network##_message_##message##_conversion conversion;                                                                 \
   network##_raw_to_conversion_struct_##message(&conversion, &data);
+
+void State::timeout() {
+  primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentMSecsSinceEpoch());
+  secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentMSecsSinceEpoch());
+  QHashIterator<canlib_message_id, Interface *> primary_iter(m_primary_message_topic);
+  while (primary_iter.hasNext()) {
+    primary_iter.next();
+    bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, primary_iter.key());
+    primary_iter.value()->set_valid(timed_out);
+  }
+
+  QHashIterator<canlib_message_id, Interface *> secondary_iter(m_secondary_message_topic);
+  while (secondary_iter.hasNext()) {
+    secondary_iter.next();
+    bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, secondary_iter.key());
+    secondary_iter.value()->set_valid(timed_out);
+  }
+}
 
 void State::handle_primary(quint32 id, uint8_t *raw) {
   primary_watchdog_reset(m_primary_watchdog, id, QDateTime::currentMSecsSinceEpoch());

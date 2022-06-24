@@ -25,6 +25,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.minimumWidth: speed.columnWidth
                 label: "[V] BMS"
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -40,9 +41,7 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
 
             Bar {
@@ -50,6 +49,7 @@ Rectangle {
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
                 value: Car.hv.pack_voltage
+                valid: Car.hv.valid
                 max: 460
                 maxDigits: 3
                 barCount: 8
@@ -64,11 +64,8 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
-
         }
 
         Item {
@@ -88,6 +85,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            valid: Car.das.valid
                             value: Car.inverters.left_temperature
                             unit: "°C"
                             label: "INVERTER L"
@@ -96,6 +94,7 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            valid: true
                             value: Car.steering.map
                             unit: "%"
                             label: "MAX POWER"
@@ -104,13 +103,12 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
+                            valid: Car.das.valid
                             value: Car.inverters.right_temperature
                             unit: "°C"
                             label: "INVERTER R"
                         }
-
                     }
-
                 }
 
                 Item {
@@ -133,15 +131,12 @@ Rectangle {
                         width: speedometerSize
                         height: speedometerSize
 
-                        Behavior on speed {
+                        Behavior on speed  {
                             NumberAnimation {
                                 duration: 1000
                             }
-
                         }
-
                     }
-
                 }
 
                 MapBar {
@@ -149,9 +144,7 @@ Rectangle {
                     Layout.fillWidth: true
                     map: Car.steering.map
                 }
-
             }
-
         }
 
         RowLayout {
@@ -163,6 +156,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -178,15 +172,14 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
 
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: speed.columnWidth
                 label: "[V] BMS"
+                valid: Car.hv.valid
                 value: Car.hv.pack_voltage
                 max: 460
                 maxDigits: 3
@@ -202,13 +195,8 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

@@ -22,6 +22,7 @@ INCLUDEPATH += \
             thirdparty/can/lib/
 
 HEADERS += \
+        include/car/interface.h \
         include/global.h \
         include/can/bus.h \
         include/can/device.h \
