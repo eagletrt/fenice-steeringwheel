@@ -8,7 +8,8 @@ Control {
     id: status
 
     property var possibleStates: ['NORMAL', 'ERROR', 'DEFAULT', 'OUTDATED']
-    property var sensors: ["Inv Right", "Telemetry", "Inv Left", "DAS", "PCU", "BMS HV", "Steering", "BMS LV"]
+    property var sensors: ["Steering", "Telemetry", "Inverters", "DAS", "BMS HV", "BMS LV"]
+    property var sensorInterfaces: []
 
     padding: 20
 
@@ -23,52 +24,62 @@ Control {
             rowSpacing: 10
             columnSpacing: 10
 
-            Repeater {
-                model: sensors.slice(0, 4)
+            StatusBox {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 80
+                Layout.columnSpan: 3
 
-                delegate: Item {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    StatusBox {
-                        title: modelData
-                        state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
-                    }
-
-                }
-
+                title: 'Steering'
+                state: "NORMAL"
             }
 
-            Item {
+            StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Image {
-                    anchors.fill: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: "qrc:///qml/img/eagle.png"
-                }
-
+                title: "Inverter L"
+                state: Car.inverters.valid ? "NORMAL" : "ERROR"
             }
 
-            Repeater {
-                model: sensors.slice(4, 8)
+            StatusBox {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-                delegate: Item {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    StatusBox {
-                        title: modelData
-                        state: possibleStates[Math.floor(Math.random() * possibleStates.length)] // modelData[1]
-                    }
-
-                }
-
+                title: "TELEMETRY"
+                state: Car.telemetry.valid ? "NORMAL" : "ERROR"
             }
 
+            StatusBox {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                title: "INVERTER R"
+                state: Car.inverters.valid ? "NORMAL" : "ERROR"
+            }
+
+            StatusBox {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                title: "BMS LV"
+                state: Car.lv.valid ? "NORMAL" : "ERROR"
+            }
+
+            StatusBox {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                title: "DAS"
+                state: Car.das.valid ? "NORMAL" : "ERROR"
+            }
+
+            StatusBox {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                title: "BMS HV"
+                state: Car.hv.valid ? "NORMAL" : "ERROR"
+            }
         }
-
     }
-
 }

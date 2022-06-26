@@ -1,5 +1,5 @@
-import QtQuick 2.14
 pragma Singleton
+import QtQuick 2.14
 
 QtObject {
     property int buttonTopLeft: 0

@@ -103,34 +103,34 @@ void State::timeout() {
   while (primary_iterator.hasNext()) {
     primary_iterator.next();
     QList<canlib_message_id>::ConstIterator id;
-    bool valid = true;
+    bool invalid = true;
     for (id = primary_iterator.value().begin(); id != primary_iterator.value().end(); ++id) {
       bool timed_out = CANLIB_BITTEST_ARRAY(m_primary_watchdog->timeout, primary_watchdog_index_from_id(*id));
       if (timed_out) {
         char name[primary_MAX_MESSAGE_NAME_LENGTH];
         primary_message_name_from_id(*id, name);
-        qDebug() << name << "timed out";
+        qDebug() << "primary" << name << "timed out";
       }
-      valid &= !timed_out;
+      invalid &= timed_out;
     }
-    primary_iterator.key()->set_valid(valid);
+    primary_iterator.key()->set_valid(!invalid);
   }
 
   QHashIterator<Interface *, QList<canlib_message_id>> secondary_iterator(m_secondary_messages_per_interface);
   while (secondary_iterator.hasNext()) {
     secondary_iterator.next();
     QList<canlib_message_id>::ConstIterator id;
-    bool valid = true;
+    bool invalid = true;
     for (id = secondary_iterator.value().begin(); id != secondary_iterator.value().end(); ++id) {
       bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, secondary_watchdog_index_from_id(*id));
       if (timed_out) {
         char name[secondary_MAX_MESSAGE_NAME_LENGTH];
         secondary_message_name_from_id(*id, name);
-        qDebug() << name << "timed out";
+        qDebug() << "secondary" << name << "timed out";
       }
-      valid &= !timed_out;
+      invalid &= timed_out;
     }
-    secondary_iterator.key()->set_valid(valid);
+    secondary_iterator.key()->set_valid(!invalid);
   }
 }
 

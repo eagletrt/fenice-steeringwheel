@@ -63,7 +63,7 @@ signals:
   void backgroundColorChanged();
 
 private:
-  qreal m_SpeedometerSize = 470;
+  qreal m_SpeedometerSize = 450;
   qreal m_StartAngle = 50;
   qreal m_AlignAngle = 360 - (m_StartAngle * 3);
   qreal m_LowestRange = 0;

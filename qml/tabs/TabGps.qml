@@ -25,8 +25,7 @@ Item {
             var x = dotX;
             var y = dotY;
             if (!ctx)
-                return ;
-
+                return;
             ctx.clearRect(0, 0, Style.width, Style.height);
             ctx.beginPath();
             ctx.fillStyle = Style.orange;
@@ -48,5 +47,4 @@ Item {
         font.pointSize: Style.sizes.small
         color: Style.text
     }
-
 }

@@ -22,7 +22,6 @@ YP      Y88888P VP   V8P Y888888P  `Y88P' Y88888P
         logs.push(line);
         if (logs.length > history)
             logs.shift();
-
         terminal.model = logs;
         scroll.increase();
     }
@@ -49,5 +48,4 @@ YP      Y88888P VP   V8P Y888888P  `Y88P' Y88888P
 
         stepSize: 10
     }
-
 }

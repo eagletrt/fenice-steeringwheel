@@ -41,7 +41,6 @@ ProgressBar {
                 height: parent.height * root.visualPosition
                 color: "black"
             }
-
         }
 
         OpacityMask {
@@ -60,11 +59,7 @@ ProgressBar {
                     color: "transparent"
                     border.width: 1
                 }
-
             }
-
         }
-
     }
-
 }

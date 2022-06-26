@@ -28,7 +28,6 @@ Item {
                 target: root
                 color: Style.red
             }
-
         },
         State {
             name: "MEDHIGH"
@@ -38,7 +37,6 @@ Item {
                 target: root
                 color: Style.orange
             }
-
         },
         State {
             name: "LOW"
@@ -48,7 +46,6 @@ Item {
                 target: root
                 color: Style.blue
             }
-
         },
         State {
             name: "MEDLOW"
@@ -58,7 +55,6 @@ Item {
                 target: root
                 color: Style.aqua
             }
-
         },
         State {
             name: "NORMAL"
@@ -68,17 +64,15 @@ Item {
                 target: root
                 color: Style.text
             }
-
         }
     ]
 
     Text {
         id: main
 
-        text: root.value.toFixed(root.decimals).substring(0, 3)
+        text: root.valid ? root.value.toFixed(root.decimals).substring(0, 3) : "X"
         font: root.valueFont
-        color: root.color
-        visible: root.valid
+        color: root.valid ? root.color : Style.red
         horizontalAlignment: Text.right
     }
 
@@ -90,7 +84,7 @@ Item {
         anchors.verticalCenter: main.verticalCenter
         text: root.unit
         font: root.unitFont
+        visible: root.valid
         color: root.color
     }
-
 }
