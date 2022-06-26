@@ -49,7 +49,7 @@ Item {
             if (tabs.blocked)
                 return ;
 
-            const total = tabs.children.length;
+            const total = tabs.children.length - 1;
             const step = button === Input.paddleBottomLeft ? -1 : +1;
             const index = Utils.mod(tabs.currentIndex + step, total);
             const currentTab = tabs.children[tabs.currentIndex];

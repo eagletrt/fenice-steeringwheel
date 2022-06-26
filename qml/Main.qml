@@ -45,6 +45,7 @@ Window {
             }
 
             function onTraction_control_changed(tractionControl) {
+                console.log("HEY!", tractionControl);
                 popper.show(["Off", "Slip", "Torque", "Torque\n&\nSlip"][tractionControl], Style.foreground);
             }
 

@@ -109,6 +109,8 @@ int main(int argc, char *argv[]) {
 
   QObject::connect(buttons, &Buttons::manettino_left_changed, state->steering(), &Steering::manettino_left_changed);
   QObject::connect(buttons, &Buttons::manettino_right_changed, state->steering(), &Steering::manettino_right_changed);
+  QObject::connect(buttons, &Buttons::manettino_center_changed, state->lv(), &LV::manettino_center_changed);
+
   QObject::connect(buttons, &Buttons::button_pressed, state->steering(), &Steering::button_pressed);
   QObject::connect(buttons, &Buttons::button_released, state->steering(), &Steering::button_released);
 

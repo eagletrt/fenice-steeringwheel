@@ -75,9 +75,10 @@ Item {
     Text {
         id: main
 
-        text: root.valid ? root.value.toFixed(root.decimals).substring(0, 3) : "N/A"
+        text: root.value.toFixed(root.decimals).substring(0, 3)
         font: root.valueFont
         color: root.color
+        visible: root.valid
         horizontalAlignment: Text.right
     }
 

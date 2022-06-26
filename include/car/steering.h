@@ -17,7 +17,7 @@ class Steering : public Interface {
 public:
   S_PROPERTY(float, temperature, 0)
   S_PROPERTY(quint8, map, 0)
-  S_PROPERTY(primary_TractionControl, traction_control, primary_TractionControl_OFF)
+  S_PROPERTY(quint8, traction_control, primary_TractionControl_OFF)
   S_PROPERTY(bool, ptt, false)
 public:
   Steering(State *parent = nullptr);

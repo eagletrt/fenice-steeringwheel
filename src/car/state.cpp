@@ -27,8 +27,7 @@ State::State(QObject *parent) : QObject(parent) {
       {primary_ID_TLM_VERSION, m_telemetry}, {primary_ID_TLM_STATUS, m_telemetry}, {primary_ID_CAR_STATUS, m_das},
       {primary_ID_LV_CURRENT, m_lv},         {primary_ID_LV_VOLTAGE, m_lv},        {primary_ID_LV_TEMPERATURE, m_lv},
       {primary_ID_COOLING_STATUS, m_lv},     {primary_ID_HV_CURRENT, m_hv},        {primary_ID_HV_TEMP, m_hv},
-      {primary_ID_HV_ERRORS, m_hv},          {primary_ID_TS_STATUS, m_hv},
-  };
+      {primary_ID_HV_ERRORS, m_hv},          {primary_ID_TS_STATUS, m_hv},         {primary_ID_HV_VOLTAGE, m_hv}};
 
   m_secondary_message_topic = {
       {secondary_ID_CONTROL_OUTPUT, m_das},  {secondary_ID_PEDALS_OUTPUT, m_das},
@@ -39,13 +38,13 @@ State::State(QObject *parent) : QObject(parent) {
   QHashIterator<canlib_message_id, Interface *> primary_iterator(m_primary_message_topic);
   while (primary_iterator.hasNext()) {
     primary_iterator.next();
-    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, primary_iterator.key());
+    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, primary_watchdog_index_from_id(primary_iterator.key()));
   }
 
   QHashIterator<canlib_message_id, Interface *> secondary_iterator(m_secondary_message_topic);
   while (secondary_iterator.hasNext()) {
     secondary_iterator.next();
-    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, secondary_iterator.key());
+    CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, secondary_watchdog_index_from_id(secondary_iterator.key()));
   }
 
   m_watchdog_timer = new QTimer();
@@ -71,8 +70,6 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
   uint8_t *raw = new uint8_t[length];
   memcpy(raw, message.data(), length * sizeof(uint8_t));
 
-  // qDebug() << id << message;
-
   switch (device->network) {
   case CanDevice::Network::PRIMARY:
     handle_primary(id, raw);
@@ -95,25 +92,28 @@ void State::handle_message(const CanDevice *device, quint32 id, const QByteArray
   network##_raw_to_conversion_struct_##message(&conversion, &data);
 
 void State::timeout() {
-  primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentMSecsSinceEpoch());
-  secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentMSecsSinceEpoch());
+  primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentSecsSinceEpoch() * 1000);
+  secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentSecsSinceEpoch() * 1000);
+
   QHashIterator<canlib_message_id, Interface *> primary_iter(m_primary_message_topic);
   while (primary_iter.hasNext()) {
     primary_iter.next();
-    bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, primary_iter.key());
-    primary_iter.value()->set_valid(timed_out);
+    bool timed_out =
+        CANLIB_BITTEST_ARRAY(m_primary_watchdog->timeout, primary_watchdog_index_from_id(primary_iter.key()));
+    primary_iter.value()->set_valid(!timed_out);
   }
 
   QHashIterator<canlib_message_id, Interface *> secondary_iter(m_secondary_message_topic);
   while (secondary_iter.hasNext()) {
     secondary_iter.next();
-    bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, secondary_iter.key());
-    secondary_iter.value()->set_valid(timed_out);
+    bool timed_out =
+        CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, secondary_watchdog_index_from_id(secondary_iter.key()));
+    secondary_iter.value()->set_valid(!timed_out);
   }
 }
 
 void State::handle_primary(quint32 id, uint8_t *raw) {
-  primary_watchdog_reset(m_primary_watchdog, id, QDateTime::currentMSecsSinceEpoch());
+  primary_watchdog_reset(m_primary_watchdog, id, QDateTime::currentSecsSinceEpoch() * 1000);
   switch (id) {
   case primary_ID_TIMESTAMP: {
     DESERIALIZE(primary, TIMESTAMP);
@@ -232,7 +232,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
 }
 
 void State::handle_secondary(quint32 id, uint8_t *raw) {
-  secondary_watchdog_reset(m_secondary_watchdog, id, QDateTime::currentMSecsSinceEpoch());
+  secondary_watchdog_reset(m_secondary_watchdog, id, QDateTime::currentSecsSinceEpoch() * 1000);
   switch (id) {
   case secondary_ID_CONTROL_OUTPUT: {
     DESERIALIZE(secondary, CONTROL_OUTPUT);
