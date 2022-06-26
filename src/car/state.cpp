@@ -173,7 +173,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     m_lv->set_voltage_3(conversion.voltage_3);
     m_lv->set_voltage_4(conversion.voltage_4);
     m_lv->set_voltage_min(
-        qMin(conversion.voltage_1, qMin(conversion.voltage_2, qMin(conversion.voltage_3, conversion.voltage_4))));
+        qMin(conversion.voltage_2, qMin(conversion.voltage_3, conversion.voltage_4)));
     emit lv_changed();
     break;
   }
