@@ -22,29 +22,33 @@ State::State(QObject *parent) : QObject(parent) {
   m_primary_watchdog = primary_watchdog_new();
   m_secondary_watchdog = secondary_watchdog_new();
 
-  m_primary_message_topic = {
-      {primary_ID_DAS_VERSION, m_das},       {primary_ID_HV_VERSION, m_hv},        {primary_ID_LV_VERSION, m_lv},
-      {primary_ID_TLM_VERSION, m_telemetry}, {primary_ID_TLM_STATUS, m_telemetry}, {primary_ID_CAR_STATUS, m_das},
-      {primary_ID_LV_CURRENT, m_lv},         {primary_ID_LV_VOLTAGE, m_lv},        {primary_ID_LV_TEMPERATURE, m_lv},
-      {primary_ID_COOLING_STATUS, m_lv},     {primary_ID_HV_CURRENT, m_hv},        {primary_ID_HV_TEMP, m_hv},
-      {primary_ID_HV_ERRORS, m_hv},          {primary_ID_TS_STATUS, m_hv},         {primary_ID_HV_VOLTAGE, m_hv}};
+  m_primary_messages_per_interface = {
+      {m_telemetry, {primary_ID_TLM_STATUS}},
+      {m_das, {primary_ID_CAR_STATUS}},
+      {m_lv, {primary_ID_LV_CURRENT, primary_ID_LV_VOLTAGE, primary_ID_LV_TEMPERATURE, primary_ID_COOLING_STATUS}},
+      {m_hv,
+       {primary_ID_HV_CURRENT, primary_ID_HV_VOLTAGE, primary_ID_HV_TEMP, primary_ID_HV_ERRORS, primary_ID_TS_STATUS}}};
 
-  m_secondary_message_topic = {
-      {secondary_ID_CONTROL_OUTPUT, m_das},  {secondary_ID_PEDALS_OUTPUT, m_das},
-      {secondary_ID_STEERING_ANGLE, m_das},  {secondary_ID_GPS_COORDS, m_telemetry},
-      {secondary_ID_GPS_SPEED, m_telemetry},
-  };
+  m_secondary_messages_per_interface = {
+      {m_das, {secondary_ID_CONTROL_OUTPUT, secondary_ID_PEDALS_OUTPUT, secondary_ID_STEERING_ANGLE}},
+      {m_telemetry, {secondary_ID_GPS_COORDS, secondary_ID_GPS_SPEED}}};
 
-  QHashIterator<canlib_message_id, Interface *> primary_iterator(m_primary_message_topic);
+  QHashIterator<Interface *, QList<canlib_message_id>> primary_iterator(m_primary_messages_per_interface);
   while (primary_iterator.hasNext()) {
     primary_iterator.next();
-    CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, primary_watchdog_index_from_id(primary_iterator.key()));
+    QList<canlib_message_id>::ConstIterator id;
+    for (id = primary_iterator.value().begin(); id != primary_iterator.value().end(); ++id) {
+      CANLIB_BITSET_ARRAY(m_primary_watchdog->activated, primary_watchdog_index_from_id(*id));
+    }
   }
 
-  QHashIterator<canlib_message_id, Interface *> secondary_iterator(m_secondary_message_topic);
+  QHashIterator<Interface *, QList<canlib_message_id>> secondary_iterator(m_secondary_messages_per_interface);
   while (secondary_iterator.hasNext()) {
     secondary_iterator.next();
-    CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, secondary_watchdog_index_from_id(secondary_iterator.key()));
+    QList<canlib_message_id>::ConstIterator id;
+    for (id = secondary_iterator.value().begin(); id != secondary_iterator.value().end(); ++id) {
+      CANLIB_BITSET_ARRAY(m_secondary_watchdog->activated, secondary_watchdog_index_from_id(*id));
+    }
   }
 
   m_watchdog_timer = new QTimer();
@@ -95,20 +99,38 @@ void State::timeout() {
   primary_watchdog_timeout(m_primary_watchdog, QDateTime::currentSecsSinceEpoch() * 1000);
   secondary_watchdog_timeout(m_secondary_watchdog, QDateTime::currentSecsSinceEpoch() * 1000);
 
-  QHashIterator<canlib_message_id, Interface *> primary_iter(m_primary_message_topic);
-  while (primary_iter.hasNext()) {
-    primary_iter.next();
-    bool timed_out =
-        CANLIB_BITTEST_ARRAY(m_primary_watchdog->timeout, primary_watchdog_index_from_id(primary_iter.key()));
-    primary_iter.value()->set_valid(!timed_out);
+  QHashIterator<Interface *, QList<canlib_message_id>> primary_iterator(m_primary_messages_per_interface);
+  while (primary_iterator.hasNext()) {
+    primary_iterator.next();
+    QList<canlib_message_id>::ConstIterator id;
+    bool valid = true;
+    for (id = primary_iterator.value().begin(); id != primary_iterator.value().end(); ++id) {
+      bool timed_out = CANLIB_BITTEST_ARRAY(m_primary_watchdog->timeout, primary_watchdog_index_from_id(*id));
+      if (timed_out) {
+        char name[primary_MAX_MESSAGE_NAME_LENGTH];
+        primary_message_name_from_id(*id, name);
+        qDebug() << name << "timed out";
+      }
+      valid &= !timed_out;
+    }
+    primary_iterator.key()->set_valid(valid);
   }
 
-  QHashIterator<canlib_message_id, Interface *> secondary_iter(m_secondary_message_topic);
-  while (secondary_iter.hasNext()) {
-    secondary_iter.next();
-    bool timed_out =
-        CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, secondary_watchdog_index_from_id(secondary_iter.key()));
-    secondary_iter.value()->set_valid(!timed_out);
+  QHashIterator<Interface *, QList<canlib_message_id>> secondary_iterator(m_secondary_messages_per_interface);
+  while (secondary_iterator.hasNext()) {
+    secondary_iterator.next();
+    QList<canlib_message_id>::ConstIterator id;
+    bool valid = true;
+    for (id = secondary_iterator.value().begin(); id != secondary_iterator.value().end(); ++id) {
+      bool timed_out = CANLIB_BITTEST_ARRAY(m_secondary_watchdog->timeout, secondary_watchdog_index_from_id(*id));
+      if (timed_out) {
+        char name[secondary_MAX_MESSAGE_NAME_LENGTH];
+        secondary_message_name_from_id(*id, name);
+        qDebug() << name << "timed out";
+      }
+      valid &= !timed_out;
+    }
+    secondary_iterator.key()->set_valid(valid);
   }
 }
 
@@ -172,8 +194,7 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     m_lv->set_voltage_2(conversion.voltage_2);
     m_lv->set_voltage_3(conversion.voltage_3);
     m_lv->set_voltage_4(conversion.voltage_4);
-    m_lv->set_voltage_min(
-        qMin(conversion.voltage_2, qMin(conversion.voltage_3, conversion.voltage_4)));
+    m_lv->set_voltage_min(qMin(conversion.voltage_2, qMin(conversion.voltage_3, conversion.voltage_4)));
     emit lv_changed();
     break;
   }
@@ -181,13 +202,6 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     DESERIALIZE_CONVERSION(primary, LV_TEMPERATURE);
     m_lv->set_dcdc_temperature(conversion.dcdc12_temperature);
     m_lv->set_battery_temperature(conversion.bp_temperature_1);
-    emit lv_changed();
-    break;
-  }
-  case primary_ID_COOLING_STATUS: {
-    DESERIALIZE_CONVERSION(primary, COOLING_STATUS);
-    m_lv->set_radiators_speed(conversion.radiators_speed);
-    m_lv->set_pumps_speed(conversion.pumps_speed);
     emit lv_changed();
     break;
   }

@@ -76,9 +76,8 @@ private:
   secondary_watchdog *m_secondary_watchdog;
   QTimer *m_watchdog_timer;
 
-  QHash<canlib_message_id, Interface *> m_primary_message_topic;
-
-  QHash<canlib_message_id, Interface *> m_secondary_message_topic;
+  QHash<Interface *, QList<canlib_message_id>> m_primary_messages_per_interface;
+  QHash<Interface *, QList<canlib_message_id>> m_secondary_messages_per_interface;
 };
 
 #endif // STATE_H
