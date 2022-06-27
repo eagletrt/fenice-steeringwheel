@@ -7,7 +7,7 @@
 #        \/           \/     \/              \//_____/  #
 #########################################################
 
-QT += core gui qml quick serialbus charts
+QT += core gui qml quick serialbus
 CONFIG += qtquickcompiler
 
 TARGET = fenice-steering

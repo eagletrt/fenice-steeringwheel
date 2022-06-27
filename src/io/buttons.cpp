@@ -140,13 +140,13 @@ void Buttons::read_gpio_state() {
 
   if (m_switch_timer.elapsed() > MANETTINO_DEBOUNCE) {
     if (m_manettino_left != m_manettino_left_old) {
-      m_manettino_left_state = m_manettino_right;
+      m_manettino_left_state = m_manettino_left;
       emit manettino_left_changed(m_manettino_left);
     }
     m_manettino_left_old = m_manettino_left;
 
     if (m_manettino_center != m_manettino_center_old) {
-      m_manettino_center_state = m_manettino_right;
+      m_manettino_center_state = m_manettino_center;
       emit manettino_center_changed(m_manettino_center);
     }
     m_manettino_center_old = m_manettino_center;
