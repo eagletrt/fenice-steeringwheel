@@ -4,4 +4,4 @@
 [submodule "thirdparty/can"]
 	path = thirdparty/can
 	url = git@github.com:eagletrt/can.git
-    branch = build
+    	branch = build

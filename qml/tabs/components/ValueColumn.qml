@@ -33,11 +33,14 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             value: root.value
+            valid: root.valid
             max: root.max
             maxDigits: root.maxDigits
             barCount: root.barCount
             columnGradient: root.columnGradient
             rotation: root.rotation
         }
+
     }
+
 }

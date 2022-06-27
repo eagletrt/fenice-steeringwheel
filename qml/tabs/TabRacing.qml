@@ -41,7 +41,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
@@ -49,7 +51,7 @@ Rectangle {
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
                 valid: Car.hv.valid
-                value: Car.hv.pack_voltage
+                value: Car.hv.bus_voltage
                 max: 460
                 maxDigits: 3
                 barCount: 8
@@ -64,8 +66,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         ColumnLayout {
@@ -97,6 +102,7 @@ Rectangle {
                                     target: car_status
                                     text: "IDLE"
                                 }
+
                             },
                             State {
                                 name: "SETUP"
@@ -106,6 +112,7 @@ Rectangle {
                                     target: car_status
                                     text: "SETUP"
                                 }
+
                             },
                             State {
                                 name: "RUN"
@@ -115,6 +122,7 @@ Rectangle {
                                     target: car_status
                                     text: "RUN"
                                 }
+
                             },
                             State {
                                 name: "???"
@@ -124,6 +132,7 @@ Rectangle {
                                     target: car_status
                                     text: "???"
                                 }
+
                             }
                         ]
                     }
@@ -243,7 +252,9 @@ Rectangle {
                         label: "RPI"
                         high: 80
                     }
+
                 }
+
             }
 
             MapBar {
@@ -251,6 +262,7 @@ Rectangle {
                 Layout.fillWidth: true
                 map: Car.steering.map
             }
+
         }
 
         RowLayout {
@@ -262,8 +274,8 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
-                valid: Car.hv.valid
-                value: Car.hv.pack_voltage
+                valid: Car.das.valid
+                value: Car.das.apps
                 max: 460
                 maxDigits: 3
                 barCount: 8
@@ -278,15 +290,17 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
-                label: "[V] BMS"
-                valid: Car.hv.valid
-                value: Car.hv.pack_voltage
+                label: "[%] APPS"
+                valid: Car.das.valid
+                value: Car.das.apps
                 max: 460
                 maxDigits: 3
                 barCount: 8
@@ -294,15 +308,20 @@ Rectangle {
                 columnGradient: Gradient {
                     GradientStop {
                         position: 1
-                        color: Style.red
+                        color: Style.blue
                     }
 
                     GradientStop {
                         position: 0
-                        color: Style.orange
+                        color: Style.aqua
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

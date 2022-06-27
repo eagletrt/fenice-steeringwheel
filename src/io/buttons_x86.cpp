@@ -25,9 +25,10 @@ QHash<int, int> button_ids{{Qt::Key_D, Buttons::Input::BUTTON_TOP_LEFT},
                            {Qt::Key_0, 20}};
 
 Buttons::Buttons(QObject *parent) : QObject(parent) {
-  m_timers = QVector<QElapsedTimer>();
-  for (int i = 0; i < button_ids.size(); i++) {
-    m_timers.append(QElapsedTimer());
+  for (int i = 0; i < BUTTONS_LENGTH; i++) {
+    m_pressed_elapsed_timers[i] = QElapsedTimer();
+    m_long_pressed_timers[i] = new QTimer(this);
+    m_long_pressed_timers[i]->callOnTimeout(this, [&]() -> void { emit button_long_pressed(i); });
   }
 }
 
@@ -38,44 +39,49 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
     return QObject::eventFilter(obj, event);
   }
 
-  QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+  QKeyEvent *key_event = static_cast<QKeyEvent *>(event);
 
-  if (button_ids.find(keyEvent->key()) == button_ids.end()) {
+  if (button_ids.find(key_event->key()) == button_ids.end()) {
     // not included in the captured keys
     return QObject::eventFilter(obj, event);
   }
 
-  int buttonId = button_ids[keyEvent->key()];
+  int button_id = button_ids[key_event->key()];
 
-  bool ctrl = (keyEvent->modifiers() & Qt::ControlModifier) != 0;
-  bool alt = (keyEvent->modifiers() & Qt::AltModifier) != 0;
+  bool ctrl = (key_event->modifiers() & Qt::ControlModifier) != 0;
+  bool alt = (key_event->modifiers() & Qt::AltModifier) != 0;
 
   if (!alt && ctrl) {
-    buttonId += 10;
+    button_id += 10;
   } else if (alt && !ctrl) {
-    buttonId += 20;
+    button_id += 20;
   }
 
-  if (buttonId != -1) {
-    if (buttonId < 10) {
-      if (event->type() == QEvent::KeyPress && !keyEvent->isAutoRepeat()) {
-        emit button_pressed(buttonId);
-        m_timers[buttonId].restart();
-      } else if (event->type() == QEvent::KeyRelease && !keyEvent->isAutoRepeat()) {
-        emit button_released(buttonId);
-        if (m_timers[buttonId].elapsed() < 500) {
-          emit button_clicked(buttonId);
+  if (button_id != -1) {
+    if (button_id < 10) {
+      if (event->type() == QEvent::KeyPress && !key_event->isAutoRepeat()) {
+        emit button_pressed(button_id);
+        m_long_pressed_timers[button_id]->start();
+        m_pressed_elapsed_timers[button_id].restart();
+      } else if (event->type() == QEvent::KeyRelease && !key_event->isAutoRepeat()) {
+        m_long_pressed_timers[button_id]->stop();
+        emit button_released(button_id);
+        if (m_pressed_elapsed_timers[button_id].elapsed() < 500) {
+          emit button_clicked(button_id);
         } else {
-          emit button_long_clicked(buttonId);
+          emit button_long_clicked(button_id);
         }
       }
     } else if (event->type() == QEvent::KeyPress) {
-      if (buttonId > 10 && buttonId <= 20) {
-        emit manettino_right_changed(buttonId - 11);
-      } else if (buttonId > 20 && buttonId <= 30) {
-        emit manettino_left_changed(buttonId - 21);
-      } else if (buttonId > 30) {
-        emit manettino_center_changed(buttonId - 31);
+      if (button_id > 10 && button_id <= 20) {
+        emit manettino_right_changed(button_id - 11);
+        emit manettino_right(button_id - 11);
+      } else if (button_id > 20 && button_id <= 30) {
+        emit manettino_left_changed(button_id - 21);
+        emit manettino_left(button_id - 11);
+      } else if (button_id > 30) {
+        emit manettino_center_changed(button_id - 31);
+        emit manettino_center(button_id - 11);
       }
     }
   }

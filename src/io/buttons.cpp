@@ -6,7 +6,7 @@
 #include "mcp23017.h"
 #include "wiringPi.h"
 
-QHash<int, int> buttonIds{
+QHash<int, int> button_ids{
     {Buttons::Gpio::GPIO_BUTTON_TOP_LEFT, Buttons::Input::BUTTON_TOP_LEFT},
     {Buttons::Gpio::GPIO_BUTTON_BOTTOM_LEFT, Buttons::Input::BUTTON_BOTTOM_LEFT},
     {Buttons::Gpio::GPIO_BUTTON_TOP_RIGHT, Buttons::Input::BUTTON_TOP_RIGHT},
@@ -24,24 +24,15 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
   mcp23017Setup(116, 0x27); // manettino center + paddles top + paddles bottom +
                             // buttons top + buttons bottom
 
-  m_button_pins_state = QVector<int>();
-  m_button_pins_state_old = QVector<int>();
-  m_manettino_pins_state = QVector<int>();
-  m_manettino_pins_state_old = QVector<int>();
+  m_button_pins_state = QVector<quint8>();
+  m_button_pins_state_old = QVector<quint8>();
+  m_manettino_pins_state = QVector<quint8>();
+  m_manettino_pins_state_old = QVector<quint8>();
 
   m_button_state = QVector<States>();
-  m_timers = QVector<QElapsedTimer>();
 
-  m_button_action = -1;
-  m_manettino_right_old = -1;
-  m_manettino_left_old = -1;
-  m_manettino_center_old = -1;
-  m_manettino_right = -1;
-  m_manettino_left = -1;
-  m_manettino_center = -1;
-
-  m_switch_timer = QElapsedTimer();
   m_switch_timer.start();
+  m_manettino_elapsed_timer.start();
 
   m_button_pins = {
       25, // button center
@@ -70,7 +61,6 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
     m_button_pins_state.append(1);
     m_button_pins_state_old.append(1);
     m_button_state.append(BUTTON_NORMAL);
-    m_timers.append(QElapsedTimer());
   }
 
   for (int i = 0; i < m_manettino_pins.size(); i++) {
@@ -81,9 +71,16 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
     m_manettino_pins_state_old.append(1);
   }
 
+  for (int i = 0; i < BUTTONS_LENGTH; i++) {
+    m_pressed_elapsed_timers[i] = QElapsedTimer();
+    m_long_pressed_timers[i] = new QTimer(this);
+    m_long_pressed_timers[i]->callOnTimeout(this, [&]() -> void { emit button_long_pressed(i); });
+    m_long_pressed_timers[i]->setInterval(500);
+  }
+
   // Setup signal / slot mechanism
   m_poll_timer = new QTimer(this);
-  connect(m_poll_timer, SIGNAL(timeout()), this, SLOT(read_gpio_state()));
+  connect(m_poll_timer, &QTimer::timeout, this, &Buttons::read_gpio_state);
   m_poll_timer->start(50);
 }
 
@@ -93,9 +90,6 @@ void Buttons::read_gpio_state() {
 
     if (m_button_pins_state.at(i) != m_button_pins_state_old.at(i)) {
       m_button_action = -1;
-      m_manettino_left = -1;
-      m_manettino_center = -1;
-      m_manettino_right = -1;
 
       switch (m_button_state.at(i)) {
       case BUTTON_NORMAL:
@@ -108,16 +102,18 @@ void Buttons::read_gpio_state() {
         break;
       }
 
-      int buttonId = buttonIds[m_button_pins[i]];
+      int button_id = button_ids[m_button_pins[i]];
       if (m_button_action == BUTTON_PRESSED) {
-        emit button_pressed(buttonId);
-        m_timers[i].restart();
+        emit button_pressed(button_id);
+        m_long_pressed_timers[button_id]->start();
+        m_pressed_elapsed_timers[i].restart();
       } else {
-        emit button_released(buttonId);
-        if (m_timers[i].elapsed() < 500) {
-          emit button_clicked(buttonId);
+        m_long_pressed_timers[button_id]->stop();
+        emit button_released(button_id);
+        if (m_pressed_elapsed_timers[i].elapsed() < LONG_PRESS) {
+          emit button_clicked(button_id);
         } else {
-          emit button_long_clicked(buttonId);
+          emit button_long_clicked(button_id);
         }
       }
     }
@@ -128,38 +124,48 @@ void Buttons::read_gpio_state() {
   for (int i = 0; i < m_manettino_pins.size(); i++) {
     m_manettino_pins_state[i] = digitalRead(m_manettino_pins.at(i));
 
-    if (m_manettino_pins_state[i] != m_manettino_pins_state_old[i]) {
+    if (m_manettino_pins_state[i] != m_manettino_pins_state_old[i] && m_manettino_pins_state[i] == 0) {
       if (m_manettino_pins[i] >= Gpio::GPIO_MANETTINO_LEFT_START &&
           m_manettino_pins[i] <= Gpio::GPIO_MANETTINO_LEFT_END) {
-        this->m_manettino_left = m_manettino_pins[i] - Gpio::GPIO_MANETTINO_LEFT_START;
+        m_manettino_left = m_manettino_pins[i] - Gpio::GPIO_MANETTINO_LEFT_START;
       } else if (m_manettino_pins[i] >= Gpio::GPIO_MANETTINO_CENTER_START &&
                  m_manettino_pins[i] <= Gpio::GPIO_MANETTINO_CENTER_END) {
-        this->m_manettino_center = m_manettino_pins[i] - Gpio::GPIO_MANETTINO_CENTER_START;
+        m_manettino_center = m_manettino_pins[i] - Gpio::GPIO_MANETTINO_CENTER_START;
       } else if (m_manettino_pins[i] >= Gpio::GPIO_MANETTINO_RIGHT_START &&
                  m_manettino_pins[i] <= Gpio::GPIO_MANETTINO_RIGHT_END) {
-        this->m_manettino_right = m_manettino_pins[i] - Gpio::GPIO_MANETTINO_RIGHT_START;
-      }
-
-      if ((m_manettino_center != -1 && m_manettino_center != m_manettino_center_old) ||
-          (m_manettino_left != -1 && m_manettino_left != m_manettino_left_old) ||
-          (m_manettino_right != -1 && m_manettino_right != m_manettino_right_old)) {
-        int elapsed = m_switch_timer.restart();
-        if (elapsed > 10) {
-          if (m_manettino_left != -1 && m_manettino_left != m_manettino_left_old) {
-            emit manettino_left_changed(m_manettino_left);
-            m_manettino_left_old = m_manettino_left;
-          }
-          if (m_manettino_center != -1 && m_manettino_center != m_manettino_center_old) {
-            emit manettino_center_changed(m_manettino_center);
-            m_manettino_center_old = m_manettino_center;
-          }
-          if (m_manettino_right != -1 && m_manettino_right != m_manettino_right_old) {
-            emit manettino_right_changed(m_manettino_right);
-            m_manettino_right_old = m_manettino_right;
-          }
-        }
+        m_manettino_right = m_manettino_pins[i] - Gpio::GPIO_MANETTINO_RIGHT_START;
       }
     }
+  }
+
+  if (m_switch_timer.elapsed() > MANETTINO_DEBOUNCE) {
+    if (m_manettino_left != m_manettino_left_old) {
+      m_manettino_left_state = m_manettino_right;
+      emit manettino_left_changed(m_manettino_left);
+    }
+    m_manettino_left_old = m_manettino_left;
+
+    if (m_manettino_center != m_manettino_center_old) {
+      m_manettino_center_state = m_manettino_right;
+      emit manettino_center_changed(m_manettino_center);
+    }
+    m_manettino_center_old = m_manettino_center;
+
+    if (m_manettino_right != m_manettino_right_old) {
+      m_manettino_right_state = m_manettino_right;
+      emit manettino_right_changed(m_manettino_right);
+    }
+
+    m_manettino_right_old = m_manettino_right;
+
+    m_switch_timer.restart();
+  }
+
+  if (m_manettino_elapsed_timer.elapsed() > MANETTINO_STATE_UPDATE) {
+    emit manettino_left(m_manettino_left_state);
+    emit manettino_center(m_manettino_center_state);
+    emit manettino_right(m_manettino_right_state);
+    m_manettino_elapsed_timer.restart();
   }
 
   m_manettino_pins_state_old = m_manettino_pins_state;

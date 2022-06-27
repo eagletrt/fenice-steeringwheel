@@ -16,6 +16,7 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.connect)
             currentTab.connect();
+
     }
 
     function disconnect() {
@@ -23,26 +24,31 @@ Item {
         const currentTab = tabs.children[tabs.currentIndex];
         if (currentTab && currentTab.disconnect)
             currentTab.disconnect();
+
     }
 
     function buttonReleasedHandler(button) {
         lastPressed.push(button);
         if (lastPressed[lastPressed.length - 1] !== fireGameboy[lastPressed.length - 1])
             lastPressed = [];
+
         if (lastPressed.length === fireGameboy.length && !onGameboy) {
             onGameboy = true;
             const gameboyTab = tabs.children.length - 1;
             const currentTab = tabs.children[tabs.currentIndex];
             if (currentTab.disconnect)
                 currentTab.disconnect();
+
             if (gameboyTab.connect)
                 gameboyTab.connect();
+
             tabs.currentIndex = gameboyTab;
             lastPressed = [];
         } else if (button === Input.paddleBottomLeft || button === Input.paddleBottomRight) {
             onGameboy = false;
             if (tabs.blocked)
-                return;
+                return ;
+
             const total = tabs.children.length - 1;
             const step = button === Input.paddleBottomLeft ? -1 : +1;
             const index = Utils.mod(tabs.currentIndex + step, total);
@@ -50,8 +56,10 @@ Item {
             const nextTab = tabs.children[index];
             if (currentTab.disconnect)
                 currentTab.disconnect();
+
             if (nextTab.connect)
                 nextTab.connect();
+
             tabs.currentIndex = index;
         }
     }
@@ -117,7 +125,9 @@ Item {
                     height: Style.height
                     anchors.centerIn: parent
                 }
+
             }
+
         }
 
         RowLayout {
@@ -141,8 +151,13 @@ Item {
                         font.family: Style.sans.family
                         color: Style.text
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }

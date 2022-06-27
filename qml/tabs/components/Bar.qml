@@ -13,7 +13,7 @@ ProgressBar {
     property int barCount: 10
     property Gradient columnGradient
 
-    value: valid ? value : "N/A"
+    value: valid ? value : 0
     to: max
     rotation: 180
 
@@ -41,6 +41,7 @@ ProgressBar {
                 height: parent.height * root.visualPosition
                 color: "black"
             }
+
         }
 
         OpacityMask {
@@ -59,7 +60,11 @@ ProgressBar {
                     color: "transparent"
                     border.width: 1
                 }
+
             }
+
         }
+
     }
+
 }

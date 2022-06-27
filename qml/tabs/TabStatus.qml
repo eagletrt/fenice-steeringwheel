@@ -28,7 +28,6 @@ Control {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 80
                 Layout.columnSpan: 3
-
                 title: 'Steering'
                 state: "NORMAL"
             }
@@ -36,7 +35,6 @@ Control {
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
                 title: "Inverter L"
                 state: Car.inverters.valid ? "NORMAL" : "ERROR"
             }
@@ -44,7 +42,6 @@ Control {
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
                 title: "TELEMETRY"
                 state: Car.telemetry.valid ? "NORMAL" : "ERROR"
             }
@@ -52,7 +49,6 @@ Control {
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
                 title: "INVERTER R"
                 state: Car.inverters.valid ? "NORMAL" : "ERROR"
             }
@@ -60,7 +56,6 @@ Control {
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
                 title: "BMS LV"
                 state: Car.lv.valid ? "NORMAL" : "ERROR"
             }
@@ -68,7 +63,6 @@ Control {
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
                 title: "DAS"
                 state: Car.das.valid ? "NORMAL" : "ERROR"
             }
@@ -76,10 +70,12 @@ Control {
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
                 title: "BMS HV"
                 state: Car.hv.valid ? "NORMAL" : "ERROR"
             }
+
         }
+
     }
+
 }

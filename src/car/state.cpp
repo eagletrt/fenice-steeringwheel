@@ -29,9 +29,8 @@ State::State(QObject *parent) : QObject(parent) {
       {m_hv,
        {primary_ID_HV_CURRENT, primary_ID_HV_VOLTAGE, primary_ID_HV_TEMP, primary_ID_HV_ERRORS, primary_ID_TS_STATUS}}};
 
-  m_secondary_messages_per_interface = {
-      {m_das, {secondary_ID_CONTROL_OUTPUT, secondary_ID_PEDALS_OUTPUT, secondary_ID_STEERING_ANGLE}},
-      {m_telemetry, {secondary_ID_GPS_COORDS, secondary_ID_GPS_SPEED}}};
+  m_secondary_messages_per_interface = {{m_das, {secondary_ID_PEDALS_OUTPUT, secondary_ID_STEERING_ANGLE}},
+                                        {m_telemetry, {secondary_ID_GPS_COORDS, secondary_ID_GPS_SPEED}}};
 
   QHashIterator<Interface *, QList<canlib_message_id>> primary_iterator(m_primary_messages_per_interface);
   while (primary_iterator.hasNext()) {

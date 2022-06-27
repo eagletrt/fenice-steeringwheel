@@ -37,6 +37,7 @@ Control {
     function set(bound) {
         if (root.selected === 0)
             Car.das.send_set_pedal_range(0, bound === "MAX" ? 0 : 1);
+
         if (root.selected === 1)
             Car.das.send_set_pedal_range(1, bound === "MAX" ? 0 : 1);
         else
@@ -98,6 +99,7 @@ Control {
                 color: Style.textInverted
                 font: Style.sans.h3
             }
+
         }
 
         Rectangle {
@@ -115,6 +117,9 @@ Control {
                 color: Style.textInverted
                 font: Style.sans.h3
             }
+
         }
+
     }
+
 }

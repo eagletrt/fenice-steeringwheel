@@ -36,20 +36,28 @@ Window {
                 window.buttonReleased(button);
             }
 
+            function onManettino_left_changed(value) {
+                if (value > 3)
+                    return ;
+
+                popper.show(["Off", "Slip", "Torque", "Torque\nSlip"][value], Style.foreground);
+            }
+
+            function onManettino_center_changed(value) {
+                if (value > 2)
+                    return ;
+
+                popper.show(["Off", "Pumps", "Pumps\nRads"][value], Style.foreground);
+            }
+
+            function onManettino_right_changed(value) {
+                if (value > 5)
+                    return ;
+
+                popper.show(String(value * 20) + "%", Style.foreground);
+            }
+
             target: Buttons
-        }
-
-        Connections {
-            function onMap_changed(map) {
-                popper.show(String(map) + "%", Style.foreground);
-            }
-
-            function onTraction_control_changed(tractionControl) {
-                console.log("HEY!", tractionControl);
-                popper.show(["Off", "Slip", "Torque", "Torque\n&\nSlip"][tractionControl], Style.foreground);
-            }
-
-            target: Car.steering
         }
 
         Connections {
@@ -82,5 +90,7 @@ Window {
 
             anchors.centerIn: parent
         }
+
     }
+
 }

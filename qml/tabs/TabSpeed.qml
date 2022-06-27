@@ -41,7 +41,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             Bar {
@@ -64,8 +66,11 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
 
         Item {
@@ -108,7 +113,9 @@ Rectangle {
                             unit: "°C"
                             label: "INVERTER R"
                         }
+
                     }
+
                 }
 
                 Item {
@@ -131,12 +138,15 @@ Rectangle {
                         width: speedometerSize
                         height: speedometerSize
 
-                        Behavior on speed  {
+                        Behavior on speed {
                             NumberAnimation {
                                 duration: 1000
                             }
+
                         }
+
                     }
+
                 }
 
                 MapBar {
@@ -144,7 +154,9 @@ Rectangle {
                     Layout.fillWidth: true
                     map: Car.steering.map
                 }
+
             }
+
         }
 
         RowLayout {
@@ -172,7 +184,9 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
 
             ValueColumn {
@@ -195,8 +209,13 @@ Rectangle {
                         position: 0
                         color: Style.orange
                     }
+
                 }
+
             }
+
         }
+
     }
+
 }
