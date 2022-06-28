@@ -11,6 +11,7 @@ Item {
     property double value: 0
     property double zero: 0
     property color background: Style.surface
+    property string unit: "%"
 
     Rectangle {
         anchors.fill: parent
@@ -87,7 +88,7 @@ Item {
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
-                        text: (root.value - (root.zero * 100)).toFixed(0) + "%"
+                        text: (root.value - (root.zero * 100)).toFixed(0) + unit
                         color: Style.textInverted
                         font: Style.mono.h3
                     }
