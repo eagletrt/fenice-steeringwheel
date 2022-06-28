@@ -34,7 +34,7 @@ void Telemetry::button_clicked(int button) {
   }
 }
 
-void Telemetry::button_long_clicked(int button) {
+void Telemetry::button_long_pressed(int button) {
   if (button == Buttons::Input::BUTTON_TOP_RIGHT) {
     if (m_status == primary_Toggle_OFF) {
       send_status(primary_Toggle_ON);

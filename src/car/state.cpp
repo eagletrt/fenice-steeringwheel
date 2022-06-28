@@ -182,8 +182,8 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     break;
   }
   case primary_ID_LV_CURRENT: {
-    DESERIALIZE(primary, LV_CURRENT);
-    m_lv->set_current(data.current);
+    DESERIALIZE_CONVERSION(primary, LV_CURRENT);
+    m_lv->set_current(conversion.current);
     emit lv_changed();
     break;
   }
@@ -194,13 +194,14 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     m_lv->set_voltage_3(conversion.voltage_3);
     m_lv->set_voltage_4(conversion.voltage_4);
     m_lv->set_voltage_min(qMin(conversion.voltage_2, qMin(conversion.voltage_3, conversion.voltage_4)));
+    m_lv->set_voltage_max(qMax(conversion.voltage_2, qMax(conversion.voltage_3, conversion.voltage_4)));
     emit lv_changed();
     break;
   }
   case primary_ID_LV_TEMPERATURE: {
     DESERIALIZE_CONVERSION(primary, LV_TEMPERATURE);
-    m_lv->set_dcdc_temperature(conversion.dcdc12_temperature);
-    m_lv->set_battery_temperature(conversion.bp_temperature_1);
+    m_lv->set_dcdc_temperature(qMax(conversion.dcdc12_temperature, conversion.dcdc24_temperature));
+    m_lv->set_battery_temperature(qMax(conversion.bp_temperature_1, conversion.bp_temperature_2));
     emit lv_changed();
     break;
   }

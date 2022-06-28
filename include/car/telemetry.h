@@ -30,7 +30,7 @@ private:
 
 public slots:
   void button_clicked(int button);
-  void button_long_clicked(int button);
+  void button_long_pressed(int button);
 
 private:
   State *m_state;

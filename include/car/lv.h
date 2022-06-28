@@ -12,12 +12,13 @@ class LV : public Interface {
   Q_OBJECT
 public:
   enum CoolingStatus { OFF, PUMPS, ALL };
-  S_PROPERTY(quint8, current, 0)
+  S_PROPERTY(float, current, 0)
   S_PROPERTY(float, voltage_1, 0)
   S_PROPERTY(float, voltage_2, 0)
   S_PROPERTY(float, voltage_3, 0)
   S_PROPERTY(float, voltage_4, 0)
   S_PROPERTY(float, voltage_min, 0)
+  S_PROPERTY(float, voltage_max, 0)
   S_PROPERTY(quint16, total_voltage, 0)
   S_PROPERTY(float, dcdc_temperature, 0)
   S_PROPERTY(float, battery_temperature, 0)

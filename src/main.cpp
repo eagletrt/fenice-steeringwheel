@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
   QObject::connect(buttons, &Buttons::button_clicked, state->das(), &DAS::button_clicked);
 
   QObject::connect(buttons, &Buttons::button_clicked, state->telemetry(), &Telemetry::button_clicked);
-  QObject::connect(buttons, &Buttons::button_long_clicked, state->telemetry(), &Telemetry::button_long_clicked);
+  QObject::connect(buttons, &Buttons::button_long_pressed, state->telemetry(), &Telemetry::button_long_pressed);
 
   QObject::connect(state->steering(), &Steering::ptt_changed, leds, [&](bool ptt_value) {
     leds->set_left_brightness(7, ptt_value ? 0xFF : 0x0);

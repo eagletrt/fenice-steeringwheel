@@ -74,8 +74,11 @@ Buttons::Buttons(QObject *parent) : QObject(parent) {
   for (int i = 0; i < BUTTONS_LENGTH; i++) {
     m_pressed_elapsed_timers[i] = QElapsedTimer();
     m_long_pressed_timers[i] = new QTimer(this);
-    m_long_pressed_timers[i]->callOnTimeout(this, [&]() -> void { emit button_long_pressed(i); });
-    m_long_pressed_timers[i]->setInterval(500);
+    m_long_pressed_timers[i]->callOnTimeout(this, [&, i]() -> void {
+      emit button_long_pressed(i);
+      m_long_pressed_timers[i]->stop();
+    });
+    m_long_pressed_timers[i]->setInterval(LONG_PRESS);
   }
 
   // Setup signal / slot mechanism
@@ -105,7 +108,7 @@ void Buttons::read_gpio_state() {
       int button_id = button_ids[m_button_pins[i]];
       if (m_button_action == BUTTON_PRESSED) {
         emit button_pressed(button_id);
-        m_long_pressed_timers[button_id]->start();
+        m_long_pressed_timers[button_id]->start(LONG_PRESS);
         m_pressed_elapsed_timers[i].restart();
       } else {
         m_long_pressed_timers[button_id]->stop();

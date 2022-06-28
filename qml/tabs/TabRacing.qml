@@ -140,54 +140,10 @@ Rectangle {
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        valid: Car.das.valid
-                        value: Car.inverters.left_temperature
-                        unit: "°C"
-                        label: "INVERTER L"
-                    }
-
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        valid: Car.das.valid
-                        value: Car.inverters.right_temperature
-                        unit: "°C"
-                        label: "INVERTER R"
-                    }
-
-                    Text {
-                        Layout.alignment: Qt.AlignCenter
-                        Layout.columnSpan: 2
-                        font: Style.sans.h1
-                        color: Style.text
-                        text: "SBORAT"
-                    }
-
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        valid: Car.das.valid
-                        value: Car.inverters.left_temperature
-                        unit: "°C"
-                        label: "MOTOR L"
-                    }
-
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        valid: Car.das.valid
-                        value: Car.inverters.right_temperature
-                        unit: "°C"
-                        label: "MOTOR RIGHT"
-                    }
-
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
                         valid: Car.hv.valid
                         value: Car.hv.max_temperature
                         unit: "°C"
-                        label: "BMS HV"
+                        label: "HV BATT"
                         high: 50
                     }
 
@@ -197,32 +153,59 @@ Rectangle {
                         valid: Car.lv.valid
                         value: Car.lv.battery_temperature
                         unit: "°C"
-                        label: "BMS LV"
+                        label: "LV BATT"
                     }
 
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        value: 90
-                        unit: "°C"
-                        label: "TYRE FL"
-                    }
-
-                    ValueWithUnitAndLabel {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        value: 80
-                        unit: "°C"
-                        label: "TYRE FR"
+                    Text {
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.columnSpan: 2
+                        font: Style.sans.h1
+                        color: Style.text
+                        text: "TUPIDO"
                     }
 
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         valid: Car.hv.valid
-                        value: 1000 * (Car.hv.max_cell_voltage - Car.hv.min_cell_voltage)
-                        unit: "mV"
-                        label: "HV Delta"
+                        value: Car.hv.current
+                        unit: "A"
+                        label: "HV CURR"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        valid: Car.lv.valid
+                        value: Car.lv.dcdc_temperature
+                        unit: "°C"
+                        label: "LV DCDC"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        valid: Car.das.valid
+                        value: Car.inverters.right_temperature
+                        unit: "°C"
+                        label: "INVERTER L"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        valid: Car.das.valid
+                        value: Car.inverters.left_temperature
+                        unit: "°C"
+                        label: "INVERTER R"
+                    }
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        valid: Car.hv.valid
+                        value: Car.hv.min_cell_voltage
+                        unit: "V"
+                        label: "HV MIN"
                     }
 
                     ValueWithUnitAndLabel {
@@ -249,8 +232,26 @@ Rectangle {
                         valid: true
                         value: Car.steering.temperature
                         unit: "°C"
-                        label: "RPI"
+                        label: "STEER"
                         high: 80
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        valid: Car.hv.valid
+                        value: 1000 * (Car.hv.max_cell_voltage - Car.hv.min_cell_voltage)
+                        unit: "mV"
+                        label: "HV DIFF"
+                    }
+
+                    ValueWithUnitAndLabel {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        valid: Car.lv.valid
+                        value: 1000 * (Car.lv.voltage_max - Car.lv.voltage_min)
+                        unit: "mV"
+                        label: "LV DIFF"
                     }
 
                 }
@@ -274,21 +275,21 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.topMargin: 95
                 Layout.minimumWidth: 15
-                valid: Car.das.valid
-                value: Car.das.apps
-                max: 460
-                maxDigits: 3
+                valid: Car.lv.valid
+                value: Car.lv.current
+                max: 30
+                maxDigits: 2
                 barCount: 8
 
                 columnGradient: Gradient {
                     GradientStop {
                         position: 1
-                        color: Style.red
+                        color: Style.blue
                     }
 
                     GradientStop {
                         position: 0
-                        color: Style.orange
+                        color: Style.aqua
                     }
 
                 }
@@ -298,10 +299,10 @@ Rectangle {
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: racing.columnWidth
-                label: "[%] APPS"
-                valid: Car.das.valid
-                value: Car.das.apps
-                max: 460
+                label: "[A] BMS LV"
+                valid: Car.lv.valid
+                value: Car.lv.current
+                max: 30
                 maxDigits: 3
                 barCount: 8
 
