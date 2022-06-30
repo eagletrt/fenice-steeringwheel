@@ -74,7 +74,7 @@ Control {
         }
 
         CalibrationBar {
-            value: Car.das.steering_angle / 180
+            value: (Car.das.steering_angle + 7) / 1.97
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.columnSpan: 2

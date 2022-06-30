@@ -14,12 +14,12 @@ void DAS::send_toggle_car_status() {
   quint8 *data = new quint8[primary_SIZE_SET_CAR_STATUS];
   switch (m_car_status) {
   case primary_CarStatus_IDLE:
-    primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_RUN);
+    primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_READY);
     break;
-  case primary_CarStatus_SETUP:
-    primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_RUN);
+  case primary_CarStatus_TS_ON:
+    primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_DRIVE);
     break;
-  case primary_CarStatus_RUN:
+  default:
     primary_serialize_SET_CAR_STATUS(data, primary_SetCarStatus_IDLE);
     break;
   }

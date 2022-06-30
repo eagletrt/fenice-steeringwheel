@@ -26,8 +26,7 @@ State::State(QObject *parent) : QObject(parent) {
       {m_telemetry, {primary_ID_TLM_STATUS}},
       {m_das, {primary_ID_CAR_STATUS}},
       {m_lv, {primary_ID_LV_CURRENT, primary_ID_LV_VOLTAGE, primary_ID_LV_TEMPERATURE, primary_ID_COOLING_STATUS}},
-      {m_hv,
-       {primary_ID_HV_CURRENT, primary_ID_HV_VOLTAGE, primary_ID_HV_TEMP, primary_ID_HV_ERRORS, primary_ID_TS_STATUS}}};
+      {m_hv, {primary_ID_HV_CURRENT, primary_ID_HV_VOLTAGE, primary_ID_HV_TEMP, primary_ID_TS_STATUS}}};
 
   m_secondary_messages_per_interface = {{m_das, {secondary_ID_PEDALS_OUTPUT, secondary_ID_STEERING_ANGLE}},
                                         {m_telemetry, {secondary_ID_GPS_COORDS, secondary_ID_GPS_SPEED}}};
@@ -206,9 +205,9 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     break;
   }
   case primary_ID_HV_CURRENT: {
-    DESERIALIZE(primary, HV_CURRENT);
-    m_hv->set_current(data.current);
-    m_hv->set_power(data.power);
+    DESERIALIZE_CONVERSION(primary, HV_CURRENT);
+    m_hv->set_current(conversion.current);
+    m_hv->set_power(conversion.power);
     emit hv_changed();
     break;
   }

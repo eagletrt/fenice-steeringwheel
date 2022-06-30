@@ -105,22 +105,52 @@ Rectangle {
 
                             },
                             State {
-                                name: "SETUP"
+                                name: "PRE SETUP"
                                 when: Car.das.car_status === 1
 
                                 PropertyChanges {
                                     target: car_status
-                                    text: "SETUP"
+                                    text: "PRE SETUP"
                                 }
 
                             },
                             State {
-                                name: "RUN"
+                                name: "TS ON"
                                 when: Car.das.car_status === 2
 
                                 PropertyChanges {
                                     target: car_status
-                                    text: "RUN"
+                                    text: "TS ON"
+                                }
+
+                            },
+                            State {
+                                name: "POST SETUP"
+                                when: Car.das.car_status === 3
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "POST SETUP"
+                                }
+
+                            },
+                            State {
+                                name: "DRIVE"
+                                when: Car.das.car_status === 4
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "DRIVE"
+                                }
+
+                            },
+                            State {
+                                name: "TEARDOWN"
+                                when: Car.das.car_status === 5
+
+                                PropertyChanges {
+                                    target: car_status
+                                    text: "TEARDOWN"
                                 }
 
                             },
@@ -206,6 +236,7 @@ Rectangle {
                         value: Car.hv.min_cell_voltage
                         unit: "V"
                         label: "HV MIN"
+                        decimals: 1
                     }
 
                     ValueWithUnitAndLabel {
