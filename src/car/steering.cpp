@@ -35,6 +35,15 @@ void Steering::poll() {
 #endif
 }
 
+void Steering::send_car_status() {
+  // todo: make it separate.
+  quint8 *data = new quint8[primary_SIZE_STEER_STATUS];
+  primary_serialize_STEER_STATUS(data, (primary_TractionControl)traction_control(), (primary_Map)map());
+  QByteArray steer_status((const char *)data, primary_SIZE_STEER_STATUS);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_STEER_STATUS, steer_status);
+  delete[] data;
+}
+
 void Steering::button_pressed(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
     set_ptt(true);
@@ -53,8 +62,21 @@ void Steering::manettino_left_changed(int value) {
 }
 
 void Steering::manettino_right_changed(int value) {
-  float map = value * 20;
-  if (map <= 100) {
-    set_map(map);
+  switch (value) {
+  case 0:
+    set_map(primary_Map_R);
+  case 1:
+    set_map(primary_Map_D20);
+  case 2:
+    set_map(primary_Map_D40);
+  case 3:
+    set_map(primary_Map_D60);
+  case 4:
+    set_map(primary_Map_D80);
+  case 5:
+    set_map(primary_Map_D100);
+  default:
+    return;
   }
+  send_car_status();
 }

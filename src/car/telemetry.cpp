@@ -12,7 +12,7 @@ Telemetry::~Telemetry() { sDebug("telemetry") << "cleanup"; }
 
 void Telemetry::send_status(primary_Toggle status) {
   quint8 *data = new quint8[primary_SIZE_SET_TLM_STATUS];
-  primary_serialize_SET_TLM_STATUS(data, 0, 0, (primary_RaceType)0, status);
+  primary_serialize_SET_TLM_STATUS(data, status, (primary_RaceType)0, 0, 0);
   QByteArray message((const char *)data, primary_SIZE_SET_TLM_STATUS);
 
   emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_TLM_STATUS, message);

@@ -23,6 +23,8 @@ public:
   Steering(State *parent = nullptr);
   ~Steering();
 
+  void send_car_status();
+
 protected slots:
   void poll();
 

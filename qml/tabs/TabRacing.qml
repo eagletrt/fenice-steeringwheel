@@ -229,6 +229,7 @@ Rectangle {
                         unit: "°C"
                         label: "INVERTER R"
                     }
+
                     ValueWithUnitAndLabel {
                         Layout.fillWidth: true
                         Layout.fillHeight: true

@@ -44,10 +44,10 @@ Window {
             }
 
             function onManettino_center_changed(value) {
-                if (value > 2)
+                if (value > 8)
                     return ;
 
-                popper.show(["Off", "Pumps", "Pumps\nRads"][value], Style.foreground);
+                popper.show(["Auto", "Off", "Pumps 25%", "Pumps 50%", "Pumps 100%", "Pumps 25%\nRads 25%", "Pumps 100%\nRads 50%", "Oh baby\nit burns"][value], Style.foreground);
             }
 
             function onManettino_right_changed(value) {

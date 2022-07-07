@@ -11,7 +11,8 @@ class State;
 class LV : public Interface {
   Q_OBJECT
 public:
-  enum CoolingStatus { OFF, PUMPS, ALL };
+  enum CoolingStatus { AUTO, OFF, PUMPS_025, PUMPS_050, PUMPS_100, ALL_025, ALL_050, ALL_100, LENGTH };
+
   S_PROPERTY(float, current, 0)
   S_PROPERTY(float, voltage_1, 0)
   S_PROPERTY(float, voltage_2, 0)
@@ -29,7 +30,7 @@ public:
 public:
   LV(State *parent = nullptr);
   ~LV();
-  void send_cooling_status(CoolingStatus status);
+  void send_cooling_status(float pumps, float radiators);
 
 public slots:
   void manettino_center_changed(int value);

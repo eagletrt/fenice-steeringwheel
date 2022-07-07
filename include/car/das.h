@@ -20,7 +20,7 @@ public:
   S_PROPERTY(float, speed, 0)
   S_PROPERTY(quint16, apps, 0)
   S_PROPERTY(float, bse, 0)
-  S_PROPERTY(float, steering_angle, 0)
+  S_PROPERTY(float, steering_angle, 90) // default position for the steering calibration
   S_PROPERTY(float, control_left, 0)
   S_PROPERTY(float, control_right, 0)
   S_PROPERTY(quint16, encoder_right, 0)

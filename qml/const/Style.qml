@@ -53,6 +53,7 @@ QtObject {
         property int h2: 32
         property int h1: 40
         property int big: 52
+        property int somewhatbig: 72
         property int verybig: 96
     }
 
@@ -92,6 +93,11 @@ QtObject {
             "family": monoRegular.name,
             "styleName": "Bold",
             "pointSize": sizes.big
+        })
+        property font somewhatbig: Qt.font({
+            "family": monoRegular.name,
+            "styleName": "Bold",
+            "pointSize": sizes.somewhatbig
         })
         property font verybig: Qt.font({
             "family": monoRegular.name,
@@ -136,6 +142,11 @@ QtObject {
             "family": sansRegular.name,
             "styleName": "SemiBold",
             "pointSize": sizes.big
+        })
+        property font somewhatbig: Qt.font({
+            "family": sansRegular.name,
+            "styleName": "Bold",
+            "pointSize": sizes.somewhatbig
         })
         property font verybig: Qt.font({
             "family": sansRegular.name,

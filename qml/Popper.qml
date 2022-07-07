@@ -57,7 +57,7 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         anchors.centerIn: parent
         color: Style.textInverted
-        font: Style.mono.verybig
+        font: Style.mono.somewhatbig
     }
 
 }
