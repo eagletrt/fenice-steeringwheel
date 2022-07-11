@@ -22,11 +22,11 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/thirdparty/can-cicd/includes_generator/**",
-                "${workspaceFolder}/thirdparty/can-cicd/naked_generator/**",
+                // "${workspaceFolder}/thirdparty/can-cicd/includes_generator/**",
+                // "${workspaceFolder}/thirdparty/can-cicd/naked_generator/**",
                 "${workspaceFolder}/thirdparty/wiringpi/wiringPi/**",
                 // "/usr/include/qt/**",
-                "/home/jakzuk/Qt_commmercial/5.15.8/gcc_64/include/**"
+                "/home/jakzuk/SSD/Qt_commercial/5.15.10/gcc_64/include/**"
                 // "/usr/include/qt/QtCore/**"
             ],
             "defines": [],

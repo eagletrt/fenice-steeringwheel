@@ -1,5 +1,5 @@
 # devtools
-.vscode/
+.vscode/**
 
 # qt build
 build*
@@ -9,6 +9,8 @@ build*
 
 # python local version
 .python-version
+
+fenice-build-rasp*
 
 # temp
 *~*
