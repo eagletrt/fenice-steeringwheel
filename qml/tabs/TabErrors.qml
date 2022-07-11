@@ -4,178 +4,34 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "components"
 
-Item {
+Control {
     id: tabErrors
 
-    GridLayout {
+    property var errorTexts: ['HvErrors_DEFAULT', 'HvErrors_CELL_LOW_VOLTAGE', 'HvErrors_CELL_UNDER_VOLTAGE', 'HvErrors_CELL_OVER_VOLTAGE', 'HvErrors_CELL_HIGH_TEMPERATURE', 'HvErrors_CELL_OVER_TEMPERATURE', 'HvErrors_OVER_CURRENT', 'HvErrors_CAN', 'HvErrors_INT_VOLTAGE_MISMATCH', 'HvErrors_CELLBOARD_COMM', 'HvErrors_CELLBOARD_INTERNAL', 'HvErrors_FEEDBACK', 'HvErrors_FEEDBACK_CIRCUITRY', 'HvErrors_EEPROM_COMM', 'HvErrors_EEPROM_WRITE', 'DasErrors_DEFAULT', 'DasErrors_PEDAL_ADC', 'DasErrors_PEDAL_IMPLAUSIBILITY', 'DasErrors_IMU_TOUT', 'DasErrors_IRTS_TOUT', 'DasErrors_TS_TOUT', 'DasErrors_INVL_TOUT', 'DasErrors_INVR_TOUT', 'DasErrors_STEER_TOUT', 'DasErrors_FSM', 'HvFeedbacks_DEFAULT', 'HvFeedbacks_FEEDBACK_TSAL_GREEN_FAULT', 'HvFeedbacks_FEEDBACK_IMD_LATCHED', 'HvFeedbacks_FEEDBACK_TSAL_GREEN_FAULT_LATCHED', 'HvFeedbacks_FEEDBACK_BMS_LATCHED', 'HvFeedbacks_FEEDBACK_EXT_LATCHED', 'HvFeedbacks_FEEDBACK_TSAL_GREEN', 'HvFeedbacks_FEEDBACK_TS_OVER_60V_STATUS', 'HvFeedbacks_FEEDBACK_AIRN_STATUS', 'HvFeedbacks_FEEDBACK_AIRP_STATUS', 'HvFeedbacks_FEEDBACK_AIRP_GATE', 'HvFeedbacks_FEEDBACK_AIRN_GATE', 'HvFeedbacks_FEEDBACK_PRECHARGE_STATUS', 'HvFeedbacks_FEEDBACK_TSP_OVER_60V_STATUS', 'HvFeedbacks_FEEDBACK_CHECK_MUX', 'HvFeedbacks_FEEDBACK_SD_IN', 'HvFeedbacks_FEEDBACK_SD_OUT', 'HvFeedbacks_FEEDBACK_RELAY_SD', 'HvFeedbacks_FEEDBACK_IMD_FAULT', 'HvFeedbacks_FEEDBACK_SD_END']
+    property var nErrors: 45
+    property var errors: Array(nErrors).fill(false)
+
+    function setError(index: int, error: bool) {
+        errors[index] = error;
+    }
+
+    padding: 20
+
+    contentItem: GridLayout {
         columns: 5
-        columnSpacing: 80
-        rows: 10
+        columnSpacing: 10
+        rows: 15
         flow: GridLayout.TopToBottom
 
-        ErrorEntry {
-            id: errorEntry1
-            errorText: "Error 1"
-            error: true
-        }
-        ErrorEntry {
-            id: errorEntry2
-            errorText: "Error 2"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry3
-            errorText: "Error 3"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry4
-            errorText: "Error 4"
-            error: true
-        }
-        ErrorEntry {
-            id: errorEntry5
-            errorText: "Error 5"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry6
-            errorText: "Error 6"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry7
-            errorText: "Error 7"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry8
-            errorText: "Error 8"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry9
-            errorText: "Error 9"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry10
-            errorText: "Error 10"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry11
-            errorText: "Error 11"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry12
-            errorText: "Error 12"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry13
-            errorText: "Error 13"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry14
-            errorText: "Error 14"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry15
-            errorText: "Error 15"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry16
-            errorText: "Error 16"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry17
-            errorText: "Error 17"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry18
-            errorText: "Error 18"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry19
-            errorText: "Error 19"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry20
-            errorText: "Error 20"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry21
-            errorText: "Error 21"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry22
-            errorText: "Error 22"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry23
-            errorText: "Error 23"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry24
-            errorText: "Error 24"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry25
-            errorText: "Error 25"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry26
-            errorText: "Error 26"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry27
-            errorText: "Error 27"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry28
-            errorText: "Error 28"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry29
-            errorText: "Error 29"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry30
-            errorText: "Error 30"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry31
-            errorText: "Error 31"
-            error: false
-        }
-        ErrorEntry {
-            id: errorEntry32
-            errorText: "Error 32"
-            error: false
+        Repeater {
+            model: nErrors
+
+            ErrorEntry {
+                errorText: errorTexts[index]
+                error: errors[index]
+            }
         }
 
-
-        
     }
 
 }

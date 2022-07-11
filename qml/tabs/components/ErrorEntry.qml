@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 
 RowLayout {
     id: rowLayout
+
     property string errorText: "default"
     property bool error: false
 
@@ -12,8 +13,8 @@ RowLayout {
         Rectangle {
             id: rectangle
 
-            width: 40
-            height: 40
+            width: 18
+            height: 18
             color: error ? "red" : "green"
         }
 
@@ -21,8 +22,8 @@ RowLayout {
             id: text
 
             text: errorText
-            color: "white"
-            font.pixelSize: 20
+            color: Style.text
+            font.pixelSize: 12
         }
 
     }
