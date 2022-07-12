@@ -1,3 +1,4 @@
+import Car 1.0
 import Const 1.0
 import QtQuick 2.15
 import QtQuick.Controls 2.15
@@ -7,7 +8,7 @@ RowLayout {
     id: rowLayout
 
     property string errorText: "default"
-    property bool error: false
+    property int error: 0
 
     Row {
         Rectangle {
@@ -15,7 +16,7 @@ RowLayout {
 
             width: 18
             height: 18
-            color: error ? "red" : "green"
+            color: error === 0 ? "red" : "green"
         }
 
         Text {
