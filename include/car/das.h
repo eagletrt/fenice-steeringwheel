@@ -27,6 +27,7 @@ public:
   S_PROPERTY(quint16, encoder_left, 0)
   S_PROPERTY(quint8, version_component, 0)
   S_PROPERTY(quint8, version_cancicd, 0)
+  S_PROPERTY(quint32, errors, 0)
 public:
   DAS(State *parent = nullptr);
   ~DAS();
