@@ -16,7 +16,7 @@ RowLayout {
 
             width: 18
             height: 18
-            color: error === 0 ? "red" : "green"
+            color: error === 0 ? "green" : "red"
         }
 
         Text {

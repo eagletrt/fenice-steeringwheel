@@ -8,7 +8,7 @@ Control {
     id: tabErrors
 
     readonly property var binaryNLength: 32
-    readonly property var errorTexts: ['HvErrors_DEFAULT', 'HvErrors_CELL_LOW_VOLTAGE', 'HvErrors_CELL_UNDER_VOLTAGE', 'HvErrors_CELL_OVER_VOLTAGE', 'HvErrors_CELL_HIGH_TEMPERATURE', 'HvErrors_CELL_OVER_TEMPERATURE', 'HvErrors_OVER_CURRENT', 'HvErrors_CAN', 'HvErrors_INT_VOLTAGE_MISMATCH', 'HvErrors_CELLBOARD_COMM', 'HvErrors_CELLBOARD_INTERNAL', 'HvErrors_FEEDBACK', 'HvErrors_FEEDBACK_CIRCUITRY', 'HvErrors_EEPROM_COMM', 'HvErrors_EEPROM_WRITE', 'DasErrors_DEFAULT', 'DasErrors_PEDAL_ADC', 'DasErrors_PEDAL_IMPLAUSIBILITY', 'DasErrors_IMU_TOUT', 'DasErrors_IRTS_TOUT', 'DasErrors_TS_TOUT', 'DasErrors_INVL_TOUT', 'DasErrors_INVR_TOUT', 'DasErrors_STEER_TOUT', 'DasErrors_FSM', 'HvFeedbacks_DEFAULT', 'HvFeedbacks_FEEDBACK_TSAL_GREEN_FAULT', 'HvFeedbacks_FEEDBACK_IMD_LATCHED', 'HvFeedbacks_FEEDBACK_TSAL_GREEN_FAULT_LATCHED', 'HvFeedbacks_FEEDBACK_BMS_LATCHED', 'HvFeedbacks_FEEDBACK_EXT_LATCHED', 'HvFeedbacks_FEEDBACK_TSAL_GREEN', 'HvFeedbacks_FEEDBACK_TS_OVER_60V_STATUS', 'HvFeedbacks_FEEDBACK_AIRN_STATUS', 'HvFeedbacks_FEEDBACK_AIRP_STATUS', 'HvFeedbacks_FEEDBACK_AIRP_GATE', 'HvFeedbacks_FEEDBACK_AIRN_GATE', 'HvFeedbacks_FEEDBACK_PRECHARGE_STATUS', 'HvFeedbacks_FEEDBACK_TSP_OVER_60V_STATUS', 'HvFeedbacks_FEEDBACK_CHECK_MUX', 'HvFeedbacks_FEEDBACK_SD_IN', 'HvFeedbacks_FEEDBACK_SD_OUT', 'HvFeedbacks_FEEDBACK_RELAY_SD', 'HvFeedbacks_FEEDBACK_IMD_FAULT', 'HvFeedbacks_FEEDBACK_SD_END']
+    readonly property var errorTexts: ['HvErrors_DEFAULT', 'HvErrors_CELL_LOW_VOLTAGE', 'HvErrors_CELL_UNDER_VOLTAGE', 'HvErrors_CELL_OVER_VOLTAGE', 'HvErrors_CELL_HIGH_TEMPERATURE', 'HvErrors_CELL_OVER_TEMPERATURE', 'HvErrors_OVER_CURRENT', 'HvErrors_CAN', 'HvErrors_INT_VOLTAGE_MISMATCH', 'HvErrors_CELLBOARD_COMM', 'HvErrors_CELLBOARD_INTERNAL', 'HvErrors_FEEDBACK', 'HvErrors_FEEDBACK_CIRCUITRY', 'HvErrors_EEPROM_COMM', 'HvErrors_EEPROM_WRITE', 'DasErrors_DEFAULT', 'DasErrors_PEDAL_ADC', 'DasErrors_PEDAL_IMPLAUSIBILITY', 'DasErrors_IMU_TOUT', 'DasErrors_IRTS_TOUT', 'DasErrors_TS_TOUT', 'DasErrors_INVL_TOUT', 'DasErrors_INVR_TOUT', 'DasErrors_STEER_TOUT', 'DasErrors_FSM', 'HvFeedbacks_DEFAULT', 'HvFB_FB_TSAL_GREEN_FAULT', 'HvFB_FB_IMD_LATCHED', 'HvFB_FB_TSAL_GREEN_FAULT_LATCHED', 'HvFB_FB_BMS_LATCHED', 'HvFB_FB_EXT_LATCHED', 'HvFB_FB_TSAL_GREEN', 'HvFB_FB_TS_OVER_60V_STATUS', 'HvFB_FB_AIRN_STATUS', 'HvFB_FB_AIRP_STATUS', 'HvFB_FB_AIRP_GATE', 'HvFB_FB_AIRN_GATE', 'HvFB_FB_PRECHARGE_STATUS', 'HvFB_FB_TSP_OVER_60V_STATUS', 'HvFB_FB_CHECK_MUX', 'HvFB_FB_SD_IN', 'HvFB_FB_SD_OUT', 'HvFB_FB_RELAY_SD', 'HvFB_FB_IMD_FAULT', 'HvFB_FB_SD_END']
     readonly property var nErrors: errorTexts.length
     property var errors: {
         "HvErrors_DEFAULT": getError(1, Car.hv.errors),
@@ -36,26 +36,26 @@ Control {
         "DasErrors_INVR_TOUT": getError(8, Car.das.errors),
         "DasErrors_STEER_TOUT": getError(9, Car.das.errors),
         "DasErrors_FSM": getError(10, Car.das.errors),
-        "HvFeedbacks_DEFAULT": getError(1, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_TSAL_GREEN_FAULT": getError(2, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_IMD_LATCHED": getError(3, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_TSAL_GREEN_FAULT_LATCHED": getError(4, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_BMS_LATCHED": getError(5, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_EXT_LATCHED": getError(6, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_TSAL_GREEN": getError(7, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_TS_OVER_60V_STATUS": getError(8, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_AIRN_STATUS": getError(9, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_AIRP_STATUS": getError(10, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_AIRP_GATE": getError(11, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_AIRN_GATE": getError(12, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_PRECHARGE_STATUS": getError(13, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_TSP_OVER_60V_STATUS": getError(14, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_CHECK_MUX": getError(15, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_SD_IN": getError(16, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_SD_OUT": getError(17, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_RELAY_SD": getError(18, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_IMD_FAULT": getError(19, Car.hv.feedbacks),
-        "HvFeedbacks_FEEDBACK_SD_END": getError(20, Car.hv.feedbacks),
+        "HvFB_DEFAULT": getError(1, Car.hv.feedbacks),
+        "HvFB_FB_TSAL_GREEN_FAULT": getError(2, Car.hv.feedbacks),
+        "HvFB_FB_IMD_LATCHED": getError(3, Car.hv.feedbacks),
+        "HvFB_FB_TSAL_GREEN_FAULT_LATCHED": getError(4, Car.hv.feedbacks),
+        "HvFB_FB_BMS_LATCHED": getError(5, Car.hv.feedbacks),
+        "HvFB_FB_EXT_LATCHED": getError(6, Car.hv.feedbacks),
+        "HvFB_FB_TSAL_GREEN": getError(7, Car.hv.feedbacks),
+        "HvFB_FB_TS_OVER_60V_STATUS": getError(8, Car.hv.feedbacks),
+        "HvFB_FB_AIRN_STATUS": getError(9, Car.hv.feedbacks),
+        "HvFB_FB_AIRP_STATUS": getError(10, Car.hv.feedbacks),
+        "HvFB_FB_AIRP_GATE": getError(11, Car.hv.feedbacks),
+        "HvFB_FB_AIRN_GATE": getError(12, Car.hv.feedbacks),
+        "HvFB_FB_PRECHARGE_STATUS": getError(13, Car.hv.feedbacks),
+        "HvFB_FB_TSP_OVER_60V_STATUS": getError(14, Car.hv.feedbacks),
+        "HvFB_FB_CHECK_MUX": getError(15, Car.hv.feedbacks),
+        "HvFB_FB_SD_IN": getError(16, Car.hv.feedbacks),
+        "HvFB_FB_SD_OUT": getError(17, Car.hv.feedbacks),
+        "HvFB_FB_RELAY_SD": getError(18, Car.hv.feedbacks),
+        "HvFB_FB_IMD_FAULT": getError(19, Car.hv.feedbacks),
+        "HvFB_FB_SD_END": getError(20, Car.hv.feedbacks)
     }
 
     function getError(index, centralUnit) {
