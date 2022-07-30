@@ -9,6 +9,7 @@
         <file>qml/Popper.qml</file>
         <file>qml/TabStack.qml</file>
         <file>qml/tabs/components/Bar.qml</file>
+        <file>qml/tabs/components/ErrorEntry.qml</file>
         <file>qml/tabs/components/CalibrationBar.qml</file>
         <file>qml/tabs/components/MapBar.qml</file>
         <file>qml/tabs/components/StatusBox.qml</file>
@@ -35,5 +36,6 @@
         <file>qml/img/satellite/povo-1-parking.png</file>
         <file>qml/img/satellite/povo.png</file>
         <file>qml/img/satellite/safety-park.png</file>
+        <file>qml/tabs/TabErrors.qml</file>
     </qresource>
 </RCC>

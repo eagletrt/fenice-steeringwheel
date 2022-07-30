@@ -105,6 +105,10 @@ Item {
                 property string name: "terminal"
             }
 
+            TabErrors {
+                property string name: "errors"
+            }
+
             Item {
                 property string name: "emulator"
 
@@ -138,7 +142,7 @@ Item {
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "calibration", "status", "gps", "terminal"]
+                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "errors"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true

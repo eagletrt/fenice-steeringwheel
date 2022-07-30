@@ -241,6 +241,18 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit hv_changed();
     break;
   }
+  case primary_ID_HV_FEEDBACKS_STATUS: {
+    DESERIALIZE(primary, HV_FEEDBACKS_STATUS);
+    m_hv->set_feedbacks(data.feedbacks_status);
+    emit hv_changed();
+    break;
+  }
+  case primary_ID_DAS_ERRORS: {
+    DESERIALIZE(primary, DAS_ERRORS);
+    m_das->set_errors(data.das_error);
+    emit das_changed();
+    break;
+  }
   }
 }
 
