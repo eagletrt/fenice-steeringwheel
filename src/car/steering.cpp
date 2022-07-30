@@ -65,16 +65,22 @@ void Steering::manettino_right_changed(int value) {
   switch (value) {
   case 0:
     set_map(primary_Map_R);
+    break;
   case 1:
     set_map(primary_Map_D20);
+    break;
   case 2:
     set_map(primary_Map_D40);
+    break;
   case 3:
     set_map(primary_Map_D60);
+    break;
   case 4:
     set_map(primary_Map_D80);
+    break;
   case 5:
     set_map(primary_Map_D100);
+    break;
   default:
     return;
   }
