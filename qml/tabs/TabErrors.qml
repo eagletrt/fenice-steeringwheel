@@ -8,8 +8,6 @@ Control {
     id: tabErrors
 
     readonly property var binaryNLength: 32
-    readonly property var errorTexts: ['HvErrors_DEFAULT', 'HvErrors_CELL_LOW_VOLTAGE', 'HvErrors_CELL_UNDER_VOLTAGE', 'HvErrors_CELL_OVER_VOLTAGE', 'HvErrors_CELL_HIGH_TEMPERATURE', 'HvErrors_CELL_OVER_TEMPERATURE', 'HvErrors_OVER_CURRENT', 'HvErrors_CAN', 'HvErrors_INT_VOLTAGE_MISMATCH', 'HvErrors_CELLBOARD_COMM', 'HvErrors_CELLBOARD_INTERNAL', 'HvErrors_FEEDBACK', 'HvErrors_FEEDBACK_CIRCUITRY', 'HvErrors_EEPROM_COMM', 'HvErrors_EEPROM_WRITE', 'DasErrors_DEFAULT', 'DasErrors_PEDAL_ADC', 'DasErrors_PEDAL_IMPLAUSIBILITY', 'DasErrors_IMU_TOUT', 'DasErrors_IRTS_TOUT', 'DasErrors_TS_TOUT', 'DasErrors_INVL_TOUT', 'DasErrors_INVR_TOUT', 'DasErrors_STEER_TOUT', 'DasErrors_FSM', 'HvFeedbacks_DEFAULT', 'HvFB_FB_TSAL_GREEN_FAULT', 'HvFB_FB_IMD_LATCHED', 'HvFB_FB_TSAL_GREEN_FAULT_LATCHED', 'HvFB_FB_BMS_LATCHED', 'HvFB_FB_EXT_LATCHED', 'HvFB_FB_TSAL_GREEN', 'HvFB_FB_TS_OVER_60V_STATUS', 'HvFB_FB_AIRN_STATUS', 'HvFB_FB_AIRP_STATUS', 'HvFB_FB_AIRP_GATE', 'HvFB_FB_AIRN_GATE', 'HvFB_FB_PRECHARGE_STATUS', 'HvFB_FB_TSP_OVER_60V_STATUS', 'HvFB_FB_CHECK_MUX', 'HvFB_FB_SD_IN', 'HvFB_FB_SD_OUT', 'HvFB_FB_RELAY_SD', 'HvFB_FB_IMD_FAULT', 'HvFB_FB_SD_END']
-    readonly property var nErrors: errorTexts.length
     property var errors: {
         "HvErrors_DEFAULT": getError(1, Car.hv.errors),
         "HvErrors_CELL_LOW_VOLTAGE": getError(2, Car.hv.errors),
@@ -71,11 +69,11 @@ Control {
         flow: GridLayout.TopToBottom
 
         Repeater {
-            model: nErrors
+            model: Object.entries(errors)
 
             ErrorEntry {
-                errorText: errorTexts[index]
-                error: errors[errorTexts[index]]
+                errorText: modelData[0]
+                error: modelData[1]
             }
 
         }
