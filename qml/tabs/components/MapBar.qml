@@ -9,19 +9,7 @@ Item {
     property int map: 1
     property int barHeight: 6
     property int markerSize: 20
-    property var maps: [{
-        "name": "0"
-    }, {
-        "name": "20"
-    }, {
-        "name": "40"
-    }, {
-        "name": "60"
-    }, {
-        "name": "80"
-    }, {
-        "name": "100"
-    }]
+    property var maps: [0, 20, 40, 60, 80, 100]
 
     Item {
         anchors.fill: parent
@@ -33,7 +21,7 @@ Item {
 
             anchors.fill: parent
             anchors.centerIn: parent
-            value: map / 20 / (maps.length - 1)
+            value: map / (maps.length - 1)
 
             background: Item {
             }
@@ -59,7 +47,7 @@ Item {
 
                                     Text {
                                         x: -(width / 2)
-                                        text: modelData.name
+                                        text: String(modelData)
                                         color: Style.text
                                         font: Style.sans.p
                                     }
@@ -113,7 +101,7 @@ Item {
                                         x: -(width / 2)
                                         y: bar.y + bar.height / 2 - markerSize / 2
                                         radius: width * 0.5
-                                        color: modelData.name === String(root.map) ? (modelData.name === "0" ? Style.green : Style.yellow) : Style.light
+                                        color: index === root.map ? (index === 0 ? Style.green : Style.yellow) : Style.light
                                     }
 
                                 }
