@@ -23,8 +23,6 @@ public:
   Steering(State *parent = nullptr);
   ~Steering();
 
-  void send_car_status();
-
 protected slots:
   void poll();
 
@@ -33,9 +31,11 @@ public slots:
   void button_released(int button);
   void manettino_left_changed(int value);
   void manettino_right_changed(int value);
+  void send_car_status();
 
 private:
   QTimer *m_poll_timer;
+  QTimer *m_send_car_status_timer;
   State *m_state;
 };
 
