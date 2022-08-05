@@ -9,6 +9,7 @@ RowLayout {
 
     property string errorText: "default"
     property int error: 0
+    property bool valid: true
 
     Row {
         Rectangle {
@@ -16,7 +17,7 @@ RowLayout {
 
             width: 18
             height: 18
-            color: error === 0 ? "green" : "red"
+            color: !valid ? "yellow" : (error === 0) ? "green" : "red"
         }
 
         Text {
@@ -24,7 +25,7 @@ RowLayout {
 
             text: errorText
             color: Style.text
-            font.pixelSize: 12
+            font.pixelSize: 10
         }
 
     }
