@@ -253,6 +253,12 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
     emit das_changed();
     break;
   }
+  case primary_ID_LV_ERRORS: {
+    DESERIALIZE(primary, LV_ERRORS);
+    m_lv->set_errors(data.errors);
+    emit lv_changed();
+    break;
+  }
   }
 }
 
