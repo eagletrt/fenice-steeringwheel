@@ -7,6 +7,8 @@
 #include <QFile>
 
 Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
+  m_build_date_time = QStringLiteral("CURRENT BUILD: ") + QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
+
   m_poll_timer = new QTimer(this);
   connect(m_poll_timer, &QTimer::timeout, this, &Steering::poll);
   m_poll_timer->start(STEERING_POLL_TIMER);
@@ -85,7 +87,6 @@ void Steering::manettino_right_changed(int value) {
     set_map(primary_Map_D100);
     break;
   default:
-    sDebug("map settings") << "Tried to send an invalid map: " << value;
     return;
   }
 }

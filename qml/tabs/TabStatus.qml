@@ -30,6 +30,7 @@ Control {
                 Layout.columnSpan: 3
                 title: 'Steering'
                 state: "NORMAL"
+                subtitle: Car.steering.build_date_time
             }
 
             StatusBox {

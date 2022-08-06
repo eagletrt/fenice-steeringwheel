@@ -19,6 +19,7 @@ public:
   S_PROPERTY(quint8, map, 0)
   S_PROPERTY(quint8, traction_control, primary_TractionControl_OFF)
   S_PROPERTY(bool, ptt, false)
+  S_PROPERTY(QString, build_date_time, "CURRENT BUILD: ---")
 public:
   Steering(State *parent = nullptr);
   ~Steering();
