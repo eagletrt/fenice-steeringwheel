@@ -85,6 +85,7 @@ void Steering::manettino_right_changed(int value) {
     set_map(primary_Map_D100);
     break;
   default:
+    sDebug("map settings") << "Tried to send an invalid map: " << value;
     return;
   }
 }
