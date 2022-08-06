@@ -6,8 +6,18 @@
 
 #include <QFile>
 
+#include <QHostAddress>
+#include <QNetworkInterface>
+
 Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
-  m_build_date_time = QStringLiteral("CURRENT BUILD: ") + QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
+  m_build_date_time =
+      QStringLiteral("CURRENT BUILD: ") + QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
+
+  const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
+  for (const QHostAddress &address : QNetworkInterface::allAddresses()) {
+    if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost  && address.isInSubnet(QHostAddress::parseSubnet("192.168.0.0/12")))
+      m_ip_addr = address.toString();
+  }
 
   m_poll_timer = new QTimer(this);
   connect(m_poll_timer, &QTimer::timeout, this, &Steering::poll);

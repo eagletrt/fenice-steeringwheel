@@ -189,7 +189,7 @@ Rectangle {
                     Text {
                         Layout.alignment: Qt.AlignCenter
                         Layout.columnSpan: 2
-                        font: Style.sans.h1
+                        font: Style.sans.h2
                         color: Style.text
                         text: "TUPIDO"
                     }

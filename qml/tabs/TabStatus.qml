@@ -26,11 +26,12 @@ Control {
 
             StatusBox {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 80
+                Layout.preferredHeight: 120
                 Layout.columnSpan: 3
                 title: 'Steering'
                 state: "NORMAL"
-                subtitle: Car.steering.build_date_time
+                subtitle: Car.steering.ip_addr
+                content: Car.steering.build_date_time
             }
 
             StatusBox {
