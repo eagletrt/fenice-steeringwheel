@@ -11,10 +11,10 @@ Control {
     property bool hvValid: Car.hv.valid
     property bool lvValid: Car.lv.valid
     property bool dasValid: Car.das.valid
-    property bool hvErrors: Car.hv.errors
-    property bool lvErrors: Car.lv.errors
-    property bool dasErrors: Car.das.errors
-    property bool hvFeedbacks: Car.hv.feedbacks
+    property var hvErrors: Car.hv.errors
+    property var lvErrors: Car.lv.errors
+    property var dasErrors: Car.das.errors
+    property var hvFeedbacks: Car.hv.feedbacks
     property var errors: {
         "HvErr_CELL_LOW_VOLT": [getError(1, hvErrors), hvValid],
         "HvErr_CELL_UNDER_VOLT": [getError(2, hvErrors), hvValid],
@@ -83,7 +83,7 @@ Control {
     }
 
     function getError(index, centralUnit) {
-        return (centralUnit >>> 0).toString(2).padStart(binaryNLength, '0').charAt(binaryNLength - 1 * index);
+        return (centralUnit >>> 0).toString(2).padStart(binaryNLength, '0').slice(0 - index).charAt(0);
     }
 
     padding: 20
