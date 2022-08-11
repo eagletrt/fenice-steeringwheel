@@ -15,7 +15,7 @@ void LV::send_cooling_status(float pumps, float radiators) {
 
   quint8 *data = new quint8[primary_SIZE_SET_PUMPS_SPEED];
   primary_serialize_struct_SET_PUMPS_SPEED(data, &set_pumps_speed);
-  QByteArray pumps_message((const char *)data, primary_SIZE_SET_TLM_STATUS);
+  QByteArray pumps_message((const char *)data, primary_SIZE_SET_PUMPS_SPEED);
   emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_PUMPS_SPEED, pumps_message);
   delete[] data;
 
