@@ -15,7 +15,8 @@ Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
 
   const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
   for (const QHostAddress &address : QNetworkInterface::allAddresses()) {
-    if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost  && address.isInSubnet(QHostAddress::parseSubnet("192.168.0.0/12")))
+    if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost &&
+        address.isInSubnet(QHostAddress::parseSubnet("192.168.0.0/12")))
       m_ip_addr = address.toString();
   }
 

@@ -3,12 +3,13 @@ import Const 1.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import "tabs"
+import "tabs/errors"
 
 Item {
     property var currentTab: tabs.children[tabs.currentIndex]
     property var lastPressed: []
-    // V Z C S
-    property var fireGameboy: [Input.paddleTopRight, Input.paddleBottomLeft, Input.paddleTopLeft, Input.buttonBottomRight]
+    // V Z C X ??
+    property var fireGameboy: [Input.paddleTopRight, Input.paddleBottomLeft, Input.paddleTopLeft, Input.paddleBottomRight]
     property bool onGameboy: false
 
     function connect() {
@@ -105,8 +106,20 @@ Item {
                 property string name: "terminal"
             }
 
-            TabErrors {
-                property string name: "errors"
+            DasErrors {
+                property string name: "dasErrors"
+            }
+
+            HvErrors {
+                property string name: "hvErrors"
+            }
+
+            HvFeedbacks {
+                property string name: "hvFeedback"
+            }
+
+            LvErrors {
+                property string name: "lvErrors"
             }
 
             Item {
