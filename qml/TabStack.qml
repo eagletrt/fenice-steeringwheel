@@ -155,7 +155,7 @@ Item {
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "errors"]
+                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "dasErrors", "hvErrors", "hvFeedback", "lvErrors"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true

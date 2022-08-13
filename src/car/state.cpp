@@ -107,7 +107,6 @@ void State::timeout() {
       if (timed_out) {
         char name[primary_MAX_MESSAGE_NAME_LENGTH];
         primary_message_name_from_id(*id, name);
-        qDebug() << "primary" << name << "timed out";
       }
       invalid &= timed_out;
     }
@@ -124,7 +123,6 @@ void State::timeout() {
       if (timed_out) {
         char name[secondary_MAX_MESSAGE_NAME_LENGTH];
         secondary_message_name_from_id(*id, name);
-        qDebug() << "secondary" << name << "timed out";
       }
       invalid &= timed_out;
     }
