@@ -19,7 +19,9 @@ RESOURCES += qml.qrc
 INCLUDEPATH += \
             . \
             include/ \
-            thirdparty/can/lib/
+            thirdparty/can/lib/ \
+            thirdparty/invlib /
+            thirdparty/protobuf/include
 
 HEADERS += \
         include/car/interface.h \

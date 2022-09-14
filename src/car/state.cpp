@@ -6,6 +6,7 @@
 
 #include "global.h"
 
+#include "inverter.h"
 #include "primary/c/ids.h"
 #include "primary/c/network.h"
 #include "secondary/c/ids.h"
