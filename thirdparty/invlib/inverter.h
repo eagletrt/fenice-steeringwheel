@@ -373,7 +373,7 @@ int inverter_fields(FILE *buffer, int reg_id) {
   return 0;
 }
 
-bool inverter_to_file(inverter_message_INV_RESPONSE *data, int id, inverter_files_t* inverters_files, inverter_data_t inverters_data[2]) {
+/* bool inverter_to_file(inverter_message_INV_RESPONSE *data, int id, inverter_files_t* inverters_files, inverter_data_t inverters_data[2]) {
   inverter_data_t& inv = id == primary_ID_INV_L_RESPONSE ? inverters_data[INV_IDX_LEFT] : inverters_data[INV_IDX_RIGHT];
   inverter_files_t& file = id == primary_ID_INV_L_RESPONSE ? inverters_files[INV_IDX_LEFT] : inverters_files[INV_IDX_RIGHT];
   const uint str_buffer_size = 255;
@@ -466,7 +466,7 @@ bool parse_inverter(inverter_message_INV_RESPONSE *data, int id, inverter_data_t
       break;
   }
   return true;
-}
+} */
 
 #endif // INVLIB_IMPLEMENTATION
 #endif

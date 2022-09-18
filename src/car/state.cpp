@@ -6,6 +6,7 @@
 
 #include "global.h"
 
+#define INVLIB_IMPLEMENTATION
 #include "inverter.h"
 #include "primary/c/ids.h"
 #include "primary/c/network.h"
