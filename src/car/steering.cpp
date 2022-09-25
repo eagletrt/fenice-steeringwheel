@@ -11,7 +11,7 @@
 
 Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
   m_build_date_time =
-      QStringLiteral("CURRENT BUILD: ") + QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
+      QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
 
   m_canlib_build_hash = CANLIB_BUILD_HASH;
   m_poll_timer = new QTimer(this);

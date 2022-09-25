@@ -13,22 +13,22 @@ Control {
         spacing: 10
 
         ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             StatusBox {
                 width: 400
                 height: 100
-                title: "Steering"
+                title: "STEERING IP ADDRESS"
                 state: "NORMAL"
-                subtitle: "IP: " + Car.steering.ip_addr
+                subtitle: Car.steering.ip_addr
             }
 
             StatusBox {
                 width: 400
                 height: 100
-                title: "BUILD DATE"
+                title: "BUILD DATE TIME"
                 state: Car.inverters.valid ? "NORMAL" : "ERROR"
                 subtitle: Car.steering.build_date_time
             }

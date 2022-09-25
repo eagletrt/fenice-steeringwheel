@@ -7,14 +7,17 @@ import "components"
 Control {
     id: status
 
-    property var possibleStates: ['NORMAL', 'ERROR', 'DEFAULT', 'OUTDATED']
-    property var sensors: ["Steering", "Telemetry", "Inverters", "DAS", "BMS HV", "BMS LV"]
-    property var sensorInterfaces: []
-
     padding: 20
 
     contentItem: ColumnLayout {
         spacing: 10
+
+        Text {
+            text: "TAB INVERTERS"
+            font: Style.mono.h2
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            color: Style.text
+        }
 
         GridLayout {
             Layout.fillWidth: true
@@ -28,28 +31,28 @@ Control {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "MOTOR TEMP INV L"
-                subtitle: Car.inverters.left_motor_temp
+                subtitle: Car.inverters.left_motor_temp.toFixed(3)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "MOTOR TEMP INV R"
-                subtitle: Car.inverters.right_motor_temp
+                subtitle: Car.inverters.right_motor_temp.toFixed(3)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "TEMP INV L"
-                subtitle: Car.inverters.left_inverter_temp
+                subtitle: Car.inverters.left_inverter_temp.toFixed(3)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "TEMP INV R"
-                subtitle: Car.inverters.right_inverter_temp
+                subtitle: Car.inverters.right_inverter_temp.toFixed(3)
             }
 
             StatusBox {
@@ -70,42 +73,42 @@ Control {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "STATUS INV L"
-                subtitle: Car.inverters.left_status
+                subtitle: "0x" + Car.inverters.left_status.toString(16)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "STATUS INV R"
-                subtitle: Car.inverters.right_status
+                subtitle: "0x" + Car.inverters.right_status.toString(16)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "ERRORS INV L"
-                subtitle: Car.inverters.left_errors
+                subtitle: "0x" + Car.inverters.left_errors.toString(16)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "ERRORS INV R"
-                subtitle: Car.inverters.right_errors
+                subtitle: "0x" + Car.inverters.right_errors.toString(16)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "IO INFO INV L"
-                subtitle: Car.inverters.left_io_info
+                subtitle: "0x" + Car.inverters.left_io_info.toString(16)
             }
 
             StatusBox {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 title: "IO INFO INV R"
-                subtitle: Car.inverters.right_io_info
+                subtitle: "0x" + Car.inverters.right_io_info.toString(16)
             }
 
         }

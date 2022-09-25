@@ -54,14 +54,14 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             text: root.title
             color: Style.textInverted
-            font: Style.sans.h3
+            font: Style.sans.h4
         }
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             text: root.subtitle
             color: Style.darker
-            font: Style.mono.small
+            font: Style.sans.p
         }
 
     }
