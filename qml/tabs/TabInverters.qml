@@ -13,7 +13,7 @@ Control {
         spacing: 10
 
         Text {
-            text: "TAB INVERTERS"
+            text: "Tab Inverters"
             font: Style.mono.h2
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: Style.text

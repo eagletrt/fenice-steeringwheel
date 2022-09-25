@@ -54,7 +54,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             text: root.title
             color: Style.textInverted
-            font: Style.sans.h4
+            font: Style.sans.small
         }
 
         Text {
