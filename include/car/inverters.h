@@ -15,12 +15,12 @@ public:
   S_PROPERTY(float, right_temperature, 0.0f)
   S_PROPERTY(float, left_temperature, 0.0f)
 
-  S_PROPERTY(quint32, right_errors, -23)
-  S_PROPERTY(quint32, right_status, 431)
-  S_PROPERTY(quint16, right_io_info, 32)
-  S_PROPERTY(float, right_motor_temp, 34.1f)
-  S_PROPERTY(float, right_inverter_temp, 1.43f)
-  S_PROPERTY(quint32, right_speed, 111)
+  S_PROPERTY(quint32, right_errors, 0)
+  S_PROPERTY(quint32, right_status, 0)
+  S_PROPERTY(quint16, right_io_info, 0)
+  S_PROPERTY(float, right_motor_temp, 0.0f)
+  S_PROPERTY(float, right_inverter_temp, 0.0f)
+  S_PROPERTY(quint32, right_speed, 0)
 
   S_PROPERTY(quint32, left_errors, 0)
   S_PROPERTY(quint32, left_status, 0)
