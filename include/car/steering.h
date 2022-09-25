@@ -21,6 +21,7 @@ public:
   S_PROPERTY(bool, ptt, false)
   S_PROPERTY(QString, build_date_time, "CURRENT BUILD: unavailable")
   S_PROPERTY(QString, ip_addr, "unavailable");
+  S_PROPERTY(quint32, canlib_build_hash, 0);
 
 public:
   Steering(State *parent = nullptr);

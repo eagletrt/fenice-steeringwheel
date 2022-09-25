@@ -183,29 +183,29 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
   }
   case primary_ID_INV_L_RESPONSE: {
     DESERIALIZE(primary, INV_L_RESPONSE);
-    inverter_message_INV_RESPONSE* response_data = (inverter_message_INV_RESPONSE *) &data;
-    
-    m_inverters->set_left_errors        (inverter_get_status (response_data));
-    m_inverters->set_left_status        (inverter_get_status(response_data));
-    m_inverters->set_left_io_info       (inverter_get_io_info(response_data));
-    m_inverters->set_left_motor_temp    (inverter_get_motor_temp(response_data));
-    m_inverters->set_left_inverter_temp (inverter_get_inverter_temp(response_data));
-    m_inverters->set_left_speed         (inverter_get_speed(response_data));
-    
+    inverter_message_INV_RESPONSE *response_data = (inverter_message_INV_RESPONSE *)&data;
+
+    m_inverters->set_left_errors(inverter_get_status(response_data));
+    m_inverters->set_left_status(inverter_get_status(response_data));
+    m_inverters->set_left_io_info(inverter_get_io_info(response_data));
+    m_inverters->set_left_motor_temp(inverter_get_motor_temp(response_data));
+    m_inverters->set_left_inverter_temp(inverter_get_inverter_temp(response_data));
+    m_inverters->set_left_speed(inverter_get_speed(response_data));
+
     emit inverters_changed();
     break;
   }
   case primary_ID_INV_R_RESPONSE: {
     DESERIALIZE(primary, INV_R_RESPONSE);
-    inverter_message_INV_RESPONSE* response_data = (inverter_message_INV_RESPONSE *) &data;
-    
-    m_inverters->set_right_errors        (inverter_get_status (response_data));
-    m_inverters->set_right_status        (inverter_get_status(response_data));
-    m_inverters->set_right_io_info       (inverter_get_io_info(response_data));
-    m_inverters->set_right_motor_temp    (inverter_get_motor_temp(response_data));
-    m_inverters->set_right_inverter_temp (inverter_get_inverter_temp(response_data));
-    m_inverters->set_right_speed         (inverter_get_speed(response_data));
-    
+    inverter_message_INV_RESPONSE *response_data = (inverter_message_INV_RESPONSE *)&data;
+
+    m_inverters->set_right_errors(inverter_get_status(response_data));
+    m_inverters->set_right_status(inverter_get_status(response_data));
+    m_inverters->set_right_io_info(inverter_get_io_info(response_data));
+    m_inverters->set_right_motor_temp(inverter_get_motor_temp(response_data));
+    m_inverters->set_right_inverter_temp(inverter_get_inverter_temp(response_data));
+    m_inverters->set_right_speed(inverter_get_speed(response_data));
+
     emit inverters_changed();
     break;
   }

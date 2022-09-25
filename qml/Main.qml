@@ -76,7 +76,7 @@ Window {
             target: Car
         }
 
-        TabStack {
+        Switcher {
             id: stack
 
             anchors.fill: parent

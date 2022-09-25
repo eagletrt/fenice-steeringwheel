@@ -7,73 +7,38 @@ import "components"
 Control {
     id: status
 
-    property var possibleStates: ['NORMAL', 'ERROR', 'DEFAULT', 'OUTDATED']
-    property var sensors: ["Steering", "Telemetry", "Inverters", "DAS", "BMS HV", "BMS LV"]
-    property var sensorInterfaces: []
-
     padding: 20
 
     contentItem: ColumnLayout {
         spacing: 10
 
-        GridLayout {
+        ColumnLayout {
+            Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
             Layout.fillWidth: true
             Layout.fillHeight: true
-            rows: 5
-            columns: 3
-            rowSpacing: 10
-            columnSpacing: 10
 
             StatusBox {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 120
-                Layout.columnSpan: 3
-                title: 'Steering'
+                width: 400
+                height: 100
+                title: "Steering"
                 state: "NORMAL"
-                subtitle: Car.steering.ip_addr
-                content: Car.steering.build_date_time
+                subtitle: "IP: " + Car.steering.ip_addr
             }
 
             StatusBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: "Inverter L"
+                width: 400
+                height: 100
+                title: "BUILD DATE"
                 state: Car.inverters.valid ? "NORMAL" : "ERROR"
+                subtitle: Car.steering.build_date_time
             }
 
             StatusBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: "TELEMETRY"
-                state: Car.telemetry.valid ? "NORMAL" : "ERROR"
-            }
-
-            StatusBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: "INVERTER R"
+                width: 400
+                height: 100
+                title: "CANLIB BUILD HASH"
                 state: Car.inverters.valid ? "NORMAL" : "ERROR"
-            }
-
-            StatusBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: "BMS LV"
-                state: Car.lv.valid ? "NORMAL" : "ERROR"
-            }
-
-            StatusBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: "DAS"
-                state: Car.das.valid ? "NORMAL" : "ERROR"
-            }
-
-            StatusBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: "BMS HV"
-                state: Car.hv.valid ? "NORMAL" : "ERROR"
+                subtitle: Car.steering.canlib_build_hash.toString(16)
             }
 
         }

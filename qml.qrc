@@ -7,7 +7,6 @@
         <file>qml/font/Mono-Bold.ttf</file>
         <file>qml/Main.qml</file>
         <file>qml/Popper.qml</file>
-        <file>qml/TabStack.qml</file>
         <file>qml/tabs/components/Bar.qml</file>
         <file>qml/tabs/errors/ErrorEntry.qml</file>
         <file>qml/tabs/components/CalibrationBar.qml</file>
@@ -23,6 +22,10 @@
         <file>qml/tabs/TabSpeed.qml</file>
         <file>qml/tabs/TabStatus.qml</file>
         <file>qml/tabs/TabTerminal.qml</file>
+        <file>qml/tabs/TabInverters.qml</file>
+        <file>qml/DebugMode.qml</file>
+        <file>qml/RacingMode.qml</file>
+        <file>qml/Switcher.qml</file>
         <file>qml/tabs/errors/HvFeedbacks.qml</file>
         <file>qml/tabs/errors/HvErrors.qml</file>
         <file>qml/tabs/errors/DasErrors.qml</file>
@@ -40,6 +43,5 @@
         <file>qml/img/satellite/povo-1-parking.png</file>
         <file>qml/img/satellite/povo.png</file>
         <file>qml/img/satellite/safety-park.png</file>
-        <file>qml/tabs/TabErrors.qml</file>
     </qresource>
 </RCC>

@@ -19,7 +19,6 @@ Control {
     property int steer_tout: getError(8)
     property int fsm: getError(9)
 
-
     function getError(index) {
         return (centralUnit >>> 0).toString(2).padStart(binaryNLength, '0').slice(0 - index).charAt(0);
     }

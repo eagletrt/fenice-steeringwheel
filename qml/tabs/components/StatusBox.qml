@@ -5,8 +5,7 @@ Rectangle {
     id: root
 
     property string title
-    property string subtitle: "v1.0.0"
-    property string content: "---"
+    property string subtitle
 
     state: "DEFAULT"
     states: [
@@ -63,13 +62,6 @@ Rectangle {
             text: root.subtitle
             color: Style.darker
             font: Style.mono.small
-        }
-
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: root.content
-            color: Style.darker
-            font: Style.mono.xsmall
         }
 
     }

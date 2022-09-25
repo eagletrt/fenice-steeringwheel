@@ -102,26 +102,6 @@ Item {
                 property string name: "gps"
             }
 
-            TabTerminal {
-                property string name: "terminal"
-            }
-
-            DasErrors {
-                property string name: "dasErrors"
-            }
-
-            HvErrors {
-                property string name: "hvErrors"
-            }
-
-            HvFeedbacks {
-                property string name: "hvFeedback"
-            }
-
-            LvErrors {
-                property string name: "lvErrors"
-            }
-
             Item {
                 property string name: "emulator"
 
@@ -155,7 +135,7 @@ Item {
             spacing: 2
 
             Repeater {
-                model: ["racing", "speed", "calibration", "status", "gps", "terminal", "dasErrors", "hvErrors", "hvFeedback", "lvErrors"]
+                model: ["racing", "speed", "calibration", "status", "gps"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true

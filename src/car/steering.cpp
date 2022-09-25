@@ -13,13 +13,7 @@ Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
   m_build_date_time =
       QStringLiteral("CURRENT BUILD: ") + QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
 
-  const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
-  for (const QHostAddress &address : QNetworkInterface::allAddresses()) {
-    if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost &&
-        address.isInSubnet(QHostAddress::parseSubnet("192.168.0.0/12")))
-      m_ip_addr = address.toString();
-  }
-
+  m_canlib_build_hash = CANLIB_BUILD_HASH;
   m_poll_timer = new QTimer(this);
   connect(m_poll_timer, &QTimer::timeout, this, &Steering::poll);
   m_poll_timer->start(STEERING_POLL_TIMER);
@@ -38,6 +32,12 @@ Steering::~Steering() {
 #define STEERING_TEMP_SCALE 1000.
 
 void Steering::poll() {
+  const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
+  for (const QHostAddress &address : QNetworkInterface::allAddresses()) {
+    if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost &&
+        address.isInSubnet(QHostAddress::parseSubnet("192.168.0.0/12")))
+      m_ip_addr = address.toString();
+  }
 #ifdef Q_OS_LINUX
   // Read temperature
   QFile file(STEERING_TEMP_FILE);
