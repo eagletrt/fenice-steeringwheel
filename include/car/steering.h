@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <ctime>
 
 #include "car/interface.h"
 #include "global.h"
@@ -20,8 +21,9 @@ public:
   S_PROPERTY(quint8, traction_control, primary_TractionControl_OFF)
   S_PROPERTY(bool, ptt, false)
   S_PROPERTY(QString, build_date_time, "unavailable")
-  S_PROPERTY(QString, ip_addr, "unavailable");
-  S_PROPERTY(quint32, canlib_build_hash, 0);
+  S_PROPERTY(QString, ip_addr, "unavailable")
+  S_PROPERTY(quint32, canlib_build_hash, 0)
+  S_PROPERTY(QString, canlib_build_time, "unavailable")
 
 public:
   Steering(State *parent = nullptr);

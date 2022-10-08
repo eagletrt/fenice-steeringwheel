@@ -19,7 +19,8 @@ public:
   S_PROPERTY(float, longitude, 0)
   S_PROPERTY(quint16, gps_speed, 0)
   S_PROPERTY(quint8, version_component, 0)
-  S_PROPERTY(quint8, version_cancicd, 0)
+  S_PROPERTY(quint32, version_cancicd, 0)
+  S_PROPERTY(QString, canlib_build_time, "unavailable")
 public:
   Telemetry(State *parent = nullptr);
   ~Telemetry();

@@ -2,6 +2,14 @@
 
 #include <QVector>
 
+QString timestamp_conversion(long int value) {
+  time_t canlib_build_time = value;
+  struct tm* ds = localtime(&canlib_build_time);
+  char buffer[256];
+  strftime(buffer,256,"%x - %I:%M%p", ds);
+  return QString(buffer);
+}
+
 Global::Global(QObject *parent) : QObject(parent) {}
 Global::~Global() {}
 

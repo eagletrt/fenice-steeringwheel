@@ -26,8 +26,9 @@ public:
   S_PROPERTY(quint8, radiators_speed, 0)
   S_PROPERTY(quint8, pumps_speed, 0)
   S_PROPERTY(quint8, version_component, 0)
-  S_PROPERTY(quint8, version_cancicd, 0)
+  S_PROPERTY(quint32, version_cancicd, 0)
   S_PROPERTY(quint32, errors, 0);
+  S_PROPERTY(QString, canlib_build_time, "unavailable")
 
 public:
   LV(State *parent = nullptr);

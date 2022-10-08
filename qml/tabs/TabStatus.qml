@@ -9,36 +9,73 @@ Control {
 
     padding: 20
 
-    contentItem: ColumnLayout {
-        spacing: 10
+    contentItem: GridLayout {
 
-        ColumnLayout {
+        GridLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            columns: 2
+            rows: 4
+            columnSpacing: 10
+            rowSpacing: 5
+            flow: GridLayout.TopToBottom
+
             StatusBox {
-                width: 400
-                height: 100
+                width: 300
+                height: 80
                 title: "STEERING IP ADDRESS"
-                state: "NORMAL"
                 subtitle: Car.steering.ip_addr
             }
 
             StatusBox {
-                width: 400
-                height: 100
+                width: 300
+                height: 80
                 title: "BUILD DATE TIME"
-                state: Car.inverters.valid ? "NORMAL" : "ERROR"
                 subtitle: Car.steering.build_date_time
             }
 
             StatusBox {
-                width: 400
-                height: 100
+                width: 300
+                height: 80
                 title: "CANLIB BUILD HASH"
-                state: Car.inverters.valid ? "NORMAL" : "ERROR"
                 subtitle: Car.steering.canlib_build_hash.toString(16)
+            }
+
+            StatusBox {
+                width: 300
+                height: 80
+                title: "CANLIB BUILD DATETIME"
+                subtitle: Car.steering.canlib_build_time
+            }
+
+            StatusBox {
+                width: 300
+                height: 80
+                title: "DAS CANLIB DATETIME"
+                subtitle: Car.das.canlib_build_time
+            }
+
+            StatusBox {
+                width: 300
+                height: 80
+                title: "HV CANLIB DATETIME"
+                subtitle: Car.hv.canlib_build_time
+            }
+
+            StatusBox {
+                width: 300
+                height: 80
+                title: "LV CANLIB DATETIME"
+                subtitle: Car.lv.canlib_build_time
+            }
+
+            StatusBox {
+                width: 300
+                height: 80
+                title: "TELEMETRY CANLIB DATETIME"
+                subtitle: Car.telemetry.canlib_build_time
             }
 
         }

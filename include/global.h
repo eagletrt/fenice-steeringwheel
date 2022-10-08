@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QMetaEnum>
 
+QString timestamp_conversion(long int value);
+
 class Global : public QObject {
   Q_OBJECT
 public:
