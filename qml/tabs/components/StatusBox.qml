@@ -61,7 +61,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             text: root.subtitle
             color: Style.darker
-            font: Style.sans.p
+            font: Style.sans.small
         }
 
     }

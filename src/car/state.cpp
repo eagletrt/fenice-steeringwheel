@@ -144,30 +144,26 @@ void State::handle_primary(quint32 id, uint8_t *raw) {
   case primary_ID_DAS_VERSION: {
     DESERIALIZE(primary, DAS_VERSION);
     m_das->set_version_component(data.component_version);
-    m_das->set_version_cancicd(data.cancicd_version);
-    m_das->set_canlib_build_time(timestamp_conversion(data.canlib_datetime));
+    m_das->set_canlib_build_time(timestamp_conversion(data.canlib_build_time));
     break;
   }
   case primary_ID_HV_VERSION: {
     DESERIALIZE(primary, HV_VERSION);
     m_hv->set_version_component(data.component_version);
-    m_hv->set_version_cancicd(data.cancicd_version);
-    m_hv->set_canlib_build_time(timestamp_conversion(data.canlib_datetime));
+    m_hv->set_canlib_build_time(timestamp_conversion(data.canlib_build_time));
     break;
   }
   case primary_ID_LV_VERSION: {
     DESERIALIZE(primary, LV_VERSION);
     primary_deserialize_LV_VERSION(&data, raw);
     m_lv->set_version_component(data.component_version);
-    m_lv->set_version_cancicd(data.cancicd_version);
-    m_hv->set_canlib_build_time(timestamp_conversion(data.canlib_datetime));
+    m_hv->set_canlib_build_time(timestamp_conversion(data.canlib_build_time));
     break;
   }
   case primary_ID_TLM_VERSION: {
     DESERIALIZE(primary, TLM_VERSION);
     m_telemetry->set_version_component(data.component_version);
-    m_telemetry->set_version_cancicd(data.cancicd_version);
-    m_telemetry->set_canlib_build_time(timestamp_conversion(data.canlib_datetime));
+    m_telemetry->set_canlib_build_time(timestamp_conversion(data.canlib_build_time));
     break;
   }
   case primary_ID_TLM_STATUS: {
