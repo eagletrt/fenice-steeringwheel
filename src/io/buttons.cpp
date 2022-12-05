@@ -7,7 +7,7 @@
 #include "wiringPi.h"
 
 QHash<int, int> button_ids{
-    {Buttons::Gpio::GPIO_BUTTON_TOP_LEFT, Buttons::Input::BUTTON_TOP_LEFT},
+    {Buttons::Gpio::GPIO_BUTTON_TOP_LEFT, Buttons::Input::BUTTON_START_STOP},
     {Buttons::Gpio::GPIO_BUTTON_BOTTOM_LEFT, Buttons::Input::BUTTON_BOTTOM_LEFT},
     {Buttons::Gpio::GPIO_BUTTON_TOP_RIGHT, Buttons::Input::BUTTON_TOP_RIGHT},
     {Buttons::Gpio::GPIO_BUTTON_BOTTOM_RIGHT, Buttons::Input::BUTTON_BOTTOM_RIGHT},
