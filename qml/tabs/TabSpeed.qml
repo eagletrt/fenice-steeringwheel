@@ -123,16 +123,17 @@ Rectangle {
                     spacing: 80
 
                     CarStatus {
+                        customFont: Style.mono.big
                     }
 
                     ValueWithUnitAndLabel {
-                        valueFont: Style.mono.verybig
+                        valueFont: Style.mono.big
                         unitFont: Style.mono.h2
                         labelFont: Style.sans.h3
-                        valid: Car.das.valid
+                        valid: true // Car.das.valid
                         value: Car.das.speed * 3.6
-                        unit: "Km/h"
-                        label: "SPEED"
+                        unit: ""
+                        label: "Km/h"
                         high: 100
                     }
 

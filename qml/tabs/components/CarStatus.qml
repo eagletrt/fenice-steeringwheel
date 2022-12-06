@@ -7,9 +7,11 @@ import QtQuick.Layouts 1.15
 Text {
     id: car_status
 
+    property font customFont: Style.sans.h1
+
     Layout.alignment: Qt.AlignCenter
     Layout.columnSpan: 2
-    font: Style.sans.somewhatbig
+    font: customFont
     color: Style.text
     states: [
         State {
