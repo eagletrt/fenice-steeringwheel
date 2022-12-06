@@ -6,8 +6,8 @@
 # Configuration
 # -------------
 
-QT_VERSION="5.15.9/gcc_64"
-QT_HOME="$HOME/Qt"
+QT_VERSION="5.15.2/gcc_64"
+QT_HOME="$HOME/SSD/Qt"
 
 # -------------
 # Logic

@@ -100,7 +100,7 @@ Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             valid: true
-                            value: Car.steering.map
+                            value: Car.steering.power_map * 10
                             unit: "%"
                             label: "MAX POWER"
                         }
@@ -152,7 +152,7 @@ Rectangle {
                 MapBar {
                     Layout.minimumHeight: 80
                     Layout.fillWidth: true
-                    map: Car.steering.map
+                    map: Car.steering.power_map * 10
                 }
 
             }

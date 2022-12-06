@@ -17,13 +17,14 @@ class Steering : public Interface {
   Q_OBJECT
 public:
   S_PROPERTY(float, temperature, 0)
-  S_PROPERTY(quint8, map, 0)
-  S_PROPERTY(quint8, traction_control, primary_TractionControl_OFF)
   S_PROPERTY(bool, ptt, false)
   S_PROPERTY(QString, build_date_time, "unavailable")
   S_PROPERTY(QString, ip_addr, "unavailable")
   S_PROPERTY(quint32, canlib_build_hash, 0)
   S_PROPERTY(QString, canlib_build_time, "unavailable")
+  S_PROPERTY(quint32, power_map, 0)
+  S_PROPERTY(quint32, slip_control, 0)
+  S_PROPERTY(quint32, torque_vectoring, 0)
 
 public:
   Steering(State *parent = nullptr);
@@ -35,13 +36,14 @@ protected slots:
 public slots:
   void button_pressed(int button);
   void button_released(int button);
-  void manettino_left_changed(int value);
-  void manettino_right_changed(int value);
-  void send_car_status();
+  void send_steer_status();
+  void send_set_torque_vectoring(int);
+  void send_set_slip_control(int);
+  void send_set_power_map(int);
 
 private:
   QTimer *m_poll_timer;
-  QTimer *m_send_car_status_timer;
+  QTimer *m_send_steer_status_timer;
   State *m_state;
 };
 

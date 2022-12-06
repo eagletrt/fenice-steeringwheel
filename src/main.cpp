@@ -107,9 +107,9 @@ int main(int argc, char *argv[]) {
   QObject::connect(canBus, &CanBus::message_received, state, &State::handle_message);
   QObject::connect(state, &State::send_message, canBus, &CanBus::send_message);
 
-  QObject::connect(buttons, &Buttons::manettino_left, state->steering(), &Steering::manettino_left_changed);
-  QObject::connect(buttons, &Buttons::manettino_right, state->steering(), &Steering::manettino_right_changed);
-  QObject::connect(buttons, &Buttons::manettino_center, state->lv(), &LV::manettino_center_changed);
+  QObject::connect(buttons, &Buttons::manettino_left, state->steering(), &Steering::set_slip_control);
+  QObject::connect(buttons, &Buttons::manettino_right, state->steering(), &Steering::set_power_map);
+  QObject::connect(buttons, &Buttons::manettino_center, state->steering(), &Steering::set_torque_vectoring);
 
   QObject::connect(buttons, &Buttons::button_pressed, state->steering(), &Steering::button_pressed);
   QObject::connect(buttons, &Buttons::button_released, state->steering(), &Steering::button_released);

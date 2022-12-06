@@ -36,7 +36,6 @@ public:
   void send_cooling_status(float pumps, float radiators);
 
 public slots:
-  void manettino_center_changed(int value);
 
 private:
   State *m_state;

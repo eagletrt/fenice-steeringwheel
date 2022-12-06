@@ -24,7 +24,6 @@ Control {
             rowSpacing: 10
             columnSpacing: 10
 
-
             StatusBox {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 120
@@ -40,7 +39,7 @@ Control {
                 state: "NORMAL"
                 title: "STEERING CANLIB DATETIME"
                 subtitle: Car.steering.canlib_build_time
-            }            
+            }
 
             StatusBox {
                 Layout.fillWidth: true

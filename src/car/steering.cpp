@@ -10,24 +10,23 @@
 #include <QNetworkInterface>
 
 Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
-  m_build_date_time =
-      QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
+  m_build_date_time = QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
 
   m_canlib_build_hash = CANLIB_BUILD_HASH;
   m_canlib_build_time = timestamp_conversion(CANLIB_BUILD_TIME);
-  
+
   m_poll_timer = new QTimer(this);
   connect(m_poll_timer, &QTimer::timeout, this, &Steering::poll);
   m_poll_timer->start(STEERING_POLL_TIMER);
-  m_send_car_status_timer = new QTimer(this);
-  connect(m_send_car_status_timer, &QTimer::timeout, this, &Steering::send_car_status);
-  m_send_car_status_timer->start(primary_INTERVAL_STEER_STATUS);
+  m_send_steer_status_timer = new QTimer(this);
+  connect(m_send_steer_status_timer, &QTimer::timeout, this, &Steering::send_steer_status);
+  m_send_steer_status_timer->start(primary_INTERVAL_STEER_STATUS);
 }
 
 Steering::~Steering() {
   sDebug("steering") << "cleanup";
   delete m_poll_timer;
-  delete m_send_car_status_timer;
+  delete m_send_steer_status_timer;
 }
 
 #define STEERING_TEMP_FILE "/sys/class/thermal/thermal_zone0/temp"
@@ -55,14 +54,6 @@ void Steering::poll() {
 #endif
 }
 
-void Steering::send_car_status() {
-  quint8 *data = new quint8[primary_SIZE_STEER_STATUS];
-  primary_serialize_STEER_STATUS(data, (primary_TractionControl)traction_control(), map());
-  QByteArray steer_status((const char *)data, primary_SIZE_STEER_STATUS);
-  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_STEER_STATUS, steer_status);
-  delete[] data;
-}
-
 void Steering::button_pressed(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
     set_ptt(true);
@@ -75,32 +66,66 @@ void Steering::button_released(int button) {
   }
 }
 
-void Steering::manettino_left_changed(int value) {
-  if (value <= primary_TractionControl_COMPLETE)
-    set_traction_control((primary_TractionControl)value);
+void Steering::send_steer_status() {
+  // qDebug() << "qua spedisco steer_status ma ora non c'e' :)";
+  /*
+  quint8* data = new quint8[primary_SIZE_STEER_STATUS];
+  primary_serialize_STEER_STATUS(data, (qint8) m_power_map, (qint8) m_slip_control, (qint8) m_torque_vectoring);
+  QByteArray message((const char *)data, primary_SIZE_STEER_STATUS);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_STEER_STATUS, message);
+  delete[] data;
+  */
 }
 
-void Steering::manettino_right_changed(int value) {
-  switch (value) {
+void Steering::send_set_torque_vectoring(int torque_value) {
+  qDebug() << "torque_value = " << torque_value;
+  set_torque_vectoring((quint32)torque_value);
+  send_steer_status();
+}
+
+void Steering::send_set_slip_control(int slip_value) {
+  qDebug() << "torque_value = " << slip_value;
+  set_slip_control((quint32)slip_value);
+  send_steer_status();
+}
+
+void Steering::send_set_power_map(int map_value) {
+  // TODO vedere sul volante quello che viene fuori
+  qDebug() << "map value = " << map_value;
+  switch (map_value) {
   case 0:
-    set_map(-20);
+    set_power_map(-5);
     break;
   case 1:
-    set_map(20);
+    set_power_map(1);
     break;
   case 2:
-    set_map(40);
+    set_power_map(2);
     break;
   case 3:
-    set_map(60);
+    set_power_map(3);
     break;
   case 4:
-    set_map(80);
+    set_power_map(4);
     break;
   case 5:
-    set_map(100);
+    set_power_map(5);
     break;
-  default:
-    return;
+  case 6:
+    set_power_map(6);
+    break;
+  case 7:
+    set_power_map(7);
+    break;
+  case 8:
+    set_power_map(8);
+    break;
+  case 9:
+    set_power_map(9);
+    break;
+  case 10:
+    set_power_map(10);
+    break;
   }
+  send_steer_status();
 }

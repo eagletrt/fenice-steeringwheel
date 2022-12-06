@@ -296,8 +296,7 @@ void State::handle_secondary(quint32 id, uint8_t *raw) {
   switch (id) {
   case secondary_ID_CONTROL_OUTPUT: {
     DESERIALIZE(secondary, CONTROL_OUTPUT);
-    m_das->set_control_left(data.left);
-    m_das->set_control_right(data.right);
+    m_das->set_speed(data.estimated_velocity * 3.6);
     emit das_changed();
     break;
   }
