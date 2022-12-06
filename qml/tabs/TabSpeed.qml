@@ -90,28 +90,28 @@ Rectangle {
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            valid: Car.das.valid
-                            value: Car.inverters.left_temperature
-                            unit: "°C"
-                            label: "INVERTER L"
+                            valid: true
+                            value: Car.steering.sc_values[Car.steering.slip_control_index]
+                            unit: "val"
+                            label: "SLIP CONTROL"
                         }
 
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             valid: true
-                            value: Car.steering.power_map * 10
-                            unit: "%"
-                            label: "MAX POWER"
+                            value: Car.steering.tv_values[Car.steering.torque_vectoring_index]
+                            unit: "val"
+                            label: "TORQUE VECTORING"
                         }
 
                         ValueWithUnitAndLabel {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            valid: Car.das.valid
-                            value: Car.inverters.right_temperature
-                            unit: "°C"
-                            label: "INVERTER R"
+                            valid: true
+                            value: Car.steering.pm_values[Car.steering.power_map_index] * 10
+                            unit: "%"
+                            label: "MAX POWER"
                         }
 
                     }
