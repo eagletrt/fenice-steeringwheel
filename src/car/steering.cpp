@@ -67,65 +67,27 @@ void Steering::button_released(int button) {
 }
 
 void Steering::send_steer_status() {
-  // qDebug() << "qua spedisco steer_status ma ora non c'e' :)";
-  /*
   quint8* data = new quint8[primary_SIZE_STEER_STATUS];
   primary_serialize_STEER_STATUS(data, (qint8) m_power_map, (qint8) m_slip_control, (qint8) m_torque_vectoring);
   QByteArray message((const char *)data, primary_SIZE_STEER_STATUS);
   emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_STEER_STATUS, message);
   delete[] data;
-  */
 }
 
-void Steering::send_set_torque_vectoring(int torque_value) {
-  qDebug() << "torque_value = " << torque_value;
+void Steering::send_set_torque_vectoring(int torque_i) {
+  qint8 torque_value = TORQUE_VECTORING_VALUES[torque_i];
   set_torque_vectoring((quint32)torque_value);
   send_steer_status();
 }
 
-void Steering::send_set_slip_control(int slip_value) {
-  qDebug() << "torque_value = " << slip_value;
+void Steering::send_set_slip_control(int slip_i) {
+  qint8 slip_value = SLIP_CONTROL_VALUES[slip_i];
   set_slip_control((quint32)slip_value);
   send_steer_status();
 }
 
-void Steering::send_set_power_map(int map_value) {
-  // TODO vedere sul volante quello che viene fuori
-  qDebug() << "map value = " << map_value;
-  switch (map_value) {
-  case 0:
-    set_power_map(-5);
-    break;
-  case 1:
-    set_power_map(1);
-    break;
-  case 2:
-    set_power_map(2);
-    break;
-  case 3:
-    set_power_map(3);
-    break;
-  case 4:
-    set_power_map(4);
-    break;
-  case 5:
-    set_power_map(5);
-    break;
-  case 6:
-    set_power_map(6);
-    break;
-  case 7:
-    set_power_map(7);
-    break;
-  case 8:
-    set_power_map(8);
-    break;
-  case 9:
-    set_power_map(9);
-    break;
-  case 10:
-    set_power_map(10);
-    break;
-  }
+void Steering::send_set_power_map(int map_i) {
+  qint8 map_value = POWER_MAP_VALUES[map_i];
+  set_power_map((quint32)map_value);
   send_steer_status();
 }

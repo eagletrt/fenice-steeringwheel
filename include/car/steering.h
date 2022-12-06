@@ -12,6 +12,9 @@
 class State;
 
 #define STEERING_POLL_TIMER 5000
+const qint8 POWER_MAP_VALUES[8] = {-5, -2, 1, 2, 3, 4, 5, 10};
+const qint8 TORQUE_VECTORING_VALUES[8] = {0, 1, 2, 3, 4, 5, 6, 10};
+const qint8 SLIP_CONTROL_VALUES[8] = {0, 1, 2, 3, 4, 5, 6, 10};
 
 class Steering : public Interface {
   Q_OBJECT
