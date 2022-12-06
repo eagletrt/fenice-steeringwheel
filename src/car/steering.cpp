@@ -21,6 +21,10 @@ Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
   m_send_steer_status_timer = new QTimer(this);
   connect(m_send_steer_status_timer, &QTimer::timeout, this, &Steering::send_steer_status);
   m_send_steer_status_timer->start(primary_INTERVAL_STEER_STATUS);
+
+  set_pm_values({-5, -2, 1, 2, 3, 4, 5, 10});
+  set_sc_values({0, 1, 2, 3, 4, 5, 6, 10});
+  set_tv_values({0, 1, 2, 3, 4, 5, 6, 10});
 }
 
 Steering::~Steering() {
@@ -75,19 +79,19 @@ void Steering::send_steer_status() {
 }
 
 void Steering::send_set_torque_vectoring(int torque_i) {
-  qint8 torque_value = TORQUE_VECTORING_VALUES[torque_i];
-  set_torque_vectoring((quint32)torque_value);
+  qint32 torque_value = m_tv_values[torque_i];
+  set_torque_vectoring(torque_value);
   send_steer_status();
 }
 
 void Steering::send_set_slip_control(int slip_i) {
-  qint8 slip_value = SLIP_CONTROL_VALUES[slip_i];
-  set_slip_control((quint32)slip_value);
+  qint32 slip_value = m_sc_values[slip_i];
+  set_slip_control(slip_value);
   send_steer_status();
 }
 
 void Steering::send_set_power_map(int map_i) {
-  qint8 map_value = POWER_MAP_VALUES[map_i];
-  set_power_map((quint32)map_value);
+  qint32 map_value = m_pm_values[map_i];
+  set_power_map(map_value);
   send_steer_status();
 }

@@ -37,24 +37,15 @@ Window {
             }
 
             function onManettino_left_changed(value) {
-                if (value > 3)
-                    return ;
-
-                popper.show(["Off", "Slip", "Torque", "Torque\nSlip"][value], Style.foreground);
+                popper.show(Car.steering.sc_values[value], Style.foreground);
             }
 
             function onManettino_center_changed(value) {
-                if (value > 8)
-                    return ;
-
-                popper.show(["Auto", "Off", "Pumps 25%", "Pumps 50%", "Pumps 100%", "Pumps 25%\nRads 25%", "Pumps 100%\nRads 50%", "Oh baby\nit burns"][value], Style.foreground);
+                popper.show(Car.steering.tv_values[value], Style.foreground);
             }
 
             function onManettino_right_changed(value) {
-                if (value > 5)
-                    return ;
-
-                popper.show(String(value * 20) + "%", Style.foreground);
+                popper.show(String(Car.steering.pm_values[value] * 10) + "%", Style.foreground);
             }
 
             target: Buttons

@@ -12,9 +12,6 @@
 class State;
 
 #define STEERING_POLL_TIMER 5000
-const qint8 POWER_MAP_VALUES[8] = {-5, -2, 1, 2, 3, 4, 5, 10};
-const qint8 TORQUE_VECTORING_VALUES[8] = {0, 1, 2, 3, 4, 5, 6, 10};
-const qint8 SLIP_CONTROL_VALUES[8] = {0, 1, 2, 3, 4, 5, 6, 10};
 
 class Steering : public Interface {
   Q_OBJECT
@@ -25,9 +22,12 @@ public:
   S_PROPERTY(QString, ip_addr, "unavailable")
   S_PROPERTY(quint32, canlib_build_hash, 0)
   S_PROPERTY(QString, canlib_build_time, "unavailable")
-  S_PROPERTY(quint32, power_map, 0)
-  S_PROPERTY(quint32, slip_control, 0)
-  S_PROPERTY(quint32, torque_vectoring, 0)
+  S_PROPERTY(qint32, power_map, 0)
+  S_PROPERTY(qint32, slip_control, 0)
+  S_PROPERTY(qint32, torque_vectoring, 0)
+  S_PROPERTY(QList<qint32>, pm_values)
+  S_PROPERTY(QList<qint32>, tv_values)
+  S_PROPERTY(QList<qint32>, sc_values)
 
 public:
   Steering(State *parent = nullptr);
