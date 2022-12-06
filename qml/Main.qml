@@ -37,11 +37,11 @@ Window {
             }
 
             function onManettino_left_changed(value) {
-                popper.show(Car.steering.sc_values[value], Style.foreground);
+                popper.show(String(Car.steering.sc_values[value] * 10) + "%", Style.foreground);
             }
 
             function onManettino_center_changed(value) {
-                popper.show(Car.steering.tv_values[value], Style.foreground);
+                popper.show(String(Car.steering.tv_values[value] * 10) + "%", Style.foreground);
             }
 
             function onManettino_right_changed(value) {

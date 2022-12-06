@@ -91,8 +91,8 @@ Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             valid: true
-                            value: Car.steering.sc_values[Car.steering.slip_control_index]
-                            unit: "val"
+                            value: Car.steering.sc_values[Car.steering.slip_control_index] * 10
+                            unit: "%"
                             label: "SLIP CONTROL"
                         }
 
@@ -100,8 +100,8 @@ Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             valid: true
-                            value: Car.steering.tv_values[Car.steering.torque_vectoring_index]
-                            unit: "val"
+                            value: Car.steering.tv_values[Car.steering.torque_vectoring_index] * 10
+                            unit: "%"
                             label: "TORQUE VECTORING"
                         }
 
