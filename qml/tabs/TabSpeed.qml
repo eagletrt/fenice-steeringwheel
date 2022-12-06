@@ -129,7 +129,7 @@ Rectangle {
                         valueFont: Style.mono.verybig
                         unitFont: Style.mono.h2
                         labelFont: Style.sans.h3
-                        valid: true // Car.das.valid
+                        valid: Car.das.valid
                         value: Car.das.speed * 3.6
                         unit: "Km/h"
                         label: "SPEED"
