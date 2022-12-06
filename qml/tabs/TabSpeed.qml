@@ -118,33 +118,22 @@ Rectangle {
 
                 }
 
-                Item {
-                    Layout.fillHeight: true
-                    Layout.leftMargin: 60
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    spacing: 80
 
-                    Speedometer {
-                        property bool accelerating: false
+                    CarStatus {
+                    }
 
-                        speed: accelerating ? 180 : 0
-                        Keys.onSpacePressed: accelerating = true
-                        Keys.onReleased: {
-                            if (event.key === Qt.Key_Space) {
-                                accelerating = false;
-                                event.accepted = true;
-                            }
-                        }
-                        Component.onCompleted: forceActiveFocus()
-                        objectName: "speedometer"
-                        width: speedometerSize
-                        height: speedometerSize
-
-                        Behavior on speed {
-                            NumberAnimation {
-                                duration: 1000
-                            }
-
-                        }
-
+                    ValueWithUnitAndLabel {
+                        valueFont: Style.mono.verybig
+                        unitFont: Style.mono.h2
+                        labelFont: Style.sans.h3
+                        valid: true // Car.das.valid
+                        value: Car.das.speed * 3.6
+                        unit: "Km/h"
+                        label: "SPEED"
+                        high: 100
                     }
 
                 }

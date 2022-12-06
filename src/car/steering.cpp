@@ -71,11 +71,9 @@ void Steering::button_released(int button) {
 }
 
 void Steering::send_steer_status() {
-  quint8* data = new quint8[primary_SIZE_STEER_STATUS];
-  primary_serialize_STEER_STATUS(data,
-                                 (qint8) m_pm_values[m_power_map_index],
-                                 (qint8) m_sc_values[m_slip_control_index],
-                                 (qint8) m_tv_values[m_torque_vectoring_index]);
+  quint8 *data = new quint8[primary_SIZE_STEER_STATUS];
+  primary_serialize_STEER_STATUS(data, (qint8)m_pm_values[m_power_map_index], (qint8)m_sc_values[m_slip_control_index],
+                                 (qint8)m_tv_values[m_torque_vectoring_index]);
   QByteArray message((const char *)data, primary_SIZE_STEER_STATUS);
   emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_STEER_STATUS, message);
   delete[] data;
