@@ -15,10 +15,10 @@ public:
   ~CanBus();
 
   const QHash<QString, CanDevice::Network> networkMap =
-      QHash<QString, CanDevice::Network>{{"vcan0", CanDevice::Network::PRIMARY},
-                                         {"vcan1", CanDevice::Network::SECONDARY},
-                                         {"can0", CanDevice::Network::PRIMARY},
-                                         {"can1", CanDevice::Network::SECONDARY}};
+      QHash<QString, CanDevice::Network>{{"vcan1", CanDevice::Network::PRIMARY},
+                                         {"vcan0", CanDevice::Network::SECONDARY},
+                                         {"can1", CanDevice::Network::PRIMARY},
+                                         {"can0", CanDevice::Network::SECONDARY}};
 
 public slots:
   void start();
