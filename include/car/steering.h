@@ -29,7 +29,7 @@ public:
   S_PROPERTY(QString, ip_addr, "unavailable")
   S_PROPERTY(quint32, canlib_build_hash, 0)
   S_PROPERTY(QString, canlib_build_time, "unavailable")
-  S_PROPERTY(qint32, power_map_index, 2)
+  S_PROPERTY(qint32, power_map_index, 1)
   S_PROPERTY(qint32, slip_control_index, 0)
   S_PROPERTY(qint32, torque_vectoring_index, 0)
   S_PROPERTY(QList<qint32>, pm_values)

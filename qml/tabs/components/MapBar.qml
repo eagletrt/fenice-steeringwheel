@@ -9,7 +9,9 @@ Item {
     property int map: 1
     property int barHeight: 6
     property int markerSize: 20
-    property var maps: [0, 20, 40, 60, 80, 100]
+    property var maps: Car.steering.pm_values.map((x) => {
+        return x * 10;
+    })
 
     Item {
         anchors.fill: parent
