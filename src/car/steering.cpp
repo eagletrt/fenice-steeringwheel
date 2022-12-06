@@ -10,9 +10,9 @@
 #include <QNetworkInterface>
 
 Steering::Steering(State *parent) : Interface(parent), m_state(parent) {
-  set_pm_values({-5, -2, 1, 2, 3, 4, 5, 10});
-  set_sc_values({0, 1, 2, 3, 4, 5, 6, 10});
-  set_tv_values({0, 1, 2, 3, 4, 5, 6, 10});
+  set_pm_values(POWER_MAP_VALUES);
+  set_sc_values(SLIP_CONTROL_VALUES);
+  set_tv_values(TORQUE_VECTORING_VALUES);
 
   m_build_date_time = QStringLiteral(__DATE__) + QStringLiteral(" ") + QStringLiteral(__TIME__);
 

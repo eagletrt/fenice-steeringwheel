@@ -12,6 +12,10 @@
 class State;
 
 #define STEERING_POLL_TIMER 5000
+#define POWER_MAP_VALUES {-2, 1, 2, 3, 4, 5, 8, 10}
+#define TORQUE_VECTORING_VALUES {0, 1, 2, 3, 4, 5, 6, 10}
+#define SLIP_CONTROL_VALUES {0, 1, 2, 3, 4, 5, 6, 10}
+#define N_MANETTINI 8
 
 class Steering : public Interface {
   Q_OBJECT

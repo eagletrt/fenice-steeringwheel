@@ -52,6 +52,15 @@ void quitGracefully(QVector<int> sigs) {
 }
 #endif
 
+void check_control_size() {
+  int power_map_values[] = POWER_MAP_VALUES;
+  static_assert(sizeof(power_map_values) / sizeof(*power_map_values) == N_MANETTINI);
+  int slip_control_values[] = SLIP_CONTROL_VALUES;
+  static_assert(sizeof(slip_control_values) / sizeof(*slip_control_values) == N_MANETTINI);
+  int torque_vectoring_values[] = TORQUE_VECTORING_VALUES;
+  static_assert(sizeof(torque_vectoring_values) / sizeof(*torque_vectoring_values) == N_MANETTINI);
+}
+
 int main(int argc, char *argv[]) {
 #ifdef Q_OS_MAC
   // Forcibly disable any DPI scaling on macOS
