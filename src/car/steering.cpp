@@ -105,10 +105,7 @@ void Steering::send_pump_speed(int ps) {
   qDebug() << "sending pump speed";
 
   float pumps;
-
-  set_pumps_speed(ps);
-
-  switch ((Steering::PumpSpeed)pumps_speed()) {
+  switch ((Steering::PumpSpeed)ps) {
   case Steering::PumpSpeed::PUMPS_AUTO:
     pumps = -1.0f;
     break;
@@ -132,6 +129,8 @@ void Steering::send_pump_speed(int ps) {
     break;
   }
 
+  set_pumps_speed(ps);
+
   primary_message_SET_PUMPS_SPEED set_pumps_speed;
   primary_conversion_to_raw_SET_PUMPS_SPEED(&set_pumps_speed, qBound(-1.f, pumps, 1.f));
 
@@ -147,9 +146,7 @@ void Steering::send_radiators_speed(int rs) {
 
   float radiators;
 
-  set_radiators_speed(rs);
-
-  switch ((Steering::RadiatorSpeed)radiators_speed()) {
+  switch ((Steering::RadiatorSpeed)rs) {
   case Steering::RadiatorSpeed::RADIATORS_AUTO:
     radiators = -1.0f;
     break;
@@ -172,6 +169,7 @@ void Steering::send_radiators_speed(int rs) {
     return;
     break;
   }
+  set_radiators_speed(rs);
 
   primary_message_SET_RADIATOR_SPEED set_radiator_speed;
   primary_conversion_to_raw_SET_RADIATOR_SPEED(&set_radiator_speed, qBound(-1.f, radiators, 1.f));

@@ -23,7 +23,15 @@ class State;
 class Steering : public Interface {
   Q_OBJECT
 public:
-  enum RadiatorSpeed { RADIATORS_AUTO, RADIATORS_OFF, RADIATORS_025, RADIATORS_050, RADIATORS_075, RADIATORS_100, R_LENGTH };
+  enum RadiatorSpeed {
+    RADIATORS_AUTO,
+    RADIATORS_OFF,
+    RADIATORS_025,
+    RADIATORS_050,
+    RADIATORS_075,
+    RADIATORS_100,
+    R_LENGTH
+  };
   enum PumpSpeed { PUMPS_AUTO, PUMPS_OFF, PUMPS_025, PUMPS_050, PUMPS_075, PUMPS_100, P_LENGTH };
 
   Q_ENUMS(RadiatorSpeed)
