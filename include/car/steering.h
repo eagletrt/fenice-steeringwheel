@@ -35,6 +35,7 @@ public:
   S_PROPERTY(QList<qint32>, pm_values)
   S_PROPERTY(QList<qint32>, tv_values)
   S_PROPERTY(QList<qint32>, sc_values)
+  S_PROPERTY(bool, debug_mode, false)
 
 public:
   Steering(State *parent = nullptr);
@@ -50,6 +51,11 @@ public slots:
   void send_set_torque_vectoring(int);
   void send_set_slip_control(int);
   void send_set_power_map(int);
+  void send_pump_speed(int);
+  void send_radiators_speed(int);
+  void manettino_left_changed(int);
+  void manettino_right_changed(int);
+  void manettino_center_changed(int);
 
 private:
   QTimer *m_poll_timer;

@@ -37,15 +37,24 @@ Window {
             }
 
             function onManettino_left_changed(value) {
-                popper.show(String(Car.steering.sc_values[value] * 10) + "%", Style.foreground);
+                if (!Car.steering.debug_mode) {
+                    popper.show("SLIP\n" + String(Car.steering.sc_values[value] * 10) + "%", Style.foreground);
+                } else {
+                }
             }
 
             function onManettino_center_changed(value) {
-                popper.show(String(Car.steering.tv_values[value] * 10) + "%", Style.foreground);
+                if (!Car.steering.debug_mode) {
+                    popper.show("TORQUE\n" + String(Car.steering.tv_values[value] * 10) + "%", Style.foreground);
+                } else {
+                }
             }
 
             function onManettino_right_changed(value) {
-                popper.show(String(Car.steering.pm_values[value] * 10) + "%", Style.foreground);
+                if (!Car.steering.debug_mode) {
+                    popper.show("POWER MAP\n" + String(Car.steering.pm_values[value] * 10) + "%", Style.foreground);
+                } else {
+                }
             }
 
             target: Buttons

@@ -78,10 +78,10 @@ bool Buttons::eventFilter(QObject *obj, QEvent *event) {
         emit manettino_right(button_id - 11);
       } else if (button_id > 20 && button_id <= 30) {
         emit manettino_left_changed(button_id - 21);
-        emit manettino_left(button_id - 11);
+        emit manettino_left(button_id - 21);
       } else if (button_id > 30) {
         emit manettino_center_changed(button_id - 31);
-        emit manettino_center(button_id - 11);
+        emit manettino_center(button_id - 31);
       }
     }
   }
