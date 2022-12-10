@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 
 Item {
     property var currentTab: modes.children[modes.currentIndex]
-    property bool onDebug: false
+    property bool onDebug: Car.steering.debug_mode
     property int debugIndex: 1
     property int racingIndex: 0
 
@@ -26,8 +26,10 @@ Item {
     }
 
     function buttonReleasedHandler(button) {
-        if (button === Input.buttonBottomLeft) {
-            onDebug = !onDebug;
+    }
+
+    Connections {
+        function onDebug_mode_changed(value) {
             if (onDebug) {
                 modes.children[racingIndex].disconnect();
                 modes.children[debugIndex].connect();
@@ -38,6 +40,8 @@ Item {
                 modes.currentIndex = racingIndex;
             }
         }
+
+        target: Car.steering
     }
 
     Rectangle {

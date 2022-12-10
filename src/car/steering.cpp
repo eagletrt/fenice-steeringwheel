@@ -68,6 +68,10 @@ void Steering::button_released(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
     set_ptt(false);
   }
+
+  if (button == Buttons::BUTTON_BOTTOM_LEFT) {
+    set_debug_mode(!m_debug_mode);
+  }
 }
 
 void Steering::send_steer_status() {
@@ -80,29 +84,29 @@ void Steering::send_steer_status() {
 }
 
 void Steering::send_set_torque_vectoring(int torque_i) {
-  qDebug() << "sending torque uhhh uhhh";
+  qDebug() << "sending torque";
   set_torque_vectoring_index(torque_i);
   send_steer_status();
 }
 
 void Steering::send_set_slip_control(int slip_i) {
-  qDebug() << "sending slip uhhh uhhh";
+  qDebug() << "sending slip";
   set_slip_control_index(slip_i);
   send_steer_status();
 }
 
 void Steering::send_set_power_map(int map_i) {
-  qDebug() << "sending power map uhhh uhhh";
+  qDebug() << "sending power map";
   set_power_map_index(map_i);
   send_steer_status();
 }
 
-void Steering::send_pump_speed(int ps) { qDebug() << "sending pump speed uhhh uhhh"; }
+void Steering::send_pump_speed(int ps) { qDebug() << "sending pump speed"; }
 
-void Steering::send_radiators_speed(int rs) { qDebug() << "sending radiator speed uhhhh uhhhh"; }
+void Steering::send_radiators_speed(int rs) { qDebug() << "sending radiator speed"; }
 
 void Steering::manettino_left_changed(int val) {
-  if (m_debug_mode)
+  if (debug_mode())
     send_pump_speed(val);
   else
     send_set_slip_control(val);
@@ -111,7 +115,7 @@ void Steering::manettino_left_changed(int val) {
 void Steering::manettino_right_changed(int val) { send_set_power_map(val); }
 
 void Steering::manettino_center_changed(int val) {
-  if (m_debug_mode)
+  if (debug_mode())
     send_radiators_speed(val);
   else
     send_set_torque_vectoring(val);
