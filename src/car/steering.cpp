@@ -101,9 +101,87 @@ void Steering::send_set_power_map(int map_i) {
   send_steer_status();
 }
 
-void Steering::send_pump_speed(int ps) { qDebug() << "sending pump speed"; }
+void Steering::send_pump_speed(int ps) {
+  qDebug() << "sending pump speed";
 
-void Steering::send_radiators_speed(int rs) { qDebug() << "sending radiator speed"; }
+  float pumps;
+
+  set_pumps_speed(ps);
+
+  switch ((Steering::PumpSpeed)pumps_speed()) {
+  case Steering::PumpSpeed::PUMPS_AUTO:
+    pumps = -1.0f;
+    break;
+  case Steering::PumpSpeed::PUMPS_OFF:
+    pumps = 0.0f;
+    break;
+  case Steering::PumpSpeed::PUMPS_025:
+    pumps = 0.25f;
+    break;
+  case Steering::PumpSpeed::PUMPS_050:
+    pumps = 0.50f;
+    break;
+  case Steering::PumpSpeed::PUMPS_075:
+    pumps = 0.75f;
+    break;
+  case Steering::PumpSpeed::PUMPS_100:
+    pumps = 1.0f;
+    break;
+  default:
+    return;
+    break;
+  }
+
+  primary_message_SET_PUMPS_SPEED set_pumps_speed;
+  primary_conversion_to_raw_SET_PUMPS_SPEED(&set_pumps_speed, qBound(-1.f, pumps, 1.f));
+
+  quint8 *data = new quint8[primary_SIZE_SET_PUMPS_SPEED];
+  primary_serialize_struct_SET_PUMPS_SPEED(data, &set_pumps_speed);
+  QByteArray pumps_message((const char *)data, primary_SIZE_SET_PUMPS_SPEED);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_PUMPS_SPEED, pumps_message);
+  delete[] data;
+}
+
+void Steering::send_radiators_speed(int rs) {
+  qDebug() << "sending radiator speed";
+
+  float radiators;
+
+  set_radiators_speed(rs);
+
+  switch ((Steering::RadiatorSpeed)radiators_speed()) {
+  case Steering::RadiatorSpeed::RADIATORS_AUTO:
+    radiators = -1.0f;
+    break;
+  case Steering::RadiatorSpeed::RADIATORS_OFF:
+    radiators = 0.0f;
+    break;
+  case Steering::RadiatorSpeed::RADIATORS_025:
+    radiators = 0.25f;
+    break;
+  case Steering::RadiatorSpeed::RADIATORS_050:
+    radiators = 0.50f;
+    break;
+  case Steering::RadiatorSpeed::RADIATORS_075:
+    radiators = 0.75f;
+    break;
+  case Steering::RadiatorSpeed::RADIATORS_100:
+    radiators = 1.0f;
+    break;
+  default:
+    return;
+    break;
+  }
+
+  primary_message_SET_RADIATOR_SPEED set_radiator_speed;
+  primary_conversion_to_raw_SET_RADIATOR_SPEED(&set_radiator_speed, qBound(-1.f, radiators, 1.f));
+
+  quint8 *data = new quint8[primary_SIZE_SET_RADIATOR_SPEED];
+  primary_serialize_struct_SET_RADIATOR_SPEED(data, &set_radiator_speed);
+  QByteArray radiators_message((const char *)data, primary_SIZE_SET_RADIATOR_SPEED);
+  emit m_state->send_message(CanDevice::Network::PRIMARY, primary_ID_SET_RADIATOR_SPEED, radiators_message);
+  delete[] data;
+}
 
 void Steering::manettino_left_changed(int val) {
   if (debug_mode())

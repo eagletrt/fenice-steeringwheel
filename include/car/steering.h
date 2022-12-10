@@ -23,6 +23,12 @@ class State;
 class Steering : public Interface {
   Q_OBJECT
 public:
+  enum RadiatorSpeed { RADIATORS_AUTO, RADIATORS_OFF, RADIATORS_025, RADIATORS_050, RADIATORS_075, RADIATORS_100, R_LENGTH };
+  enum PumpSpeed { PUMPS_AUTO, PUMPS_OFF, PUMPS_025, PUMPS_050, PUMPS_075, PUMPS_100, P_LENGTH };
+
+  Q_ENUMS(RadiatorSpeed)
+  Q_ENUMS(PumpSpeed)
+
   S_PROPERTY(float, temperature, 0)
   S_PROPERTY(bool, ptt, false)
   S_PROPERTY(QString, build_date_time, "unavailable")
@@ -36,6 +42,8 @@ public:
   S_PROPERTY(QList<qint32>, tv_values)
   S_PROPERTY(QList<qint32>, sc_values)
   S_PROPERTY(bool, debug_mode, false)
+  S_PROPERTY(quint8, radiators_speed, 0)
+  S_PROPERTY(quint8, pumps_speed, 0)
 
 public:
   Steering(State *parent = nullptr);
