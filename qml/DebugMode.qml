@@ -61,6 +61,10 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            TabGeneralDebug {
+                property string name: "general"
+            }
+
             TabTerminal {
                 property string name: "terminal"
             }
@@ -95,7 +99,7 @@ Item {
             spacing: 2
 
             Repeater {
-                model: ["terminal", "dasErrors", "hvErrors", "hvFeedback", "lvErrors", "tabInverters"]
+                model: ["general", "terminal", "dasErrors", "hvErrors", "hvFeedback", "lvErrors", "tabInverters"]
 
                 delegate: Rectangle {
                     Layout.fillWidth: true

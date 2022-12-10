@@ -16,6 +16,7 @@
         <file>qml/tabs/components/ValueWithUnit.qml</file>
         <file>qml/tabs/components/ValueWithUnitAndLabel.qml</file>
         <file>qml/tabs/components/CarStatus.qml</file>
+        <file>qml/tabs/TabGeneralDebug.qml</file>
         <file>qml/tabs/TabCalibration.qml</file>
         <file>qml/tabs/TabGps.qml</file>
         <file>qml/tabs/TabOverview.qml</file>
