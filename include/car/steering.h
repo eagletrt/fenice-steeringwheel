@@ -34,9 +34,6 @@ public:
   };
   enum PumpSpeed { PUMPS_AUTO, PUMPS_OFF, PUMPS_025, PUMPS_050, PUMPS_075, PUMPS_100, P_LENGTH };
 
-  Q_ENUMS(RadiatorSpeed)
-  Q_ENUMS(PumpSpeed)
-
   S_PROPERTY(float, temperature, 0)
   S_PROPERTY(bool, ptt, false)
   S_PROPERTY(QString, build_date_time, "unavailable")

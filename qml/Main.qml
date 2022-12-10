@@ -40,6 +40,10 @@ Window {
                 if (!Car.steering.debug_mode) {
                     popper.show("SLIP\n" + String(Car.steering.sc_values[value] * 10) + "%", Style.foreground);
                 } else {
+                    if (value > 5)
+                        return ;
+
+                    popper.show(["Pumps Auto", "Pumps Off", "Pumps 25%", "Pumps 50%", "Pumps 75%", "Pumps 100%"][value], Style.foreground);
                 }
             }
 
@@ -47,14 +51,15 @@ Window {
                 if (!Car.steering.debug_mode) {
                     popper.show("TORQUE\n" + String(Car.steering.tv_values[value] * 10) + "%", Style.foreground);
                 } else {
+                    if (value > 5)
+                        return ;
+
+                    popper.show(["Radiat Auto", "Radiat Off", "Radiat 25%", "Radiat 50%", "Radiat 75%", "Radiat 100%"][value], Style.foreground);
                 }
             }
 
             function onManettino_right_changed(value) {
-                if (!Car.steering.debug_mode) {
-                    popper.show("POWER MAP\n" + String(Car.steering.pm_values[value] * 10) + "%", Style.foreground);
-                } else {
-                }
+                popper.show("POWER MAP\n" + String(Car.steering.pm_values[value] * 10) + "%", Style.foreground);
             }
 
             target: Buttons
