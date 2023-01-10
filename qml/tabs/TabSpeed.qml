@@ -182,9 +182,9 @@ Rectangle {
             ValueColumn {
                 Layout.fillHeight: true
                 Layout.minimumWidth: speed.columnWidth
-                label: "[V] BMS"
-                valid: Car.hv.valid
-                value: Car.hv.pack_voltage
+                label: "[A] BMS LV"
+                valid: Car.lv.valid
+                value: Car.lv.current
                 max: 460
                 maxDigits: 3
                 barCount: 8
@@ -192,12 +192,12 @@ Rectangle {
                 columnGradient: Gradient {
                     GradientStop {
                         position: 1
-                        color: Style.red
+                        color: Style.blue
                     }
 
                     GradientStop {
                         position: 0
-                        color: Style.orange
+                        color: Style.aqua
                     }
 
                 }

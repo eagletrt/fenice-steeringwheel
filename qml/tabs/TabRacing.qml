@@ -212,12 +212,6 @@ Rectangle {
 
             }
 
-            MapBar {
-                Layout.minimumHeight: 80
-                Layout.fillWidth: true
-                map: Car.steering.power_map * 10
-            }
-
         }
 
         RowLayout {
