@@ -62,6 +62,7 @@ void Steering::button_pressed(int button) {
   if (button == Buttons::BUTTON_TOP_LEFT) {
     set_ptt(true);
   }
+  mLastPressTime = QDateTime::currentMSecsSinceEpoch();
 }
 
 void Steering::button_released(int button) {
@@ -70,7 +71,10 @@ void Steering::button_released(int button) {
   }
 
   if (button == Buttons::BUTTON_BOTTOM_LEFT) {
-    set_debug_mode(!m_debug_mode);
+    quint64 pressTime = QDateTime::currentMSecsSinceEpoch() - mLastPressTime;
+    if (pressTime > LONG_PRESS_THRESHOLD) {
+      set_debug_mode(!m_debug_mode);
+    }
   }
 }
 

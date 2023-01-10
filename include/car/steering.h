@@ -74,6 +74,9 @@ private:
   QTimer *m_poll_timer;
   QTimer *m_send_steer_status_timer;
   State *m_state;
+
+  const quint64 LONG_PRESS_THRESHOLD = 1000;
+  quint64 mLastPressTime = 0;
 };
 
 #endif // STEERING_H
