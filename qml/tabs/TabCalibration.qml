@@ -14,10 +14,12 @@ Control {
     property int lenght: 3
 
     function connect() {
+        Car.steering.on_calibration_tab = true;
         window.buttonReleased.connect(onButtonReleased);
     }
 
     function disconnect() {
+        Car.steering.on_calibration_tab = false;
         window.buttonReleased.disconnect(onButtonReleased);
     }
 

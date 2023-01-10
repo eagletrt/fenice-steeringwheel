@@ -70,7 +70,7 @@ void Steering::button_released(int button) {
     set_ptt(false);
   }
 
-  if (button == Buttons::BUTTON_BOTTOM_LEFT) {
+  if (button == Buttons::BUTTON_BOTTOM_LEFT && !on_calibration_tab()) {
     quint64 pressTime = QDateTime::currentMSecsSinceEpoch() - mLastPressTime;
     if (pressTime > LONG_PRESS_THRESHOLD) {
       set_debug_mode(!m_debug_mode);

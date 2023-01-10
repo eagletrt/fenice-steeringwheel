@@ -49,6 +49,7 @@ public:
   S_PROPERTY(bool, debug_mode, false)
   S_PROPERTY(quint8, radiators_speed, 0)
   S_PROPERTY(quint8, pumps_speed, 0)
+  S_PROPERTY(bool, on_calibration_tab, false)
 
 public:
   Steering(State *parent = nullptr);
