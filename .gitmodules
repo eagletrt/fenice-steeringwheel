@@ -5,3 +5,6 @@
 	path = thirdparty/can
 	url = git@github.com:eagletrt/can.git
     	branch = build
+[submodule "license"]
+	path = license
+	url = git@github.com:eagletrt/license.git
